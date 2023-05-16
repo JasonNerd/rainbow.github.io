@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>LTI连续系统的响应 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/lti%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%93%8D%E5%BA%94/</link>
+        <description>LTI连续系统的响应 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 14 May 2023 15:28:01 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/lti%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%93%8D%E5%BA%94/" rel="self" type="application/rss+xml" /><item>
+    <title>第02章-连续系统的时域分析(1)-LTI连续系统的响应</title>
+    <link>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/</link>
+    <pubDate>Sun, 14 May 2023 15:28:01 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[连续系统的描述：电路图建立微分方程 图示RLC电路，以$u_S(t)$作激励，以$u_C(t)$作为响应，由KVL和VAR列方程，并整理得 $$ \begin{cases}]]></description>
+</item>
+</channel>
+</rss>

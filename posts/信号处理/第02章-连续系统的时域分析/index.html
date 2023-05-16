@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第02章-连续系统的时域分析(1)-LTI连续系统的响应 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第02章-连续系统的时域分析(1)-LTI连续系统的响应" />
+<meta property="og:description" content="连续系统的描述：电路图建立微分方程 图示RLC电路，以$u_S(t)$作激励，以$u_C(t)$作为响应，由KVL和VAR列方程，并整理得 $$ \begin{cases}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-14T15:28:01+08:00" />
+<meta property="article:modified_time" content="2023-05-14T15:28:01+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第02章-连续系统的时域分析(1)-LTI连续系统的响应"/>
+<meta name="twitter:description" content="连续系统的描述：电路图建立微分方程 图示RLC电路，以$u_S(t)$作激励，以$u_C(t)$作为响应，由KVL和VAR列方程，并整理得 $$ \begin{cases}"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC00%E7%AB%A0-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第02章-连续系统的时域分析(1)-LTI连续系统的响应",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90\/"
+        },"genre": "posts","keywords": "LTI连续系统的响应","wordcount":  1540 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90\/","datePublished": "2023-05-14T15:28:01+08:00","dateModified": "2023-05-14T15:28:01+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第02章-连续系统的时域分析(1)-LTI连续系统的响应</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>信号与系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-14">2023-05-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1540 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#连续系统的描述电路图建立微分方程">连续系统的描述：电路图建立微分方程</a></li>
+    <li><a href="#微分方程的模拟框图">微分方程的模拟框图</a></li>
+    <li><a href="#lti连续系统的响应">LTI连续系统的响应</a>
+      <ul>
+        <li><a href="#连续系统的初始值">连续系统的初始值</a></li>
+        <li><a href="#零输入响应">零输入响应</a></li>
+        <li><a href="#零状态响应">零状态响应</a></li>
+        <li><a href="#响应分类">响应分类</a></li>
+        <li><a href="#冲激响应的定义和求法">冲激响应的定义和求法</a></li>
+        <li><a href="#阶跃响应的定义和求法">阶跃响应的定义和求法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="连续系统的描述电路图建立微分方程">连续系统的描述：电路图建立微分方程</h2>
+<p>图示RLC电路，以$u_S(t)$作激励，以$u_C(t)$作为响应，由KVL和VAR列方程，并整理得
+$$
+\begin{cases}
+LC\frac{d^2u_c}{dt^2}+RC\frac{du_c}{d_t}+u_c=u_s \
+u_c(0_+), u_c&rsquo;(0_+)
+\end{cases}
+$$
+抽去具有的物理含义，微分方程写成:
+$$y&rsquo;&rsquo;(t)+a_1y&rsquo;(t)+a_0y(t)=f(t)$$</p>
+<h2 id="微分方程的模拟框图">微分方程的模拟框图</h2>
+<p>基本部件：加法器、数乘器、积分器
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-14-15-44-26.png"
+        data-srcset="./image/2023-05-14-15-44-26.png, ./image/2023-05-14-15-44-26.png 1.5x, ./image/2023-05-14-15-44-26.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-14-15-44-26.png"
+        title="./image/2023-05-14-15-44-26.png" />
+$$y&rsquo;&rsquo;(t)+a_1y&rsquo;(t)+a_0y(t)=f(t)$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-14-15-51-27.png"
+        data-srcset="./image/2023-05-14-15-51-27.png, ./image/2023-05-14-15-51-27.png 1.5x, ./image/2023-05-14-15-51-27.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-14-15-51-27.png"
+        title="./image/2023-05-14-15-51-27.png" /></p>
+<p>$$y&rsquo;&rsquo;(t)+3y&rsquo;(t)+3y(t)=f(t)+4f&rsquo;(t)$$
+该方程右端含f(t)的导数，引入辅助函数画出框图
+$$x&rsquo;&rsquo;(t)+3x&rsquo;(t)+3x(t)=f(t)$$
+由LTI特性可推导出
+$$y(t) = 4x&rsquo;(t) + x(t)$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-14-15-54-43.png"
+        data-srcset="./image/2023-05-14-15-54-43.png, ./image/2023-05-14-15-54-43.png 1.5x, ./image/2023-05-14-15-54-43.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-14-15-54-43.png"
+        title="./image/2023-05-14-15-54-43.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-14-15-58-24.png"
+        data-srcset="./image/2023-05-14-15-58-24.png, ./image/2023-05-14-15-58-24.png 1.5x, ./image/2023-05-14-15-58-24.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-14-15-58-24.png"
+        title="./image/2023-05-14-15-58-24.png" />
+$$y&rsquo;&rsquo;(t)+2y&rsquo;(t)+3y(t)=3f(t)+4f&rsquo;(t)$$</p>
+<h2 id="lti连续系统的响应">LTI连续系统的响应</h2>
+<h3 id="连续系统的初始值">连续系统的初始值</h3>
+<p>基本要求：</p>
+<ol>
+<li>了解初始值的概念</li>
+<li>掌握系数匹配法</li>
+</ol>
+<p>初始值是n阶系统在t=0时接入激励，其响应在$t=0_+$时刻的值，即$y(j)(0_+) (j=0,1,2&hellip;，n-1)$
+初始状态是指系统在激励尚未接入的$t=0_-$时刻的响应值$y(j)(0_-)$，该值反映了系统的历史情况，而与激励无关。为求解微分方程，需要从已知的初始状态$y(j)(0_-)$求得$y(j)(0_+)$</p>
+<p>例1, 描述某系统的微分方程为: $y&rsquo;&rsquo;(t) + 3y&rsquo;(t) + 2y(t) = 2f&rsquo;(t) + 6f(t)$
+已知: $y(0_-)=2, y&rsquo;(0_-)=0, f(t) = \varepsilon(t)$
+求初值 $y&rsquo;(0_+)$ 和 $y(0_+)$</p>
+<p>解: $y&rsquo;&rsquo;(t) + 3y&rsquo;(t) + 2y(t) = 2\delta(t) + 6\varepsilon(t)$
+由<strong>系数匹配</strong>原则, $\delta(t)$ 只应出现在 $y&rsquo;&rsquo;(t)$ 中, 否则若在$y&rsquo;(t)$或$y(t)$出现了$\delta(t)$, 则右侧就会出现冲激函数的(高阶)导数. 因此: $y&rsquo;(t)$ 在 t=0 处发生了阶跃, 而 $y(t)$ 则在t=0处连续. 于是 $y(0_+) = y(0_-) = 2$.
+对方程两端积分, 积分区间 $[0_-, 0_+]$(无穷小)
+$$(y&rsquo;(0_+)-y&rsquo;(0_-)) + 3(y(0_+)-y(0_-)) + 0 = 2 + 0 \rightarrow y&rsquo;(0_+)=2$$</p>
+<h3 id="零输入响应">零输入响应</h3>
+<p>也即仅考虑系统状态时对系统输出进行求解, 由于是零输入, 因此微分方程右侧为0, 这就相当于求解齐次线性常微分方程.
+初值求解:
+$y^j(0_-)=y_{zi}^j(0_-)+y_{zs}^j(0_-) = y_{zi}^j(0_-) = y_{zi}^j(0_+)$</p>
+<p>例2, 描述某系统的微分方程为: $y&rsquo;&rsquo;(t) + 3y&rsquo;(t) + 2y(t) = 2f&rsquo;(t) + 6f(t)$
+已知: $y(0_-)=2, y&rsquo;(0_-)=0$ 求该系统的零输入响应
+解: 设系统的零输入响应为 $y_{zi}(t)$, 于是
+$y_{zi}&rsquo;&rsquo;(t) + 3y_{zi}&rsquo;(t) + 2y_{zi}(t) = 0$
+求解得: $y_{zi}(t) = C_1e^{-2t}+C_2e^{-t}$
+又: $y_{zi}(0_+)=y(0_-)=2, y_{zi}&rsquo;(0_+)=y&rsquo;(0_-)=0$
+得: $y_{zi}(t) = -2e^{-2t}+4e^{-t}$</p>
+<h3 id="零状态响应">零状态响应</h3>
+<p>初值: $y_{zs}^j(0_-)=0$
+例3, 描述某系统的微分方程为: $y&rsquo;&rsquo;(t) + 3y&rsquo;(t) + 2y(t) = 2f&rsquo;(t) + 6f(t)$
+已知: $y(0_-)=2, y&rsquo;(0_-)=0, f(t) = \varepsilon(t)$. 求该系统的零状态响应
+解: 先求解零输入响应, 由例2知: $y_{zi}(t) = -2e^{-2t}+4e^{-t}$.
+$y_{zi}(0_+)=y(0_-)=2, y_{zi}&rsquo;(0_+)=y&rsquo;(0_-)=0$
+又由例1知:$y(0_+) = y(0_-) = 2, y&rsquo;(0_+)=2$. 故有:
+$y_{zs}(0_+)=0, y_{zs}&rsquo;(0_+)=2$
+同时:  $y&rsquo;&rsquo;<em>{zs}(t) + 3y&rsquo;</em>{zs}(t) + 2y_{zs}(t) = 2\delta(t) + 6\varepsilon(t) \rightarrow$
+$$y&rsquo;&rsquo;<em>{zs}(t) + 3y&rsquo;</em>{zs}(t) + 2y_{zs}(t) = 6(t&gt;0)$$
+$y_{zs}(t) = e^{-2t}-4e^{-t}+3$</p>
+<h3 id="响应分类">响应分类</h3>
+<ol>
+<li>
+<p>固有响应和强迫响应
+<strong>固有响应</strong>仅与系统本身的特性有关，而与激励的函数形式无关。
+齐次解的函数形式仅与特征方程的根有关，特征方程的根称为系统的“固有频率”
+，齐次解常称为系统的固有响应或自由响应。
+<strong>强迫响应</strong>与激励的函数形式有关。特解的函数形式与激励的函数形式有关，常称为强迫响应</p>
+</li>
+<li>
+<p>暂态响应和稳态响应
+<strong>暂态响应</strong>是指响应中暂时出现的分量，随着时间的增长，它将消失。
+<strong>稳态响应</strong>是稳定的分量，若存在，通常表现为阶跃函数和周期函数。比如，电路系统中的直流稳态响应和正弦稳态响应</p>
+</li>
+</ol>
+<h3 id="冲激响应的定义和求法">冲激响应的定义和求法</h3>
+<p>冲激响应是由单位冲激函数$δ(t)$所引起的零状态响应，记为$h(t)$.
+隐含条件是:</p>
+<ol>
+<li>$f(t) = \delta(t)$</li>
+<li>$h(0_-)=h&rsquo;(0_-)=0$</li>
+</ol>
+<p>基本信号：冲激函数$δ(t)$
+基本响应：冲激响应$h(t)$</p>
+<p>描述二阶LTI系统的微分方程的一般形式为
+$y&rsquo;&rsquo;(t) + ay&rsquo;(t) + by(t) = cf&rsquo;&rsquo;(t) + df&rsquo;(t) + ef(t)$
+选新变量$h_1(t)$，使它满足
+$h_1&rsquo;&rsquo;(t) + ah_1&rsquo;(t) + bh_1(t) = \delta(t)$
+则冲激响应: $h(t) = ch_1&rsquo;&rsquo;(t) + dh_1&rsquo;(t) + eh_1(t)$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-15-21-52-23.png"
+        data-srcset="./image/2023-05-15-21-52-23.png, ./image/2023-05-15-21-52-23.png 1.5x, ./image/2023-05-15-21-52-23.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-15-21-52-23.png"
+        title="./image/2023-05-15-21-52-23.png" />
+解: 由题意,
+$x&rsquo;&rsquo;(t)+3x&rsquo;(t)+2x(t)=f(t)$
+$y(t) = 2x(t)-x&rsquo;(t)$
+得: $y&rsquo;&rsquo;(t)+3y&rsquo;(t)+2y(t)=2f(t)-f&rsquo;(t)$
+设有$h_1(t)$, 满足:
+$h_1&rsquo;&rsquo;(t)+3h_1&rsquo;(t)+2h_1(t)=\delta(t)$, 且有:
+$h_1(0_-) = h_1&rsquo;(0_-) = 0$
+则由系数比对原则, $h_1(0_+) = h_1(0_-) = 0, h_1&rsquo;(0_+)=h_1&rsquo;(0_-)+1=1$
+立即解得: $h_1(t) = (e^{-t}-e^{-2t})\varepsilon(t)$
+再由LTI系统的线性与微分性立即得: $y(t)=2h_1(t)-h_1&rsquo;(t)=(3e^{-t}-4e^{-2t})\varepsilon(t)$</p>
+<h3 id="阶跃响应的定义和求法">阶跃响应的定义和求法</h3>
+<p>阶跃响应是由单位阶跃函数$\varepsilon(t)$所引起的零状态响应，记为$g(t)$
+$g(t)$隐含的条件：
+$f(t)=\varepsilon(t)$
+$g(t_-)=g&rsquo;(t_-)=0$
+基本信号：阶跃函数$ε(t)$
+基本响应：阶跃响应$g(t)$</p>
+<p>求法:
+方法一: 利用线性性质和微分性质;
+方法二: 利用单位阶跃函数$ε(t)$与单位冲激函数$δ(t)$的关系.</p>
+<p>问题同上一节, 使用两种方法求解该系统的阶跃响应
+方法一, 解: 由题意,
+$x&rsquo;&rsquo;(t)+3x&rsquo;(t)+2x(t)=f(t)$
+$y(t) = 2x(t)-x&rsquo;(t)$
+得: $y&rsquo;&rsquo;(t)+3y&rsquo;(t)+2y(t)=2f(t)-f&rsquo;(t)$
+设有函数$g_1(t)$, 满足:
+$g_1&rsquo;&rsquo;(t)+3g_1&rsquo;(t)+2g_1(t)=\varepsilon(t)$
+$g_1(0_+)=g_1(0_-)=0, g_1&rsquo;(0_+)=g_1&rsquo;(0_-)=0$
+其特征根为-1和-2，特解为0.5.
+解得: $g_1(t) = (-e^{-t}+0.5e^{-2t}+0.5)\varepsilon(t)$
+由LTI特性可推导出:
+$$y(t) = 2g_1(t)-g_1&rsquo;(t) \
+= (-3e^{-t}+2e^{-2t}+1)\varepsilon(t)
+$$</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-05-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" data-title="第02章-连续系统的时域分析(1)-LTI连续系统的响应" data-hashtags="LTI连续系统的响应"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" data-hashtag="LTI连续系统的响应"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" data-title="第02章-连续系统的时域分析(1)-LTI连续系统的响应"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" data-title="第02章-连续系统的时域分析(1)-LTI连续系统的响应"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/" data-title="第02章-连续系统的时域分析(1)-LTI连续系统的响应"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/lti%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%93%8D%E5%BA%94/">LTI连续系统的响应</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC00%E7%AB%A0-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" class="prev" rel="prev" title="第00章-电路分析基础"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第00章-电路分析基础</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

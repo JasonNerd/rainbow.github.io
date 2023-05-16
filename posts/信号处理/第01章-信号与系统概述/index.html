@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第01章-信号与系统概述 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第01章-信号与系统概述" />
+<meta property="og:description" content="A 信号的分类 A-1 确定和随机、连续和离散 1.确定信号和随机信号 确定信号：可用确定时间函数表示的信号 随机信号：信号不能用确切的函数描述，只可能知道" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-07T10:16:18+08:00" />
+<meta property="article:modified_time" content="2023-05-07T10:16:18+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第01章-信号与系统概述"/>
+<meta name="twitter:description" content="A 信号的分类 A-1 确定和随机、连续和离散 1.确定信号和随机信号 确定信号：可用确定时间函数表示的信号 随机信号：信号不能用确切的函数描述，只可能知道"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC00%E7%AB%A0-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第01章-信号与系统概述",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0\/"
+        },"genre": "posts","keywords": "信号的分类, 基本信号","wordcount":  3724 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0\/","datePublished": "2023-05-07T10:16:18+08:00","dateModified": "2023-05-07T10:16:18+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第01章-信号与系统概述</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>信号与系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-07">2023-05-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3724 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#a-信号的分类">A 信号的分类</a>
+      <ul>
+        <li><a href="#a-1-确定和随机连续和离散">A-1 确定和随机、连续和离散</a></li>
+        <li><a href="#a-2-周期与非周期">A-2 周期与非周期</a></li>
+        <li><a href="#a-3-能量与功率信号因果与反因果">A-3 能量与功率信号，因果与反因果</a></li>
+      </ul>
+    </li>
+    <li><a href="#b-基本信号">B 基本信号</a>
+      <ul>
+        <li><a href="#b-1-阶跃函数">B-1 阶跃函数</a></li>
+        <li><a href="#b-2-冲激函数">B-2 冲激函数</a></li>
+        <li><a href="#b-3-单位脉冲序列与单位阶跃序列">B-3 单位脉冲序列与单位阶跃序列</a></li>
+      </ul>
+    </li>
+    <li><a href="#c-信号的运算">C 信号的运算</a>
+      <ul>
+        <li><a href="#c-1-信号的加减乘运算">C-1 信号的加减乘运算</a></li>
+        <li><a href="#c-2-信号的反转">C-2 信号的反转</a></li>
+        <li><a href="#c-3-信号的平移">C-3 信号的平移</a></li>
+        <li><a href="#c-4-信号的尺度变化">C-4 信号的尺度变化</a></li>
+      </ul>
+    </li>
+    <li><a href="#d-系统的概念与分类">D 系统的概念与分类</a>
+      <ul>
+        <li><a href="#d-1-系统定义与典型系统举例">D-1. 系统定义与典型系统举例</a></li>
+        <li><a href="#d-2-线性系统">D-2. 线性系统</a></li>
+        <li><a href="#d-2-时不变系统">D-2. 时不变系统</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="a-信号的分类">A 信号的分类</h2>
+<h3 id="a-1-确定和随机连续和离散">A-1 确定和随机、连续和离散</h3>
+<h4 id="1确定信号和随机信号">1.确定信号和随机信号</h4>
+<p>确定信号：可用确定时间函数表示的信号
+随机信号：信号不能用确切的函数描述，只可能知道它的<code>统计特性</code>比如概率，例如：电子系统中的起伏热噪声、雷电干扰信号</p>
+<h4 id="2-连续信号和离散信号">2. 连续信号和离散信号</h4>
+<p>连续时间信号：连续时间范围内$(-\infty&lt;t&lt;+\infty)$有定义的信号，简称<strong>连续信号</strong>；若其函数值也连续，常称为<strong>模拟信号</strong>;</p>
+<p>离散时间信号：仅在一些离散的瞬间才有定义的信号，简称<strong>离散信号</strong>；当取值为规定数值时，常称为<strong>数字信号</strong>。(注意, 数字信号是从值域上来定义的, 也就是只取一些规定的离散的值)</p>
+<p>f(t)仅在一些离散时刻 $t_k(k=0,±1,±2,&hellip;)$有定义，其余时间无定义。 相邻离散点的间隔 $T_k=t_{k+1}-t_k$ 通常取等间隔$T$，离散信号可表示为$f(kT)$，简写为 $f(k)$ ，这种等间隔的离散信号也常称为<strong>序列</strong>。其中k称为<strong>序号</strong>。</p>
+<h4 id="3-连续与离散的转换">3. 连续与离散的转换</h4>
+<p>连续信号采样变离散信号, 离散信号变连续信号&ndash;零阶保持 or 分段线性 or 其他拟合函数</p>
+<h3 id="a-2-周期与非周期">A-2 周期与非周期</h3>
+<p>周期信号(period  signal)是定义在 $(-\infty&lt;t&lt;+\infty)$ 区间，每隔一定时间T(或整数N)，按相同规律重复变化的信号；不具有周期性的信号称为非周期信号。</p>
+<h4 id="1-连续信号的周期">1. 连续信号的周期</h4>
+<p>连续周期信号 $f(t)$, 周期为 $T$, 则有:
+$f(t) = f(t+mT) (m=0, \plusmn1, \plusmn2, &hellip; &hellip;.)$
+典型周期连续信号：余弦信号$cos(\omega t)$, 周期$T=2\pi/\omega$</p>
+<ul>
+<li>两个周期信号的周期分别为T1和T2，若T1/T2为有理数，则周期信号之和仍然是周期信号，其周期为T1和T2的最小公倍数.</li>
+</ul>
+<h4 id="2-离散信号的周期">2. 离散信号的周期</h4>
+<p>离散周期信号f(k)，周期为N，满足下式:
+$f(k) = f(k + mN)，m = 0,±1,±2,…$</p>
+<p>判断 $f(k) = sin(\beta k)$ 是否为周期序列:
+$$
+f(k)
+= sin(\beta k) = sin(\beta k+2m\pi)
+= sin[\beta(k+m*2\pi/\beta)]
+-&gt; N = {2\pi}/{\beta}
+$$
+因此,
+当 $N = {2\pi}/{\beta}$ 是整数、有理数时, 该正弦序列是周期序列, 而为无理数时则为非周期序列. 注意这里的$f(k)$是简写, 它代表着信号在离散点上的信号值, 而通常这些离散点之间间隔相等, 这里的k即是说在规定0点后其他点的相对位置, 例如右边的第一个点的信号值即是f(1). 因此, 定义中的N必然是整数值，因此若 $N = {2\pi}/{\beta}$ 为有理数例如10/4, 那么可以通过放缩, 得到序列周期为10. 而当为无理数时, 它无法转为整数，也就不具有周期性。</p>
+<h4 id="3-结论">3. 结论</h4>
+<ol>
+<li>连续正弦信号一定是周期信号，而正弦序列不一定是周期序列</li>
+<li>两连续周期信号之和不一定是周期信号，而两周期序列之和一定是周期序列</li>
+</ol>
+<h3 id="a-3-能量与功率信号因果与反因果">A-3 能量与功率信号，因果与反因果</h3>
+<p>信号为什么会有能量或者说功率? 从物理学中电路相关知识来看, 假设有I安培的电流流过1欧姆的电阻, 则时间t消耗的能量为$I^2Rt$, 这里R=1, 又取单位时间, 就得到了功率为$I^2$. 回到一般情况, 假设电流随时间变化, 且为 $f(t)$ , 依据微元及极限思想, 就有功率微元 $|f(t)|^2$ . 接着在区间$(-\infty, +\infty)$上进行积分, 就得到了<strong>能量</strong>:
+$$ E = \int ^{\infty}<em>{-\infty} {|f(t)|^2} {\rm d}t $$
+而<strong>平均功率</strong>定义为：
+$$ P = \lim</em>{T\rightarrow+\infty}\frac{1}{T}\int ^{\frac{T}{2}}_{-\frac{T}{2}} {|f(t)|^2} {\rm d}t $$</p>
+<p>能量有限信号: 信号的能量$E&lt;∞$，简称能量信号, 此时 P = 0.
+功率有限信号: 信号的功率$P&lt;∞$，简称功率信号，此时 E = ∞。
+对于离散信号，也有能量信号、功率信号之分。</p>
+<h4 id="结论">结论</h4>
+<p>(1) 时限信号(仅在有限时间区间不为零)为能量信号;
+(2) 周期信号属于功率信号;
+(3) 非周期信号可能是能量信号，也可能是功率信号;
+(4) 有些信号既不是能量信号也不是功率信号</p>
+<h4 id="因果信号和反因果信号">因果信号和反因果信号</h4>
+<p>t &lt; 0，f(t)=0 的信号f(t) [即 t=0 时接入系统的信号]，比如阶跃信号</p>
+<h2 id="b-基本信号">B 基本信号</h2>
+<p>贯穿全课程的三个核心问题:</p>
+<ol>
+<li>基本信号及其响应(响应是指输入信号经过一个系统形成的输出)</li>
+<li>任意信号的分解(将复杂的信号分解为基本信号)</li>
+<li>LTI 系统分析(通过基本信号的响应合成复杂信号的响应)</li>
+</ol>
+<h3 id="b-1-阶跃函数">B-1 阶跃函数</h3>
+<ul>
+<li>主要内容：</li>
+</ul>
+<ol>
+<li>阶跃函数的定义</li>
+<li>阶跃函数的性质</li>
+</ol>
+<ul>
+<li>基本要求：</li>
+</ul>
+<ol>
+<li>了解阶跃函数的定义方法</li>
+<li>熟练掌握阶跃函数的性质和积分公式</li>
+</ol>
+<h4 id="定义">定义</h4>
+<p>$
+\varepsilon(t) = γ_n(t)(n\rightarrow+\infty) \
+= \begin{cases}
+0 &amp; t&lt;0 \
+1 &amp; t&gt;0
+\end{cases}
+$
+其中函数序列 $γ_n(t)$ 是一个分段线性的连续函数, 当 t &lt; -1/n 时, 这函数取值0, 而当 t&gt;1/n时, 这函数取值为1, t取值在[-1/n, 1/n]范围内时, 这函数值从0连续的线性的增长到1.</p>
+<p>注意, <strong>阶跃函数</strong>$\varepsilon(t)$在t=0处没有定义.</p>
+<h4 id="性质">性质</h4>
+<ol>
+<li>表示分段常量信号
+$ f(t) = 2ε(t)- 3ε(t-1) +ε(t-2) $
+f(t)被t=1, t=2, t=3 三个点(间断点, 无定义)划分开来, [0, 2, -1, 0]</li>
+<li>表示信号的作用区间
+$ f(t)[ε(t-t_1)-ε(t-t_2) ]$
+此时, 仅有$[t_1, t_2]$区间内的f(t)值被保留下来. 其他部分置为0</li>
+<li>积分: $\int_{-\infty}^t{\varepsilon(\tau)}{\rm d}t = t\varepsilon(t)$</li>
+</ol>
+<h3 id="b-2-冲激函数">B-2 冲激函数</h3>
+<p>主要内容：</p>
+<ol>
+<li>冲激函数的定义和作用</li>
+<li>冲激函数和阶跃函数的关系
+基本要求：</li>
+<li>掌握间断点求导为冲激函数的概念</li>
+<li>掌握冲激函数和阶跃函数的关系公式</li>
+</ol>
+<h4 id="定义-1">定义</h4>
+<p>单位冲激函数：是奇异函数，它是对强度极大，作用时间极短的物理量的理想化模型(狄拉克提出)
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-07-22-05-24.png"
+        data-srcset="./image/2023-05-07-22-05-24.png, ./image/2023-05-07-22-05-24.png 1.5x, ./image/2023-05-07-22-05-24.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-07-22-05-24.png"
+        title="./image/2023-05-07-22-05-24.png" /></p>
+<h4 id="冲激函数与阶跃函数的关系">冲激函数与阶跃函数的关系</h4>
+<p>$$\delta(t) = \frac{{\rm d}\varepsilon(t)}{t} \ \varepsilon(t) = \int \delta(t) {\rm d}t
+$$</p>
+<h4 id="作用">作用</h4>
+<p>冲激函数可以描述间断点的导数。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-07-22-10-26.png"
+        data-srcset="./image/2023-05-07-22-10-26.png, ./image/2023-05-07-22-10-26.png 1.5x, ./image/2023-05-07-22-10-26.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-07-22-10-26.png"
+        title="./image/2023-05-07-22-10-26.png" /></p>
+<h4 id="冲激函数的广义函数定义">冲激函数的广义函数定义</h4>
+<ol>
+<li>广义函数定义
+普通函数y=f(t): 是将一维实数空间的数 t 经过 f 所规定的运算映射为一维实数空间的数y.
+广义函数 $N_g[φ(t)]$ : 选择一类性能良好的函数$φ(t)$作为检验函数(相当于自变量)，一个 <strong>广义函数$g(t)$</strong> 对检验函数空间中的每个函数$φ(t)$赋予一个数值$N$的映射，记为：
+$$
+N_g[\varphi(t)] = \int ^{\infty}_{-\infty} {g(t)\varphi(t)} {\rm d}t
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-07-22-17-18.png"
+        data-srcset="./image/2023-05-07-22-17-18.png, ./image/2023-05-07-22-17-18.png 1.5x, ./image/2023-05-07-22-17-18.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-07-22-17-18.png"
+        title="./image/2023-05-07-22-17-18.png" /></li>
+</ol>
+<p><strong>冲激函数的广义函数定义</strong>:
+$$
+\int ^{\infty}_{-\infty} {\delta(t)\varphi(t)} {\rm d}t = \varphi(0)
+$$
+含义: 冲激函数$δ(t)$作用于检验函数$φ(t)$的结果是赋值为$φ(0)$，称为<strong>冲激函数的取样性质</strong>.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-07-22-20-54.png"
+        data-srcset="./image/2023-05-07-22-20-54.png, ./image/2023-05-07-22-20-54.png 1.5x, ./image/2023-05-07-22-20-54.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-07-22-20-54.png"
+        title="./image/2023-05-07-22-20-54.png" /></p>
+<h4 id="冲激函数的取样性质">冲激函数的取样性质</h4>
+<p>主要内容：</p>
+<ol>
+<li>信号与冲激函数的乘积及其积分</li>
+<li>信号与冲激函数时移的乘积及其积分
+基本要求：</li>
+<li>掌握冲激函数的取样性质</li>
+<li>熟练记忆重要公式</li>
+</ol>
+<ul>
+<li>
+<p>$f(t)$乘以$δ(t)$
+$$
+f(t)δ(t) = f(0)δ(t) \
+\int ^{v}_{u} {f(t)\delta(t)} {\rm d}t = f(0) (u&lt;v, 0\in(u, v))
+$$</p>
+</li>
+<li>
+<p>$f(t)$乘以$δ(t-a)$ (冲激函数原点的偏移)
+$$
+f(t)δ(t-a) = f(a)δ(t-a) \
+\int ^{v}_{u} {f(t)\delta(t-a)} {\rm d}t = f(a) (u&lt;v, a\in(u, v))
+$$
+例:
+$
+\int _{-1}^{1} {2x\delta(x-t)} {\rm d}x \
+= \begin{cases}
+2t, &amp; 0&lt;t&lt;1 \
+0, &amp; 其他
+\end{cases}
+$</p>
+</li>
+</ul>
+<h4 id="冲激函数的导数">冲激函数的导数</h4>
+<p>冲激函数的导数也称<strong>冲激偶</strong>
+$
+[f(t)\delta(t)]&rsquo;=[f(0)\delta(t)]&rsquo; = f(0)\delta&rsquo;(t) \
+[f(t)\delta(t)]&rsquo; = f&rsquo;(t)\delta(t)+f(t)\delta&rsquo;(t)
+= f&rsquo;(0)\delta(t)+f(t)\delta&rsquo;(t) \
+\rightarrow f(t)\delta&rsquo;(t) = f(0)\delta&rsquo;(t)-f&rsquo;(0)\delta(t) \
+\rightarrow \int _{-\infty}^{\infty} {f(t)\delta&rsquo;(t)} {\rm d}t \
+=\int _{-\infty}^{\infty}{(f(0)\delta&rsquo;(t)-f&rsquo;(0)\delta(t))} {\rm d}t
+= -f&rsquo;(0)
+$</p>
+<p>因此, 冲激函数(本身是阶跃函数的导数)的导数冲激偶的广义函数的含义是: 它作用于信号函数的结果是得到零点函数导数的相反数.</p>
+<ul>
+<li>推广</li>
+<li>冲激偶的平移:
+$$
+\int _{-\infty}^{\infty} {f(t)\delta&rsquo;(t-a)} {\rm d}t = -f&rsquo;(a)
+$$</li>
+<li>冲激函数n阶导函数的定义
+$$
+\int _{-\infty}^{\infty} {f(t)\delta^n(t)} {\rm d}t = (-1)^nf^{(n)}(0)
+$$</li>
+</ul>
+<h4 id="冲激函数的尺度变化">冲激函数的尺度变化</h4>
+<p>尺度变化是指横坐标轴的放缩变化
+$$
+\delta^{(n)}(at) = \frac{1}{|a|a^n}\delta^{(n)}(t)
+$$
+proof
+$$
+\int _{-\infty}^{\infty} {f(t)\delta^n(at)} {\rm d}t(a&gt;0) \
+= \int _{-\infty}^{\infty} {f(x/a)\delta^n(x)} {\rm d}(x/a) \
+= \frac{1}{a}\int <em>{-\infty}^{\infty} {f(x/a)\delta^n(x)} {\rm d}(x) \
+= \frac{1}{a}(-1)^n[f(x/a)]^{(n)}|</em>{x=0} \
+= \frac{1}{aa^{n}}[(-1)^nf^{(n)}(0)]
+$$
+$$
+\int _{-\infty}^{\infty} {f(t)\delta^n(at)} {\rm d}t(a&lt;0) \
+= \frac{1}{a}\int <em>{\infty}^{-\infty} {f(x/a)\delta^n(x)} {\rm d}(x) \
+= \frac{1}{-a}(-1)^n[f(x/a)]^{(n)}|</em>{x=0} \
+= \frac{1}{-aa^{n}}[(-1)^nf^{(n)}(0)]
+$$
+$$
+\rightarrow \delta^n(at) = \frac{1}{|a|}\frac{1}{a^n}\delta^{(n)}(t)
+$$
+特别的, 有以下推论:
+$$
+\delta(at) = \frac{1}{|a|}\delta(t) \
+\delta(-t) = \delta(t) \
+\delta&rsquo;(-t) = -\delta&rsquo;(t) \
+\delta(at-t_0) = \delta(a(t-t_0/a)) = \frac{1}{|a|}\delta(t-\frac{t_0}{a})
+$$</p>
+<p>例题:</p>
+<ol>
+<li>
+<p>已知 f(t)，画出$g(t) = f&rsquo;(t)$和 g(2t)
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-08-11-11-32.png"
+        data-srcset="./image/2023-05-08-11-11-32.png, ./image/2023-05-08-11-11-32.png 1.5x, ./image/2023-05-08-11-11-32.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-08-11-11-32.png"
+        title="./image/2023-05-08-11-11-32.png" />
+求导，得g(t)
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-08-11-12-13.png"
+        data-srcset="./image/2023-05-08-11-12-13.png, ./image/2023-05-08-11-12-13.png 1.5x, ./image/2023-05-08-11-12-13.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-08-11-12-13.png"
+        title="./image/2023-05-08-11-12-13.png" />
+压缩, 得g(2t)
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-08-11-12-49.png"
+        data-srcset="./image/2023-05-08-11-12-49.png, ./image/2023-05-08-11-12-49.png 1.5x, ./image/2023-05-08-11-12-49.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-08-11-12-49.png"
+        title="./image/2023-05-08-11-12-49.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-08-11-14-16.png"
+        data-srcset="./image/2023-05-08-11-14-16.png, ./image/2023-05-08-11-14-16.png 1.5x, ./image/2023-05-08-11-14-16.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-08-11-14-16.png"
+        title="./image/2023-05-08-11-14-16.png" />
+(1) 2
+(2) -2
+(3) 10
+(3) $f(t) = 2\delta(t)+\varepsilon(t)$</p>
+</li>
+</ol>
+<p><a href="https://www.icourse163.org/learn/ECNU-1466011171?tid=1470113724#/learn/content" target="_blank" rel="noopener noreffer ">https://www.icourse163.org/learn/ECNU-1466011171?tid=1470113724#/learn/content</a></p>
+<p><a href="https://www.youtube.com/playlist?list=PLA5yNsxyt7sC3B4qhj_sMgGWqWWaSerq-" target="_blank" rel="noopener noreffer ">https://www.youtube.com/playlist?list=PLA5yNsxyt7sC3B4qhj_sMgGWqWWaSerq-</a></p>
+<h3 id="b-3-单位脉冲序列与单位阶跃序列">B-3 单位脉冲序列与单位阶跃序列</h3>
+<p>1.单位脉冲序列$δ(k)$
+$$
+\delta(k) = \begin{cases}
+1, &amp; k=0 \
+0, &amp; k=1
+\end{cases}
+$$
+取样性质: $f(k)\delta(k) = f(0)\delta(k)$
+$$f(k)\delta(k-k_0) = f(k_0)\delta(k)$$
+$$\sum_{k=-\infty}^{\infty} f(k)\delta(k) = f(0)$$</p>
+<ol start="2">
+<li>单位阶跃序列
+$$
+\varepsilon(k) = \begin{cases}
+1, &amp; k&gt;=0 \
+0, &amp; k&lt;0
+\end{cases}
+$$</li>
+</ol>
+<p>$ε(k)$与$δ(k)$的关系
+$$\delta(k) = \varepsilon(k)-\varepsilon(k-1)$$
+$$\varepsilon(k) = \sum_{i=-\infty}^{k}\delta(i)$$</p>
+<h2 id="c-信号的运算">C 信号的运算</h2>
+<h3 id="c-1-信号的加减乘运算">C-1 信号的加减乘运算</h3>
+<p>$f_1(·)$和$f_2(·)$的加减乘指同一时刻两信号之值对应加减乘。</p>
+<h3 id="c-2-信号的反转">C-2 信号的反转</h3>
+<p>将 $f (t)  →  f (–  t)$  ， $f (k)  →  f (–  k)$ 称为对信号$f  (·)$的反转或反折。从图形上看是将$f(·)$以纵坐标为轴反转180度。</p>
+<h3 id="c-3-信号的平移">C-3 信号的平移</h3>
+<p>平移(移位)： $f (t) → f (t – t0)$ ， $f (k) → f (k – k0)$ 。 若$t0 (或k0) &gt;0$，则将$f (·)$右移；否则左移。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-09-09-32-19.png"
+        data-srcset="./image/2023-05-09-09-32-19.png, ./image/2023-05-09-09-32-19.png 1.5x, ./image/2023-05-09-09-32-19.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-09-09-32-19.png"
+        title="./image/2023-05-09-09-32-19.png" /></p>
+<h3 id="c-4-信号的尺度变化">C-4 信号的尺度变化</h3>
+<p>尺度变换： $f (t) → f (a t) $ 若$a &gt;1$ ，则波形沿横坐标压缩；若$0&lt; a &lt; 1$ ，则展开 。</p>
+<ul>
+<li>例1: 已知$f(t)$，画出 $f (– 4 – 2t)$
+<ol>
+<li>右移4单位: $f(t) \rightarrow f(-4+t)$</li>
+<li>压缩一半: $ f(-4+t) \rightarrow f(-4+2t)$</li>
+<li>反转: $f(-4+2t) \rightarrow f(-4-2t)$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-09-10-00-24.png"
+        data-srcset="./image/2023-05-09-10-00-24.png, ./image/2023-05-09-10-00-24.png 1.5x, ./image/2023-05-09-10-00-24.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-09-10-00-24.png"
+        title="./image/2023-05-09-10-00-24.png" /></li>
+</ol>
+</li>
+<li>例2: 已知$f(-4-2t)$，画出 $f(t)$
+<ol>
+<li>反转: $f(-4-2t) \rightarrow f(-4+2t)$</li>
+<li>扩展为2倍: $f(-4+2t) \rightarrow f(-4+t)$</li>
+<li>左移4单位: $f(-4+t) \rightarrow f(t)$</li>
+</ol>
+</li>
+<li>例3: 已知信号的波形如图，分别画出$f(t)$和$df(t)/dt$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-09-10-02-04.png"
+        data-srcset="./image/2023-05-09-10-02-04.png, ./image/2023-05-09-10-02-04.png 1.5x, ./image/2023-05-09-10-02-04.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-09-10-02-04.png"
+        title="./image/2023-05-09-10-02-04.png" /></li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-09-10-02-55.png"
+        data-srcset="./image/2023-05-09-10-02-55.png, ./image/2023-05-09-10-02-55.png 1.5x, ./image/2023-05-09-10-02-55.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-09-10-02-55.png"
+        title="./image/2023-05-09-10-02-55.png" /></p>
+<h2 id="d-系统的概念与分类">D 系统的概念与分类</h2>
+<h3 id="d-1-系统定义与典型系统举例">D-1. 系统定义与典型系统举例</h3>
+<p>系统(system)：是指若干相互关联的事物组合而成具有特定功能的整体.
+系统的基本作用：对输入信号进行加工和处理，将其转换为所需要的输出信号.
+系统的状态定义:  系统在任意时刻t0的状态，是指取该时刻最少数目的一组数，这组数连同t0以后的输入足以确定t&gt;t0时刻的输出.</p>
+<h3 id="d-2-线性系统">D-2. 线性系统</h3>
+<p>线性系统是指满足线性性质的系统: 对应于输入的线性组合系统的输出也恰为各输入对应输出的线性组合。记作:
+$$
+T[af_1(.)+bf_2(.)] = aT[f_1(.)] + bT[f_2(.)]
+$$
+动态系统的响应不仅与激励{f(·) }有关，而且与它过去的状态{x(0)}有关，也称记忆系统。含有记忆元件(电容、电感等)的系统是动态系统。否则称即时系统或无记忆系统.
+当动态系统满足下列三个条件时该系统为线性系统:</p>
+<ol>
+<li>可分解性: $y(.) = y_f + y_s$</li>
+<li>输入线性</li>
+<li>状态线性</li>
+</ol>
+<h3 id="d-2-时不变系统">D-2. 时不变系统</h3>
+<p>时不变系统：系统输入延迟多少时间，其零状态响应也相应延迟多少时间
+$ f(t-t_d) \rightarrow y_f(t-t_d)$
+时不变的直观判断方法: 若f (·)前出现变系数，或有反转、展缩变换，则该系统为时变系统
+本课程重点讨论: <strong>线性时不变(Linear Time-Invariant)系统，简称LTI系统</strong>。
+LTI连续系统具备<strong>微分</strong>特性和<strong>积分</strong>特性</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-05-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" data-title="第01章-信号与系统概述" data-hashtags="信号的分类,基本信号"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" data-hashtag="信号的分类"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" data-title="第01章-信号与系统概述"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" data-title="第01章-信号与系统概述"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" data-title="第01章-信号与系统概述"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%88%86%E7%B1%BB/">信号的分类</a>,&nbsp;<a href="/tags/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E5%8F%B7/">基本信号</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/" class="prev" rel="prev" title="第16章 -- 学生成绩管理系统"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第16章 -- 学生成绩管理系统</a>
+            <a href="/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC00%E7%AB%A0-%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" class="next" rel="next" title="第00章-电路分析基础">第00章-电路分析基础<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>PyQT - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/pyqt/</link>
+        <description>PyQT - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 01 May 2023 19:24:34 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/pyqt/" rel="self" type="application/rss+xml" /><item>
+    <title>第16章 -- 学生成绩管理系统</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/</link>
+    <pubDate>Mon, 01 May 2023 19:24:34 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/</guid>
+    <description><![CDATA[1. 系统简介 数据库表设计(MySQL) 数据库工具类设计 主业务设计 登录窗体 主窗体-年级信息 主窗体-学生信息 主窗体-学生成绩 查询]]></description>
+</item>
+<item>
+    <title>第13章 -- 多线程编程</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter13multhread/</link>
+    <pubDate>Sat, 29 Apr 2023 15:51:44 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter13multhread/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>第11章 -- 文件操作</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter11file/</link>
+    <pubDate>Sat, 29 Apr 2023 15:10:13 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter11file/</guid>
+    <description><![CDATA[file directory fd in pyqt ex]]></description>
+</item>
+<item>
+    <title>第09章 -- 布局管理</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter09layout/</link>
+    <pubDate>Sat, 29 Apr 2023 14:07:49 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter09layout/</guid>
+    <description><![CDATA[Linear Layout FormLayout 嵌套 MDIArea]]></description>
+</item>
+<item>
+    <title>第08章 -- 对话框</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter08dialog/</link>
+    <pubDate>Fri, 28 Apr 2023 10:26:57 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter08dialog/</guid>
+    <description><![CDATA[MessageBox 对话框 FileDialog 文件对话框 InputDialog 输入对话框]]></description>
+</item>
+<item>
+    <title>第07章 -- 菜单、工具栏和状态栏</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter07menu/</link>
+    <pubDate>Fri, 28 Apr 2023 09:52:43 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter07menu/</guid>
+    <description><![CDATA[(1) Menu 菜单 (1-a) add &amp; remove menus (1-b) function implementation Tool 工具栏 Status 状态栏]]></description>
+</item>
+<item>
+    <title>第06章高级控件(3) -- 分割控件</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s03splitwidget/</link>
+    <pubDate>Tue, 25 Apr 2023 11:14:10 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s03splitwidget/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>第06章高级控件(2) -- 树控件</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s02treewidget/</link>
+    <pubDate>Tue, 25 Apr 2023 11:00:25 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s02treewidget/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>第06章高级控件(1) -- 进度条类控件</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s01progressbar/</link>
+    <pubDate>Tue, 25 Apr 2023 10:35:33 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s01progressbar/</guid>
+    <description><![CDATA[ProgressBar 1. api 介绍 2. 实现跑马灯效果 3. 自定义等待提示框 滑块 Qslider]]></description>
+</item>
+<item>
+    <title>Chapter05 PyQT常用控件-文本控件</title>
+    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter05/</link>
+    <pubDate>Thu, 20 Apr 2023 17:16:59 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter05/</guid>
+    <description><![CDATA[文本控件 Label self.TextLabel = QtWidgets.QLabel(parent=self.centralwidget) font = QtGui.QFont() font.setFamily(&#34;华文仿宋&#34;) font.setPointSize(12) self.TextLabel.setFont(font) self.TextLabel.setStyleSheet(&#34;background-color: rgb(120, 24, 255);&#34;) self.TextLabel.setWordWrap(True) LineEdit TextEdit SpinBox LCDNumber Buttons PushButton ToolButton CommandLinkButton Radio Button ComboBox, FontComboBox, ListWidget TabWidget]]></description>
+</item>
+</channel>
+</rss>

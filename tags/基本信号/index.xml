@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>基本信号 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E5%8F%B7/</link>
+        <description>基本信号 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 07 May 2023 10:16:18 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E5%8F%B7/" rel="self" type="application/rss+xml" /><item>
+    <title>第01章-信号与系统概述</title>
+    <link>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</link>
+    <pubDate>Sun, 07 May 2023 10:16:18 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</guid>
+    <description><![CDATA[A 信号的分类 A-1 确定和随机、连续和离散 1.确定信号和随机信号 确定信号：可用确定时间函数表示的信号 随机信号：信号不能用确切的函数描述，只可能知道]]></description>
+</item>
+</channel>
+</rss>
