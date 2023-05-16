@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>OpenViBE 简明扼要上手指南 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="OpenViBE 简明扼要上手指南" />
+<meta property="og:description" content="OpenViBE介绍 OpenViBE是一个开源软件平台，用于脑机接口系统的设计、测试和使用，并将它们与真实和虚拟环境相连接。该平台由一组软件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-16T15:31:06+08:00" />
+<meta property="article:modified_time" content="2023-03-16T15:31:06+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OpenViBE 简明扼要上手指南"/>
+<meta name="twitter:description" content="OpenViBE介绍 OpenViBE是一个开源软件平台，用于脑机接口系统的设计、测试和使用，并将它们与真实和虚拟环境相连接。该平台由一组软件"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" /><link rel="prev" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" /><link rel="next" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%A4%E7%9F%A5%E5%AE%9E%E9%AA%8C%E8%8C%83%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OpenViBE 简明扼要上手指南",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/openvibe\/"
+        },"genre": "posts","keywords": "脑电信号分析, 脑机接口平台","wordcount":  2561 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/openvibe\/","datePublished": "2023-03-16T15:31:06+08:00","dateModified": "2023-03-16T15:31:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OpenViBE 简明扼要上手指南</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>头皮脑电</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-16">2023-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2561 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#bci实验设计">BCI实验设计</a>
+      <ul>
+        <li><a href="#工具">工具</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="openvibe介绍">OpenViBE介绍</h1>
+<p>OpenViBE是一个开源软件平台，用于脑机接口系统的设计、测试和使用，并将它们与真实和虚拟环境相连接。该平台由一组软件模块组成，可以轻松有效地集成这些模块，从而为真实和虚拟现实应用设计BCI。该平台的主要特点是：模块化和可重用性，适用于不同类型的用户，可移植性，以及与虚拟现实的连接。</p>
+<ul>
+<li>模块化和可重用性
+<strong>OpenViBE平台是一款软件模块化的平台，专门用于脑电数据的采集、预处理和可视化，以及与虚拟现实的交互</strong>。而且OpenViBE作为通用软件，用户能够容易地添加新的软件模块来实现需求。</li>
+<li>适用于不同类型的用户
+OpenViBE是为不同类型的用户设计的：其中包括医生，虚拟现实开发人员，以及神经科学研究员等等。根据编程能力和对大脑的了解不同，他们所需要的功能也不同，所需要的的工具也不同。</li>
+<li>可移植性
+<strong>平台独立于不同软硬件设备运行，允许与各种输入设备一起运行</strong>，例如EEG或MEG。OpenViBE可以在Windows和Linux系统上运行，并且还提供了不同的数据可视化技术，搭载了例如GTK（Gnome ToolKit是一个高度可用、功能丰富的工具包，用于创建图形用户界面，具有跨平台兼容性，并提供了一个易于使用的API）,IT++（IT++是一个包含数学、信号处理和通信例程的C++库）,GSL（一个面向C和C++程序员的数字图书馆），VRPN（虚拟现实外围网络是一个库中的一组类，用于实现应用程序和虚拟现实系统中使用的一组物理设备之间的接口），GCC（一个支持多种架构的编译器）等工具库。</li>
+<li>与虚拟现实的连接
+OpenViBE可以与VR应用集成，充当真实世界和虚拟环境的外围设备，并且允许用户以可理解的方式可视化大脑活动或提供激励性训练环境（例如，用于神经反馈）。</li>
+</ul>
+<h2 id="bci实验设计">BCI实验设计</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-04-32.png"
+        data-srcset="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-04-32.png, /posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-04-32.png 1.5x, /posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-04-32.png 2x"
+        data-sizes="auto"
+        alt="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-04-32.png"
+        title="图片描述" width="724" height="411" />
+在BCI，人们习惯于想象几种不同的用例以及相应的角色。他们是作者、操作员和用户。不同角色的人对系统的不同方面感兴趣。作者是从硬件和软件组件构建BCI系统的设计师。在作者组装了该系统之后，它可以用于应用控制或实验。作者使用可视化场景编辑器来排列现有的框，形成一个场景，配置这些盒子和场景，以产生一个完整的、随时可用的BCI系统。</p>
+<p>操作员负责使用和运行作者预先构建的场景，然后简单地运行该场景。操作员知道BCI系统应该如何工作，并通过专用的可视化工具监测BCI系统的执行，帮助用户增强对BCI系统的控制。BCI用户通常佩戴大脑活动采集硬件例如脑电帽，并通过精神活动与应用程序交互。理想情况下，BCI软件应使操作员的角色尽可能小。</p>
+<p>通常设计BCI需要三个不同的步骤。<strong>第一步中，在执行特定脑力任务的被试者上采集训练数据，第二步是对这些数据进行离线分析，最后一步是在闭环流程中在线使用BCI。可以对数据采集和离线训练进行多次迭代，以便改进参数。第三步包括：大脑活动测量、预处理、特征提取、分类、译码和反馈。</strong></p>
+<ol>
+<li>大脑活动测量
+这一步包括测量BCI用户的大脑活动，测量BCI系统的脑活动主要使用EEG来执行。</li>
+<li>预处理
+预处理主要是在采集到的信号中<strong>去除噪声</strong>和<strong>增强特定的大脑信号</strong>，例如可使用不同种类的预处理算法，如时间滤波器和空间滤波器（独立主成分分析和表面拉普拉斯）</li>
+<li>特征提取
+信号经过预处理之后就可以提取特征了。这些特征由几个值组成，描述了嵌入信号中的相关信息，例如特定频带中信号的功率。OpenViBE中可提取的特征包括<strong>频带功率特性或功率谱密度</strong>。</li>
+<li>分类
+特征向量被输入到一种<strong>分类器的算法</strong>中。分类器给每个特征向量分配一个类别，这个类别是已经被识别的脑信号的标识符。通常，使用来自每个类别的一组特征向量预先训练分类器。用于BCI的分类器的一个例子是线性判别分析（LDA）。</li>
+<li>译码
+一旦识别出信号的类别，就可以将其与发送到计算机的命令相关联，以便控制机器人或假肢。在当前基于EEG的BCI系统中，可能的命令数量通常在1到4之间变化。</li>
+<li>反馈
+当执行完以上步骤后，应该向用户提供反馈，以便用户可以确定大脑信号是否被正确执行。这是一个重要步骤，有助于用户控制大脑活动。反馈可以是简单的视觉或听觉提示，或者可以提供更高级的反馈，例如修改OpenViBE向其发送命令的虚拟环境。</li>
+</ol>
+<h3 id="工具">工具</h3>
+<p>系统包括了各种有用的工具：<strong>采集服务器，设计器，2D可视化工具，以及BCI或神经反馈的示例场景</strong>。采集服务器为各种采集机器提供了通用接口，例如EEG和MEG系统。由于使用了通用的采集盒，这允许作者创建独立于硬件的场景。该采集盒通过网络从采集服务器接收数据，采集服务器实际上连接到硬件，并以通用方式转换这些数据。采集服务器连接到设备的方式主要取决于硬件制造商访问设备的方式。一些设备将附带特定的SDK，一些设备将提供com网络上的通信协议。最后，一些设备需要特定的采集软件，将测量值传送到采集服务器。</p>
+<p>设计器主要面向作者，使作者能够使用专用的图形语言和简单的图形用户界面(GUI)基于现有的软件模块构建完整的场景，如下图所示。作者可以访问面板中现有模块的列表，并可以在场景窗口中拖放它们。每个模块显示为一个矩形框，带有输入(顶部)和输出(底部)。双击一个框会显示其配置面板。盒子可以通过它们的输入和输出进行人工连接。设计者还允许作者配置可视化窗口的排列(即，场景中包括的可视化模块)。</p>
+<p>2D可视化功能可作为特定的盒子使用，包括大脑活动相关的可视化。这些盒子可以访问所有的平台功能，在设计和运行BCI时，查看数据以发现潜在问题是很常见的。诸如EEG中电极连接不良之类的问题可以通过硬件提供的阻抗检查来揭示，而诸如干扰噪声之类的其他问题可能只有在一些适当的可视化中才能清楚。可视化数据的另一个原因是深入了解如何改进信号处理。在不同种类的转换之后查看数据，以查看信号是否如预期的那样改变，以及所遇到的问题是否已经减轻。出于这些原因，平台提供了可视化工具。</p>
+<p>建议使用现有的和预配置的现成场景来帮助作者。随着新场景的创建变得越来越快、越来越容易，可用场景的数量预计会迅速增加。目前，有五个完整的场景可用。基于手部运动想象的BCI:这个场景允许使用OpenViBE作为交互环境，使用想象的左右手运动。P300拼写器:这个场景实现了著名的P300拼写器使用户能够只使用大脑活动拼写字母。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-07-40.png"
+        data-srcset="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-07-40.png, /posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-07-40.png 1.5x, /posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-07-40.png 2x"
+        data-sizes="auto"
+        alt="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/img/2023-02-28-21-07-40.png"
+        title="图片描述" width="783" height="293" />
+左:P300拼写器。右图:头皮上大脑活动的实时2D可视化。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" data-title="OpenViBE 简明扼要上手指南" data-hashtags="脑电信号分析,脑机接口平台"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" data-hashtag="脑电信号分析"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" data-title="OpenViBE 简明扼要上手指南"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" data-title="OpenViBE 简明扼要上手指南"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" data-title="OpenViBE 简明扼要上手指南"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90/">脑电信号分析</a>,&nbsp;<a href="/tags/%E8%84%91%E6%9C%BA%E6%8E%A5%E5%8F%A3%E5%B9%B3%E5%8F%B0/">脑机接口平台</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="EEGLAB预处理2ICA分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>EEGLAB预处理2ICA分析</a>
+            <a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%A4%E7%9F%A5%E5%AE%9E%E9%AA%8C%E8%8C%83%E5%BC%8F/" class="next" rel="next" title="心理学认知实验范式">心理学认知实验范式<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

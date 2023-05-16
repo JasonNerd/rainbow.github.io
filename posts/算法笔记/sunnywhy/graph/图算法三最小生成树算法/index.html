@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>图算法（三）最小生成树算法 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="图算法（三）最小生成树算法" />
+<meta property="og:description" content="最小生成树有3个性质需要掌握: 最小生成树是树，因此其边数等于顶点数减1，且树内一定不会有环。 对给定的图G(V, E)，其最小生成树可以不唯一，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T11:46:04+08:00" />
+<meta property="article:modified_time" content="2023-04-07T11:46:04+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图算法（三）最小生成树算法"/>
+<meta name="twitter:description" content="最小生成树有3个性质需要掌握: 最小生成树是树，因此其边数等于顶点数减1，且树内一定不会有环。 对给定的图G(V, E)，其最小生成树可以不唯一，"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "图算法（三）最小生成树算法",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95\/"
+        },"genre": "posts","keywords": "算法, 最小生成树, 图","wordcount":  2334 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95\/","datePublished": "2023-04-07T11:46:04+08:00","dateModified": "2023-04-07T11:46:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">图算法（三）最小生成树算法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2334 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#prim-算法">prim 算法</a></li>
+    <li><a href="#kruscal-算法">kruscal 算法</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>最小生成树有3个性质需要掌握:</p>
+<ul>
+<li>最小生成树是树，因此其边数等于顶点数减1，且树内一定不会有环。</li>
+<li>对给定的图G(V, E)，其最小生成树可以不唯一，但其边权之和一定是唯一的。</li>
+<li>由于最小生成树是在无向图上生成的，因此其根结点可以是这棵树上的任意一个结点。于是，如果题目中涉及最小生成树本身的输出，为了让最小生成树唯一，一般都会直接给出根结点，读者只需以给出的结点作为根结点来求解最小生成树即可。</li>
+</ul>
+<p>求解最小生成树一般有两种算法，即prim算法与kruskal算法。这两个算法都是采用了贪心法的思想，只是贪心的策略不太一样。</p>
+<h2 id="prim-算法">prim 算法</h2>
+<p>prim 算法(读者可以将其读作“普里姆算法”)用来解决最小生成树问题，其基本思想是对图G(V, E)设置集合S，存放已被访问的顶点，然后每次从集合V-S 中选择与集合S的最短距离最小的一个顶点(记为 u)，访问并加入集合 S。
+之后，令顶点u 为中介点，优化所有从u能到达的顶点v与集合S之间的最短距离。
+这样的操作执行n次(为顶点个数)，直到集合S已包含所有顶点。可以发现，prim 算法的思想与最短路径中 Dijkstra 算法的思想几乎完全相同，只是在涉及最短距离时使用了集合S代替 Diikstra 算法中的起点s。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-27-20-45-44.png"
+        data-srcset="./image/2023-03-27-20-45-44.png, ./image/2023-03-27-20-45-44.png 1.5x, ./image/2023-03-27-20-45-44.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-27-20-45-44.png"
+        title="./image/2023-03-27-20-45-44.png" /></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     prim.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/27 21:07:35
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 例如给一张邻接表图, 求最小生成树边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, w;
+</span></span><span style="display:flex;"><span>    node(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> having_visited[MAXN];  <span style="color:#75715e">// 已访问节点数组, S
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> min_dist[MAXN];         <span style="color:#75715e">// 存放节点到集合 S 的最短距离
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>node<span style="color:#f92672">&gt;</span> graph[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ver_n, adj_n, st_v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 顶点数, 边数, 假定生成树从节点0开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> adj_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>adj_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> s, e, w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> s <span style="color:#f92672">&gt;&gt;</span> e <span style="color:#f92672">&gt;&gt;</span> w;
+</span></span><span style="display:flex;"><span>        graph[s].push_back(node(e, w));
+</span></span><span style="display:flex;"><span>        graph[e].push_back(node(s, w));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        min_dist[i] <span style="color:#f92672">=</span> MAXN;     <span style="color:#75715e">// 起始时所有节点均不可达
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pick_v</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// pick 一个未访问的距离集合 S 最近的 节点 v
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> v, md <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>having_visited[i] <span style="color:#f92672">&amp;&amp;</span> min_dist[i] <span style="color:#f92672">&lt;</span> md){
+</span></span><span style="display:flex;"><span>            md <span style="color:#f92672">=</span> min_dist[i];
+</span></span><span style="display:flex;"><span>            v <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">prim</span>(){
+</span></span><span style="display:flex;"><span>    having_visited[st_v] <span style="color:#f92672">=</span> true; <span style="color:#75715e">// 将起始节点加入访问集合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    min_dist[st_v] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(node nd: graph[st_v]){<span style="color:#75715e">// 初始化起始节点的邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        min_dist[nd.v] <span style="color:#f92672">=</span> nd.w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 函数返回最小生成树的边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> tree_w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>){   <span style="color:#75715e">// 剩余 n-1 个节点依次收敛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> pick_v();
+</span></span><span style="display:flex;"><span>        tree_w <span style="color:#f92672">+=</span> min_dist[v];
+</span></span><span style="display:flex;"><span>        having_visited[v] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 松弛节点 v 的邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(node nd: graph[v]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(min_dist[nd.v] <span style="color:#f92672">&gt;</span> nd.w)
+</span></span><span style="display:flex;"><span>                min_dist[nd.v] <span style="color:#f92672">=</span> nd.w;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tree_w;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> prim() <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">6 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 5 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 5 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 5 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 5 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 5 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="kruscal-算法">kruscal 算法</h2>
+<p>kruskal 算法(读者可以将其读作“克鲁斯卡尔算法”)同样是解决最小生成树问题的-个算法。
+和 prim 算法不同，kruskal算法采用了边贪心的策略，其思想极其简洁，理解难度比prim算法要低很多。
+kruskal算法的基本思想为: 在初始状态时隐去图中的所有边，这样图中每个顶点都自成一个连通块。
+之后执行下面的步骤:
+1 对所有边按边权从小到大进行排序。
+2 按边权从小到大测试所有边，如果当前测试边所连接的两个顶点不在同一个连通块中，则把这条测试边加入当前最小生成树中; 否则，将边舍弃。
+3 执行步骤2，直到最小生成树中的边数等于总顶点数减1或是测试完所有边时结束. 而当结束时如果最小生成树的边数小于总顶点数减1，说明该图不连通。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-27-20-47-27.png"
+        data-srcset="./image/2023-03-27-20-47-27.png, ./image/2023-03-27-20-47-27.png 1.5x, ./image/2023-03-27-20-47-27.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-27-20-47-27.png"
+        title="./image/2023-03-27-20-47-27.png" /></p>
+<p>在这个伪代码里有两个细节似乎不太直观，即 如何判断测试边的两个端点是否在不同的连通块中, 如何将测试边加入最小生成树中。事实上，对这两个问题，可以换一个角度来想。如果把每个连通块当作一个集合，那么就可以把问题转换为判断两个端点是否在同一个集合中，而这个问题在前面讨论过 —— 对，就是并查集。并查集可以通过查询两个结点所在集合的根结点是否相同来判断它们是否在同一个集合，而合并功能恰好可以把上面提到的第二个细节解决，即只要把测试边的两个端点所在集合合并，就能达到将边加入最小生成树的效果。</p>
+<p>可以看到，kruskal 算法的时间复杂度主要来源于对边进行排序，因此其时间复杂度是O(ElogE)，其中 E为图的边数。显然 kruskal 适合顶点数较多、边数较少的情况，这和 prim算法恰好相反。于是可以根据题目所给的数据范围来选择合适的算法，即如果是密图(边多)，则用prim算法; 如果是稀疏图(边少)，则用kruskal算法。另外，一定会有读者疑惑，使用 kruskal算法能否保证最后一定能形成一棵连通的树?这个问题的前提是必须在连通图下讨论，如果图本身不连通，那么一定无法形成一棵完整的最小生成树。而对问题本身的讨论则需要分3个部分:</p>
+<ol>
+<li>由于图本身连通，因此每个顶点都会有边连接。而一开始每个结点都视为一个连通块因此在枚举过程中一定可以把每个顶点都访问到，且只要是第一次访问某个顶点，对应的边一定会被加入最小生成树中，故图中的所有顶点最后都会被加入最小生成树中。</li>
+<li>由于只有当测试边连接的两个顶点在不同的连通块中时才将其加入最小生成树，因此一定不会产生环。而如果有两个连通块未被连接，要么它们本身就无法被连接(也就是非连通图)，要么它们之间一定有边。由于所有边都会被测试，因此两个连通块最终一定会被连接在一起。故最后一定会生成一个连通的结构。</li>
+<li>由于算法要求当最小生成树中的边数等于总顶点数减1时结束，因此由连通、边数等于顶点数减1这两点可以确定，最后一定能生成一棵树。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     kruscal.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/27 22:09:52
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 这里图的存储完全基于边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> u, v;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> cost;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ver_n, adj_n;
+</span></span><span style="display:flex;"><span>node egdes[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> father[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span>(node a, node b);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">kruscal</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">acq_root</span>(<span style="color:#66d9ef">int</span> nid);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">merge_root</span>(<span style="color:#66d9ef">int</span> nid1, <span style="color:#66d9ef">int</span> nid2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 表示将边表 按权重的升序排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span>(node a, node b){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a.cost <span style="color:#f92672">&lt;</span> b.cost;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> adj_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>adj_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> egdes[i].u <span style="color:#f92672">&gt;&gt;</span> egdes[i].v <span style="color:#f92672">&gt;&gt;</span> egdes[i].cost;
+</span></span><span style="display:flex;"><span>    sort(egdes, egdes<span style="color:#f92672">+</span>adj_n, cmp);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化并查集
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        father[i] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 并查集操作: 查找--也即获取集合根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">acq_root</span>(<span style="color:#66d9ef">int</span> nid){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> nid;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(nid <span style="color:#f92672">!=</span> father[nid])
+</span></span><span style="display:flex;"><span>        nid <span style="color:#f92672">=</span> father[nid];
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 此时 nid 就是集合 root, 为优化查找, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 这里可以把查找路径上的节点的 father 均修改为 nid
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> (tmp <span style="color:#f92672">!=</span> father[tmp]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>        tmp <span style="color:#f92672">=</span> father[tmp];
+</span></span><span style="display:flex;"><span>        father[x] <span style="color:#f92672">=</span> nid;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> nid;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 并查集操作: 合并两个节点所在集合, 指明合并是否成功
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">merge_root</span>(<span style="color:#66d9ef">int</span> nid1, <span style="color:#66d9ef">int</span> nid2){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rt1 <span style="color:#f92672">=</span> acq_root(nid1), rt2 <span style="color:#f92672">=</span> acq_root(nid2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(rt1 <span style="color:#f92672">==</span> rt2) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        father[rt1] <span style="color:#f92672">=</span> rt2;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">kruscal</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 不断地将边的两端点所在集合进行合并, 除非两端点在一个集合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, t_edge_n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>adj_n; i<span style="color:#f92672">++</span>){ <span style="color:#75715e">// 从小到大枚举边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(merge_root(egdes[i].u, egdes[i].v)){
+</span></span><span style="display:flex;"><span>            res <span style="color:#f92672">+=</span> egdes[i].cost;
+</span></span><span style="display:flex;"><span>            t_edge_n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(t_edge_n <span style="color:#f92672">==</span> ver_n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> kruscal() <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" data-title="图算法（三）最小生成树算法" data-hashtags="算法,最小生成树,图"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" data-title="图算法（三）最小生成树算法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" data-title="图算法（三）最小生成树算法"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" data-title="图算法（三）最小生成树算法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">最小生成树</a>,&nbsp;<a href="/tags/%E5%9B%BE/">图</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" class="prev" rel="prev" title="图算法（二）最短路径算法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>图算法（二）最短路径算法</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" class="next" rel="next" title="图算法（四）拓扑排序">图算法（四）拓扑排序<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

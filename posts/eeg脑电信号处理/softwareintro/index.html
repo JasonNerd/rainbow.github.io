@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>BCI软件平台简介 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="BCI软件平台简介" />
+<meta property="og:description" content="脑-机接口能够实现大脑与外界设备的直接通讯。构建一套完整的脑-机接口系统既需要硬件平台也需要软件平台。其中，软件平台涉及刺激呈现、数据读取与" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-13T10:32:48+08:00" />
+<meta property="article:modified_time" content="2023-03-13T10:32:48+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BCI软件平台简介"/>
+<meta name="twitter:description" content="脑-机接口能够实现大脑与外界设备的直接通讯。构建一套完整的脑-机接口系统既需要硬件平台也需要软件平台。其中，软件平台涉及刺激呈现、数据读取与"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" /><link rel="prev" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/hugo%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "BCI软件平台简介",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/softwareintro\/"
+        },"genre": "posts","keywords": "脑机接口平台","wordcount":  1709 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/softwareintro\/","datePublished": "2023-03-13T10:32:48+08:00","dateModified": "2023-03-13T10:32:48+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">BCI软件平台简介</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>头皮脑电</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-13">2023-03-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1709 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+    <li><a href="#2023-03-02-参考链接">2023-03-02 参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>脑-机接口能够实现大脑与外界设备的直接通讯。构建一套完整的脑-机接口系统既需要硬件平台也需要软件平台。其中，软件平台涉及刺激呈现、数据读取与预处理、数据分析与解码、在线反馈等多个环节。通用的脑—机交互系统大致由四个模块组成：信号采集模块、信号处理模块、控制器模块和反馈模块。</p>
+<p>（1）信号采集模块
+脑信号的采集可以采用有创的植入电极方法，也可以采用无创的头皮脑电、功能磁共振成像或者近红外光谱等方法。</p>
+<p>（2）信号处理模块
+主要包含特征提取和模式识别两个部分。特征提取即找到一种更有效的方法来表达信号中的特征成分，目的是要为进一步的模式分类提供依据。模式识别是对信号进行处理和分析，以便后续进一步地辨认、分类和解释。</p>
+<p>（3）控制器模块
+控制器模块是将模式分类得到的结果转换成相应的控制命令以实现用户的真实意图，例如移动鼠标或者控制轮椅等。</p>
+<p>（4）反馈模块
+反馈模块是将被控制对象的状态通过人体的感知系统传递给大脑。现有的基于EEG的脑—机接口系统根据所检测到的电生理信号的不同主要分为以下三类：运动想象脑—机接口、P300脑—机接口和稳态视觉诱发电位（SSVEP）脑—机接口。目前脑—机接口设计主要在软件层面实现，它能与目前常用的脑信号采集设备相连，完成信号采集工作，并在此基础上提供常用脑—机交互实验范式的信号处理软件，并将解读后的脑信号转换成相应的控制命令以实现对外部设备的控制。</p>
+<p>目前已公开的脑机接口相关软件工具包从应用角度可分为以下几类：第一是用于设计实验任务、构建刺激程序的工具包，主要包括PsychoPy、E-Prime等。第二是用于实现采集设备软硬件联通的工具包。其中，BCI2000软件是一种脑-机接口系统基础研发平台，NeuroScan是与采集硬件配套的集成可编程软件；第三是专精于后期信号处理分析的工具包，包括熟知的EEGLAB、MNE等。</p>
+<h3 id="参考链接">参考链接</h3>
+<ol>
+<li>
+<p><a href="https://blog.csdn.net/zyb228/article/details/128017357" target="_blank" rel="noopener noreffer ">脑机接口综合性开源软件平台MetaBCI功能介绍及获取方式_脑机接口社区的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/weixin_40052256/article/details/123532583" target="_blank" rel="noopener noreffer ">解析热点脑机接口平台_壹脑云的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/weixin_40052256/article/details/124211309" target="_blank" rel="noopener noreffer ">解析全球热点脑机接口平台（下）_壹脑云的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="http://learn.neurotechedu.com/introbci_software/" target="_blank" rel="noopener noreffer ">Introduction to BCI: Software Tools to Use</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Center-For-Neurotechnology/CLoSES-RT" target="_blank" rel="noopener noreffer ">Center-For-Neurotechnology/CLoSES-RT: A platform for closed-loop intracranial stimulation in humans</a></p>
+</li>
+<li>
+<p><a href="https://openbci.com/downloads" target="_blank" rel="noopener noreffer ">OpenBCI | Downloads</a></p>
+</li>
+<li>
+<p><a href="https://github.com/SpikeInterface/spikeinterface" target="_blank" rel="noopener noreffer ">SpikeInterface/spikeinterface: A Python-based module for creating flexible and robust spike sorting pipelines.</a></p>
+</li>
+<li>
+<p><a href="https://spikeinterface.readthedocs.io/en/latest/" target="_blank" rel="noopener noreffer ">Welcome to SpikeInterface’s documentation! — spikeinterface documentation</a></p>
+</li>
+<li>
+<p><a href="http://www.tju.edu.cn/english/info/1010/6531.htm" target="_blank" rel="noopener noreffer ">Hi, MetaBCI. TJU Releases China&rsquo;s First Open Source Software Platform for BCI-Tianjin University:</a></p>
+</li>
+<li>
+<p><a href="https://github.com/TBC-TJU/MetaBCI" target="_blank" rel="noopener noreffer ">TBC-TJU/MetaBCI: MetaBCI: China’s first open-source platform for non-invasive brain computer interface. The project of MetaBCI is led by Prof. Minpeng Xu from Tianjin University, China.</a></p>
+</li>
+<li>
+<p><a href="https://pdf.dfcfw.com/pdf/H3_AP202201121539917091_1.pdf?1641976029000.pdf" target="_blank" rel="noopener noreffer ">2021年中国脑机接口平台行业概览</a></p>
+</li>
+<li>
+<p><a href="https://www.cn-healthcare.com/articlewm/20210930/content-1269415.html" target="_blank" rel="noopener noreffer ">盘点｜火爆的五家海外脑机接口公司|马斯克|脑机|五家|接口|盘点|癫痫|芯片|大脑|设备|-健康界</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/qq_15017307/article/details/116464354" target="_blank" rel="noopener noreffer ">OpoenVIBE—Unity3D脑机接口实验平台搭建：一、OpenVIBE与脑电设备的连接_少侠只用刀的博客-CSDN博客_openvibe</a></p>
+</li>
+<li>
+<p><a href="http://openvibe.inria.fr/supported-hardware/" target="_blank" rel="noopener noreffer ">Acquisition devices and drivers in OpenViBE | OpenViBE</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI0MTQxNDE5NA==&amp;mid=2247492624&amp;idx=1&amp;sn=b16ccdda19e5ddd23c0b8f08b1281a29&amp;chksm=e9095d4dde7ed45be374b9a92de3a6b286ece095e8897e2b994f8e1ea5df84d614c4cf99d894&amp;scene=178&amp;cur_album_id=2571780432946561027#rd" target="_blank" rel="noopener noreffer ">收藏 | 脑电、脑机接口(BCI)等数据集、书籍、信号处理等相关资源汇总</a></p>
+</li>
+<li>
+<p><a href="https://cashlab.mgh.harvard.edu/data-and-code/" target="_blank" rel="noopener noreffer ">Data and Code - CashLab - MGH/Harvard</a></p>
+</li>
+<li>
+<p><a href="https://dabi.loni.usc.edu/login?returnUrl=%2Frequest-data%2FU01NS108916" target="_blank" rel="noopener noreffer ">DABI</a></p>
+</li>
+</ol>
+<h2 id="2023-03-02-参考链接">2023-03-02 参考链接</h2>
+<ol>
+<li>
+<p><a href="https://blog.csdn.net/qq_40851744/article/details/106214133" target="_blank" rel="noopener noreffer ">BCI脑机接口11：BCI2000 - A General-Purpose Brain-Computer Interface (BCI) System全文读后感_麓山君陌的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/547122997" target="_blank" rel="noopener noreffer ">PsychoPy 简明扼要上手指南——入门篇 - 知乎</a></p>
+</li>
+<li>
+<p><a href="https://www.psychopy.org/documentation.html" target="_blank" rel="noopener noreffer ">Documentation — PsychoPy v2023.1.0</a></p>
+</li>
+<li>
+<p><a href="https://www.psychopy.org/PsychoPyManual.pdf" target="_blank" rel="noopener noreffer ">PsychoPy - Psychology software for Python</a></p>
+</li>
+<li>
+<p><a href="https://sites.google.com/view/ympsychopynotes/home" target="_blank" rel="noopener noreffer ">我的Psychopy學習筆記</a></p>
+</li>
+<li>
+<p><a href="https://www.amazon.cn/dp/B08DKSZCKV" target="_blank" rel="noopener noreffer ">《实验编程：PsychoPy从入门到精通》 乔纳森·皮尔斯, 迈克尔·麦卡斯基尔 书评 简介 电子书下载 Kindle电子书</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/329825940" target="_blank" rel="noopener noreffer ">如何利用PsychoPy编写一个经典心理学实验——以返回抑制为例 - 知乎</a></p>
+</li>
+<li>
+<p><a href="https://blog.51cto.com/u_15127566/2707748" target="_blank" rel="noopener noreffer ">Analyzer脑电数据处理步骤_51CTO博客_脑电数据处理</a></p>
+</li>
+<li>
+<p><a href="https://blog.51cto.com/u_15127566/2707640" target="_blank" rel="noopener noreffer ">Psychopy | 第4期：实验数据的收集与处理_51CTO博客_psychopy线上实验</a></p>
+</li>
+<li>
+<p><a href="https://my.oschina.net/zbaigao/blog/683526" target="_blank" rel="noopener noreffer ">psychopy心理学编程 快速配置自变量 - zbaigao的个人空间 - OSCHINA - 中文开源技术交流社区</a></p>
+</li>
+<li>
+<p><a href="http://openvibe.inria.fr/documentation-index/" target="_blank" rel="noopener noreffer ">Documentation | OpenViBE</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/qq_42842335/article/details/85629705" target="_blank" rel="noopener noreffer ">初识OpenVibe_ymczzzz的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="https://cloud.tencent.com/developer/news/337802" target="_blank" rel="noopener noreffer ">Emotiv Epoc＋/CykitV2/OpenVIBE-最经济的BCI解决方案 - 腾讯云开发者社区-腾讯云</a></p>
+</li>
+<li>
+<p><a href="https://jishuin.proginn.com/p/763bfbd69199" target="_blank" rel="noopener noreffer ">Cutting EEG 2021 || 工作坊Tutorials公开共享资源-技术圈</a></p>
+</li>
+<li>
+<p><a href="https://blog.51cto.com/u_6811786/3813639" target="_blank" rel="noopener noreffer ">脑信号数据下载_51CTO博客_脑信号</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=5MLsDeyzGVA&amp;list=PL4W_k_kc6CR6nvl97nWQyFvYK7wF5eb9Q" target="_blank" rel="noopener noreffer ">BCI_101 | Day 2 - &lsquo;BCIs becoming mainstream&rsquo; with NeuroTechX, g.tec, Emotiv, and OpenBCI. - YouTube</a></p>
+</li>
+<li>
+<p><a href="https://posts.careerengine.us/p/604dfa5cd1181810b7a0d655" target="_blank" rel="noopener noreffer ">BCI演示指导 | OpenViBE-Motor Imagery</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/e70658a53eed" target="_blank" rel="noopener noreffer ">BrainTechnology公众号目录【2020年3月】 - 简书</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/zyb228/article/details/104014390" target="_blank" rel="noopener noreffer ">MNE-Python教程汇总_脑机接口社区的博客-CSDN博客</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/zyb228/article/details/103015904" target="_blank" rel="noopener noreffer ">eeglab中文教程系列 汇总_eeglab教程_脑机接口社区的博客-CSDN博客</a></p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" data-title="BCI软件平台简介" data-hashtags="脑机接口平台"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" data-hashtag="脑机接口平台"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" data-title="BCI软件平台简介"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" data-title="BCI软件平台简介"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" data-title="BCI软件平台简介"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E8%84%91%E6%9C%BA%E6%8E%A5%E5%8F%A3%E5%B9%B3%E5%8F%B0/">脑机接口平台</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="prev" rel="prev" title="PsychoPy心理学实验平台简介"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>PsychoPy心理学实验平台简介</a>
+            <a href="/posts/%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/hugo%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" class="next" rel="next" title="博客网站搭建-Hugo上手指南">博客网站搭建-Hugo上手指南<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

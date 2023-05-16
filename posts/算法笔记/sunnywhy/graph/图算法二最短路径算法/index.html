@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>图算法（二）最短路径算法 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="图算法（二）最短路径算法" />
+<meta property="og:description" content="最短路径是图论中一个很经典的问题:给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。对任意给出的图G(V" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T11:04:03+08:00" />
+<meta property="article:modified_time" content="2023-04-07T11:04:03+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图算法（二）最短路径算法"/>
+<meta name="twitter:description" content="最短路径是图论中一个很经典的问题:给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。对任意给出的图G(V"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "图算法（二）最短路径算法",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95\/"
+        },"genre": "posts","keywords": "图, 最短路径","wordcount":  8182 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95\/","datePublished": "2023-04-07T11:04:03+08:00","dateModified": "2023-04-07T11:04:03+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">图算法（二）最短路径算法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8182 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#diikstra算法">Diikstra算法</a>
+      <ul>
+        <li><a href="#例题展示">例题展示</a></li>
+        <li><a href="#最短路径的最优子结构">最短路径的最优子结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#bellman-ford算法">Bellman-Ford算法</a>
+      <ul>
+        <li><a href="#bf算法正确性证明">BF算法正确性证明</a></li>
+      </ul>
+    </li>
+    <li><a href="#spfa算法">SPFA算法</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#floyd算法">Floyd算法</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>最短路径是图论中一个很经典的问题:<strong>给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小</strong>。对任意给出的图G(VE)和起点S终点T，如何求从S到T的最短路径. 解决最短路径问题的常用算法有<strong>Diikstra算法, Bellman-Ford算法, SPFA算法, Floyd算法</strong>。</p>
+<h2 id="diikstra算法">Diikstra算法</h2>
+<ul>
+<li>
+<p>使用场景: 解决单源路径最短问题, 给定图G和起点s, 通过算法得到s到其他任一顶点的最短距离</p>
+</li>
+<li>
+<p><strong>基本思想</strong>: 设置一个已访问的节点集合S, 从顶点集V中取出初始顶点s加入S, 从V中选择一个距离s最近的顶点u加入S, 以u为中介松弛初始顶点与其他顶点的距离, 这样的松弛操作执行到V为空.</p>
+</li>
+<li>
+<p>有效性分析: 每次都选与源点最近的节点, 也即在对于s到中介点u的路径已经最优(否则可以重新选择使其最优), 在此基础上, 松弛所有未访问的邻居节点, 选择其中一个节点k, 条件是距离s最短, 这样最优路径就扩张了一个节点, 这样的扩张一直到包含所有的节点.</p>
+</li>
+<li>
+<p>复杂度分析: 空间复杂度O(V+E), V为节点数, E为边数(能使用邻接表就使用邻接表), 同时还有个bool having_access[N]以及mincost[N]以及prevnid[N]。从复杂度来看，主要是外层循环 O(V)与内层循环 (寻找最小的 d]需要 O(V)、举v需要 O(adj[u].size))产生的。又由于对整个程序来说，枚举v的次数总共为 O(adj[u]size)=O(E)，因此总复杂度为 O(V+ E)。可以注意到，上面的做法都是复杂度 O(V)级别的，其中由于必须把每个顶点都标记为已访问，因此外层循环的 O(V)时间是无法避免的，但是寻找最小 d[u]的过程却可以不必达到O(V)的复杂度，而可以使用堆优化来降低复杂度。最简洁的写法是直接使用 STL 中的优先队列priority_queue，这样使用邻接表实现的 Dikstra算法的时间复杂度可以降为0(VlogV+E)此外，Dijkstra 算法只能应对所有边权都是非负数的情况，如果边权出现负数，那么 Dijkstra算法很可能会出错，这时最好使用SPFA算法。</p>
+</li>
+</ul>
+<blockquote>
+<p>Dijkstra 算法题解: 单源路径最短-记录path版</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Diikstra算法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">使用场景: 解决单源路径最短问题, 给定图G和起点s, 通过算法得到s到其他任一顶点的最短距离
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">假定图的顶点编号为整数, 0~N-1, 只考虑有向图
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">M N s
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">n1 n2 w12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">M是总边数, N是总的节点数, s为出发顶点, 下接M行, 表示每条边的入点、出点、边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;   <span style="color:#75715e">// 顶点数, 边数, 权重 均小于该值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 图节点定义
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, w;   <span style="color:#75715e">// 出边顶点, 边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];  <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> edge_n, vertex_n, v_start;  <span style="color:#75715e">// 边数, 顶点数, 起始节点编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> having_disposed[MAXN]; <span style="color:#75715e">// 记录哪些节点已经收敛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> opt_plen[MAXN];     <span style="color:#75715e">// 记录源点s到其他节点的最短路径长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> opt_path[MAXN];     <span style="color:#75715e">// 记录某节点最短路径的前驱节点编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">find_minw_v</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_path</span>(<span style="color:#66d9ef">int</span> p);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> edge_n <span style="color:#f92672">&gt;&gt;</span> vertex_n <span style="color:#f92672">&gt;&gt;</span> v_start;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>edge_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> v_from, v_to, w_ft;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> v_from <span style="color:#f92672">&gt;&gt;</span> v_to <span style="color:#f92672">&gt;&gt;</span> w_ft;
+</span></span><span style="display:flex;"><span>        graph[v_from].push_back(gnode(v_to, w_ft));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>vertex_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        opt_plen[i] <span style="color:#f92672">=</span> MAXN; <span style="color:#75715e">// 初始时假定所有(除s)节点距离s无限远
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        opt_path[i] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;   <span style="color:#75715e">// 初始时前驱均为-1表示处于未收敛状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        having_disposed[i] <span style="color:#f92672">=</span> false; <span style="color:#75715e">// 同理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    opt_plen[v_start] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;  <span style="color:#75715e">// 初始节点与自己距离为0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 进行一次松弛操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 从所有未收敛的节点选一个与初始节点最近的节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> find_minw_v();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 以p为中介对p的邻接点进行松弛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: graph[p]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(opt_plen[nd.v] <span style="color:#f92672">&gt;</span> (opt_plen[p]<span style="color:#f92672">+</span>nd.w)){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 如果当前邻居可以通过p进行优化(也即路径长变小)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            opt_plen[nd.v] <span style="color:#f92672">=</span> opt_plen[p]<span style="color:#f92672">+</span>nd.w;  <span style="color:#75715e">// 那么进行松弛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            opt_path[nd.v] <span style="color:#f92672">=</span> p;     <span style="color:#75715e">// 说明当前 p 是 nd.v 最短路径的 前驱
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. 将p标记为已收敛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    having_disposed[p] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 从所有未收敛的节点选一个与初始节点最近的节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">find_minw_v</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// int mid = 0, mw = opt_plen[0];  // 默认第一个节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, mw <span style="color:#f92672">=</span> MAXN;  <span style="color:#75715e">// 默认第一个节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>vertex_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(opt_plen[i] <span style="color:#f92672">&lt;</span> mw <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>having_disposed[i]){
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>            mw <span style="color:#f92672">=</span> opt_plen[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mid;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>(){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>vertex_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; - &#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> j : graph[i]){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> j.v <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> j.w <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;) &#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">res</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>vertex_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> opt_plen[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 打印指定节点的最短路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_path</span>(<span style="color:#66d9ef">int</span> p){
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> path;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (true){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (p <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            path.push_back(p);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> opt_path[p];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>path.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> path[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-&gt;&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_path2</span>(<span style="color:#66d9ef">int</span> p){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    prt_path2(opt_path[p]);     <span style="color:#75715e">// 先打印前驱
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> p <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 进行n次松弛(n个节点就都收敛)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// info();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>vertex_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        slacken();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// res();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    prt_path2(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 输入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">8 6 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 5 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 5 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 邻接表结构
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 - (1, 1) (3, 4) (4, 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 - (3, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 - (5, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 - (2, 2) (4, 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 - (5, 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 -
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 最短路数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 5 3 4 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><ul>
+<li>出题策略:于是，碰到这种<strong>有两条及以上可以达到最短距离的路径</strong>，题目就会给出一个第二标尺(第一标尺是距离)，要求在所有选择第二标尺最优的一条路径。而第二标尺常见的是以下三种出题方法或其组合:
+(1) 给每条边<strong>再增加一个边权</strong>(比如说花费)，然后要求在最短路径有多条时要求路径上的花费之和最小(如果边权是其他含义，也可以是最大)。
+(2) <strong>给每个点增加一个点权</strong>(例如每个城市能收集到的物资)，然后在最短路径有多条时要求路径上的点权之和最大(如果点权是其他含义的话也可以是最小)。
+(3) <strong>直接问有多少条最短路径</strong>
+对这三种出题方法，都只需要增加一个数组 <strong>opt_sel[]</strong> 来存放新增的边权或点权或最短路径条数，然后在 Dikstra算法中修改优化opt_sel[]的那个步即可，其他部分不需要改动。</li>
+</ul>
+<p>注意, 对于最短路径下一节点的选择, 这是不必改变的, 在更新下一节点同时更新新增的数组即可, 需要考虑的是在<code>(opt_path[j] == opt_path[p] + graph[p][j])</code>注意更新新增数组, 例如对于第二边权(花费), 若经过节点p使得花费更小, 那么就更新第二边权(累积数组).</p>
+<h3 id="例题展示">例题展示</h3>
+<h4 id="尽快的收集更多医疗物资">尽快的收集更多医疗物资</h4>
+<ol>
+<li>题目说明</li>
+</ol>
+<pre tabindex="0"><code class="language-git" data-lang="git">As an emergency rescue team leader of a city, you are given a special map of your country.
+The map shows several scatered cities connected by some roads. 
+Amount of rescue teams in each city and the length of each road between any pair of cities are marked on the map.
+When there is anemergency call to you from some other city, your job is to lead your men to the place as quickly aspossible,
+and at the mean time, call up as many hands on the way as possible.
+输入格式
+Each input file contains one test case. For each test case, the first line contains 4 positiveintegers: 
+N (&lt;500)-the number of cities (and the cities are numbered from 0 to N-1), 
+M--the number of roads, C1 and C2--the cities that you are currently in and that you must save,respectively. 
+The next line contains N integers, where the i-th integer is the number of rescue teams in the i-th city
+Then M lines follow, each describes a road with three integers cl, c2 and L, 
+which are the pair of cities connected by a road and the length of that road, respectively. 
+It is guaranteed that there exists at least one path from C1 to C2.
+输出格式
+For each test case, print in one line two numbers: 
+the number of different shortest paths between C1 and C2, and the maximum amount of rescue teams you can possibly gather.
+All the numbers in a line must be separated by exactly one space, and there is no extra space allowed at the end of a line.
+</code></pre><ol start="2">
+<li>题解(使用 Dijkstra 算法进行求解)
+题目大意是有一些个城市, 它们保留有一些个医疗物资, 并且城市之间有一些个路线相联。现在你要在两地之间收集尽可能多的物资，前提是要最快，也就是必须最短路径，而在有多条最短路的时候就选择那个收集到更多物资的那一条。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">使用dijkstra+dfs范式进行编程, 问题同救援物资
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输入: 点数、边数、始点、终点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">点权序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">边权序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> w, v;
+</span></span><span style="display:flex;"><span>    gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_state</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">select</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ok_to_opt</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">find_path</span>(<span style="color:#66d9ef">int</span> p);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> city_num, road_num, loc_id, sav_id;     <span style="color:#75715e">// 顶点数, 边数, 始点, 终点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> having_visited[MAXN];  <span style="color:#75715e">// 标记是否已访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> rescue[MAXN], opt_path[MAXN];   <span style="color:#75715e">// 点权数组, 最优路径长度数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> prevn[MAXN];     <span style="color:#75715e">// 前驱节点数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pnum<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, mxres<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 最短路径数, 最大物资数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tmp_res, opt_res;   <span style="color:#75715e">// 临时最短路, 最优最短路
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> city_num <span style="color:#f92672">&gt;&gt;</span> road_num <span style="color:#f92672">&gt;&gt;</span> loc_id <span style="color:#f92672">&gt;&gt;</span> sav_id;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> rescue[i];   <span style="color:#75715e">// 更新点权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>road_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i_id, o_id, e_w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> i_id <span style="color:#f92672">&gt;&gt;</span> o_id <span style="color:#f92672">&gt;&gt;</span> e_w;
+</span></span><span style="display:flex;"><span>        graph[i_id].push_back(gnode(o_id, e_w));
+</span></span><span style="display:flex;"><span>        graph[o_id].push_back(gnode(i_id, e_w));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_state</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        having_visited[i] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>        opt_path[i] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    opt_path[loc_id] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// 初始时源点最短路为0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">select</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> min_id<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>, min_pt <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>having_visited[i] <span style="color:#f92672">&amp;&amp;</span> opt_path[i]<span style="color:#f92672">&lt;</span>min_pt){
+</span></span><span style="display:flex;"><span>            min_id <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>            min_pt <span style="color:#f92672">=</span> opt_path[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min_id;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> select();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: graph[p]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> curp <span style="color:#f92672">=</span> opt_path[p] <span style="color:#f92672">+</span> nd.w;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(curp <span style="color:#f92672">&lt;</span> opt_path[nd.v]){
+</span></span><span style="display:flex;"><span>            opt_path[nd.v] <span style="color:#f92672">=</span> curp;
+</span></span><span style="display:flex;"><span>            prevn[nd.v].clear();
+</span></span><span style="display:flex;"><span>            prevn[nd.v].push_back(p);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(curp <span style="color:#f92672">==</span> opt_path[nd.v]){
+</span></span><span style="display:flex;"><span>            prevn[nd.v].push_back(p);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    having_visited[p] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dfs获取最短路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">find_path</span>(<span style="color:#66d9ef">int</span> p){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (prevn[p].empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 形成了完整路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        pnum<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        tmp_res.push_back(p);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(ok_to_opt()){
+</span></span><span style="display:flex;"><span>            opt_res <span style="color:#f92672">=</span> tmp_res;  <span style="color:#75715e">// 更新最优路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>        tmp_res.pop_back();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tmp_res.push_back(p);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> prv: prevn[p])
+</span></span><span style="display:flex;"><span>        find_path(prv);
+</span></span><span style="display:flex;"><span>    tmp_res.pop_back();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ok_to_opt</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: tmp_res)
+</span></span><span style="display:flex;"><span>        rc <span style="color:#f92672">+=</span> rescue[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (rc <span style="color:#f92672">&gt;</span> mxres){
+</span></span><span style="display:flex;"><span>        mxres <span style="color:#f92672">=</span> rc;    <span style="color:#75715e">// 更新第二标尺值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    input_graph();
+</span></span><span style="display:flex;"><span>    init_state();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        slacken();
+</span></span><span style="display:flex;"><span>    find_path(sav_id);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> pnum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> mxres;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">input example:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 6 0 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1 5 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">output example:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 - ()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 - (0 )
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 - (0 1 )
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 - (0 )
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 - (3 )
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h4 id="尽可能减少耗材消耗">尽可能减少耗材消耗</h4>
+<ol>
+<li>题目说明</li>
+</ol>
+<pre tabindex="0"><code class="language-git" data-lang="git">题目描述
+A traveler&#39;s map gives the distances between cities along the highways, together with the cost of each highway.
+Now you are supposed to write a program to help a traveler to decide the shortest path between his/her /
+starting city and the destination. If such a shortest path is not unique, you aresupposed to output the one /
+with the minimum cost, which is guaranteed to be unique.
+输入格式
+Each input file contains one test case. Each case starts with a line containing 4 positive integers N,M, S, and D, 
+where N (&lt;500) is the number of cities (and hence the cities are numbered from 0to N-1); 
+M is the number of highways; S and D are the starting and the destination cities.respectively. 
+Then M lines follow, each provides the information of a highway, in the format:
+City1 City2 Distance Cost
+where the numbers are all integers no more than 500, and are separated by a space.
+输出格式
+For each test case, print in one line the cities along the shortest path from the starting point tothe destination,
+followed by the total distance and the total cost of the path. T
+he numbers must be separated by a space and there must be no extra space at the end of output.
+</code></pre><p>在已是最短路的情况下求最小花费的。
+2. 题解:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, dis, cst;    <span style="color:#75715e">// dis距离, cos花费
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> dis, <span style="color:#66d9ef">int</span> cst){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>dis <span style="color:#f92672">=</span> dis;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>cst <span style="color:#f92672">=</span> cst;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];  <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> city_num, road_num, loc_id, dest_id;    <span style="color:#75715e">// 点数, 边数, 所在城市编号, 目的城市编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> having_visted[MAXN];   <span style="color:#75715e">// 记录是否收敛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> opt_prev[MAXN], opt_path[MAXN], opt_cost[MAXN]; <span style="color:#75715e">// 前向顶点, 最短路径长度, 最小花费
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> resp;   <span style="color:#75715e">// 存放最短路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>();     <span style="color:#75715e">// 输入图信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_state</span>();      <span style="color:#75715e">// 状态初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">select</span>();           <span style="color:#75715e">// 选点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>();         <span style="color:#75715e">// 松弛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">get_path</span>(<span style="color:#66d9ef">int</span> p);   <span style="color:#75715e">// 获取路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> city_num <span style="color:#f92672">&gt;&gt;</span> road_num <span style="color:#f92672">&gt;&gt;</span> loc_id <span style="color:#f92672">&gt;&gt;</span> dest_id;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> ft, tf, dis, cst; <span style="color:#75715e">// 注意是无向边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>road_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> ft <span style="color:#f92672">&gt;&gt;</span> tf <span style="color:#f92672">&gt;&gt;</span> dis <span style="color:#f92672">&gt;&gt;</span> cst;
+</span></span><span style="display:flex;"><span>        graph[ft].push_back(gnode(tf, dis, cst));
+</span></span><span style="display:flex;"><span>        graph[tf].push_back(gnode(ft, dis, cst));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_state</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        opt_path[i] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>        opt_cost[i] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>        opt_prev[i] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        having_visted[i] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    opt_cost[loc_id] <span style="color:#f92672">=</span> opt_path[loc_id] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">slacken</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 寻找未访问的最近节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> select();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 遍历邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> nd: graph[p]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> acr_dis <span style="color:#f92672">=</span> opt_path[p] <span style="color:#f92672">+</span> nd.dis; <span style="color:#75715e">// 经过p得到的路径长
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> acr_cst <span style="color:#f92672">=</span> opt_cost[p] <span style="color:#f92672">+</span> nd.cst; <span style="color:#75715e">// 经过p得到的花费
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (acr_dis <span style="color:#f92672">&lt;</span> opt_path[nd.v]){  <span style="color:#75715e">// 进行一个松弛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            opt_cost[nd.v] <span style="color:#f92672">=</span> acr_cst;
+</span></span><span style="display:flex;"><span>            opt_path[nd.v] <span style="color:#f92672">=</span> acr_dis;
+</span></span><span style="display:flex;"><span>            opt_prev[nd.v] <span style="color:#f92672">=</span> p;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (acr_dis <span style="color:#f92672">==</span> opt_path[nd.v]){   <span style="color:#75715e">// 依据花费更新
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(acr_cst <span style="color:#f92672">&lt;</span> opt_cost[nd.v]){   <span style="color:#75715e">// 经过p可以得到更小的花费
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                opt_cost[nd.v] <span style="color:#f92672">=</span> acr_cst;   <span style="color:#75715e">// 更新花费
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                opt_prev[nd.v] <span style="color:#f92672">=</span> p;         <span style="color:#75715e">// 更新路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    having_visted[p] <span style="color:#f92672">=</span> true;    <span style="color:#75715e">// 标记为已处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">select</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mid<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>, mw<span style="color:#f92672">=</span>MAXN;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>having_visted[i] <span style="color:#f92672">&amp;&amp;</span> (opt_path[i] <span style="color:#f92672">&lt;</span> mw)){
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>            mw <span style="color:#f92672">=</span> opt_path[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mid;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">get_path</span>(<span style="color:#66d9ef">int</span> p){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(p <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    get_path(opt_prev[p]);
+</span></span><span style="display:flex;"><span>    resp.push_back(p);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    input_graph();
+</span></span><span style="display:flex;"><span>    init_state();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        slacken();
+</span></span><span style="display:flex;"><span>    get_path(dest_id);
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: resp)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> nd <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> opt_path[dest_id] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> opt_cost[dest_id];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">input
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 5 0 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 1 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 2 30
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 4 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 2 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 1 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">output
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 3 3 40
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">题意
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">有N个城市(编号为0~N-1)、M 条道路(无向边)，并给出 M条道路的距离属性与花费属性。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">现在给定起点 S 与终点 D，求从起点到终点的最短路径、最短距离及花费。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">注意:如果有多条最短路径，则选择花费最小的那条。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h3 id="最短路径的最优子结构">最短路径的最优子结构</h3>
+<p>通过对dijkstra算法及以上3个变种思想方法的学习, 可以发现, 他们都满足最优子结构, 也即, 如果当前节点最优, 那么路径上的每一个节点也都是最优, 换句话说, 在当前节点最优时, 对于当前节点的所有邻居节点, 一句题意就可以直接选出下一个最优节点, 此时相对于下一个最优节点, 当前节点就是他路径上的节点, 并且是最优的，简单说来, 以上三种情况都存在和、累计的概念。当面对更复杂的、不满足最优子结构的问题时, 就需要一种更通用的方法求解。</p>
+<p>思想很简单, 就是试图使用一种方法, 寻找并保存所有的最短路径, 保存之后什么问题就都没问题了，这种方法就是 <strong>Dijkstra+DFS</strong> 。将前面的前驱节点数组扩展到可包含多前驱的情况: <code>vector&lt;int&gt; pre[MAXN]</code>. 此时, dijkstra 专心寻找最短路径, 当接入节点p可以使路径更优, 则清空原前驱vector并加入p(这是由于p相对于原来所有的前驱都更优), 而如果与已有最优情况相同时, 那就加入他们(你们都是我的翅膀). 这样以后, dfs负责遍历pre数组, 递归每一条最短路径, 依据第二标尺更新最优值.</p>
+<h2 id="bellman-ford算法">Bellman-Ford算法</h2>
+<p>Dijkstra算法可以很好地解决无负权图的最短路径问题，但如果出现了<strong>负权边，Dijkstra 算法就会失效</strong>，例如图10-39中设置A为源点时，首先会将点B和点C的dist值变为-1和1，接着由于点B的dist 值最小，因此用点 B去更新其未访问的邻接点(虽然并没有)。在这之后点B标记为已访问，于是将无法被从点C出发的边CB更新，因此最后distB]就是-1，但显然A到B的最短路径长度应当是A一C-B的-4。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-02-24-22-13-18.png"
+        data-srcset="./image/2023-02-24-22-13-18.png, ./image/2023-02-24-22-13-18.png 1.5x, ./image/2023-02-24-22-13-18.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-02-24-22-13-18.png"
+        title="./image/2023-02-24-22-13-18.png" />
+现在考虑环，也就是从某个顶点出发、经过若干个不同的顶点之后可以回到该顶点的情况。而根据环中边的边权之和的正负，可以将环分为零环、正环、负环。显然，图中的零环和正环不会影响最短路径的求解，因为零环和正环的存在不能使最短路径更短:而<strong>如果图中有负环，且从源点可以到达，那么就会影响最短路径的求解</strong>:但如果图中的负环无法从源点出发到达，则最短路径的求解不会受到影响。</p>
+<p>如下即为BF算法的伪码, 进行n-1轮松弛, 每一轮松弛所有边:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-02-24-22-20-28.png"
+        data-srcset="./image/2023-02-24-22-20-28.png, ./image/2023-02-24-22-20-28.png 1.5x, ./image/2023-02-24-22-20-28.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-02-24-22-20-28.png"
+        title="./image/2023-02-24-22-20-28.png" />
+此时，如果图中没有从源点可达的负环，那么数组d中的所有值都应当已经达到最优。因此只需要再对所有边进行一轮操作，<strong>判断是否有某条边(u,v)仍然满足<code>d[u]+W(u,v)&lt;d[v]</code></strong>，如果有，则说明图中有从源点可达的负环，返回false; 否则说明数组d中的所有值都已经达到最优，返回true。</p>
+<p>题解:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">BF算法的伪码, 进行n-1轮松弛, 每一轮松弛所有边, 此时，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">如果图中没有从源点可达的负环，那么数组d中的所有值都应当已经达到最优。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">因此只需要再对所有边进行一轮操作，判断是否有某条边(u,v)仍然满足
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">d[u]+W(u,v)&lt;d[v]，如果有，则说明图中有从源点可达的负环，返回false; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">否则说明数组d中的所有值都已经达到最优，返回true。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, w;
+</span></span><span style="display:flex;"><span>    gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> city_num, road_num, loc_id, sav_id;     <span style="color:#75715e">// 顶点数, 边数, 始点, 终点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> rescue[MAXN], opt_path[MAXN];   <span style="color:#75715e">// 点权数组, 最优路径长度数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> prevn[MAXN];     <span style="color:#75715e">// 前驱节点数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pnum<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, mxres<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 最短路径数, 最大物资数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tmp_res, opt_res;   <span style="color:#75715e">// 临时最短路, 最优最短路
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bell_man_ford</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">find_path</span>(<span style="color:#66d9ef">int</span> rid);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> city_num <span style="color:#f92672">&gt;&gt;</span> road_num <span style="color:#f92672">&gt;&gt;</span> loc_id <span style="color:#f92672">&gt;&gt;</span> sav_id;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> rescue[i];   <span style="color:#75715e">// 更新点权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>road_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i_id, o_id, e_w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> i_id <span style="color:#f92672">&gt;&gt;</span> o_id <span style="color:#f92672">&gt;&gt;</span> e_w;
+</span></span><span style="display:flex;"><span>        graph[i_id].push_back(gnode(o_id, e_w));
+</span></span><span style="display:flex;"><span>        graph[o_id].push_back(gnode(i_id, e_w));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        opt_path[i] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    opt_path[loc_id] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// 初始时源点最短路为0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bell_man_ford</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>city_num<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 一共 n-1 轮, 每轮遍历所有边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>city_num; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 以 j 为中介, 对所有邻边进行松弛
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> nd: graph[j]){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(opt_path[j]<span style="color:#f92672">+</span>nd.w <span style="color:#f92672">&lt;</span> opt_path[nd.v]){
+</span></span><span style="display:flex;"><span>                    opt_path[nd.v] <span style="color:#f92672">=</span> opt_path[j]<span style="color:#f92672">+</span>nd.w;
+</span></span><span style="display:flex;"><span>                    prevn[nd.v].clear();
+</span></span><span style="display:flex;"><span>                    prevn[nd.v].insert(j);
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (opt_path[j]<span style="color:#f92672">+</span>nd.w <span style="color:#f92672">==</span> opt_path[nd.v]){
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// 注意这里可能重复加入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    prevn[nd.v].insert(j);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">find_path</span>(<span style="color:#66d9ef">int</span> rid){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (rid <span style="color:#f92672">==</span> loc_id){
+</span></span><span style="display:flex;"><span>        tmp_res.push_back(rid);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 遍历 tmp_res, 计算结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        pnum<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> ts <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: tmp_res){
+</span></span><span style="display:flex;"><span>            ts <span style="color:#f92672">+=</span> rescue[nd];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (ts <span style="color:#f92672">&gt;</span> mxres){
+</span></span><span style="display:flex;"><span>            mxres <span style="color:#f92672">=</span> ts;
+</span></span><span style="display:flex;"><span>            opt_res <span style="color:#f92672">=</span> tmp_res;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        tmp_res.pop_back();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tmp_res.push_back(rid);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: prevn[rid])
+</span></span><span style="display:flex;"><span>        find_path(nd);
+</span></span><span style="display:flex;"><span>    tmp_res.pop_back();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    input_graph();
+</span></span><span style="display:flex;"><span>    bell_man_ford();
+</span></span><span style="display:flex;"><span>    find_path(sav_id);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> pnum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> mxres;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">input example:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 6 0 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1 5 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">output example:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h3 id="bf算法正确性证明">BF算法正确性证明</h3>
+<p>那么，为什么Bellman-Ford 算法是正确的呢?想要了解完整数学证明的读者可以参考算法导论，下面给出一个简洁直观的证明。
+首先，如果最短路径存在，那么最短路径上的顶点个数肯定不会超过V个(想一想为什么?)。于是，<strong>如果把源点s作为一棵树的根结点，把其他结点按照最短路径的结点顺序连接就会生成一棵最短路径树</strong>。显然，在最短路径树中，从源点S 到达其余各顶点的路径就是原图中对应的最短路径，且<strong>图和源点一旦确定，最短路径树也就确定了</strong>。另外，由于最短路径上的顶点个数不超过V个，因此最短路径树的层数一定不超过V。由于初始状态下d[s]为0，因此在接下来的步骤中 d[s]不会被改变(也就是说，最短路径树中第一层结点的d值被确定)。接着通过 Bellman-Ford算法的第一轮操作之后，最短路径树中的第二层顶点的d值也会被确定下来;然后进行第二轮操作，于是第三层顶点的d 值也被确定下来。这样计算直到最后一层顶点的d值确定。<strong>由于最短路径树的层数不超过V层因此Bellman-Ford算法的松驰操作不会超过V-1轮</strong>。证毕。请读者使用Bellman-Ford算法重新对[PATA1003]题进行编码，以熟悉Bellman-Ford算法及体会上面给出的思路。</p>
+<h2 id="spfa算法">SPFA算法</h2>
+<p>虽然Bellman-Ford算法的思路很简洁，但是O(VE)的时间复杂度确实很高，在很多情况下并不尽如人意。仔细思考后会发现，Bellman-Ford 算法的每轮操作都需要操作所有边，显然这其中会有大量无意义的操作，严重影响了算法的性能。于是注意到，只有当某个顶点 u的<code>d[u]</code>值改变时，从它出发的边的邻接点V的 <code>d[v]</code>值才有可能被改变。由此可以进行一个优化:<strong>建立一个队列</strong>，每次将队首顶点u 取出，然后对从u出发的所有边uv 进行松弛操作,也就是判断 <code>d[u] +length[u-&gt;v]&lt;d[v]</code>是否成立，如果成立，则用<code>d[u]+length[u-&gt;v]</code>覆盖<code>d[v]</code>,于是 <code>d[v]</code>获得更优的值，此时<strong>如果不在队列中</strong>，就把加入队列。<strong>这样操作直到队列为空说明图中没有从源点可达的负环)，或是某个顶点的入队次数超过V-1(说明图中存在从源点可达的负环)。</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-02-25-17-08-31.png"
+        data-srcset="./image/2023-02-25-17-08-31.png, ./image/2023-02-25-17-08-31.png 1.5x, ./image/2023-02-25-17-08-31.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-02-25-17-08-31.png"
+        title="./image/2023-02-25-17-08-31.png" />
+这种优化后的算法被称为SPFA(Shortest Path Faster Algorithm)，<strong>它的期望时间复杂度是O(kE)，其中E是图的边数，k 是一个常数，在很多情况下k 不超过 2，可见这个算法在大部分数据时异常高效，并且经常性地优于堆优化的 Diikstra 算法。</strong> 但如果图中有从源点可达的负环，传统 SPFA的时间复杂度就会退化成 O(VE)。</p>
+<p>SPFA 十分灵活，其内部的写法可以根据具体场景的不同进行调整。例如上面代码中的FIFO队列可以替换成优先队列(priority_queue)，以加快速度;或者替换成双端队列(deque),使用SLF 优化和 LLL 优化，以使效率提高至少50%。<strong>除此之外，上面给出的代码是 SPFA的BFS 版本，如果将队列替换成栈，则可以实现 DFS 版本的 SPFA，对判环有奇效</strong>对这些内容有兴趣的读者可以去查找资料学习。
+最后，请读者使用SPFA算法完成10.4.1节中的几个例题(也就是 Dkstra算法中的例题)以熟练使用SPFA算法。</p>
+<p>题解:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">SPFA: short path first algorithm
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">是 Bellman Ford算法的改进版本, 也即并不是一定要 n-1 轮
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">每条边都更新, 只更新那些顶点值被修改的地点的邻边, 为此
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">可以借助于队列进行实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">注: 输入不包含负环， 输出第一行为
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, dis; <span style="color:#75715e">// 出边顶点, 边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> dis){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>dis <span style="color:#f92672">=</span> dis;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];  <span style="color:#75715e">// 图, 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> opt_plen[MAXN];     <span style="color:#75715e">// 最短路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ver_n, edg_n, st_p, ed_p;   <span style="color:#75715e">// 顶点数, 边数, 始点, 终点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> in_q[MAXN]; <span style="color:#75715e">// 表示各顶点是否在队列中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> edg_n <span style="color:#f92672">&gt;&gt;</span> st_p <span style="color:#f92672">&gt;&gt;</span> ed_p;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>edg_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> f, t, w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> f <span style="color:#f92672">&gt;&gt;</span> t <span style="color:#f92672">&gt;&gt;</span> w;
+</span></span><span style="display:flex;"><span>        graph[f].push_back(gnode(t, w));
+</span></span><span style="display:flex;"><span>        graph[t].push_back(gnode(f, w));    <span style="color:#75715e">// 无向图
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        in_q[i] <span style="color:#f92672">=</span> false;    <span style="color:#75715e">// 初始时均不在工作队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        opt_plen[i] <span style="color:#f92672">=</span> MAXN; <span style="color:#75715e">// 初始时均不可达
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    opt_plen[st_p] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">spfa_alg</span>(){
+</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> workQueue;
+</span></span><span style="display:flex;"><span>    workQueue.push(st_p);
+</span></span><span style="display:flex;"><span>    in_q[st_p] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>workQueue.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> workQueue.front();
+</span></span><span style="display:flex;"><span>        workQueue.pop();
+</span></span><span style="display:flex;"><span>        in_q[r] <span style="color:#f92672">=</span> false;    <span style="color:#75715e">// 已弹出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: graph[r]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mr <span style="color:#f92672">=</span> opt_plen[r] <span style="color:#f92672">+</span> nd.dis;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (mr <span style="color:#f92672">&lt;</span> opt_plen[nd.v]){
+</span></span><span style="display:flex;"><span>                opt_plen[nd.v] <span style="color:#f92672">=</span> mr;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>in_q[nd.v]){
+</span></span><span style="display:flex;"><span>                    workQueue.push(nd.v);   <span style="color:#75715e">// nd.v 有更新, 需要重新计算
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    in_q[nd.v] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    input_graph();
+</span></span><span style="display:flex;"><span>    spfa_alg();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> opt_plen[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 9 0 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 1 3 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h4 id="使用-spfa-算法解决-急救物资问题">使用 SPFA 算法解决 急救物资问题</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">使用 SPFA 算法解决 急救物资问题，跟随动态更新更易实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">尝试是否可以先找到全部路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输出路径数, 急救物资最大数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">int</span> v, dis;  <span style="color:#75715e">// 出边顶点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   gnode(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> dis){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>dis <span style="color:#f92672">=</span> dis;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ver_n, edg_n, st_p, ed_p;   <span style="color:#75715e">// 点数、边数、始点、终点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> graph[MAXN];  <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ver_weights[MAXN], opt_plen[MAXN];  <span style="color:#75715e">// 点权, 最短路径长
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> inq[MAXN];     <span style="color:#75715e">// 是否在队列中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> res_pn<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, res_mxpw<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// 最短路径数、最大累积点权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> prev_nodes[MAXN];  <span style="color:#75715e">// 前驱节点表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tmp_path, opt_path;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> edg_n <span style="color:#f92672">&gt;&gt;</span> st_p <span style="color:#f92672">&gt;&gt;</span> ed_p;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> ver_weights[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>edg_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> f, t, w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> f <span style="color:#f92672">&gt;&gt;</span> t <span style="color:#f92672">&gt;&gt;</span> w;
+</span></span><span style="display:flex;"><span>        graph[f].push_back(gnode(t, w));
+</span></span><span style="display:flex;"><span>        graph[t].push_back(gnode(f, w));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        opt_plen[i] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>        inq[i] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    opt_plen[st_p] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">spfa</span>(){
+</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> workQ;
+</span></span><span style="display:flex;"><span>    workQ.push(st_p);
+</span></span><span style="display:flex;"><span>    inq[st_p] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>workQ.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> rid <span style="color:#f92672">=</span> workQ.front();
+</span></span><span style="display:flex;"><span>        inq[rid] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>        workQ.pop();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> nd: graph[rid]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> rm <span style="color:#f92672">=</span> opt_plen[rid] <span style="color:#f92672">+</span> nd.dis;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (rm <span style="color:#f92672">&lt;</span> opt_plen[nd.v]){
+</span></span><span style="display:flex;"><span>                opt_plen[nd.v] <span style="color:#f92672">=</span> rm;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>inq[nd.v]){    <span style="color:#75715e">// 不在队列才入队
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    workQ.push(nd.v);
+</span></span><span style="display:flex;"><span>                    inq[nd.v] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                prev_nodes[nd.v].clear();
+</span></span><span style="display:flex;"><span>                prev_nodes[nd.v].insert(rid);   <span style="color:#75715e">// 更新前驱
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(rm <span style="color:#f92672">==</span> opt_plen[nd.v]){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>inq[nd.v]){    <span style="color:#75715e">// 不在队列才入队
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    workQ.push(nd.v);
+</span></span><span style="display:flex;"><span>                    inq[nd.v] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                prev_nodes[nd.v].insert(rid);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">find_path</span>(<span style="color:#66d9ef">int</span> rid){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(rid <span style="color:#f92672">==</span> st_p){
+</span></span><span style="display:flex;"><span>        tmp_path.push_back(rid);
+</span></span><span style="display:flex;"><span>        res_pn<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 计算救援物资
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> pws <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i: tmp_path)
+</span></span><span style="display:flex;"><span>            pws <span style="color:#f92672">+=</span> ver_weights[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (pws <span style="color:#f92672">&gt;</span> res_mxpw){
+</span></span><span style="display:flex;"><span>            res_mxpw <span style="color:#f92672">=</span> pws;
+</span></span><span style="display:flex;"><span>            opt_path <span style="color:#f92672">=</span> tmp_path;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        tmp_path.pop_back();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tmp_path.push_back(rid);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i: prev_nodes[rid])
+</span></span><span style="display:flex;"><span>        find_path(i);
+</span></span><span style="display:flex;"><span>    tmp_path.pop_back();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    input_graph();
+</span></span><span style="display:flex;"><span>    spfa();
+</span></span><span style="display:flex;"><span>    find_path(ed_p);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: opt_path)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> res_pn <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> res_mxpw;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 9 0 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 5 4 7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1 2 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">7 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="floyd算法">Floyd算法</h2>
+<p>解决全源最短路径问题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     GA02C04Floyd.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/27 19:36:05
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Floyd算法(读者可以将其读作“弗洛伊德算法”用来解决全源最短路问题，即对给定的图G(VE)，求任意两点uv之间的最短路径长度，时间复杂度是 0(n^3)。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">由于的复杂度决定了顶点数n的限制约在200以内，因此使用邻接矩阵来实现Flyd 算法是非常合适且方便的。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Floyd算法基于这样一个事实:如果存在顶点k，使得以k作为中介点时顶点i和顶点i的当前最短距离缩短，则使用顶点k作为顶点i和顶点i的中介点，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">即当dis[i][k] + dis[k][j] &lt; dis[i]li]时，令dis[i][j]= dis[i][k] + dis[k][j](其中 dis[i][j]表示从顶点i到顶点i的最短距离)。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">如图10-42所示，V1 到 V4 的距离为3，而以V2为中介点时可以使V1到V4的距离缩短为2，那么就把V1到V4的距离从3优化为2,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">即当dis[1][2]+dis[2][4]&lt;dis[1][4]时，令dis[1][4]= dis[1][2] + dis[2][4]。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">基于上面的事实，Floyd算法的流程如下:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">枚举顶点 k in [1，n]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    以顶点k作为中介点，枚举所有顶点对i和j(i in [1，n]，j in [1，n])
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        如果dis[il[k] +dis[k][j] &lt; dis[il[j]成立
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            赋值dis[i][i] = dis[i][k] +dis[k][j]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> dis[MAXN][MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ver_n, adj_n;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> adj_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> ti, tj, tv;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>ver_n; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            dis[i][j] <span style="color:#f92672">=</span> MAXN;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>adj_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> ti <span style="color:#f92672">&gt;&gt;</span> tj <span style="color:#f92672">&gt;&gt;</span> tv;
+</span></span><span style="display:flex;"><span>        dis[ti][tj] <span style="color:#f92672">=</span> dis[tj][ti] <span style="color:#f92672">=</span> tv;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>) dis[i][i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">plot</span>(<span style="color:#66d9ef">int</span> a[MAXN][MAXN]){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>ver_n; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> a[i][j] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">floyd</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; k<span style="color:#f92672">&lt;</span>ver_n; k<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>ver_n; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> dis[i][k]<span style="color:#f92672">+</span>dis[k][j];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(m <span style="color:#f92672">&lt;</span> dis[i][j])
+</span></span><span style="display:flex;"><span>                    dis[i][j] <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// cout &lt;&lt; &#34;k = &#34; &lt;&lt; k &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// plot(dis);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// cout &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// cout &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    floyd();
+</span></span><span style="display:flex;"><span>    plot(dis);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 3 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-title="图算法（二）最短路径算法" data-hashtags="图,最短路径"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-hashtag="图"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-title="图算法（二）最短路径算法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-title="图算法（二）最短路径算法"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-title="图算法（二）最短路径算法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%9B%BE/">图</a>,&nbsp;<a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">最短路径</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" class="prev" rel="prev" title="图算法（一）图的存储和两种遍历方式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>图算法（一）图的存储和两种遍历方式</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/" class="next" rel="next" title="图算法（三）最小生成树算法">图算法（三）最小生成树算法<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

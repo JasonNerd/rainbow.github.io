@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>伪迹判别 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E4%BC%AA%E8%BF%B9%E5%88%A4%E5%88%AB/</link>
+        <description>伪迹判别 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 16 Mar 2023 14:49:44 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E4%BC%AA%E8%BF%B9%E5%88%A4%E5%88%AB/" rel="self" type="application/rss+xml" /><item>
+    <title>EEGLAB预处理2ICA分析</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/</link>
+    <pubDate>Thu, 16 Mar 2023 14:49:44 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[独立成分分析的原理 独立成分分析 (Independent Component Analysis)又称盲源分离(Blind Source Separation，BSS) 算法, 它的工作就是要将混合的信号]]></description>
+</item>
+</channel>
+</rss>

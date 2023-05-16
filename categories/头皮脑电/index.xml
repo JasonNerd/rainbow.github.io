@@ -1,0 +1,80 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>头皮脑电 - Category - </title>
+        <link>https://www.rainbow.github.io/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/</link>
+        <description>头皮脑电 - Category - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 25 Mar 2023 19:11:01 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/" rel="self" type="application/rss+xml" /><item>
+    <title>脑电数据分析工具MNE与EEGLAB的比较分析</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/</link>
+    <pubDate>Sat, 25 Mar 2023 19:11:01 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[1. 概述 MNE: 一个开源的Python程序库, 可用于对MEG、EEG、ECoG、NIRS等人类神经生理学数据(neurophysiological d]]></description>
+</item>
+<item>
+    <title>心理学认知实验范式</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%A4%E7%9F%A5%E5%AE%9E%E9%AA%8C%E8%8C%83%E5%BC%8F/</link>
+    <pubDate>Thu, 16 Mar 2023 20:26:18 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E5%BF%83%E7%90%86%E5%AD%A6%E8%AE%A4%E7%9F%A5%E5%AE%9E%E9%AA%8C%E8%8C%83%E5%BC%8F/</guid>
+    <description><![CDATA[实验范式(Experimental Paradigm)：是指在各种心理过程和各个心理学分支的研究中较经典的实验任务。也就是相对固定的实验程序。]]></description>
+</item>
+<item>
+    <title>OpenViBE 简明扼要上手指南</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/</link>
+    <pubDate>Thu, 16 Mar 2023 15:31:06 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/</guid>
+    <description><![CDATA[OpenViBE介绍 OpenViBE是一个开源软件平台，用于脑机接口系统的设计、测试和使用，并将它们与真实和虚拟环境相连接。该平台由一组软件]]></description>
+</item>
+<item>
+    <title>EEGLAB预处理2ICA分析</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/</link>
+    <pubDate>Thu, 16 Mar 2023 14:49:44 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[独立成分分析的原理 独立成分分析 (Independent Component Analysis)又称盲源分离(Blind Source Separation，BSS) 算法, 它的工作就是要将混合的信号]]></description>
+</item>
+<item>
+    <title>EEGLAB脑电信号预处理1基本流程</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/</link>
+    <pubDate>Tue, 14 Mar 2023 22:04:57 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/</guid>
+    <description><![CDATA[单被试EEG预处理步骤 Import data&ndash; 导入数据 Channellocation &ndash; 导入电极信息 Select data &ndash; 删除无用电极 bad channel interpolation &ndash; 插值坏导 Re-reference &ndash; 重参考 Filter&ndash; 滤波 Resample &ndash; 重采样 Extract epoch and Remove baseline &ndash; 分段和基线校正 Inpendent component]]></description>
+</item>
+<item>
+    <title>脑电信号分析2脑信号生理学基础</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%902%E8%84%91%E4%BF%A1%E5%8F%B7%E7%94%9F%E7%90%86%E5%AD%A6%E5%9F%BA%E7%A1%80/</link>
+    <pubDate>Tue, 14 Mar 2023 19:15:10 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%902%E8%84%91%E4%BF%A1%E5%8F%B7%E7%94%9F%E7%90%86%E5%AD%A6%E5%9F%BA%E7%A1%80/</guid>
+    <description><![CDATA[第01章 - 脑电信号 脑电信号是通过电极记录下来的脑细胞群的自发性、节律性电活动。我们通常所说的脑电图是指头皮脑电图(scalp electroe]]></description>
+</item>
+<item>
+    <title>脑电信号分析1章节目录</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%901%E7%AB%A0%E8%8A%82%E7%9B%AE%E5%BD%95/</link>
+    <pubDate>Tue, 14 Mar 2023 19:10:37 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%901%E7%AB%A0%E8%8A%82%E7%9B%AE%E5%BD%95/</guid>
+    <description><![CDATA[李颖洁 朱贻盛 邱意弘 编著 2009年2月第一版@科学出版社 本书侧重点 脑电信号是来自大脑这一复杂系统的生理电信号, 随机性很强, 节律种类多样, 各种不]]></description>
+</item>
+<item>
+    <title>BCI软件平台简介</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/</link>
+    <pubDate>Mon, 13 Mar 2023 10:32:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/</guid>
+    <description><![CDATA[脑-机接口能够实现大脑与外界设备的直接通讯。构建一套完整的脑-机接口系统既需要硬件平台也需要软件平台。其中，软件平台涉及刺激呈现、数据读取与]]></description>
+</item>
+<item>
+    <title>PsychoPy心理学实验平台简介</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Mon, 13 Mar 2023 10:32:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[1. Psychopy是什么 PsychoPy 是一款基于 Python 开发的心理学工具包，旨在提供一套足够强大、现代化的工具，帮助各界心理学者设计、开展实验，是一个用于设计]]></description>
+</item>
+</channel>
+</rss>

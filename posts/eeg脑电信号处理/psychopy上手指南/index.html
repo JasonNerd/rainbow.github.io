@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>PsychoPy心理学实验平台简介 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="PsychoPy心理学实验平台简介" />
+<meta property="og:description" content="1. Psychopy是什么 PsychoPy 是一款基于 Python 开发的心理学工具包，旨在提供一套足够强大、现代化的工具，帮助各界心理学者设计、开展实验，是一个用于设计" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-13T10:32:48+08:00" />
+<meta property="article:modified_time" content="2023-03-13T10:32:48+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PsychoPy心理学实验平台简介"/>
+<meta name="twitter:description" content="1. Psychopy是什么 PsychoPy 是一款基于 Python 开发的心理学工具包，旨在提供一套足够强大、现代化的工具，帮助各界心理学者设计、开展实验，是一个用于设计"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" /><link rel="prev" href="https://www.rainbow.github.io/posts/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/c12exception/c12exception/" /><link rel="next" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "PsychoPy心理学实验平台简介",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97\/"
+        },"genre": "posts","keywords": "脑机接口平台, 心理学实验","wordcount":  1010 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97\/","datePublished": "2023-03-13T10:32:48+08:00","dateModified": "2023-03-13T10:32:48+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">PsychoPy心理学实验平台简介</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>头皮脑电</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-13">2023-03-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1010 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-psychopy是什么">1. Psychopy是什么</a></li>
+    <li><a href="#2-如何使用-psychopy">2. 如何使用 psychopy</a></li>
+    <li><a href="#3-网页参考">3. 网页参考</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-psychopy是什么">1. Psychopy是什么</h2>
+<p>PsychoPy 是一款基于 Python 开发的心理学工具包，旨在提供一套足够强大、现代化的工具，帮助各界心理学者设计、开展实验，是一个用于设计实验任务、构建刺激程序的工具包，包含 python 库(pip install psychopy) 和独立的GUI开发工具(Windows .exe release)</p>
+<ul>
+<li><a href="https://www.psychopy.org/" target="_blank" rel="noopener noreffer ">PsychoPy官网 </a>
+PsychoPy是一款完全开源的，基于Python语言的，专门为编制心理学实验程序而设计的一款免费软件，于2003年由英国诺丁汉大学Jonathan Peirce教授等人主持开发，最早的时候，英国诺丁汉大学的Jonathan Peirce教授期望编写一个比基于MATLAB的psychtoolbox更加方便的实验刺激呈现工具，于是诞生了最初的PsychoPy原型，并且在经过初步的改进后成为诺丁汉大学心理学实验室的实验工具。不过那个时候的PsychoPy还是依赖于Python的各种包而建立的一个小工具。在经历了几年间数次的版本更新后，PsychoPy于2009年正式发布PsychoPy2，成为一个完整的包含了图形界面和各种必要底层库的软件，也凭借其易用性和稳定性，成为能够完全替代传统实验软件E-prime和Presentation的心理学实验软件。PsychoPy是一款基于Pygame搭建的心理学编程软件，其优点在与图形化界面、免费开源、易上手、可以进行远程在线实验，其缺点是软件内没有数据分析模块。对于有python基础的小伙伴们来说，利用PsychoPy来编写实验程序会更加简单，在Builder图形化界面上就能实现绝大多数的功能。
+关于PsychoPy的更新与历史版本可以在GitHub上查看：https://github.com/psychopy</li>
+</ul>
+<h2 id="2-如何使用-psychopy">2. 如何使用 psychopy</h2>
+<ul>
+<li>PsychoPy Builder：图形化编辑界面，之后要讲的大部分的操作都会在这里完成；</li>
+<li>PsychoPy Coder：代码编辑界面，有需要时，可以在这里加载代码，进行更加直接的修改；</li>
+<li>PsychoPy Runner：程序运行器，在本地运行程序时，会通过它记录程序中发生的所有事件，并输出日志。</li>
+</ul>
+<h2 id="3-网页参考">3. 网页参考</h2>
+<h4 id="2-1-psychopy-简介安装">2-1 Psychopy 简介、安装</h4>
+<ol>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/547122997" target="_blank" rel="noopener noreffer ">PsychoPy 简明扼要上手指南——入门篇</a></p>
+</li>
+<li>
+<p><a href="https://cloud.tencent.com/developer/news/43189" target="_blank" rel="noopener noreffer ">【干货】PsychoPy简介-腾讯云开发者公众号</a></p>
+</li>
+</ol>
+<h4 id="2-2-psychopy-编程使用教程">2-2 Psychopy 编程使用教程</h4>
+<ol>
+<li><a href="https://www.psychopy.org/documentation.html" target="_blank" rel="noopener noreffer ">Psychopy Documentation</a></li>
+<li><a href="https://www.psychopy.org/PsychoPyManual.pdf" target="_blank" rel="noopener noreffer ">Psychopy Manual</a></li>
+<li><a href="https://sites.google.com/view/ympsychopynotes/home" target="_blank" rel="noopener noreffer ">我的Psychopy 學習筆記 &ndash; 輔大心理系的老師黃揚名</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLFB5A1BE51964D587" target="_blank" rel="noopener noreffer ">youtube Psychopy video play-list</a></li>
+<li><a href="https://www.amazon.cn/dp/B08DKSZCKV" target="_blank" rel="noopener noreffer ">实验编程：PsychoPy从入门到精通 Kindle电子书 &ndash; 亚马逊</a></li>
+</ol>
+<h4 id="2-3-psychopy-编程案例">2-3 Psychopy 编程案例</h4>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/329825940" target="_blank" rel="noopener noreffer ">如何利用PsychoPy编写一个经典心理学实验——以返回抑制为例</a></li>
+<li><a href="https://blog.51cto.com/u_15127566/2707640" target="_blank" rel="noopener noreffer ">Psychopy | 第4期：实验数据的收集与处理</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" data-title="PsychoPy心理学实验平台简介" data-hashtags="脑机接口平台,心理学实验"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" data-hashtag="脑机接口平台"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" data-title="PsychoPy心理学实验平台简介"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" data-title="PsychoPy心理学实验平台简介"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/" data-title="PsychoPy心理学实验平台简介"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E8%84%91%E6%9C%BA%E6%8E%A5%E5%8F%A3%E5%B9%B3%E5%8F%B0/">脑机接口平台</a>,&nbsp;<a href="/tags/%E5%BF%83%E7%90%86%E5%AD%A6%E5%AE%9E%E9%AA%8C/">心理学实验</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/c12exception/c12exception/" class="prev" rel="prev" title="第12章异常处理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第12章异常处理</a>
+            <a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/" class="next" rel="next" title="BCI软件平台简介">BCI软件平台简介<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

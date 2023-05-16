@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>BFS - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/bfs/</link>
+        <description>BFS - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 14:49:02 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/bfs/" rel="self" type="application/rss+xml" /><item>
+    <title>搜索专题(1)-广度优先搜索(BFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</link>
+    <pubDate>Fri, 07 Apr 2023 14:49:02 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</guid>
+    <description><![CDATA[搜索, 就是在一个集合中按照一定的规则遍历访问集合的每一个元素的过程. 而广度优先搜索就是每次都把距离最近的元素访问完毕才会去访问更远的元素, 类]]></description>
+</item>
+<item>
+    <title>图算法（一）图的存储和两种遍历方式</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Fri, 07 Apr 2023 10:30:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[图的基本概念与存储遍历方式 图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点]]></description>
+</item>
+</channel>
+</rss>

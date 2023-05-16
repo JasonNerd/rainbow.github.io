@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据结构 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+        <description>数据结构 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 11 Apr 2023 10:15:20 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="self" type="application/rss+xml" /><item>
+    <title>专题扩展(2) - 树状数组(BIT)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/</link>
+    <pubDate>Tue, 11 Apr 2023 10:15:20 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/</guid>
+    <description><![CDATA[lowbit 运算 $lowbit(x) = x &amp; (-x)$ 整数在计算机中一般采用的是补码存储，并且把一个补码表示的整数 x变成其相反数-x的过程相当于把x的二进制的每一位都取反，然后末]]></description>
+</item>
+</channel>
+</rss>

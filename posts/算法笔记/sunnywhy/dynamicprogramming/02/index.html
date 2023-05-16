@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>动态规划专题-经典问题集（一） - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="动态规划专题-经典问题集（一）" />
+<meta property="og:description" content="例题1. 最大连续子序列和 给定一个数字序列A1, A2, ..., An; 求i, j(1 &lt;= i, j &lt;= n), 使得Ai&#43;...&#43;Aj最大, 输出这个最大和sum和i, j. 思考: 考虑问题" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-30T11:32:13+08:00" />
+<meta property="article:modified_time" content="2023-03-30T11:32:13+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="动态规划专题-经典问题集（一）"/>
+<meta name="twitter:description" content="例题1. 最大连续子序列和 给定一个数字序列A1, A2, ..., An; 求i, j(1 &lt;= i, j &lt;= n), 使得Ai&#43;...&#43;Aj最大, 输出这个最大和sum和i, j. 思考: 考虑问题"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/01/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "动态规划专题-经典问题集（一）",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/02\/"
+        },"genre": "posts","keywords": "算法, 动态规划","wordcount":  2523 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/02\/","datePublished": "2023-03-30T11:32:13+08:00","dateModified": "2023-03-30T11:32:13+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">动态规划专题-经典问题集（一）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-30">2023-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2523 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#例题1-最大连续子序列和">例题1. 最大连续子序列和</a></li>
+    <li><a href="#例题2-最长不下降子序列lis">例题2. 最长不下降子序列(LIS)</a></li>
+    <li><a href="#例题3-最长公共子序列lcs">例题3. 最长公共子序列(LCS)</a></li>
+    <li><a href="#例题4-最长回文子串lps">例题4. 最长回文子串(LPS)</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="例题1-最大连续子序列和">例题1. 最大连续子序列和</h2>
+<p><code>给定一个数字序列A1, A2, ..., An; 求i, j(1 &lt;= i, j &lt;= n), 使得Ai+...+Aj最大, 输出这个最大和sum和i, j.</code></p>
+<p>思考: 考虑问题是要求一个序列的连续子序列, 这个连续子序列的数字之和必须是所有子序列里最大的, 一个想法就是遍历所有这样的子序列, 在其中搜索和最大的即可, 此时算法时间复杂度为$O(n^3)$. 此时, 不妨固定i使其为0也即整个序列的开端, 迭代j指针, 观察 [0, &hellip;, j] 内的子序列. 定义这样一个状态数组dp[n], dp[i]表示[0, i]且包含A[i]的子序列的最大和, 那么如何通过dp[i-1]得到dp[i], dp[i-1]表示包括了A[i-1]的连续子序列的最大和, 在加入A[i]后, 这将构成一个新的连续序列, 其和为 dp[i-1]+A[i], 而如果 dp[i-1]&lt;0, 则舍弃 dp[i-1], 使得A[i]成为新的最大子序列的和, 在这一求解过程中得到的最大值即为求解结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> dp[MAXN], nums[MAXN];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mxs<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> nums[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(nums[i] <span style="color:#f92672">&lt;</span> mxs)
+</span></span><span style="display:flex;"><span>            mxs <span style="color:#f92672">=</span> nums[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 求解 dp 数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    dp[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> nums[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>)  dp[i] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> nums[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> dp[i] <span style="color:#f92672">=</span> nums[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(dp[i] <span style="color:#f92672">&gt;</span> mxs) mxs <span style="color:#f92672">=</span> dp[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxs <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-2 11 -4 13 -5 -2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="例题2-最长不下降子序列lis">例题2. 最长不下降子序列(LIS)</h2>
+<p>最长不下降子序列(LongestIncreasing Sequence，LIS)是这样一个问题:
+<code>在一个数字序列中，找到一个最长的子序列(可以不连续)，使得这个子序列是不下降(非递减)的</code>
+例如，现有序列<code>A={1, 2, 3, -1, -2, 7, 9}</code>(下标从1开始), 它的最长不下降子序列是<code>[1, 2, 3, 7, 9]</code>，长度为5。另外，还有一些子序列是不下降子序列，比如<code>[-1, 7, 9]</code> 和 <code>[-2, 7, 9]</code>等,但都不是最长的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     lis.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/31 10:43:06
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> nums[MAXN], n;  <span style="color:#75715e">// 输入数组及其长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dp[MAXN], pt[MAXN]; <span style="color:#75715e">// dp状态数组, 路径追踪数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// dp[i] 表示以 A[i]结尾的LIS长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// pt[i] 表示 在[0, ..., i)中选择尾随哪一个编号 或者自成一派
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_arr</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> nums[i];
+</span></span><span style="display:flex;"><span>        pt[i] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 外层移动 i 指针
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, pti <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 内层访问 A[0, ..., i)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>i; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(nums[i] <span style="color:#f92672">&gt;=</span> nums[j] <span style="color:#f92672">&amp;&amp;</span> dp[j] <span style="color:#f92672">&gt;</span> mx){
+</span></span><span style="display:flex;"><span>                mx <span style="color:#f92672">=</span> dp[j];
+</span></span><span style="display:flex;"><span>                pti <span style="color:#f92672">=</span> j;    <span style="color:#75715e">// 寻找其中可继承的LIS最长的编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 进行决策
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(mx <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>            dp[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;  <span style="color:#75715e">// 没找到
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            pt[i] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            dp[i] <span style="color:#f92672">=</span> mx<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            pt[i] <span style="color:#f92672">=</span> pti;    <span style="color:#75715e">// 附在 pti 后
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">result</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> step){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(pt[i] <span style="color:#f92672">==</span> i)  <span style="color:#75715e">// 这是路径的开头
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Length of LIS is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> step <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        result(pt[i], step<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);  <span style="color:#75715e">// 先打印前面的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_info</span>(){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;------------&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;i: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, LIS: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> dp[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, prev id: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> pt[i] <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;------------&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_arr();
+</span></span><span style="display:flex;"><span>    solve();
+</span></span><span style="display:flex;"><span>    _info();
+</span></span><span style="display:flex;"><span>    result(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">最长不下降子序列(LongestIncreasing Sequence，LIS)是这样一个问题:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">在一个数字序列中，找到一个最长的子序列(可以不连续)，使得这个子序列是不下降(非递减)的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">例如，现有序列A={1, 2, 3, -1, -2, 7, 9}(下标从1开始), 它的最长不下降子序列是[1, 2, 3, 7, 9]，长度为5。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 3 -9 3 9 0 11
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 3 -1 -2 7 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="例题3-最长公共子序列lcs">例题3. 最长公共子序列(LCS)</h2>
+<p>最长公共子序列(<code>Longest Common Subsequence，LCS</code>)的问题描述为:给定两个字符串(或数字序列)A和B，求一个字符串，使得这个字符串是A和B的<strong>最长公共部分</strong>(子序列可以不连续)。如样例所示，字符串“<code>sadstory</code>”与“<code>adminsorry</code>”的最长公共子序列为“<code>adsory</code>”，长度为<code>6</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     mxcommon.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/01 09:55:57
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">最长公共子序列(`Longest Common Subsequence，LCS`)的问题描述为:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    给定两个字符串(或数字序列)A和B，求一个字符串，使得这个字符串是A和B的最长公共部分(子序列可以不连续)。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">input: sadstory与 adminsorry 的最长公共子序列为 adsory，长度为 6 。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span>string strA, strB;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> dpAB[MAXN][MAXN], path_trace[MAXN][MAXN];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initial_input</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> strA <span style="color:#f92672">&gt;&gt;</span> strB;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化 dp 数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>strA.length(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(strA[i] <span style="color:#f92672">==</span> strB[<span style="color:#ae81ff">0</span>]){
+</span></span><span style="display:flex;"><span>            dpAB[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            path_trace[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>strB.length(); j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (strB[j] <span style="color:#f92672">==</span> strA[<span style="color:#ae81ff">0</span>]){
+</span></span><span style="display:flex;"><span>            dpAB[<span style="color:#ae81ff">0</span>][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            path_trace[<span style="color:#ae81ff">0</span>][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve_dp</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;</span>strA.length(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; j<span style="color:#f92672">&lt;</span>strB.length(); j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(strA[i]<span style="color:#f92672">==</span>strB[j]){
+</span></span><span style="display:flex;"><span>                dpAB[i][j] <span style="color:#f92672">=</span> dpAB[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                path_trace[i][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(dpAB[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">&gt;</span> dpAB[i][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]){<span style="color:#75715e">// 继承上方
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    dpAB[i][j] <span style="color:#f92672">=</span> dpAB[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j];
+</span></span><span style="display:flex;"><span>                    path_trace[i][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>                }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>                    dpAB[i][j] <span style="color:#f92672">=</span> dpAB[i][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>                    path_trace[i][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">trace_path</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> j<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)   <span style="color:#75715e">// trace 到了起点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Longest common substring: &#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">switch</span> (path_trace[i][j]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> trace_path(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span> trace_path(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j);<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span> trace_path(i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (path_trace[i][j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> strA[i];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    initial_input();
+</span></span><span style="display:flex;"><span>    solve_dp();
+</span></span><span style="display:flex;"><span>    trace_path(strA.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, strB.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> dpAB[strA.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][strB.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">A: adminsorry
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">B: sadstory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">回想 LSS, LIS, 这里不妨设立:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">dp[i][j] 表示 A[0, ... i] 与 B[0, ..., j] 的最大公共子序列的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  s  a  d  s  t  o  r  y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a 0  1  0  0  0  0  0  0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">d 0  1  2  2  2  2  2  2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">m 0  1  2  2  2  2  2  2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">i 0  1  2  2  2  2  2  2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">n 0  1  2  2  2  2  2  2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">s 1  1  2  3  3  3  3  3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">o 0  1  2  3  3  4  4  4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">r 0  1  2  3  3  4  5  5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">r 0  1  2  3  3  4  5  5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">y 0  1  2  3  3  4  5  6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">dp[i+1][j+1] = (a[i]==b[j])? dp[i][j]+1 : max(dp[i][j+1], dp[i+1][j])
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="例题4-最长回文子串lps">例题4. 最长回文子串(LPS)</h2>
+<p>最长回文子串(<code>Longest Palindrome Sequence, LPS</code>)的问题描述:
+给出一个字符串S，求S的最长回文子串的长度。
+样例: 字符串&quot;PATZJUJZTACCBCC&quot;的最长回文子串为&quot;ATZJUJZTA&quot;，长度为9.</p>
+<p>还是先看暴力解法:枚举子串的两个端点i和j，判断在[i, j]区间内的子串是否回文。从复杂度上来看，枚举端点需要 O(n^2)，判断回文需要 O(n)，因此总复杂度是 O(n^3)。可能会有读者想把这个问题转换为最长公共子序列(LCS)问题来求解:把字符串 S 倒过来变成字符串 T，然后对S和T进行LCS 模型求解，得到的结果就是需要的答案。而事实上这种做法是错误的，因为一旦 S中同时存在一个子串和它的倒序，那么答案就会出错。例如字符串S=&ldquo;ABCDZJUDCBA”，将其倒过来之后会变成T=&ldquo;ABCDUJZDCBA&rdquo;，这样得到最长公共子串为&quot;ABCD”，长度为4，而事实上S 的最长回文子长度为 1。因此这样的做法是不行的。</p>
+<ol>
+<li>暴力搜索</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">judge_ok</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">palindrome</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> mxl);
+</span></span><span style="display:flex;"><span>string iptstr;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 暴力搜索
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">palindrome</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> mxl){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>iptstr.length(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i; j<span style="color:#f92672">&lt;</span>iptstr.length(); j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(judge_ok(i, j))
+</span></span><span style="display:flex;"><span>                mxl <span style="color:#f92672">=</span> (j<span style="color:#f92672">-</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&gt;</span> mxl <span style="color:#f92672">?</span> (j<span style="color:#f92672">-</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">:</span> mxl;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;i = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, mxl = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> mxl <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// if a string is a palindrome
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">judge_ok</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(i<span style="color:#f92672">&lt;=</span>j){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(iptstr[i]<span style="color:#f92672">==</span>iptstr[j]){
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>i;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">--</span>j;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> iptstr;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mxl <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    palindrome(mxl);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="2">
+<li>使用dp数组</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// 给出一个字符串S，求S的最长回文子串的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义状态数组dp[][], dp[i][j]表示S[i, ...,j]是否为回文字符串, i&lt;=j
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 于是: dp[i][j] = (S[i] == S[j]) ? dp[i+1][j-1]: false;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>string iptstr, substr;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">palindrome</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> iptstr.length();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 定义一个上三角布尔数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> <span style="color:#f92672">**</span>dp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bool</span><span style="color:#f92672">*</span> [n];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        dp[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">bool</span> [n<span style="color:#f92672">-</span>i];
+</span></span><span style="display:flex;"><span>    substr <span style="color:#f92672">=</span> iptstr[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化: 从左上[0, 0]到右下[n-1, n-1]的两条对角线
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        dp[i][i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(iptstr[i]<span style="color:#f92672">==</span>iptstr[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>            dp[i][i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            substr <span style="color:#f92672">=</span> iptstr.substr(i, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> dp[i][i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>false;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 接着 fill the rest slope
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> layer<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>; layer<span style="color:#f92672">&lt;=</span>n; layer<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;=</span>n<span style="color:#f92672">-</span>layer; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(iptstr[i] <span style="color:#f92672">==</span> iptstr[layer<span style="color:#f92672">+</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]){
+</span></span><span style="display:flex;"><span>                dp[i][layer<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>i] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][layer<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span>i];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(dp[i][layer<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>i]) substr <span style="color:#f92672">=</span> iptstr.substr(i, layer);
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> dp[i][layer<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>i] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(true){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> iptstr;
+</span></span><span style="display:flex;"><span>        palindrome();
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> substr <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(substr.length()<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>)<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" data-title="动态规划专题-经典问题集（一）" data-hashtags="算法,动态规划"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" data-title="动态规划专题-经典问题集（一）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" data-title="动态规划专题-经典问题集（一）"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" data-title="动态规划专题-经典问题集（一）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" class="prev" rel="prev" title="第11章-动态规划专题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第11章-动态规划专题</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/01/" class="next" rel="next" title="第01章-二叉树">第01章-二叉树<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

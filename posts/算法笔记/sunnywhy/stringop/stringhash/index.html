@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>字符串专题(1)-字符串Hash - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="字符串专题(1)-字符串Hash" />
+<meta property="og:description" content="字符串hash 是指将一个字符串S 映射为一个整数，使得该整数可以尽可能唯一地代表字符串 S。那么在一定程度上，如果两个字符串转换成的整数相等，就" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T16:14:52+08:00" />
+<meta property="article:modified_time" content="2023-04-07T16:14:52+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="字符串专题(1)-字符串Hash"/>
+<meta name="twitter:description" content="字符串hash 是指将一个字符串S 映射为一个整数，使得该整数可以尽可能唯一地代表字符串 S。那么在一定程度上，如果两个字符串转换成的整数相等，就"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "字符串专题(1)-字符串Hash",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/stringop\/stringhash\/"
+        },"genre": "posts","keywords": "字符串, 哈希","wordcount":  1536 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/stringop\/stringhash\/","datePublished": "2023-04-07T16:14:52+08:00","dateModified": "2023-04-07T16:14:52+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">字符串专题(1)-字符串Hash</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1536 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#最长公共子串">最长公共子串</a>
+      <ul>
+        <li><a href="#子串hash值">子串Hash值</a></li>
+        <li><a href="#题解">题解</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>字符串hash 是指将一个字符串S 映射为一个整数，使得该整数可以尽可能唯一地代表字符串 S。那么在一定程度上，如果两个字符串转换成的整数相等，就可以认为这两个字符串相同。</p>
+<p>此前, 对于一个只有大写字母的字符串, 是把它的每一个字符当作一个26进制的数位, 整个字符串形成一个26进制数, 那么Hash就是把它转为10进制数即可. 然而, 当字符串太长时, 这个数字会大到难以承受. 一个常用方法是利用模数, 也即取某个素数 mod 的模.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>H[i]<span style="color:#f92672">=</span>H[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]x26<span style="color:#f92672">+</span><span style="color:#a6e22e">index</span>(str[i]) <span style="color:#75715e">// (i: from 0 to H.length-1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>H[i]<span style="color:#f92672">=</span>(H[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]x26<span style="color:#f92672">+</span><span style="color:#a6e22e">index</span>(str[i])) <span style="color:#f92672">%</span> mod <span style="color:#75715e">// (i: from 0 to H.length-1)
+</span></span></span></code></pre></div><p>但这又会产生另外的问题，也就是可能有多个字符串的 hash 值相同，导致冲突。不过幸运的是，在实践中发现，在 int 数据范围内，如果把进制数设置为一个 $10^7$ 级别的素数p(例如10000019)，同时把mod 设置为一个 $10^9$ 级别的素数(例如1000000007)，如下所示，那么冲突的概率将会变得非常小
+<code>H[i] = (H[i-1] x p +index(str[i])) % mod</code>
+来看一个问题:给出N个只有小写字母的字符串，求其中不同的字符串的个数。对这个问题，如果只用字符串 hash 来做，那么只需要将N个字符串使用字符串 hash函数转换为N个整数，然后将它们排序去重即可，代码如下(当然也可以用 set 或者 map 直接一步实现，但是速度比字符串 hash 会慢一点点):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">hashFunc</span>(string str){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> H <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// in case of excessing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">char</span> c: str){
+</span></span><span style="display:flex;"><span>        H <span style="color:#f92672">=</span> (H<span style="color:#f92672">*</span>P<span style="color:#f92672">+</span>(c<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>))<span style="color:#f92672">%</span>MOD;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> H;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="最长公共子串">最长公共子串</h2>
+<p>来看一个问题:输入两个长度均不超过1000的字符串，求它们的 最长公共子串 的长度。例如字符串&quot;ILoveYou&quot;与&quot;YouDontLoveMe&quot;的最长公共子串是&quot;Love&quot;而不是&quot;You&quot;，因此输出4。(注意:子串必须连续)</p>
+<h3 id="子串hash值">子串Hash值</h3>
+<p>在经过上述推导后, 我们得到了一个冲突概率小的字符串哈希函数, 我们依次得到了 <code>H[0]</code>, <code>H[1]</code>, &hellip; , <code>H[n-1]</code>. 其中 <code>H[n-1]</code> 即为最后的字符串 <code>str</code> 的哈希值, 实际工程并未使用数组存储中间值, 而是使用不断覆盖的方法. 现考虑一个问题, 如何求 <code>str</code> 的子串 <code>str[i ... j]</code> 的Hash值, 一个方法就是不考虑已经得到的 <code>H[]</code> 当作新的字符串再调用函数求解. 然而这样势必失去了Hash的时间优势. 是否可以仅凭借 <code>H[]</code> 得到 <code>str[i ... j]</code> 的 Hash 值呢？</p>
+<p>考察 <code>H[i]</code>, 他表示了字符串 <code>str[0 ... i]</code> 的 Hash 值, 假如不考虑MOD操作, 回到原始的进制思想, 则有
+$H[i]=H[i-1]\times p+index(str[i])$
+而 $H[i &hellip; j]$ 就表示 str[i &hellip; j] 从 p进制转为10进制的结果
+$ H[i, j] = str[i] \times p^{(j-i)} +&hellip;+ str[i] \times p^{(j-j)}$
+又有:
+$H[j] = H[j-1]*p+str[j] $
+继续迭代到第i步, 就得到
+$H[j]=H[i-1]*p^{(j-i+1)}+H[i, j]$
+于是就有:
+$H[i, j] = H[j]-H[i-1]*p^{j-i+1}$
+最后再加上取模操作，同时为了保证 H[i, j] 为正数, 就得到:</p>
+<p>$$H[i,j] = (H[j]-H[i-1]<em>p^{j-i+1}) % mod$$
+$$H[i,j] = H[j]% mod-(H[i-1]<em>p^{j-i+1}) % mod$$
+$$H[i,j] = H[j]% mod-(H[i-1]% mod)</em>(p^{j-i+1}% mod) % mod$$
+$$H[i,j] = H[j]-H[i-1]</em>(p^{j-i+1}% mod)% mod$$
+$$H[i,j] = (H[j]-H[i-1]*(p^{j-i+1}% mod) % mod+mod)% mod$$</p>
+<p>于是, str 的 H[] 通过 hashFunc() 可以得到, 而 (p^{j-i+1}% mod) 也可以单独计算得到, 设为 P[], 易知它独立于字符串, 在 P 和 mod 确定时是一个常数数组.</p>
+<h3 id="题解">题解</h3>
+<p>以上讨论了计算字符串Hash值后, 利用中间值得到子串哈希值的方法. 接下来, 就是问题求解, 我们遍历两个字符串的每一个子串, 计算哈希值并存储, 然后比较它们之间是否有相同的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     substrmxl.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/08 14:01:16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e9</span><span style="color:#f92672">+</span><span style="color:#ae81ff">7</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> P <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e7</span><span style="color:#f92672">+</span><span style="color:#ae81ff">19</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXLEN <span style="color:#f92672">=</span> <span style="color:#ae81ff">1010</span>;    <span style="color:#75715e">// 字符串最大长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> LL;
+</span></span><span style="display:flex;"><span>LL powerP[MAXLEN];         <span style="color:#75715e">// 计算P^[i]%MOD的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">hashnode</span>{
+</span></span><span style="display:flex;"><span>    LL hashval;     <span style="color:#75715e">// 子串哈希值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> i, j;       <span style="color:#75715e">// 子串下标值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    hashnode(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j, <span style="color:#66d9ef">int</span> v){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>i <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>j <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>hashval <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hashFunc</span>(LL H[], string str){
+</span></span><span style="display:flex;"><span>    H[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> str[<span style="color:#ae81ff">0</span>];  <span style="color:#75715e">// 自定义一个值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;</span>str.length(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        H[i] <span style="color:#f92672">=</span> (H[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>P<span style="color:#f92672">+</span>str[i]) <span style="color:#f92672">%</span> MOD;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fillPowerP</span>(){
+</span></span><span style="display:flex;"><span>    powerP[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;</span>MAXLEN; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        powerP[i] <span style="color:#f92672">=</span> (powerP[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>P)<span style="color:#f92672">%</span>MOD;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 计算 H[i, j]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>LL <span style="color:#a6e22e">substrHash</span>(LL H[], <span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> H[j];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> (H[j]<span style="color:#f92672">-</span>(H[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">*</span>powerP[j<span style="color:#f92672">-</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])<span style="color:#f92672">%</span>MOD<span style="color:#f92672">+</span>MOD)<span style="color:#f92672">%</span>MOD;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 计算所有子串的的 Hash 值, 并保存 hash-value, i, j
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hashStrCal</span>(LL H[], <span style="color:#66d9ef">int</span> n, vector<span style="color:#f92672">&lt;</span>hashnode<span style="color:#f92672">&gt;&amp;</span> res){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i; j<span style="color:#f92672">&lt;</span>n; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            res.push_back(hashnode(i, j, substrHash(H, i, j)));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 输入两个字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string str1, str2;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> str1 <span style="color:#f92672">&gt;&gt;</span> str2;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 计算 str1 和 str2 的 Hash 值数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n1 <span style="color:#f92672">=</span> str1.length(), n2 <span style="color:#f92672">=</span> str2.length();
+</span></span><span style="display:flex;"><span>    LL <span style="color:#f92672">*</span>H1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LL[n1], <span style="color:#f92672">*</span>H2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LL[n2];
+</span></span><span style="display:flex;"><span>    fillPowerP();
+</span></span><span style="display:flex;"><span>    hashFunc(H1, str1);
+</span></span><span style="display:flex;"><span>    hashFunc(H2, str2);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. 计算 str1 和 str2 的 所有子串的Hash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span>hashnode<span style="color:#f92672">&gt;</span> res1, res2;
+</span></span><span style="display:flex;"><span>    hashStrCal(H1, n1, res1);
+</span></span><span style="display:flex;"><span>    hashStrCal(H2, n2, res2);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 4. 比较 hash 值, 迭代得到最长的公共字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> mxl<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    string mxsubstr;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>res1.size(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>res2.size(); j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> l1 <span style="color:#f92672">=</span> res1[i].j <span style="color:#f92672">-</span> res1[i].i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> l2 <span style="color:#f92672">=</span> res2[j].j <span style="color:#f92672">-</span> res2[j].i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(res1[i].hashval <span style="color:#f92672">==</span> res2[j].hashval <span style="color:#f92672">&amp;&amp;</span> l1<span style="color:#f92672">==</span>l2 <span style="color:#f92672">&amp;&amp;</span> l1 <span style="color:#f92672">&gt;</span> mxl){
+</span></span><span style="display:flex;"><span>                mxl <span style="color:#f92672">=</span> l1;
+</span></span><span style="display:flex;"><span>                mxsubstr <span style="color:#f92672">=</span> str1.substr(res1[i].i, l1);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxl <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxsubstr <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a a
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a ba
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a b
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">aa ba
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">icanhearyou iamearyel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" data-title="字符串专题(1)-字符串Hash" data-hashtags="字符串,哈希"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" data-hashtag="字符串"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" data-title="字符串专题(1)-字符串Hash"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" data-title="字符串专题(1)-字符串Hash"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" data-title="字符串专题(1)-字符串Hash"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>,&nbsp;<a href="/tags/%E5%93%88%E5%B8%8C/">哈希</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" class="prev" rel="prev" title="搜索专题(2)-深度优先搜索(DFS)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>搜索专题(2)-深度优先搜索(DFS)</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/" class="next" rel="next" title="字符串专题(2)-字符串 KMP算法">字符串专题(2)-字符串 KMP算法<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

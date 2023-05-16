@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第01章-二叉树(三)-二叉查找树BST - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第01章-二叉树(三)-二叉查找树BST" />
+<meta property="og:description" content="二叉查找树(binary search tree) 定义: (1) 要么二叉查找树是一棵空树 (2) 要么它由根节点、左子树、右子树组成，左子树和右子树均为二叉查找树，且左子树的 所" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-02T21:57:02+08:00" />
+<meta property="article:modified_time" content="2023-04-02T21:57:02+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第01章-二叉树(三)-二叉查找树BST"/>
+<meta name="twitter:description" content="二叉查找树(binary search tree) 定义: (1) 要么二叉查找树是一棵空树 (2) 要么它由根节点、左子树、右子树组成，左子树和右子树均为二叉查找树，且左子树的 所"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/02/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第01章-二叉树(三)-二叉查找树BST",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/binarytree\/03\/"
+        },"genre": "posts","keywords": "算法, 二叉树","wordcount":  2156 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/binarytree\/03\/","datePublished": "2023-04-02T21:57:02+08:00","dateModified": "2023-04-02T21:57:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第01章-二叉树(三)-二叉查找树BST</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-02">2023-04-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2156 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#二叉查找树binary-search-tree">二叉查找树(binary search tree)</a></li>
+    <li><a href="#例题-if-it-a-bst">例题. If it a bst</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="二叉查找树binary-search-tree">二叉查找树(binary search tree)</h2>
+<p>定义:
+(1) 要么二叉查找树是一棵空树
+(2) 要么它由根节点、左子树、右子树组成，左子树和右子树均为二叉查找树，且左子树的
+所有节点的权重均小于等于右子树的；
+操作：
+（1）查找: btn* search(bst root, int x);   // 查找值为x的节点并返回节点指针
+（2）插入: bst insert(bst root, int x);    // 创建节点x，插入x（原地修改）
+（3）建立: bst create(int a[]);     // 建立一棵bst
+（4）删除: bst delnode(bst root, int x);
+特点：
+中序遍历得到的权重序列是升序有序的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">btn</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight;
+</span></span><span style="display:flex;"><span>    btn <span style="color:#f92672">*</span>lch, <span style="color:#f92672">*</span>rch;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> btn<span style="color:#f92672">*</span> bst;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 查找值为x的节点并返回节点指针
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">search</span>(bst root, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 创建节点x，插入x（原地修改）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(bst<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 建立一棵bst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>bst <span style="color:#a6e22e">create</span>(<span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n);
+</span></span><span style="display:flex;"><span>bst <span style="color:#a6e22e">create</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> a);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 删除值为x的节点, 若节点x有两个子树，应当找到节点的前驱prev或者后继post作为替代
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delnodeA</span>(bst<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用prev代替待删节点后删除prev
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPrev</span>(btn<span style="color:#f92672">*</span> bnd);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用post代替待删节点后删除post
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPost</span>(btn<span style="color:#f92672">*</span> bnd);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 删除节点的递归优雅方式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delnodeB</span>(bst <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> x);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 中序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tranverse</span>(bst root);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span>(bst mbst);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delTest</span>(bst mbst, <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>delFunc)(bst<span style="color:#f92672">&amp;</span>, <span style="color:#66d9ef">int</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">search</span>(bst root, <span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>root) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;  <span style="color:#75715e">// 查找失败
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">==</span> x) <span style="color:#66d9ef">return</span> root;  <span style="color:#75715e">// 查找成功
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> x){     <span style="color:#75715e">// 在右子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> search(root<span style="color:#f92672">-&gt;</span>rch, x);
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{                          <span style="color:#75715e">// 在左子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> search(root<span style="color:#f92672">-&gt;</span>lch, x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(bst<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(root){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">==</span> x) <span style="color:#66d9ef">return</span> ;  <span style="color:#75715e">// 相同值, 不予插入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> x){      <span style="color:#75715e">// x应该插入到右子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            insert(root<span style="color:#f92672">-&gt;</span>rch, x);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            insert(root<span style="color:#f92672">-&gt;</span>lch, x);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 此即为插入位置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> btn;
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bst <span style="color:#a6e22e">create</span>(<span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n){
+</span></span><span style="display:flex;"><span>    bst t <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        insert(t, a[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> t;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bst <span style="color:#a6e22e">create</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> a){
+</span></span><span style="display:flex;"><span>    bst t <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>a.size(); i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        insert(t, a[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> t;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delnodeA</span>(bst<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 非递归删除，第一步查找x结点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    btn <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> root, <span style="color:#f92672">*</span>q <span style="color:#f92672">=</span> root;   <span style="color:#75715e">// 采用双指针方法，q为遍历指针, p指示q的双亲
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> search_ok <span style="color:#f92672">=</span> false;     <span style="color:#75715e">// 查找成功的标志
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> (q){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (q<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">==</span> x){
+</span></span><span style="display:flex;"><span>            search_ok <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (q<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> x){   <span style="color:#75715e">// x在右子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            p <span style="color:#f92672">=</span> q;
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> q;
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>search_ok)  <span style="color:#66d9ef">return</span> ;     <span style="color:#75715e">// 不存在该节点, 直接返回
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    btn<span style="color:#f92672">*</span> ready <span style="color:#f92672">=</span> q;     <span style="color:#75715e">// ready指向待删节点指针(保存下来)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 存在该节点为q，当q不是根节点时p指向双亲
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(q<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> q<span style="color:#f92672">-&gt;</span>rch){   <span style="color:#75715e">// q有左右子树, 以找后继为例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        p <span style="color:#f92672">=</span> q;
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>(q<span style="color:#f92672">-&gt;</span>lch){
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> q;
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    ready<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>weight;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 以下情况可能出现 q是根节点, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>q<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>q<span style="color:#f92672">-&gt;</span>rch){     <span style="color:#75715e">// 叶节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(q <span style="color:#f92672">==</span> root){
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(q <span style="color:#f92672">==</span> p<span style="color:#f92672">-&gt;</span>lch)
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(q<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>q<span style="color:#f92672">-&gt;</span>rch){    <span style="color:#75715e">// 只有左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (q <span style="color:#f92672">==</span> root){
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">delete</span> q;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(q <span style="color:#f92672">==</span> p<span style="color:#f92672">-&gt;</span>lch) <span style="color:#75715e">// q是p的左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                p<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">delete</span> q;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>q<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> q<span style="color:#f92672">-&gt;</span>rch){    <span style="color:#75715e">// 只有右孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (q<span style="color:#f92672">==</span>root){
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">delete</span> q;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(q <span style="color:#f92672">==</span> p<span style="color:#f92672">-&gt;</span>lch) <span style="color:#75715e">// q是p的左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                p<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">delete</span> q;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// return root;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPrev</span>(btn<span style="color:#f92672">*</span> bnd){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 左子树的最右节点, 注意bnd有左右两个孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    btn <span style="color:#f92672">*</span>lp <span style="color:#f92672">=</span> bnd<span style="color:#f92672">-&gt;</span>lch, <span style="color:#f92672">*</span>rp <span style="color:#f92672">=</span> lp<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(rp){
+</span></span><span style="display:flex;"><span>        lp <span style="color:#f92672">=</span> rp;
+</span></span><span style="display:flex;"><span>        rp <span style="color:#f92672">=</span> lp<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lp;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>btn<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPost</span>(btn<span style="color:#f92672">*</span> bnd){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 右子树的最左节点, 注意bnd有左右两个孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    btn <span style="color:#f92672">*</span>rp <span style="color:#f92672">=</span> bnd<span style="color:#f92672">-&gt;</span>rch, <span style="color:#f92672">*</span>lp <span style="color:#f92672">=</span> rp<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(lp){
+</span></span><span style="display:flex;"><span>        rp <span style="color:#f92672">=</span> lp;
+</span></span><span style="display:flex;"><span>        lp <span style="color:#f92672">=</span> rp<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> rp;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 递归删除节点的写法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delnodeB</span>(bst <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root) <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">==</span> x){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>root<span style="color:#f92672">-&gt;</span>rch){
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>){ <span style="color:#75715e">// 包含左子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            btn<span style="color:#f92672">*</span> nd <span style="color:#f92672">=</span> getPrev(root);
+</span></span><span style="display:flex;"><span>            root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> nd<span style="color:#f92672">-&gt;</span>weight;
+</span></span><span style="display:flex;"><span>            delnodeB(root<span style="color:#f92672">-&gt;</span>lch, nd<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{  <span style="color:#75715e">// 仅包含右子树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            btn<span style="color:#f92672">*</span> nd <span style="color:#f92672">=</span> getPost(root);
+</span></span><span style="display:flex;"><span>            root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> nd<span style="color:#f92672">-&gt;</span>weight;
+</span></span><span style="display:flex;"><span>            delnodeB(root<span style="color:#f92672">-&gt;</span>rch, nd<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> x){
+</span></span><span style="display:flex;"><span>        delnodeB(root<span style="color:#f92672">-&gt;</span>rch, x);
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        delnodeB(root<span style="color:#f92672">-&gt;</span>lch, x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tranverse</span>(bst root){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(root){
+</span></span><span style="display:flex;"><span>        tranverse(root<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        tranverse(root<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span>(bst mbst){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;+++++++++++++++&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    tranverse(mbst);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delTest</span>(bst mbst, <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>delFunc)(bst<span style="color:#f92672">&amp;</span>, <span style="color:#66d9ef">int</span>)){
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);    
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">8</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">11</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">23</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">28</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">17</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>    delFunc(mbst, <span style="color:#ae81ff">12</span>);
+</span></span><span style="display:flex;"><span>    test(mbst);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> lseq <span style="color:#f92672">=</span> {<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">28</span>};
+</span></span><span style="display:flex;"><span>    bst mbst <span style="color:#f92672">=</span> create(lseq);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// delTest(mbst, delnodeA);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    delTest(mbst, delnodeB);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  4          15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2   6     11     23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   5    10 12  17  28
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="例题-if-it-a-bst">例题. If it a bst</h2>
+<p>PAT-A-1403 Is it a binary tree?
+给定一个序列，判断它是否为一棵二叉查找树（或其镜像）的先序序列, 输入包括第一行的数字N(&lt;=1000)表示节点数，第二行为先序遍历序列. 注意：左子树节点严格小于根节点，右节点不小于根节点. 输出为两行
+YES(是)或者NO(不是)
+后序遍历序列</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义树节点 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">btNode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight;
+</span></span><span style="display:flex;"><span>    btNode <span style="color:#f92672">*</span>lch, <span style="color:#f92672">*</span>rch;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">btNode</span><span style="color:#f92672">*</span> binTree;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 存储遍历序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> preSeq, inSeq, posSeq;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 节点数量 numNodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> numNodes;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ok是结果标志，初值为true, 若遇到矛盾则置为false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// mirror是指示标志，表示是否考虑镜像可能
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> ok<span style="color:#f92672">=</span>true, mirror<span style="color:#f92672">=</span>false;     <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">preTranverse</span>(binTree t);   <span style="color:#75715e">// 先序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">midTranverse</span>(binTree t);   <span style="color:#75715e">// 中序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">posTranverse</span>(binTree t);   <span style="color:#75715e">// 后序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prtSeq</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> seq);   <span style="color:#75715e">// 打印序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 通过前序序列和中序序列构建二叉树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// void preCreate(binTree&amp; root, int preA, int preB, int midA, int midB);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">judgeIfBst</span>(binTree<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> preA, <span style="color:#66d9ef">int</span> preB, <span style="color:#66d9ef">int</span> midA, <span style="color:#66d9ef">int</span> midB);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> buf;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> numNodes;    <span style="color:#75715e">// 节点序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> numNodes; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> buf;
+</span></span><span style="display:flex;"><span>        preSeq.push_back(buf);      <span style="color:#75715e">// 先序序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 主要函数: assign()深复制, sort()排序, reverse()倒序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 头文件: &lt;algorithm&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    inSeq.assign(preSeq.begin(), preSeq.end());
+</span></span><span style="display:flex;"><span>    sort(inSeq.begin(), inSeq.end());   <span style="color:#75715e">// 升序序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    binTree root<span style="color:#f92672">=</span><span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// preCreate(root, 0, numNodes-1, 0, numNodes-1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    judgeIfBst(root, <span style="color:#ae81ff">0</span>, numNodes<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, numNodes<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(ok){
+</span></span><span style="display:flex;"><span>        posSeq.clear();
+</span></span><span style="display:flex;"><span>        posTranverse(root);
+</span></span><span style="display:flex;"><span>        prtSeq(posSeq);
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;YES&#34;</span>;
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        ok <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>        mirror <span style="color:#f92672">=</span> true;  <span style="color:#75715e">// 说明可能是镜像
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        reverse(inSeq.begin(), inSeq.end());    <span style="color:#75715e">// 中序序列变了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        judgeIfBst(root, <span style="color:#ae81ff">0</span>, numNodes<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, numNodes<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(ok){
+</span></span><span style="display:flex;"><span>            posSeq.clear();
+</span></span><span style="display:flex;"><span>            posTranverse(root);
+</span></span><span style="display:flex;"><span>            prtSeq(posSeq);
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;YES&#34;</span>;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;NO&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">preTranverse</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        preSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        preTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        preTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">midTranverse</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        midTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        inSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        midTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">posTranverse</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        posTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        posTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>        posSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prtSeq</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> seq){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> seq.size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> seq[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">judgeIfBst</span>(binTree<span style="color:#f92672">&amp;</span> root, <span style="color:#66d9ef">int</span> preA, <span style="color:#66d9ef">int</span> preB, <span style="color:#66d9ef">int</span> midA, <span style="color:#66d9ef">int</span> midB){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>ok) <span style="color:#66d9ef">return</span> ;   <span style="color:#75715e">// 创建失败就直接返回
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (preA <span style="color:#f92672">&gt;</span> preB <span style="color:#f92672">||</span> midA <span style="color:#f92672">&gt;</span> midB) <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> btNode;
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> preSeq[preA];
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 中序序列寻找根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> rID, lsubN, flag<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">// 根节点在中序序列的序号， 左子树节点数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>mirror)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (rID<span style="color:#f92672">=</span>midA; rID<span style="color:#f92672">&lt;=</span> midB; rID<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(inSeq[rID] <span style="color:#f92672">==</span> root<span style="color:#f92672">-&gt;</span>weight){
+</span></span><span style="display:flex;"><span>                flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (rID<span style="color:#f92672">=</span>midB; rID<span style="color:#f92672">&gt;=</span> midA; rID<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(inSeq[rID] <span style="color:#f92672">==</span> root<span style="color:#f92672">-&gt;</span>weight){
+</span></span><span style="display:flex;"><span>                flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (flag <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        ok <span style="color:#f92672">=</span> false; <span style="color:#75715e">// 没找到根节点，构建失败哦
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    lsubN <span style="color:#f92672">=</span> rID <span style="color:#f92672">-</span> midA;
+</span></span><span style="display:flex;"><span>    judgeIfBst(root<span style="color:#f92672">-&gt;</span>lch, preA<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, preA<span style="color:#f92672">+</span>lsubN, midA, rID<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    judgeIfBst(root<span style="color:#f92672">-&gt;</span>rch, preA<span style="color:#f92672">+</span>lsubN<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>,preB, rID<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, midB);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>仍然是判断某序列是否为二叉排序树（或镜像）的先序遍历序列, 但换一种思路：
+也即将给定序列依据题意依次插入从而形成bst，再对其进行先序（镜像）遍历得到遍历序列，观察是否与给定序列相同，是则输出yes并给出后序序列，否则输出NO</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">binNode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight;
+</span></span><span style="display:flex;"><span>    binNode <span style="color:#f92672">*</span>lch, <span style="color:#f92672">*</span>rch;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> binNode<span style="color:#f92672">*</span> binTree;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n;                      <span style="color:#75715e">// 节点数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> inputSeq, transSeq;     <span style="color:#75715e">// 遍历序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(binTree <span style="color:#f92672">&amp;</span>t, <span style="color:#66d9ef">int</span> d);     <span style="color:#75715e">// 插入节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prevTranverse</span>(binTree t);      <span style="color:#75715e">// 前序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">postTranverse</span>(binTree t);      <span style="color:#75715e">// 后序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mirrorPrev</span>(binTree t);         <span style="color:#75715e">// 镜像前序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mirrorPost</span>(binTree t);         <span style="color:#75715e">// 镜像后序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prtSeq</span>();                      <span style="color:#75715e">// 打印遍历序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tmp;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    binTree t <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> tmp;
+</span></span><span style="display:flex;"><span>        inputSeq.push_back(tmp);
+</span></span><span style="display:flex;"><span>        insert(t, tmp);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    transSeq.clear();
+</span></span><span style="display:flex;"><span>    prevTranverse(t);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (inputSeq <span style="color:#f92672">==</span> transSeq){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;YES&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>        transSeq.clear();
+</span></span><span style="display:flex;"><span>        postTranverse(t);
+</span></span><span style="display:flex;"><span>        prtSeq();
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        transSeq.clear();
+</span></span><span style="display:flex;"><span>        mirrorPrev(t);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(transSeq <span style="color:#f92672">==</span> inputSeq){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;YES&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>            transSeq.clear();
+</span></span><span style="display:flex;"><span>            mirrorPost(t);
+</span></span><span style="display:flex;"><span>            prtSeq();
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;NO&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prtSeq</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> transSeq[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">!=</span> n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(binTree <span style="color:#f92672">&amp;</span>t, <span style="color:#66d9ef">int</span> d){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(d <span style="color:#f92672">&lt;</span> t<span style="color:#f92672">-&gt;</span>weight)
+</span></span><span style="display:flex;"><span>            insert(t<span style="color:#f92672">-&gt;</span>lch, d);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            insert(t<span style="color:#f92672">-&gt;</span>rch, d);
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> binNode;
+</span></span><span style="display:flex;"><span>        t<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> d;
+</span></span><span style="display:flex;"><span>        t<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> t<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prevTranverse</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        transSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        prevTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        prevTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">postTranverse</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        postTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        postTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>        transSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mirrorPrev</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        transSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>        mirrorPrev(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>        mirrorPrev(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mirrorPost</span>(binTree t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        mirrorPost(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>        mirrorPost(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        transSeq.push_back(t<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" data-title="第01章-二叉树(三)-二叉查找树BST" data-hashtags="算法,二叉树"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" data-title="第01章-二叉树(三)-二叉查找树BST"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" data-title="第01章-二叉树(三)-二叉查找树BST"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" data-title="第01章-二叉树(三)-二叉查找树BST"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/02/" class="prev" rel="prev" title="第01章-二叉树(二)-应用示例"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第01章-二叉树(二)-应用示例</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" class="next" rel="next" title="第01章-二叉树(四)-二叉平衡树">第01章-二叉树(四)-二叉平衡树<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

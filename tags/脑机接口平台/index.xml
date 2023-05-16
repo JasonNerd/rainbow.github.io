@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>脑机接口平台 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E8%84%91%E6%9C%BA%E6%8E%A5%E5%8F%A3%E5%B9%B3%E5%8F%B0/</link>
+        <description>脑机接口平台 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 16 Mar 2023 15:31:06 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E8%84%91%E6%9C%BA%E6%8E%A5%E5%8F%A3%E5%B9%B3%E5%8F%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>OpenViBE 简明扼要上手指南</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/</link>
+    <pubDate>Thu, 16 Mar 2023 15:31:06 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/</guid>
+    <description><![CDATA[OpenViBE介绍 OpenViBE是一个开源软件平台，用于脑机接口系统的设计、测试和使用，并将它们与真实和虚拟环境相连接。该平台由一组软件]]></description>
+</item>
+<item>
+    <title>BCI软件平台简介</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/</link>
+    <pubDate>Mon, 13 Mar 2023 10:32:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/softwareintro/</guid>
+    <description><![CDATA[脑-机接口能够实现大脑与外界设备的直接通讯。构建一套完整的脑-机接口系统既需要硬件平台也需要软件平台。其中，软件平台涉及刺激呈现、数据读取与]]></description>
+</item>
+<item>
+    <title>PsychoPy心理学实验平台简介</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/</link>
+    <pubDate>Mon, 13 Mar 2023 10:32:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/psychopy%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97/</guid>
+    <description><![CDATA[1. Psychopy是什么 PsychoPy 是一款基于 Python 开发的心理学工具包，旨在提供一套足够强大、现代化的工具，帮助各界心理学者设计、开展实验，是一个用于设计]]></description>
+</item>
+</channel>
+</rss>

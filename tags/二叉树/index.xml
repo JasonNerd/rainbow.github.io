@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>二叉树 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+        <description>二叉树 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 02 Apr 2023 22:19:04 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="self" type="application/rss+xml" /><item>
+    <title>第01章-二叉树(四)-二叉平衡树</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/</link>
+    <pubDate>Sun, 02 Apr 2023 22:19:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/</guid>
+    <description><![CDATA[平衡二叉树( AVL树, 前苏联两位数学家提出 ), 也即平衡的二叉查找树。 也即左右子树的高度差不超过1。 定义【平衡因子】为左子树高度减去右子树高度，]]></description>
+</item>
+<item>
+    <title>第01章-二叉树(三)-二叉查找树BST</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/</link>
+    <pubDate>Sun, 02 Apr 2023 21:57:02 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/</guid>
+    <description><![CDATA[二叉查找树(binary search tree) 定义: (1) 要么二叉查找树是一棵空树 (2) 要么它由根节点、左子树、右子树组成，左子树和右子树均为二叉查找树，且左子树的 所]]></description>
+</item>
+<item>
+    <title>第01章-二叉树(二)-应用示例</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/02/</link>
+    <pubDate>Sun, 02 Apr 2023 21:04:20 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/02/</guid>
+    <description><![CDATA[1. 权重为W的所有路径 给出一棵树，每个节点具有权重，路径被定义为从根节点到某一叶节点的节点序列，【路径权重】被定义为路径所有节点的权重之和。给]]></description>
+</item>
+<item>
+    <title>第01章-二叉树</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/01/</link>
+    <pubDate>Sun, 02 Apr 2023 20:46:51 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/01/</guid>
+    <description><![CDATA[二叉树的定义（递归） （1）要么二叉树没有根节点，是一个空节点 （2）要么二叉树由根节点、左子树、右子树组成，且左子树和右子树均为二叉树 关于二叉]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>搜索 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E6%90%9C%E7%B4%A2/</link>
+        <description>搜索 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 15:06:35 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E6%90%9C%E7%B4%A2/" rel="self" type="application/rss+xml" /><item>
+    <title>搜索专题(2)-深度优先搜索(DFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</link>
+    <pubDate>Fri, 07 Apr 2023 15:06:35 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</guid>
+    <description><![CDATA[例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔]]></description>
+</item>
+<item>
+    <title>搜索专题(1)-广度优先搜索(BFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</link>
+    <pubDate>Fri, 07 Apr 2023 14:49:02 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</guid>
+    <description><![CDATA[搜索, 就是在一个集合中按照一定的规则遍历访问集合的每一个元素的过程. 而广度优先搜索就是每次都把距离最近的元素访问完毕才会去访问更远的元素, 类]]></description>
+</item>
+</channel>
+</rss>

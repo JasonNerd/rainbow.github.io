@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>KMP算法 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/kmp%E7%AE%97%E6%B3%95/</link>
+        <description>KMP算法 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 08 Apr 2023 15:21:15 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/kmp%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>字符串专题(2)-字符串 KMP算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/</link>
+    <pubDate>Sat, 08 Apr 2023 15:21:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/</guid>
+    <description><![CDATA[本节主要讨论字符串的匹配问题，也就是说，如果给出两个字符串 text和 pattern，需要判断字符串 pattern 是否是字符串 text 的子串。一般把字符串 text 为文]]></description>
+</item>
+</channel>
+</rss>

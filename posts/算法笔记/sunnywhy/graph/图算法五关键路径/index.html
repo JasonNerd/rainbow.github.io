@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>图算法（五）关键路径 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="图算法（五）关键路径" />
+<meta property="og:description" content="AOV网 和 AOE网 顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图。例如图10-5" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T14:50:04+08:00" />
+<meta property="article:modified_time" content="2023-04-07T14:50:04+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图算法（五）关键路径"/>
+<meta name="twitter:description" content="AOV网 和 AOE网 顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图。例如图10-5"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "图算法（五）关键路径",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84\/"
+        },"genre": "posts","keywords": "关键路径, 算法, 图","wordcount":  2883 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84\/","datePublished": "2023-04-07T14:50:04+08:00","dateModified": "2023-04-07T14:50:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">图算法（五）关键路径</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2883 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#aov网-和-aoe网">AOV网 和 AOE网</a></li>
+    <li><a href="#最长路径">最长路径</a></li>
+    <li><a href="#关键路径">关键路径</a>
+      <ul>
+        <li><a href="#最早开始时间-和-最迟开始时间">最早开始时间 和 最迟开始时间</a></li>
+      </ul>
+    </li>
+    <li><a href="#ve-vl-求解">ve[], vl[] 求解</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="aov网-和-aoe网">AOV网 和 AOE网</h2>
+<p><strong>顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图</strong>。例如图10-57 的先导课程示意图就是 AOV 网，其中图的顶点表示各项课程也就是“活动”;有向边表示课程的先导关系，也就是“活动间的优先关系”。显然，图中不应当存在有向环，否则会让优先关系出现逻辑错误。</p>
+<p><strong>边活动(Activity On Edge，AE)网是指用带权的边集表示活动，而用顶点表示事件的有向图，其中边权表示完成活动需要的时间。</strong></p>
+<p>例如图10-59 中，边$a_1 &hellip; a_6$表示需要学习的课程，也就是“活动”，边权表示课程学习需要消耗的时间; 顶点$V_1 &hellip; V_6$表示到此刻为止前面的课程已经学完，后面的课程可以开始学习，也就是“事件”(如 V~5~表示a~4~计算方法和a~5~实变函数已经学完，a~6~泛函分析可以开始学习。从另一个角度来看，a~6~只有当a~4~和a~5~都完成时才能开始进行，因此当a~4~计算方法学习完毕后必须等待a~5~实变函数学习完成后才能进入到a~6~泛函分析的学习)，显然“事件”仅代表一个中介状态。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-28-15-04-38.png"
+        data-srcset="./image/2023-03-28-15-04-38.png, ./image/2023-03-28-15-04-38.png 1.5x, ./image/2023-03-28-15-04-38.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-28-15-04-38.png"
+        title="./image/2023-03-28-15-04-38.png" /></p>
+<h2 id="最长路径">最长路径</h2>
+<p>一般来说，AOE网用来表示一个工程的进行过程，而工程常常可以分为若干个子工程(即“活动”)，显然AOE 网不应当有环，否则会出现和AOV 网一样的逻辑问题(因此可以认为AOV网和AOE网都是有向无环图)。考虑到对工程来说总会有一个起始时刻和结束时刻，因此AOV 网一般只有一个源点(即入度为0的点)和一个汇点(即出度为0的点)。</p>
+<p>既然AOE 网是基于工程提出的概念，那么一定有其需要解决的问题。AOE 网需要着重解决两个问题:
+<strong>a.工程起始到终止至少需要多少时间;</strong>
+<strong>b.哪条(些)路径上的活动是影响整个工程进度的关键。</strong></p>
+<p>以图 10-59 为例，由于完成 &ldquo;a~1~空间解析几何&rdquo;、&ldquo;a~3~复变函数&rdquo;、&ldquo;a~5~实变函数&rdquo; 共需要120天，因此在 &ldquo;a~2~高等代数&rdquo; 准时完成的前提下，&ldquo;a~4~计算方法&rdquo; 可以有40天的弹性时间.
+即只要在第41~81天开始学习 &ldquo;a~4~计算方法&rdquo; ，都能赶在 &ldquo;a~5~实变函数&rdquo; 完成之前完成，从而进入 &ldquo;a~6~泛函分析&rdquo; 的学习。显然，&ldquo;a~1~空间解析几何&rdquo;、&ldquo;a~3~复变函数&rdquo;、&ldquo;a~5~实变函数&rdquo;、&ldquo;a~6~泛函分析&rdquo; 这4个活动是最关键的，因为推迟这4个活动中的任何一个的开始时间，都会使整个工程的完成时间变长. <strong>AOE 网中的最长路径被称为关键路径(强调:关键路径就是AOE网的最长路径)，而把关键路径上的活动称为关键活动，显然关键活动会影响整个工程的进度。</strong></p>
+<h2 id="关键路径">关键路径</h2>
+<p>对一个没有正环的图(指从源点可达的正环，下同)，如果需要求最长路径长度，则可以把所有边的边权乘以-1，令其变为相反数，然后使用 Bellman-Ford 算法或SPFA算法求最短路径长度，将所得结果取反即可。注意:此处不能使用 Diikstra 算法，原因是 Dikstra 算法不能处理负边权的情况，即便原图的边权均为正，乘以-1 之后也会出现负权。</p>
+<p>显然，如果图中有正环，那么最长路径是不存在的。但是，如果需要求最长简单路径(也就是每个顶点最多只经过一次的路径)，那么虽然最长简单路径本身存在，却没有办法通过Bellman-Ford 等算法来求解，原因是最长路径问题是NP-Hard 问题(也就是没有多项式时间复杂度算法的问题)。注:最长路径问题，即Longest Path Problem，寻求的是图中的最长简单路径。而如果求的是<strong>有向无环图的最长路径长度，则要讨论的关键路径的求法可以比上面的做法更快</strong>。</p>
+<h3 id="最早开始时间-和-最迟开始时间">最早开始时间 和 最迟开始时间</h3>
+<p>由于AOE网实际上是有向无环图，而关键路径是图中的最长路径，因此本节实际上给出了一种求解有向无环图(DAG)中最长路径的方法。
+由于关键活动是那些不允许拖延的活动，因此这些活动的最早开始时间必须等于最迟开始时间(例如 a~4~ 计算方法的最早开始时间是第41天，最迟开始时间是第81天;而 a~5~ 实变函数的最早开始时间和最迟开始时间都是第 71 天)。因此可以设置数组e和1，其中<code>e[r]</code>和<code>l[r]</code>分别表示活动 a~r~ 的最早开始时间和最迟开始时间。于是，当求出这两个数组之后，就可以通过判断 <code>e[r]==l[r]</code> 是否成立来确定活动r是否是关键活动。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-28-15-33-48.png"
+        data-srcset="./image/2023-03-28-15-33-48.png, ./image/2023-03-28-15-33-48.png 1.5x, ./image/2023-03-28-15-33-48.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-28-15-33-48.png"
+        title="./image/2023-03-28-15-33-48.png" /></p>
+<p>如图10-62所示，事件<code>Vi</code>在经过活动<code>ar</code>之后到达事件<code>Vj</code>。注意到顶点作为事件，也有拖延的可能，因此会存在最早发生时间和最迟发生时间。其中事件的最早发生时间可以理解成旧活动的最早结束时间，事件的最迟发生时间可以理解成新活动的最迟开始时间。设置数组 <code>ve</code> 和 <code>vl</code>，其中 <code>ve[i]</code> 和 <code>vl[i]</code> 分别表示事件i的最早发生时间和最迟发生时间，然后就可以将求解 <code>e[r]</code>和 <code>l[r]</code> 转换成求解这两个新的数组:</p>
+<ol>
+<li>对活动 <code>ar</code> 来说，只要在事件 <code>Vi</code> 最早发生时马上开始，就可以使得活动 <code>ar</code> 的开始时间最早，因此<code>e[r]=ve[i]</code>。</li>
+<li>如果 <code>l[r]</code> 是活动 <code>ar</code> 的最迟发生时间，那么 <code>l[r] + length[r]</code> 就是事件<code>Vj</code>的最迟发生时间。因此<code>l[r]=vl[i]-length[r]</code>。</li>
+</ol>
+<h2 id="ve-vl-求解">ve[], vl[] 求解</h2>
+<p>可以利用拓扑排序进行求解, 例如 ve[] , 对于节点 i, 需要知道所有前驱的 ve 然后加上活动边的花费, 取其最大者. 观察拓扑排序求解, 发现每次都会选择没有前驱的节点， 因而可以直接求解, 这样再更新指向的所有节点, 即可.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-28-16-19-16.png"
+        data-srcset="./image/2023-03-28-16-19-16.png, ./image/2023-03-28-16-19-16.png 1.5x, ./image/2023-03-28-16-19-16.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-28-16-19-16.png"
+        title="./image/2023-03-28-16-19-16.png" /></p>
+<p>对于 vl[], 设有节点i, 它的所有后继节点的 vl 已知, 则i的vl值就是后继结点减去对应边权的最小值
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-28-16-18-46.png"
+        data-srcset="./image/2023-03-28-16-18-46.png, ./image/2023-03-28-16-18-46.png 1.5x, ./image/2023-03-28-16-18-46.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-28-16-18-46.png"
+        title="./image/2023-03-28-16-18-46.png" /></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     criticalpath.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/28 16:24:44
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stack&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v, w;
+</span></span><span style="display:flex;"><span>    node(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;   <span style="color:#75715e">// 各种意义的上限, 例如边权、顶点数、边数都不超过该值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>node<span style="color:#f92672">&gt;</span> graph[MAXN];   <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> ver_n, adj_n;   <span style="color:#75715e">// 顶点数, 边数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> e[MAXN], l[MAXN], ve[MAXN], vl[MAXN], indeg[MAXN];
+</span></span><span style="display:flex;"><span>stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> topo_seq;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fill</span>(<span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> val);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">topo</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fill_vl</span>(<span style="color:#66d9ef">int</span> vle);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">critical_path</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fill</span>(<span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> val){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        a[i] <span style="color:#f92672">=</span> val;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ver_n <span style="color:#f92672">&gt;&gt;</span> adj_n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>adj_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> v1, v2, w;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> v1 <span style="color:#f92672">&gt;&gt;</span> v2 <span style="color:#f92672">&gt;&gt;</span> w;
+</span></span><span style="display:flex;"><span>        graph[v1].push_back(node(v2, w));
+</span></span><span style="display:flex;"><span>        indeg[v2]<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">topo</span>(){
+</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> wrkq;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(indeg[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>            wrkq.push(i);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>wrkq.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> rt <span style="color:#f92672">=</span> wrkq.front();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(node nd: graph[rt]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(ve[nd.v] <span style="color:#f92672">&lt;</span> ve[rt]<span style="color:#f92672">+</span>nd.w)
+</span></span><span style="display:flex;"><span>                ve[nd.v] <span style="color:#f92672">=</span> ve[rt]<span style="color:#f92672">+</span>nd.w; <span style="color:#75715e">// 更新 邻居事件的 最早发生时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">--</span>indeg[nd.v] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>                wrkq.push(nd.v);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        wrkq.pop();
+</span></span><span style="display:flex;"><span>        topo_seq.push(rt);  <span style="color:#75715e">// 加入拓扑序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> topo_seq.size() <span style="color:#f92672">==</span> ver_n;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 计算 vl[], vle是 ve[l], l是拓扑排序的最后一位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fill_vl</span>(<span style="color:#66d9ef">int</span> vle){
+</span></span><span style="display:flex;"><span>    fill(vl, ver_n, vle);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>topo_seq.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> topo_seq.top();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(node nd: graph[v]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(vl[nd.v]<span style="color:#f92672">-</span>nd.w <span style="color:#f92672">&lt;</span> vl[v]){
+</span></span><span style="display:flex;"><span>                vl[v] <span style="color:#f92672">=</span> vl[nd.v]<span style="color:#f92672">-</span>nd.w;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        topo_seq.pop();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// critical path solution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">critical_path</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ver_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(node nd: graph[i]){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 活动边 (i, nd.v) 最早开始时间也即是 始点事件i 的最早发生时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// 活动边 (i, nd.v) 最迟开始时间也即是 终点事件i 的最迟发生时间减去活动时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(ve[i] <span style="color:#f92672">==</span> vl[nd.v]<span style="color:#f92672">-</span>nd.w){
+</span></span><span style="display:flex;"><span>                cout<span style="color:#f92672">&lt;&lt;</span>i<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34; -&gt; &#34;</span><span style="color:#f92672">&lt;&lt;</span>nd.v<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34; (&#34;</span><span style="color:#f92672">&lt;&lt;</span>nd.w<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;)&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();               <span style="color:#75715e">// 数据输入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    topo();                     <span style="color:#75715e">// 获取拓扑序列同时求解 ve[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    fill_vl(ve[ver_n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);       <span style="color:#75715e">// 求解 vl[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    critical_path();            <span style="color:#75715e">// 输出关键活动
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Total time is &#34;</span> <span style="color:#f92672">&lt;&lt;</span> ve[ver_n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34; at least.&#34;</span><span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 1 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 2 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0 3 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 1 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 4 7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 4 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="结语">结语</h2>
+<p>即便图中有<strong>多条关键路径</strong>，但如果只要求输出关键活动，按上面的写法已经可以了。如果要完整输出所有关键路径，就需要把关键活动存下来，方法就是<strong>新建一个邻接表，当确定边 u-&gt;v 是关键活动时，将边u - v加入邻接表</strong>。这样最后生成的邻接表就是所有关键路径合成的图了，可以用DFS 遍历来获取所有关键路径(具体实现就留给读者完成吧)。最后指出，<strong>使用动态规划的做法可以让读者能更简洁地求解关键路径</strong>(具体做法参见11.6节)。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-title="图算法（五）关键路径" data-hashtags="关键路径,算法,图"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-hashtag="关键路径"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-title="图算法（五）关键路径"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-title="图算法（五）关键路径"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" data-title="图算法（五）关键路径"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/">关键路径</a>,&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E5%9B%BE/">图</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/" class="prev" rel="prev" title="搜索专题(1)-广度优先搜索(BFS)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>搜索专题(1)-广度优先搜索(BFS)</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" class="next" rel="next" title="搜索专题(2)-深度优先搜索(DFS)">搜索专题(2)-深度优先搜索(DFS)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

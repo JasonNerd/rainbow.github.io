@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>关键路径 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</link>
+        <description>关键路径 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 14:50:04 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="self" type="application/rss+xml" /><item>
+    <title>图算法（五）关键路径</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</link>
+    <pubDate>Fri, 07 Apr 2023 14:50:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</guid>
+    <description><![CDATA[AOV网 和 AOE网 顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图。例如图10-5]]></description>
+</item>
+</channel>
+</rss>

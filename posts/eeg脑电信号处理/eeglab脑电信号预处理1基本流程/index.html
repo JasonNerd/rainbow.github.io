@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>EEGLAB脑电信号预处理1基本流程 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="EEGLAB脑电信号预处理1基本流程" />
+<meta property="og:description" content="单被试EEG预处理步骤 Import data&ndash; 导入数据 Channellocation &ndash; 导入电极信息 Select data &ndash; 删除无用电极 bad channel interpolation &ndash; 插值坏导 Re-reference &ndash; 重参考 Filter&ndash; 滤波 Resample &ndash; 重采样 Extract epoch and Remove baseline &ndash; 分段和基线校正 Inpendent component" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-14T22:04:57+08:00" />
+<meta property="article:modified_time" content="2023-03-14T22:04:57+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="EEGLAB脑电信号预处理1基本流程"/>
+<meta name="twitter:description" content="单被试EEG预处理步骤 Import data&ndash; 导入数据 Channellocation &ndash; 导入电极信息 Select data &ndash; 删除无用电极 bad channel interpolation &ndash; 插值坏导 Re-reference &ndash; 重参考 Filter&ndash; 滤波 Resample &ndash; 重采样 Extract epoch and Remove baseline &ndash; 分段和基线校正 Inpendent component"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" /><link rel="prev" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%902%E8%84%91%E4%BF%A1%E5%8F%B7%E7%94%9F%E7%90%86%E5%AD%A6%E5%9F%BA%E7%A1%80/" /><link rel="next" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "EEGLAB脑电信号预处理1基本流程",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B\/"
+        },"genre": "posts","keywords": "EEGLab, 脑电信号分析","wordcount":  1876 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B\/","datePublished": "2023-03-14T22:04:57+08:00","dateModified": "2023-03-14T22:04:57+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EEGLAB脑电信号预处理1基本流程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>头皮脑电</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-14">2023-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1876 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#单被试eeg预处理步骤">单被试EEG预处理步骤</a></li>
+    <li><a href="#eeglab基本操作教程">EEGLab基本操作教程</a></li>
+    <li><a href="#一些细节">一些细节</a>
+      <ul>
+        <li><a href="#1-关于数据导入与波形绘制">1. 关于数据导入与波形绘制</a></li>
+        <li><a href="#2-关于重参考基准选取的几点考虑">2. 关于重参考基准选取的几点考虑</a></li>
+        <li><a href="#3-关于眼电伪迹的简单识别">3. 关于眼电伪迹的简单识别</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="单被试eeg预处理步骤">单被试EEG预处理步骤</h2>
+<ul>
+<li>Import data&ndash; 导入数据</li>
+<li>Channellocation &ndash; 导入电极信息</li>
+<li>Select data &ndash; 删除无用电极</li>
+<li>bad channel interpolation &ndash; 插值坏导</li>
+<li>Re-reference &ndash; 重参考</li>
+<li>Filter&ndash; 滤波</li>
+<li>Resample &ndash; 重采样</li>
+<li>Extract epoch and Remove baseline &ndash; 分段和基线校正</li>
+<li>Inpendent component analysis (ICA) &ndash; 独立成分分析(去眼电)</li>
+<li>Artifact rejection (bad epoch)&ndash; 剔除坏段</li>
+</ul>
+<h2 id="eeglab基本操作教程">EEGLab基本操作教程</h2>
+<ol>
+<li>图文教程
+<a href="https://blog.csdn.net/zyb228/article/details/103015904" target="_blank" rel="noopener noreffer ">eeglab中文教程系列 汇总</a></li>
+<li>视频教程
+<a href="https://www.bilibili.com/video/BV1M5411W72B?p=3" target="_blank" rel="noopener noreffer ">脑电数据预处理：基于EEGLAB</a></li>
+</ol>
+<p>上面两个教程都十分优质，图文教程清楚明了，视频教程是一个小姐姐讲的，声音很好听(误)，完整展示了数据预处理的操作细节，时长90分钟。建议先观看视频再去看图文，会有一种更轻松的感觉（~并不~）。整体观摩下来，有一种知其然但不知所以然的感觉，要这么做，但为什么这么做？为什么这样做就可以达到目的？为什么要有这个目的？这样做有哪些副作用？这样做以后得到什么结果？下一步要做什么？总结：还得看书，还得去看数学原理。</p>
+<h2 id="一些细节">一些细节</h2>
+<p>这里就不放详细的处理步骤还有内容了，实在是太多了，而且上面的教程也很清楚，这里脂肪一些心得和一些特别提到的点。</p>
+<h3 id="1-关于数据导入与波形绘制">1. 关于数据导入与波形绘制</h3>
+<p>导入数据后，点击plot的下的channel data(scroll)选项就可以绘制脑电波形图，但看上去似乎与通常看到的不太一样？此时需要点击Display-&gt;Remove DC offeset，也即去除直流漂移，再把scale调整到50左右即可。</p>
+<h3 id="2-关于重参考基准选取的几点考虑">2. 关于重参考基准选取的几点考虑</h3>
+<p>记录EEG数据使用的参考电极通常被称为数据的&quot;通用&quot;参考(common reference)。EEG记录中的典型记录参考是一种乳突(如下图10-20系统中的TP10,下图中红色的电极)，相连的乳突(通常是数字相连的乳突，computed post hoc，顶点电极(Cz ),单个或相连的耳垂或鼻尖，带有活性电极的系统(例如BioSemi活性二级)可以记录无参考的数据。在这种情况下，在数据导入过程中选择时候引用参考，否则会在数据中留下40 dB的不必要噪音。[注：没有&quot;最佳&quot;公共参考站点，一些研究人员声称，非头皮参考（耳垂，鼻子）比头皮通道参考引入的噪声更大，不过据我们所知尚未证实]。一些研究人员主张在分析之前将数据从固定或(common reference)通用参考(例如, 从通用耳垂或其他通道参考) 转换为&quot;平均参考(average reference)&quot;，尤其是当电极拼接几乎覆盖整个头部时(对于某些高密度记录系统)。平均参考点的优势在于，在整个(电隔离)球体上,向外的正电流和负电流之和为0 (根据欧姆定律)。例如，在下图中，切线方向的电源与左侧的正向内向正电流（此处为蓝色）和右侧的反向外向负电流（红色）相关联。如果通过颅骨底部到颈部和身体的电流微不足道（例如，由于颅底在大脑底部的电导率很低）,则可以假定所有头皮电极记录的电场值之和在所有（足够密集且均匀分布）始终为0（平均参考假设）.不过这种假设存在问题，其问题在于，真正的平均参考数据需要电极分布均匀。而实际上通常并非如此，因为研究人员通常会在某些头皮区域放置更多的电极，而在头表面下半部放置更少的电极（如果有的话）。因此，使用一个拼接的平均参考结果不能直接与使用另一拼接获得的平均参考结果相比较。下面，详细介绍了将数据转换为&quot;平均参考(average reference)“的过程。注意，在此过程中, 前一个参比电极处的隐式活动时间过程可以从其余数据中计算出来(因此, 数据获得了一个附加通道-尽管不是一个附加的自由度!).另请注意，如果使用鼻尖或耳垂电极记录数据，则在计算(1)中的平均参考值时，不应包括这些参考电极(如下图)，因此，在下面示例中，除法因子{在(3)中}将是64而不是65。请注意，在使用EEGLAB dipfit插件本地化源代码时，将在内部使用&quot;平均参考”（无需用户输入）。数据参考的选择会给数据分析的绘制结果着色（字面上）。例如，即使实际上有alpha源正好位于参考通道下方并朝向参考通道，头皮上的平均alpha功率图必须在参考通道处具有最小值！然后，没有(有效的)引用可以说是错误的-相反，可以说每个引用都提供了另一种数据视图。但是，在评估（或特别是比较）EEG结果时，必须考虑参考的性质。</p>
+<h3 id="3-关于眼电伪迹的简单识别">3. 关于眼电伪迹的简单识别</h3>
+<p>分垂直眼动和水平眼动，一个是从波形图上看
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-14-21-55-39.png"
+        data-srcset="./image/2023-03-14-21-55-39.png, ./image/2023-03-14-21-55-39.png 1.5x, ./image/2023-03-14-21-55-39.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-14-21-55-39.png"
+        title="./image/2023-03-14-21-55-39.png" />
+红色方框展示的就是垂直眼动伪迹，而左侧的一个类似高原的波形就是水平眼动伪迹
+另一个是从ICA成分分析得到的通道图例中看
+垂直眼动:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-14-22-01-13.png"
+        data-srcset="./image/2023-03-14-22-01-13.png, ./image/2023-03-14-22-01-13.png 1.5x, ./image/2023-03-14-22-01-13.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-14-22-01-13.png"
+        title="./image/2023-03-14-22-01-13.png" />
+水平眼动:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-14-22-01-40.png"
+        data-srcset="./image/2023-03-14-22-01-40.png, ./image/2023-03-14-22-01-40.png 1.5x, ./image/2023-03-14-22-01-40.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-14-22-01-40.png"
+        title="./image/2023-03-14-22-01-40.png" />
+可以说虽然没拌饭完全说明这些热力图到底有个说明含义，花花绿绿的都是些啥，但仅仅从判断方法上看，似乎还算直观。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" data-title="EEGLAB脑电信号预处理1基本流程" data-hashtags="EEGLab,脑电信号分析"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" data-hashtag="EEGLab"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" data-title="EEGLAB脑电信号预处理1基本流程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" data-title="EEGLAB脑电信号预处理1基本流程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" data-title="EEGLAB脑电信号预处理1基本流程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/eeglab/">EEGLab</a>,&nbsp;<a href="/tags/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%90/">脑电信号分析</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%88%86%E6%9E%902%E8%84%91%E4%BF%A1%E5%8F%B7%E7%94%9F%E7%90%86%E5%AD%A6%E5%9F%BA%E7%A1%80/" class="prev" rel="prev" title="脑电信号分析2脑信号生理学基础"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>脑电信号分析2脑信号生理学基础</a>
+            <a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" class="next" rel="next" title="EEGLAB预处理2ICA分析">EEGLAB预处理2ICA分析<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

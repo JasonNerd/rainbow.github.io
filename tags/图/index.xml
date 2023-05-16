@@ -1,0 +1,48 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>图 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E5%9B%BE/</link>
+        <description>图 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 14:50:04 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E5%9B%BE/" rel="self" type="application/rss+xml" /><item>
+    <title>图算法（五）关键路径</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</link>
+    <pubDate>Fri, 07 Apr 2023 14:50:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</guid>
+    <description><![CDATA[AOV网 和 AOE网 顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图。例如图10-5]]></description>
+</item>
+<item>
+    <title>图算法（四）拓扑排序</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</link>
+    <pubDate>Fri, 07 Apr 2023 13:53:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</guid>
+    <description><![CDATA[1. DAG 有向无环图 如果一个有向图的任意顶点都无法通过一些有向边回到自身，那么称这个有向图为有向无环图(DirectedAcyclic Graph，]]></description>
+</item>
+<item>
+    <title>图算法（三）最小生成树算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Fri, 07 Apr 2023 11:46:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[最小生成树有3个性质需要掌握: 最小生成树是树，因此其边数等于顶点数减1，且树内一定不会有环。 对给定的图G(V, E)，其最小生成树可以不唯一，]]></description>
+</item>
+<item>
+    <title>图算法（二）最短路径算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Fri, 07 Apr 2023 11:04:03 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[最短路径是图论中一个很经典的问题:给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。对任意给出的图G(V]]></description>
+</item>
+<item>
+    <title>图算法（一）图的存储和两种遍历方式</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Fri, 07 Apr 2023 10:30:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[图的基本概念与存储遍历方式 图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点]]></description>
+</item>
+</channel>
+</rss>

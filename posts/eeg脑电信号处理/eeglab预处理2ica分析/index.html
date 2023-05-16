@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>EEGLAB预处理2ICA分析 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="EEGLAB预处理2ICA分析" />
+<meta property="og:description" content="独立成分分析的原理 独立成分分析 (Independent Component Analysis)又称盲源分离(Blind Source Separation，BSS) 算法, 它的工作就是要将混合的信号" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-16T14:49:44+08:00" />
+<meta property="article:modified_time" content="2023-03-16T14:49:44+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="EEGLAB预处理2ICA分析"/>
+<meta name="twitter:description" content="独立成分分析的原理 独立成分分析 (Independent Component Analysis)又称盲源分离(Blind Source Separation，BSS) 算法, 它的工作就是要将混合的信号"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" /><link rel="prev" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" /><link rel="next" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "EEGLAB预处理2ICA分析",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90\/"
+        },"genre": "posts","keywords": "ICA, 伪迹判别, EEGLab","wordcount":  649 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86\/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90\/","datePublished": "2023-03-16T14:49:44+08:00","dateModified": "2023-03-16T14:49:44+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EEGLAB预处理2ICA分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%B4%E7%9A%AE%E8%84%91%E7%94%B5/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>头皮脑电</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-16">2023-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;649 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#独立成分分析的原理">独立成分分析的原理</a>
+      <ul>
+        <li><a href="#实际eeglab的ica分析">实际EEGLab的ICA分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#典型成分识别">典型成分识别</a>
+      <ul>
+        <li><a href="#识别练习">识别练习</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="独立成分分析的原理">独立成分分析的原理</h2>
+<p>独立成分分析 (Independent Component Analysis)<strong>又称盲源分离(Blind Source Separation，BSS) 算法</strong>, 它的工作就是要将混合的信号分离得到原始信号源的信号。如下图:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-03-57.png"
+        data-srcset="./image/2023-03-16-19-03-57.png, ./image/2023-03-16-19-03-57.png 1.5x, ./image/2023-03-16-19-03-57.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-03-57.png"
+        title="./image/2023-03-16-19-03-57.png" /></p>
+<p>如图所示, ICA是一种线性变换, 它假设各个信号源发出信号是相互独立的, 并且监听通道数不少于信号源的数目, 同时他还假设信源发出的信号是非高斯分布的, 而对于时刻t某一通道k监听到的信号值$X_k^t$是各信源信号的线性组合。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-43-39.png"
+        data-srcset="./image/2023-03-16-19-43-39.png, ./image/2023-03-16-19-43-39.png 1.5x, ./image/2023-03-16-19-43-39.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-43-39.png"
+        title="./image/2023-03-16-19-43-39.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-43-47.png"
+        data-srcset="./image/2023-03-16-19-43-47.png, ./image/2023-03-16-19-43-47.png 1.5x, ./image/2023-03-16-19-43-47.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-43-47.png"
+        title="./image/2023-03-16-19-43-47.png" /></p>
+<p>由此得到一个矩阵形式, 此时我们只知道观测值x, 而混合矩阵A和源信号均未知, ICA则是仅根据已知的观测值来求解混合矩阵的逆矩阵W(因而被称为盲源分离), 就有:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-16-16.png"
+        data-srcset="./image/2023-03-16-19-16-16.png, ./image/2023-03-16-19-16-16.png 1.5x, ./image/2023-03-16-19-16-16.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-16-16.png"
+        title="./image/2023-03-16-19-16-16.png" /></p>
+<p>每一个成分$S_i$可以表示为观测变量的线性组合, 通过解混后就得到了各个独立成分, 对这些成分进行判别分析, 识别出是伪迹的成分, 将他们去除</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-26-46.png"
+        data-srcset="./image/2023-03-16-19-26-46.png, ./image/2023-03-16-19-26-46.png 1.5x, ./image/2023-03-16-19-26-46.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-26-46.png"
+        title="./image/2023-03-16-19-26-46.png" /></p>
+<p>所谓去除, 就是对于是伪迹的独立成分, 将他们置为0, 随后再用解混矩阵的逆矩阵将去伪迹后的独立成分还原为侦听数据</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-31-33.png"
+        data-srcset="./image/2023-03-16-19-31-33.png, ./image/2023-03-16-19-31-33.png 1.5x, ./image/2023-03-16-19-31-33.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-31-33.png"
+        title="./image/2023-03-16-19-31-33.png" /></p>
+<blockquote>
+<p>对于具体这一矩阵求解的数学原理以及代码实现和数据模拟, 之后写一篇详细探讨。可以参考 Onton, J, &amp; Makeig, S. (2006). lnformation-based modeling of event-related brain dynamics. Progressin brain research,159, 99-120.这篇文章。</p>
+</blockquote>
+<h3 id="实际eeglab的ica分析">实际EEGLab的ICA分析</h3>
+<p>另外，在实际执行ICA前, 如前一节所讲, 还要做一些处理, 例如滤波、直流偏移校正、坏导去除等等以得到好的ICA结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-46-21.png"
+        data-srcset="./image/2023-03-16-19-46-21.png, ./image/2023-03-16-19-46-21.png 1.5x, ./image/2023-03-16-19-46-21.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-46-21.png"
+        title="./image/2023-03-16-19-46-21.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-46-53.png"
+        data-srcset="./image/2023-03-16-19-46-53.png, ./image/2023-03-16-19-46-53.png 1.5x, ./image/2023-03-16-19-46-53.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-46-53.png"
+        title="./image/2023-03-16-19-46-53.png" /></p>
+<h2 id="典型成分识别">典型成分识别</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-38-09.png"
+        data-srcset="./image/2023-03-16-19-38-09.png, ./image/2023-03-16-19-38-09.png 1.5x, ./image/2023-03-16-19-38-09.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-38-09.png"
+        title="./image/2023-03-16-19-38-09.png" /></p>
+<p>典型的伪迹包含垂直眼电、水平眼飘、心电、肌电等，上图给出了一个概括, 判别根据包括功率谱图、波形特征等。</p>
+<ul>
+<li>
+<p><strong>肌电(EMG)</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-48-17.png"
+        data-srcset="./image/2023-03-16-19-48-17.png, ./image/2023-03-16-19-48-17.png 1.5x, ./image/2023-03-16-19-48-17.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-48-17.png"
+        title="./image/2023-03-16-19-48-17.png" /></p>
+</li>
+<li>
+<p><strong>心电(ECG)</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-49-22.png"
+        data-srcset="./image/2023-03-16-19-49-22.png, ./image/2023-03-16-19-49-22.png 1.5x, ./image/2023-03-16-19-49-22.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-49-22.png"
+        title="./image/2023-03-16-19-49-22.png" /></p>
+</li>
+</ul>
+<h3 id="识别练习">识别练习</h3>
+<p><a href="https://labeling.ucsd.edu/labelfeedback" target="_blank" rel="noopener noreffer ">https://labeling.ucsd.edu/labelfeedback</a>
+以上有一个识别练习网站</p>
+<ol>
+<li>
+<p>坏导
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-51-46.png"
+        data-srcset="./image/2023-03-16-19-51-46.png, ./image/2023-03-16-19-51-46.png 1.5x, ./image/2023-03-16-19-51-46.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-51-46.png"
+        title="./image/2023-03-16-19-51-46.png" /></p>
+</li>
+<li>
+<p>未知的非典型的伪迹
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-52-35.png"
+        data-srcset="./image/2023-03-16-19-52-35.png, ./image/2023-03-16-19-52-35.png 1.5x, ./image/2023-03-16-19-52-35.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-52-35.png"
+        title="./image/2023-03-16-19-52-35.png" /></p>
+</li>
+<li>
+<p>心电
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-53-20.png"
+        data-srcset="./image/2023-03-16-19-53-20.png, ./image/2023-03-16-19-53-20.png 1.5x, ./image/2023-03-16-19-53-20.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-53-20.png"
+        title="./image/2023-03-16-19-53-20.png" /></p>
+</li>
+<li>
+<p>肌电
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-53-42.png"
+        data-srcset="./image/2023-03-16-19-53-42.png, ./image/2023-03-16-19-53-42.png 1.5x, ./image/2023-03-16-19-53-42.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-53-42.png"
+        title="./image/2023-03-16-19-53-42.png" /></p>
+</li>
+<li>
+<p>正常
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-54-12.png"
+        data-srcset="./image/2023-03-16-19-54-12.png, ./image/2023-03-16-19-54-12.png 1.5x, ./image/2023-03-16-19-54-12.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-54-12.png"
+        title="./image/2023-03-16-19-54-12.png" /></p>
+</li>
+<li>
+<p>市电干扰
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-54-33.png"
+        data-srcset="./image/2023-03-16-19-54-33.png, ./image/2023-03-16-19-54-33.png 1.5x, ./image/2023-03-16-19-54-33.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-54-33.png"
+        title="./image/2023-03-16-19-54-33.png" /></p>
+</li>
+<li>
+<p>夹杂市电干扰
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-16-19-54-59.png"
+        data-srcset="./image/2023-03-16-19-54-59.png, ./image/2023-03-16-19-54-59.png 1.5x, ./image/2023-03-16-19-54-59.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-16-19-54-59.png"
+        title="./image/2023-03-16-19-54-59.png" /></p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" data-title="EEGLAB预处理2ICA分析" data-hashtags="ICA,伪迹判别,EEGLab"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" data-hashtag="ICA"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" data-title="EEGLAB预处理2ICA分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" data-title="EEGLAB预处理2ICA分析"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E9%A2%84%E5%A4%84%E7%90%862ica%E5%88%86%E6%9E%90/" data-title="EEGLAB预处理2ICA分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ica/">ICA</a>,&nbsp;<a href="/tags/%E4%BC%AA%E8%BF%B9%E5%88%A4%E5%88%AB/">伪迹判别</a>,&nbsp;<a href="/tags/eeglab/">EEGLab</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/eeglab%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E9%A2%84%E5%A4%84%E7%90%861%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B/" class="prev" rel="prev" title="EEGLAB脑电信号预处理1基本流程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>EEGLAB脑电信号预处理1基本流程</a>
+            <a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/openvibe/" class="next" rel="next" title="OpenViBE 简明扼要上手指南">OpenViBE 简明扼要上手指南<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

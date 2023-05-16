@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>背包问题 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="背包问题" />
+<meta property="og:description" content="背包问题是一类经典的动态规划问题，它非常灵活、变体多样，需要仔细体会。本书只介绍两类最简单的背包问题:01 背包问题和完全背包问题，而这两种背" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-03T18:57:23+08:00" />
+<meta property="article:modified_time" content="2023-04-03T18:57:23+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="背包问题"/>
+<meta name="twitter:description" content="背包问题是一类经典的动态规划问题，它非常灵活、变体多样，需要仔细体会。本书只介绍两类最简单的背包问题:01 背包问题和完全背包问题，而这两种背"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/03/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "背包问题",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/04\/"
+        },"genre": "posts","keywords": "算法, 动态规划","wordcount":  3102 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/04\/","datePublished": "2023-04-03T18:57:23+08:00","dateModified": "2023-04-03T18:57:23+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">背包问题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-03">2023-04-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3102 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#完全背包问题">完全背包问题</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>背包问题是一类经典的动态规划问题，它非常灵活、变体多样，需要仔细体会。本书只介绍两类最简单的背包问题:01 背包问题和完全背包问题，而这两种背包中，又以01 背包为重。
+<em>01背包问题</em>
+有n件物品，每件物品的重量为 <code>w[i]</code>，价值为<code>c[i]</code>。现有一个容量为<code>V</code>的背包，问如何选取物品放入背包，使得背包内物品的总价值最大。其中每种物品都只有<code>1</code>件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#ae81ff">5</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>令<code>dp[i][v]</code>表示前i件物品<code>(1&lt;i&lt;n, 0&lt;v&lt;V)</code>装入容量为v的背包中所能获得的最大价值。
+考虑对第i件物品的选择策略，有两种策略：
+(1) 不放第件物品那么问题转化为前i-1件物品装入容量为v的背包中所能获得的最大价值，也即dp[i-1][v]。
+(2) 放第i件物品，那么问题转化为前<code>i-1</code>件物品装入容量为<code>v-w[i]</code>的背包中所能获得的最大价值，也即<code>dp[i-1][v-w[i]]+c[i]</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     bagpack1.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/05 10:17:33
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0-1背包问题: 先看如何设置状态, 需要考察状态的维度, 例如本题中有两个维度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">分别是 物品质量和背包容量, 具体的dp[i][v]是指仅考虑前i个物品且背包质量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">为 v 的情况下获得的最大价值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> w[MAXN], c[MAXN];   <span style="color:#75715e">// w[] 物品质量数组, v[] 物品价值数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> n, bag;     <span style="color:#75715e">// n 物品数量, bag 背包容量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dp[MAXN][MAXN];     <span style="color:#75715e">// dp[i][v] 状态数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> p[MAXN][MAXN];     <span style="color:#75715e">// 回溯数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_problem</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n <span style="color:#f92672">&gt;&gt;</span> bag;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> w[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> c[i];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve_probem</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// dp[0][]=0, dp[][0]=0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> v<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; v<span style="color:#f92672">&lt;=</span>bag; v<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(v <span style="color:#f92672">&gt;=</span> w[i] <span style="color:#f92672">&amp;&amp;</span> (dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][v<span style="color:#f92672">-</span>w[i]]<span style="color:#f92672">+</span>c[i]) <span style="color:#f92672">&gt;</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][v]){
+</span></span><span style="display:flex;"><span>                dp[i][v] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][v<span style="color:#f92672">-</span>w[i]]<span style="color:#f92672">+</span>c[i];
+</span></span><span style="display:flex;"><span>                p[i][v] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;   <span style="color:#75715e">// 表示选择第 i 件物品
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }<span style="color:#66d9ef">else</span>{ <span style="color:#75715e">// v容量太小, 无法装入 w[i] 或者 装入物品i后得不到更大的价值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                dp[i][v] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][v];    
+</span></span><span style="display:flex;"><span>                p[i][v] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">// 表示不选第 i 件物品
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">path_tracing</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> v){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 从[n, bag] 开始回溯
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> bag<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Get it: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(p[i][v] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            path_tracing(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, v);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(p[i][v] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            path_tracing(i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, v<span style="color:#f92672">-</span>w[i]);
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Put object &#34;</span> <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, (&#34;</span><span style="color:#f92672">&lt;&lt;</span> w[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> c[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_problem();
+</span></span><span style="display:flex;"><span>    solve_probem();
+</span></span><span style="display:flex;"><span>    path_tracing(n, bag);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> dp[n][bag] <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 5 1 2 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 5 2 1 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>可以知道，时间复杂度和空间复杂度都是 <code>O(nV)</code>，其中时间复杂度已经无法再优化，但是空间复杂度还可以再优化.
+注意到状态转移方程中计算<code>dp[i][v]</code>时总是只需要<code>dp[i-1][v]</code>左侧部分的数据(即只需要图中正上方与左上方的数据)，且当计算<code>dp[i+1]</code>的部分时，<code>dp[i-1]</code>的数据又完全用不到了，因此不妨仅设立一维数组 <code>dp[v]</code>。每计算出一个<code>dp[i][v]</code>，就相当于把 <code>dp[i-1][v]</code>抹消，因为在后面的运算中<code>dp[i-1][]</code>再也用不到了。我们把这种技巧称为<strong>滚动数组</strong>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     bagpack2.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/05 15:13:44
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> w[MAXN], c[MAXN];   <span style="color:#75715e">// w[] 物品质量数组, c[] 物品价值数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> n, bag;     <span style="color:#75715e">// n 物品数量, bag 背包容量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 滚动数组: dp[v] = max(dp[v], dp[v-w[i]]+c[i])
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> dp[MAXN];     <span style="color:#75715e">// dp[v] 状态数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>(<span style="color:#66d9ef">int</span> a[]){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>bag; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> a[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_problem</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n <span style="color:#f92672">&gt;&gt;</span> bag;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> w[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> c[i];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve_probem</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> v<span style="color:#f92672">=</span>bag; v<span style="color:#f92672">&gt;=</span>w[i]; v<span style="color:#f92672">--</span>)    <span style="color:#75715e">// 逆序, 保证dp[v-w[i]]是未被更新过的(i-1的状态)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            dp[v] <span style="color:#f92672">=</span> max(dp[v<span style="color:#f92672">-</span>w[i]]<span style="color:#f92672">+</span>c[i], dp[v]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_problem();
+</span></span><span style="display:flex;"><span>    solve_probem();
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> dp[bag] <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>动态规划是如何避免重复计算的问题在01背包问题中非常明显。在一开始暴力枚举每件物品放或者不放入背包时，其实忽略了一个特性:第件物品放或者不放而产生的最大值是完全可以由前面i-1件物品的最大值来决定的，而暴力做法无视了这一点。另外，01 背包中的每个物品都可以看作一个阶段，这个阶段中的状态有<code>dp[i][0]</code> ~ <code>dp[i][V]</code>，它们均由上一个阶段的状态得到。事实上，<strong>对能够划分阶段的问题来说，都可以尝试把阶段作为状态的一维，这可以使我们更方便地得到满足无后效性的状态</strong>。从中也可以得到这么一个技巧，<strong>如果当前设计的状态不满足无后效性，那么不妨把状态进行升维，即增加一维或若干维来表示相应的信息，这样可能就能满足无后效性了</strong>.</p>
+<h2 id="完全背包问题">完全背包问题</h2>
+<p>完全背包问题的叙述如下:
+有n种物品，每种物品的单件重量为 w[i]，价值为c[i]。现有一个容量为V的背包，问如何选取物品放入背包，使得背包内物品的总价值最大。其中每种物品都有<code>无穷件</code>。可以看出，完全背包问题和01 背包问题的唯一区别就在于:完全背包的物品数量每种有无穷件，选取物品时对同一种物品可以选1件选2件&hellip;&hellip;只要不超过容量 V 即可，而01背包的物品数量每种只有1件。</p>
+<p>状态数组和01背包完全相同，但由于第i件物品可以是多个，所以是转到[i][v-w[i]]:
+<code>dp[v] = max(dp[i-1][v], dp[i][v-w[i]]+c[i])</code>
+可以看到, <code>dp[i][v-w[i]]+c[i]</code>部分中 dp[i] 是已被更新后的 i 状态, 因此转为1维后应正向遍历.</p>
+<h2 id="总结">总结</h2>
+<p>前面几节介绍了动态规划的相关概念，并求解了一些经典的动态规划模型。但是在实际碰到新的问题时，初学者总是容易陷入头脑一片空白、完全无法设计状态的情况，这是正常现象，因为动态规划本身就需要经验的积累和大量做题才能有较大的提高。不过从上面的经典模型中还是能总结出一些规律性的东西，先把前面介绍过的动态规划模型列举如下:
+(1)最大连续子序列和
+令dp[i]表示以A[i]作为末尾的连续序列的最大和
+(2)最长不下降子序列(LIS)
+令dp[i]表示以A[i]结尾的最长不下降子序列长度。
+(3)最长公共子序列(LCS)
+令dp[i][j]表示字符串A的i号位和字符串B的i号位之前的LCS长度
+(4)最长文子串
+令dp[i][j]表示 S[i]至 S[j]所表示的子串是否是回文子串。
+(5)数塔DP
+令dp[i][j]表示从第i行第j个数字出发的到达最底层的所有路径上所能得到的最大和。
+(6)DAG最长路
+令dp[i]表示从i号顶点出发能获得的最长路径长度
+(7)01背包
+令dp[i][v]表示前i件物品装入容量为v的背包中能获得的最大价值。
+(8)完全背包
+令dp[i][v]表示前i件物品放入容量为v的背包中能获得的最大价值。</p>
+<p>先看(1)~(4)，这4个都是关于序列或字符串的问题(特别说明:一般来说，“子序列”可以不连续，“子串”必须连续)。可以注意到，(1)(2) 设计状态的方法都是“令 dp[i]表示以A[i]为结尾的XXX”，其中XX即为原问题的描述，然后<strong>分析A[i]的情况来进行状态转移</strong>;而(3)(4)由于原<strong>问题本身就有二维性质</strong>，因此使用了“<strong>令 dp[i][j]表示i号位和j号位之间XXX</strong>”的状态设计方式，其中XXX为原问题的描述(最长回文子串中的状态和原问题有关;当然，最长回文子串的状态也可以设计成“令 dplil]表示 Si]至 Si]的区间的最长回文子串长度”，并且可解)。这就给了我们一些启发:
+当题目与序列或字符串(记为 A)有关时，可以考虑把状态设计成下面两种形式，然后根据端点特点去考虑状态转移方程。
+(1) 令dp[i][j]表示以A[i]结尾(或开头)的XXX
+(2) 令dp[i][j]表示A[i]至A[j]区间的XXX。其中XXX均为原问题的表述。
+接着来看(5)~(8)，可以发现它们的状态设计都包含了某种“方向”的意思。如数塔DP 中设计为从点(i, j)出发到达最底层的最大和，DAG 最长路中设计为从i号顶点出发的最长路，背包问题中则设计成dp[i][v]表示前i件物品恰好放入容量为的背包中能获得的最大价值。这又说明了一类动态规划问题的状态设计方法:分析题目中的状态需要几维来表示，然后对其中的每一维采取下面的某一个表述:</p>
+<ol>
+<li>恰好为i。</li>
+<li>前i.
+在每一维的含义设置完毕之后，dp 数组的含义就可以设置成“令 dp 数组表示恰好为i(或前i), 恰好为j(或前j)&hellip;&hellip;的XXX”其中XX为原问题的描述。接下来就可以通过端点的特点去考虑状态转移方程。
+最后需要说明的是，在大多数的情况下，都可以把动态规划可解的问题看作一个有向无环图(DAG)，图中的结点就是状态，边就是状态转移的方向，求解问题的顺序就是按照DAG的拓扑序进行求解。从这个角度可以辅助理解动态规划，建议读者能结合讲解过的几个动态规划模型予以理解</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" data-title="背包问题" data-hashtags="算法,动态规划"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" data-title="背包问题"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" data-title="背包问题"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" data-title="背包问题"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/03/" class="prev" rel="prev" title="动态规划专题-经典问题集（二）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>动态规划专题-经典问题集（二）</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" class="next" rel="next" title="图算法（一）图的存储和两种遍历方式">图算法（一）图的存储和两种遍历方式<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

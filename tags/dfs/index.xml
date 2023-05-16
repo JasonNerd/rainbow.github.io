@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>DFS - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/dfs/</link>
+        <description>DFS - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 15:06:35 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/dfs/" rel="self" type="application/rss+xml" /><item>
+    <title>搜索专题(2)-深度优先搜索(DFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</link>
+    <pubDate>Fri, 07 Apr 2023 15:06:35 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</guid>
+    <description><![CDATA[例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔]]></description>
+</item>
+<item>
+    <title>图算法（一）图的存储和两种遍历方式</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Fri, 07 Apr 2023 10:30:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[图的基本概念与存储遍历方式 图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点]]></description>
+</item>
+</channel>
+</rss>

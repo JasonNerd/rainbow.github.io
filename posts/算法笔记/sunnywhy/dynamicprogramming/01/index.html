@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第11章-动态规划专题 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第11章-动态规划专题" />
+<meta property="og:description" content="动态规划的递归写法和递推写法 动态规划是一种非常精妙的算法思想，它没有固定的写法、极其灵活，常常需要具体问题具体分析。和之前介绍的大部分算法不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-29T09:28:59+08:00" />
+<meta property="article:modified_time" content="2023-03-29T09:28:59+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第11章-动态规划专题"/>
+<meta name="twitter:description" content="动态规划的递归写法和递推写法 动态规划是一种非常精妙的算法思想，它没有固定的写法、极其灵活，常常需要具体问题具体分析。和之前介绍的大部分算法不"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" /><link rel="prev" href="https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第11章-动态规划专题",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/01\/"
+        },"genre": "posts","keywords": "算法, 动态规划","wordcount":  3480 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/dynamicprogramming\/01\/","datePublished": "2023-03-29T09:28:59+08:00","dateModified": "2023-03-29T09:28:59+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第11章-动态规划专题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-29">2023-03-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3480 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#动态规划的递归写法和递推写法">动态规划的递归写法和递推写法</a>
+      <ul>
+        <li><a href="#1-什么是动态规划">1. 什么是动态规划</a></li>
+        <li><a href="#2-dp的递归写法">2. DP的递归写法</a></li>
+        <li><a href="#3-动规划的递推写法">3. 动规划的递推写法</a></li>
+        <li><a href="#4-分治贪心动态规划">4. 分治、贪心、动态规划</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="动态规划的递归写法和递推写法">动态规划的递归写法和递推写法</h2>
+<p>动态规划是一种非常精妙的算法思想，它没有固定的写法、极其灵活，常常需要具体问题具体分析。和之前介绍的大部分算法不同，一开始就直接讨论动态规划的概念并不是很好的学习方式，反而先接触一些经典模型会有更好的效果。因此本章主要介绍一些动态规划的经典模型，并在其中穿插动态规划的概念，让读者慢慢接触动态规划。同时请读者不要畏惧，多训练、多思考、多总结是学习动态规划的重点。</p>
+<h3 id="1-什么是动态规划">1. 什么是动态规划</h3>
+<p><strong>动态规划(Dynamic Programming，DP)<strong>是一种用来解决一类</strong>最优化问题</strong>的算法思想简单来说，动态规划<strong>将一个复杂的问题分解成若干个子问题，通过综合子问题的最优解来得到原问题的最优解</strong>。需要注意的是，动态规划会<strong>将每个求解过的子问题的解记录下来</strong>，这样当下一次碰到同样的子问题时，就可以直接使用之前记录的结果，而不是重复计算。注意:虽然动态规划采用这种方式来提高计算效率，但不能说这种做法就是动态规划的核心(后面会说明这一点)。一般可以使用递归或者递推的写法来实现动态规划，其中<strong>递归写法在此处又称作记忆化搜索</strong>。</p>
+<h3 id="2-dp的递归写法">2. DP的递归写法</h3>
+<p>先来讲解递归写法。通过这部分内容的学习，读者应能理解动态规划是如何记录子问题的解，来避免下次遇到相同的子问题时的重复计算的。
+以斐波那契(Fibonacci)数列为例，斐波那契数列的定义为E=lF=lE=F-+F-2(n&gt;2)。在4.3节中是按下面的代码来算的:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">F</span>(<span style="color:#66d9ef">int</span> n){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(n<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> F(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>F(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>事实上，这个递归会涉及很多重复的计算. 当n=5时，可以得到F(5)= F(4)+ F(3)，接下来在计算 F(4)时又会有 F(4)= F(3)+ F(2)。这时候如果不采取措施，F(3)将会被计算两次。可以推知，如果 n 很大，重复计算的次数将难以想象。事实上，由于没有及时保存中间计算的结果，实际复杂度会高达 $O(2^n)$，即每次都会计算 F(n-1)和F(n-2)这两个分支，基本不能承受n较大的情况。为了避免重复计算，可以开一个一维数组 dp，用以保存已经计算过的结果，其中 <code>dp[n]</code> 记录F(n)的结果，并用 <code>dp[n]=-1</code> 表示F(n)当前还没有被计算过:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">F</span>(<span style="color:#66d9ef">int</span> n){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(n<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;  <span style="color:#75715e">//递归边界
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(dp[n]<span style="color:#f92672">!=-</span><span style="color:#ae81ff">1</span>)<span style="color:#66d9ef">return</span> dp[n];  <span style="color:#75715e">//已经计算过，直接返回结果，不再重复计算
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        dp[n]<span style="color:#f92672">=</span>F(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">+</span>F(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>);    <span style="color:#75715e">//计算F(n)，并保存至dp[n]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> dp[n];           <span style="color:#75715e">//返回F(n)的结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这样就把已经计算过的内容记录了下来，于是当下次再碰到需要计算相同的内容时，就能直接使用上次计算的结果，这可以省去大半无效计算，而这也是记忆化搜索这个名字的由来。如图 11-2 所示，通过记忆化搜索，把复杂度从 $O(2^n)$降到了$O(n)$，也就是说，用一个 0(n)空间的力量就让复杂度从指数级别降低到了线性级别。这是不是很令人振奋呢?</p>
+<h3 id="3-动规划的递推写法">3. 动规划的递推写法</h3>
+<p>以经典的数塔问题为例，如图 11-3 所示，将一些数字排成数塔的形状，其中第一层有一个数字，第二层有两个数字, &hellip;, 第n层有个数字。现在要从第一层走到第n层，每次只能走向下一层连接的两个数字中的一个，问:最后将路径上所有数字相加后得到的和最大是多少?
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-03-29-09-55-22.png"
+        data-srcset="./image/2023-03-29-09-55-22.png, ./image/2023-03-29-09-55-22.png 1.5x, ./image/2023-03-29-09-55-22.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-03-29-09-55-22.png"
+        title="./image/2023-03-29-09-55-22.png" />
+按照题目的描述，如果开一个二维数组f，其中 <code>f[i][j]</code>存放第<code>i</code>层的第<code>j</code>个数字，那么就有<code>f[1][1]= 5,f[2][1]= 8,f[2][2] = 3,f[3][1]=12,..,f[5][4]= 9,f[5][5]= 4</code>。此时，如果尝试穷举所有路径，然后记录路径上数字和的最大值，那么由于每层中的每个数字都会有两条分支路径，因此可以得到时间复杂度为$O(2^n)$.</p>
+<p>那么，产生这么大复杂度的原因是什么? 一开始，从第一层的5出发，按5-8-7的路线来到7，并枚举从7出发的到达最底层的所有路径。但是，之后当按5-3-7的路线再次来到7时，又会去枚举从7出发的到达最底层的所有路径，这就导致了从 7出发的到达最底层的所有路径都被反复地访问，做了许多多余的计算。</p>
+<p>由上面的考虑，不妨令 <code>dp[i][j]</code>表示从第<code>i</code>行第<code>j</code>个数字出发的到达最底层的所有路径中能得到的最大和，例如 <code>dp[3][2]</code>就是图中的7到最底层的路径最大和。在定义这个数组之后<code>dp[1][1]</code>就是最终想要的答案. 如果要求出<code>dp[i][j]</code>，那么一定要先求出它的两个子问题 &ldquo;从位置<code>(i+1, j)</code>到达最底层的最大和 <code>dp[i+1][j]</code>&rdquo; 和 &ldquo;从位置<code>(i+1, j+1)</code>到达最底层的最大和 <code>dp[i+l][j+1]</code>&quot;，即<strong>进行了一次决策</strong>: 走位置(i, j)的左下还是右下。写成式子就是:</p>
+<p>$$dp[i][j] = \max(dp[i+1][j], dp[i+1][j+1]) + f[i][j]$$</p>
+<p>把<code>dp[i][j]</code>称为<strong>问题的状态</strong>，而把上面的式子称作<strong>状态转移方程</strong>，它把状态 <code>dp[i][j]</code>转移为<code>dp[i+1][j]</code>和 <code>dp[i+l][j+1]</code>。可以发现，状态 <code>dp[i][j]</code> 只与第i+1层的状态有关，而与其他层的状态无关，这样<strong>层号为i的状态就总是可以由层号为i+1的两个子状态得到</strong>。那么，如果总是将层号增大，什么时候会到头呢?可以发现，数塔的最后一层的 dp 值总是等于元素本身，即<code>dp[n][j] = f[n][j] (1&lt;= j &lt;=n)</code>，把这种可以直接确定其结果的部分称为<strong>边界</strong>，而动态规划的递推写法总是从这些边界出发，通过状态转移方程扩散到整个 dp 数组。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     numtower.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/03/29 10:18:23
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">数塔
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">从顶部走到底部, 路径长最大值是多少?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">开辟一个dp[][]数组, dp[i][j] 表示从 (i,j) 出发到底部的路径最大长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">dp[i][j] = max(dp[i+1][j], dp[i+1][j+1]) + num_tower[i][j]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> num_tower[MAXN][MAXN], dp[MAXN][MAXN];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 输入数塔
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;=</span>i; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> num_tower[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 求解dp[][], 从底层开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;=</span>i; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            dp[i][j] <span style="color:#f92672">=</span> (dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j]<span style="color:#f92672">&gt;</span>dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">?</span>dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j]<span style="color:#f92672">:</span>dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])<span style="color:#f92672">+</span>num_tower[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. dp[0][0]即为解答
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> dp[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 44
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">       8  3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    12  7  16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  4  10  11  6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">9  5   3   9  4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">8 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">12 7 16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4 10 11 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">9 5 3 9 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>递归版本, 同时给出了路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> num_tower[MAXN][MAXN], dp[MAXN][MAXN], trace_path[MAXN][MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n;  <span style="color:#75715e">// 数塔层数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">solve_dp</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j){
+</span></span><span style="display:flex;"><span>    dp[i][j] <span style="color:#f92672">=</span> num_tower[i][j];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&lt;</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j]<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) solve_dp(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j); <span style="color:#75715e">// 如果未求解, 则先求一下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>) solve_dp(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bool</span> flg <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">&gt;</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        dp[i][j] <span style="color:#f92672">+=</span> flg<span style="color:#f92672">?</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">:</span> dp[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        trace_path[i][j] <span style="color:#f92672">=</span> flg<span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">// 1表示左下, -1表示右下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_trace</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#f92672">&lt;&lt;</span>i <span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> j <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i <span style="color:#f92672">&lt;</span> n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(trace_path[i][j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) print_trace(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(trace_path[i][j] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) print_trace(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 输入数塔
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;=</span>i; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> num_tower[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 递归的求解dp[][], 并保存路径选择
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    solve_dp(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> dp[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    print_trace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 44
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// (0, 0)(1, 1)(2, 2)(3, 2)(4, 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>显然，使用递归也可以实现上面的例子(即从<code>dp[1][1]</code>开始递归，直至到达边界时返回结果)。两者的区别在于: 使用递推写法的计算方式是<strong>自底向上(Bottom-up Approach)</strong>，即从边界开始，不断向上解决问题，直到解决了目标问题，而使用递归写法的计算方式是<strong>自顶向下(Top-downApproach)</strong>，即从目标问题开始，将它分解成子问题的组合，直到分解至边界为止。</p>
+<p>通过上面的例子再引申出一个概念:
+<strong>如果一个问题的最优解可以由其子问题的最优解有效地构造出来，那么称这个问题拥有<em>最优子结构(Optimal Substructure)</em>。</strong>
+最优子结构保证了动态规划中原问题的最优解可以由子问题的最优解推导而来。因此，一个问题必须拥有最优子结构，才能使用动态规划去解决。例如数塔问题中，每一个位置的 dp 值都可以由它的两个子问题推导得到。
+至此，重叠子问题和最优子结构的内容已介绍完毕。需要指出，<strong>一个问题必须拥有重叠子问题和最优子结构，才能使用动态规划去解决</strong>。</p>
+<h3 id="4-分治贪心动态规划">4. 分治、贪心、动态规划</h3>
+<ul>
+<li>
+<p>分治与动态规划: 分治和动态规划都是将问题分解为子问题，然后合并子问题的解得到原问题的解。但是不同的是，分治法分解出的子问题是不重叠的，因此分治法解决的问题不拥有重叠子问题，而动态规划解决的问题拥有重叠子问题。例如，归并排序和快速排序都是分别处理左序列和右序列，然后将左右序列的结果合并，过程中不出现重叠子问题，因此它们使用的都是分治法。另外，分治法解决的问题不一定是最优化问题，而动态规划解决的问题一定是最优化问题。</p>
+</li>
+<li>
+<p>贪心与动态规划。贪心和动态规划都要求原问题必须拥有最优子结构。二者的区别在于，贪心法采用的计算方式类似于上面介绍的“自顶向下”，但是并<strong>不等待子问题求解完毕后再选择使用哪一个，而是通过一种策略直接选择一个子问题去求解，没被选择的子问题就不去求解了</strong>，直接抛弃。也就是说，<strong>它总是只在上一步选择的基础上继续选择，因此整个过程以一种单链的流水方式进行，显然这种所谓“最优选择”的正确性需要用归纳法证明</strong>。例如对数塔问题而言，贪心法从最上层开始，每次选择左下和右下两个数字中较大的一个，一直到最底层得到最后结果，显然这不一定可以得到最优解。而动态规划不管是采用自底向上还是自顶向下的计算方式，都是从边界开始向上得到目标问题的解。也就是说，<strong>它总是会考虑所有子问题，并选择继承能得到最优结果的那个，对暂时没被继承的子问题，由于重叠子问题的存在，后期可能会再次考虑它们，因此还有机会成为全局最优的一部分，不需要放弃</strong>。所以贪心是一种壮士断腕的决策，只要进行了选择，就不后悔:动态规划则要看哪个选择笑到了最后，暂时的领先说明不了什么。</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" data-title="第11章-动态规划专题" data-hashtags="算法,动态规划"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" data-title="第11章-动态规划专题"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" data-title="第11章-动态规划专题"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/" data-title="第11章-动态规划专题"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="脑电数据分析工具MNE与EEGLAB的比较分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>脑电数据分析工具MNE与EEGLAB的比较分析</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/" class="next" rel="next" title="动态规划专题-经典问题集（一）">动态规划专题-经典问题集（一）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

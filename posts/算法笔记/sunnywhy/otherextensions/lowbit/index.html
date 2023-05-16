@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>专题扩展(2) - 树状数组(BIT) - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="专题扩展(2) - 树状数组(BIT)" />
+<meta property="og:description" content="lowbit 运算 $lowbit(x) = x &amp; (-x)$ 整数在计算机中一般采用的是补码存储，并且把一个补码表示的整数 x变成其相反数-x的过程相当于把x的二进制的每一位都取反，然后末" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-11T10:15:20+08:00" />
+<meta property="article:modified_time" content="2023-04-11T10:15:20+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="专题扩展(2) - 树状数组(BIT)"/>
+<meta name="twitter:description" content="lowbit 运算 $lowbit(x) = x &amp; (-x)$ 整数在计算机中一般采用的是补码存储，并且把一个补码表示的整数 x变成其相反数-x的过程相当于把x的二进制的每一位都取反，然后末"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/blockedalg/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "专题扩展(2) - 树状数组(BIT)",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/otherextensions\/lowbit\/"
+        },"genre": "posts","keywords": "树状数组, 数据结构","wordcount":  3737 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/otherextensions\/lowbit\/","datePublished": "2023-04-11T10:15:20+08:00","dateModified": "2023-04-11T10:15:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">专题扩展(2) - 树状数组(BIT)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-11">2023-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3737 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#lowbit-运算">lowbit 运算</a></li>
+    <li><a href="#树状数组及其应用">树状数组及其应用</a>
+      <ul>
+        <li><a href="#getsumx">getSum(x)</a></li>
+        <li><a href="#updatexv">update(x,v)</a></li>
+        <li><a href="#求序列中左边比它小的数">求序列中左边比它小的数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="lowbit-运算">lowbit 运算</h2>
+<p>$lowbit(x) = x &amp; (-x)$
+整数在计算机中一般采用的是补码存储，并且把一个补码表示的整数 x变成其相反数-x的过程相当于把x的二进制的每一位都取反，然后末位加 1。而这等价于直接<strong>把X的二进制最右边的1左边的每一位都取反</strong>. 对$x=(0000001101001100)_2$来说，最右边的 1 是在 2号位，因此把它左边的所有位全部取反，于是有$(-x=1111110010110100)_2$。通过它可以很容易推得$lowbit(x)=x&amp;(-x)$就是取的二进制<strong>最右边的1和它右边所有 0</strong>，因此它一定是 2 的幂次，即 1、2、4、8 等。例如对上面的例子(0000001101001100)来说，x&amp;(-x)=(0000000000000100)=4;而对x=6=(110)来说，x&amp;(-x)=(010)=2。显然，<strong>lowbit(x)也可以理解为能整除X的最大2的幂次</strong>。</p>
+<h2 id="树状数组及其应用">树状数组及其应用</h2>
+<p>先来看一个问题:给出一个整数序列A，元素个数为N(N&lt;=10^5)，接下来查询K次(K&lt;=10^5)，每次查询将给出一个正整数x(x&lt;=N)，求前x个整数之和。</p>
+<p>例如对5个整数2、4、1、5、3 来说，如果查询前3 个整数之和，就需要输出7如果查询前 5 个整数之和，就需要输出15。一般的做法是开一个 sum 数组，其中sum[i]表示前个整数之和(数组下标从1开始)，这样sum数组就可以在输入个整数时就预处理出来接着每次查询前X个整数之和时，输出 sum[x]即可。显然每次查询的复杂度是 O(1)，因此查询的总复杂度是 O(K).</p>
+<p>现在升级一下这个问题，假设在查询的过程中<strong>可能随时给第x个整数加上一个整数V</strong>. 要求在查询中能实时输出前 x 个整数之和(更新操作和查询操作的次数总和为 K次)。如果还是之前的做法，虽然单次查询的时间复杂度仍然是 O(1)，但在进行更新时却需要给sum[x]、sum[x+1]、···、sum[N]都加上整数v，这使得单次更新的时间复杂度为 O(N)，那么如果 K 次操作中大部分都是更新操作，操作的总复杂度就会是 O(KN)，显然无法承受</p>
+<p>那如果不设置sum数组，直接对原数组进行更新和查询呢?很显然，虽然单次更新的时间复杂度变成了O(1)，但是单次查询的时间复杂度却变为了 O(N)。</p>
+<p><strong>树状数组(BinaryIndexedTree，BIT)</strong>。它其实仍然是一个数组，并且与sum数组类似,是一个用来记录和的数组，只不过它存放的不是前i个整数之和，而是<strong>在i号位之前(含i号位，下同)lowbit(i)个整数之和</strong>。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-04-11-11-18-02.png"
+        data-srcset="./image/2023-04-11-11-18-02.png, ./image/2023-04-11-11-18-02.png 1.5x, ./image/2023-04-11-11-18-02.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-04-11-11-18-02.png"
+        title="./image/2023-04-11-11-18-02.png" />
+下标从1开始</p>
+<p>此时, 就有以下两个基本操作:</p>
+<ol>
+<li>设计函数 getSum(x)，返回前x个数之和A[1]+..·+A<i class="far fa-check-square fa-fw" aria-hidden="true"></i> ;</li>
+<li>设计函数 update(x,v)，实现将第x个数加上一个数的功能，即A<i class="far fa-check-square fa-fw" aria-hidden="true"></i> +=v</li>
+</ol>
+<h3 id="getsumx">getSum(x)</h3>
+<p>记<code>SUM(1,x)=A[1]+...+A[x]</code>，由于 C[x]的覆盖长度是 lowbit(x)，因此
+<code>C[x]=A[x-lowbit(x)+1]+···A[x]</code>
+于是马上可以得到:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#a6e22e">SUM</span>(<span style="color:#ae81ff">1</span>x) <span style="color:#f92672">=</span> A[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>...<span style="color:#f92672">+</span>A[x]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">=</span> A[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>...<span style="color:#f92672">+</span>A[x<span style="color:#f92672">-</span><span style="color:#a6e22e">lowbit</span>(x)]<span style="color:#f92672">+</span>A[x <span style="color:#f92672">-</span><span style="color:#a6e22e">lowbit</span>(x)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>...<span style="color:#f92672">+</span> A[x]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">=</span> <span style="color:#a6e22e">SUM</span>(<span style="color:#ae81ff">1</span>,x<span style="color:#f92672">-</span><span style="color:#a6e22e">lowbit</span>(x)) <span style="color:#f92672">+</span> C[x]
+</span></span></code></pre></div><p>显然，由于lowbit()的作用是定位i的二进制中最右边的1，因此<code>i=i-lowbit(i)</code>事实上是不断把i的二进制中最右边的1置为0的过程。所以getSum函数的 for 循环执行次数为的二进制中1的个数. 也就是说，<strong>getSum函数的时间复杂度为 O(ogN)</strong>。</p>
+<h3 id="updatexv">update(x,v)</h3>
+<p>假如要让 A[6]加上一个数，那么就要寻找树状数组C中能覆盖了 A[6]的元素，让它们都加上 V。也就是说，如果要让 A[6]加上v，实际上是要让C[6]、C[8]、C[16]都加上v. 那么，如何找到距离当前的C[x]最近的能覆盖C[x]的 C[y]呢?首先，可以得到一个显然的结论:lowbit(y)必须大于 lowbit(x)(不然怎么覆盖呢&hellip;&hellip;)。于是问题等价于求一个尽可能小的整数a，使得 lowbit(x+a)&gt;lowbit(x)。显然，由于lowbit(x)是取x的二进制最右边的1的位置，因此如果lowbit(a)&lt; lowbit(x)，lowbit(x +a)就会小于lowbit(x)。为此lowbit(a)必须不小于lowbit(x)。接着发现，<strong>当a取lowbit(x)时，由于x和a的二进制最右边的1的位置相同因此x+a会在这个1的位置上产生进位，使得进位过程中的所有连续的1变成0</strong>，直到把它们左边第一个0置为1时结束。于是lowbit(x +a)&gt;lowbit(x)显然成立最小的a就是lowbit(x)。</p>
+<h3 id="求序列中左边比它小的数">求序列中左边比它小的数</h3>
+<p><code>给定一个有N个正整数的序列A(N105，A105)，对序列中的每个数，求出序列中它左边比它小的数的个数</code>
+例如对序列<code>{2,5,1,3,4，A1}</code>:
+A[1]等于2，在A[1]左边比A[1]小的数有0个;
+A[2]等于 5，在 A[2]左边比A[2]小的数有1个即2;
+A[3]等于1因此在 A[3]左边比A[3]小的数有0个;
+A[4]等于3，因此在A[4]左边比A[4]小的数有2个即2、1;
+A[5]等于4，在A[5]左边比A[5]小的数有3个，即2、1、3。</p>
+<p>先来看使用 hash 数组的做法，其中 hash[x] 记录整数x当前出现的次数。接着，从左到遍历序列A，假设当前访问的是 A[i]，那么就令 <code>hash[A[i]]</code> 加1，表示当前整数A[i]的出现数增加了一次;同时，序列中在 A[i] 左边比 A小的数的个数等于 <code>hash[1] + hash[2] +...hash[A[i]-1]</code>，这个和需要输出。但是很显然，这两个工作可以通过树状数组的 <code>update(A[i],1)</code> 和 <code>getSum(A[i]-1)</code> 来解决。
+使用树状数组时，不必真的建一个 hash 数组，因为它只存在于解法的逻辑中，并不需要真的用到，只需用一个树状数组来代替它即可。代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     baseline.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/11 11:10:54
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define lowbit(i) ((i)&amp;(-i))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxn <span style="color:#f92672">=</span> <span style="color:#ae81ff">100010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> c[maxn];    <span style="color:#75715e">// 树状数组, i号元素 记录着 原始序列A 指定片段(i-lowbit(i), i]的和
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// update(x, v) x 为序列元素编号, 该函数表示 将A[x]加上v后 树状数组的更新规则
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> v){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>x; i<span style="color:#f92672">&lt;</span>maxn; i<span style="color:#f92672">+=</span>lowbit(i))
+</span></span><span style="display:flex;"><span>        c[i] <span style="color:#f92672">+=</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// get_sum(x) 返回前x个整数的和
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_sum</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>x; i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">-=</span>lowbit(i)) <span style="color:#75715e">// 下标从 1 开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        sum <span style="color:#f92672">+=</span> c[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;   <span style="color:#75715e">// 数组元素个数 n, 要查询的 元素序号 x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> v;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> v;
+</span></span><span style="display:flex;"><span>        update(v, <span style="color:#ae81ff">1</span>);   <span style="color:#75715e">// 此时 A[] 逻辑上是一个哈希数组, A[v] 记录着 元素v 的出现次数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> get_sum(v<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;&lt;</span> endl;   <span style="color:#75715e">// 函数返回值意义: A[1]+A[2]+ ...+A[i] 表示小于v的元素 出现次数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">17 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">27 10 15 13 12 32 28 43 12 17 22 77 56 30 20 25 16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>这就是树状数组最经典的应用，即<strong>统计序列中在元素左边比该元素小的元素个数，其中“小”的定义根据题目而定</strong>，并不一定必须是数值的大小。那么，如何统计序列中在元素左边比该元素大的元素个数呢?事实上这等价于计算hash[A[i] + 1]+&hellip;+ hash[N]，于是 getSum(N)- getSum(A[i])就是答案。至于统计序列中在元素右边比该元素小(或大)的元素个数，只需要把原始数组从右往左遍历就好了。</p>
+<p>但是现在还有问题没有解决:如果 AN 不成立(例如 $10^9$)，看起来状数组开不了那么大，是不是就没办法了呢?当然不是。举个例子，现在给定一个序列 A 为 {520, 999999999, 18, 666, 88888} 如果只需要考虑它们之间大小的关系，那么这个序列实际上和2.5,1,3,4是等价的。同样的，序列11,111,1,113与24.1,2也是等价的(当然只考虑大小关系的话与2,3,1,2等价也是可以的)因此要做的就是把 A[] 与 1-N 对应起来. 而这与“给定N个学生的分数，给他们进行排名，分数相同则排名相同”显然是同一个问题。一般来说可以设置一个临时的结构体数组，用以存放输入的序列元素的值以及原始序号，而在输入完毕后将数组按 val 从小到大进行排序，排序完再按照“计算排名”的方式将“排名”根据原始序号 pos 存入一个新的数组即可。由于这种做法可以<strong>把任何不在合适区间的整数或者非整数都转换为不超过元素个数大小的整数</strong>，因此一般把这种技巧称为<strong>离散化</strong>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// @FileName:     difussed.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CreateTime:   2023/04/11 15:00:56
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @Author:       Rainbow River
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define lowbit(x) (x&amp;(-x))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 由于 哈希限制, 这里需要将原始序列映射到 [0, N)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxn <span style="color:#f92672">=</span> <span style="color:#ae81ff">10010</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">idval</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tid, tval;  <span style="color:#75715e">// 序号-值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}temper[maxn];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> A[maxn];    <span style="color:#75715e">// 原始序列 映射至 [0, N) 后的序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> c[maxn];    <span style="color:#75715e">// 树状数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">cmp</span>(idval a, idval b){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a.tval <span style="color:#f92672">&lt;</span> b.tval;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// hash[x] += v --&gt; update c[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> v){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>x; i<span style="color:#f92672">&lt;</span>maxn; i<span style="color:#f92672">+=</span>lowbit(i))
+</span></span><span style="display:flex;"><span>        c[i] <span style="color:#f92672">+=</span> v;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// get the sum of hash[1 ... x]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get_sum</span>(<span style="color:#66d9ef">int</span> x){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>x; i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">-=</span>lowbit(i))
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> c[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. input elements: store to temper with ids
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n, v;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> v;
+</span></span><span style="display:flex;"><span>        temper[i].tid <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        temper[i].tval <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. reflect vals to id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    sort(temper, temper<span style="color:#f92672">+</span>n, cmp);    <span style="color:#75715e">// first, we sort ascending by vals
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){         <span style="color:#75715e">// then we reflect to A[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> temper[i].tval <span style="color:#f92672">!=</span> temper[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].tval){
+</span></span><span style="display:flex;"><span>            A[temper[i].tid] <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            A[temper[i].tid] <span style="color:#f92672">=</span> A[temper[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].tid];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. finally, we can make choice
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        update(A[i], <span style="color:#ae81ff">1</span>);    <span style="color:#75715e">// A[i] 代表的原始元素数量加一
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        cout <span style="color:#f92672">&lt;&lt;</span> get_sum(A[i]<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对一个序列来说，如果用 hash数组记录每个元素出现的个数，那么序列第K大就是在求最小的i,使得ash/11+&hellip;+hashliK 成立。也就是说，如果用树状数组来解决 hash 数组的求和问题那么这个问题就等价于寻找第一个满足条件“getSum(i)K”的i。
+针对这个问题,由于hash数组的前缀和是递增的,根据4.5.1节可以1=1=MAXN然后在<code>[l, r]</code>范围内进行二分，对当前的 mid，判断getSum(mid)&gt;是否成立:如果成立，说明所求位置不超过mid，因此令r=mid;如果不成立说明所求位置大于mid，因此令1=mid+ 1。如此二分，直到<code>l&lt;r</code>不成立为止。显然二分的时间复杂度是 O(logn)，求和的时间复杂度也是O(logn)，因此总复杂度是$O(\log n^2)$。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">findKthElement</span>(<span style="color:#66d9ef">int</span> K){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> maxn, mid;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(l<span style="color:#f92672">&lt;</span>r){
+</span></span><span style="display:flex;"><span>        mid<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>r)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(getSum(mid)<span style="color:#f92672">&gt;=</span>k) r<span style="color:#f92672">=</span>mid;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> l<span style="color:#f92672">=</span>mid<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" data-title="专题扩展(2) - 树状数组(BIT)" data-hashtags="树状数组,数据结构"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" data-hashtag="树状数组"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" data-title="专题扩展(2) - 树状数组(BIT)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" data-title="专题扩展(2) - 树状数组(BIT)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/" data-title="专题扩展(2) - 树状数组(BIT)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>,&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/blockedalg/" class="prev" rel="prev" title="专题扩展(1) - 分块思想"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>专题扩展(1) - 分块思想</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>图算法（一）图的存储和两种遍历方式 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="图算法（一）图的存储和两种遍历方式" />
+<meta property="og:description" content="图的基本概念与存储遍历方式 图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T10:30:40+08:00" />
+<meta property="article:modified_time" content="2023-04-07T10:30:40+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="图算法（一）图的存储和两种遍历方式"/>
+<meta name="twitter:description" content="图的基本概念与存储遍历方式 图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "图算法（一）图的存储和两种遍历方式",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F\/"
+        },"genre": "posts","keywords": "图, DFS, BFS","wordcount":  2869 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/graph\/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F\/","datePublished": "2023-04-07T10:30:40+08:00","dateModified": "2023-04-07T10:30:40+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">图算法（一）图的存储和两种遍历方式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2869 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#图的存储">图的存储</a></li>
+    <li><a href="#图的遍历">图的遍历</a></li>
+    <li><a href="#基于图的遍历的题目练习">基于图的遍历的题目练习</a>
+      <ul>
+        <li><a href="#题目1-博客的最大转发数">题目1. 博客的最大转发数</a></li>
+        <li><a href="#题目2-犯罪团伙头目">题目2. 犯罪团伙头目</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="图的基本概念与存储遍历方式">图的基本概念与存储遍历方式</h1>
+<p>图由顶点和边构成，顶点之间由边连接，边有方向时称为有向图，否则为无向图。顶点的连接的边数称为度，在有向图中，从顶点出发的边数为出度，指向该顶点的边数为入度。抽象的看，图可表示为G(V, E), V表示顶点集, E表示边集。</p>
+<h2 id="图的存储">图的存储</h2>
+<p>图可以使用<strong>邻接矩阵</strong>, 适用于节点数较少的情况(例如小于1000)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> graph[N][N];    <span style="color:#75715e">// graph[i]p[j]表示 连接 从 节点i 出发到 节点j 的边的长度或者权重, 如果不存在就是0
+</span></span></span></code></pre></div><p>或者<strong>邻接表</strong>, 节点较多时也适用, 常使用vector数组实现, 他又被称为</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v;          <span style="color:#75715e">// 出边的终点为v
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> w;          <span style="color:#75715e">// 出边权重为w
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Node(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">&gt;</span> graph[N];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>graph[<span style="color:#ae81ff">1</span>].push_back(Node(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)); <span style="color:#75715e">// 表示从节点1出发到节点3的边权重为4
+</span></span></span></code></pre></div><h2 id="图的遍历">图的遍历</h2>
+<p>深度优先遍历或者广度优先遍历, 分别使用递归(或者栈)和队列进行实现</p>
+<ol>
+<li>广度优先遍历&ndash;借助队列的邻接矩阵实现</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;   <span style="color:#75715e">// N为最大节点数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> graph[MXN][MXN], n, s;     <span style="color:#75715e">// n为实际节点数 ( 编号 0 到 n-1 ), s为遍历起始节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> having_accessed[MXN];      <span style="color:#75715e">// 记录各个顶点是否 已加入队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tranverse_seq;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用队列实现广度优先
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bfsTranverse</span>(){
+</span></span><span style="display:flex;"><span>    queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
+</span></span><span style="display:flex;"><span>    q.push(s);
+</span></span><span style="display:flex;"><span>    having_accessed[s] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> rt <span style="color:#f92672">=</span> q.front();
+</span></span><span style="display:flex;"><span>        q.pop();
+</span></span><span style="display:flex;"><span>        tranverse_seq.push_back(rt);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 对所有未被访问的邻居进行访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(graph[rt][i] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>having_accessed[i]){
+</span></span><span style="display:flex;"><span>                q.push(i);
+</span></span><span style="display:flex;"><span>                having_accessed[i] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_grah</span>(){
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> graph[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_res</span>(<span style="color:#66d9ef">int</span> start){
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> start;
+</span></span><span style="display:flex;"><span>    init_grah();
+</span></span><span style="display:flex;"><span>    bfsTranverse();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: tranverse_seq){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// prt_res(1); // 1 0 2 4 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    prt_res(<span style="color:#ae81ff">0</span>); <span style="color:#75715e">// 0 1 4 2 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">图示例(无向图):
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V0, V1, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V0, V4, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V1, V2, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V1, V4, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V2, V3, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V3, V4, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><ol start="2">
+<li>深度优先遍历&ndash;借助栈的邻接表实现</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stack&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;   <span style="color:#75715e">// N为最大节点数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> n;     <span style="color:#75715e">// n为实际节点数(编号 0 到 n-1 ), s为遍历起始节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tranverse_seq;      <span style="color:#75715e">// 节点编号遍历序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> having_accessed[MXN];      <span style="color:#75715e">// 记录各个顶点是否 已加入队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v;  <span style="color:#75715e">// 出边顶点编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> w;  <span style="color:#75715e">// 边权重
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Node(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">&gt;</span> graph[MXN];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用 栈 实现深度优先
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfsTranverse</span>(<span style="color:#66d9ef">int</span> start){
+</span></span><span style="display:flex;"><span>    stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
+</span></span><span style="display:flex;"><span>    tranverse_seq.push_back(start); <span style="color:#75715e">// 访问节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    q.push(start);                  <span style="color:#75715e">// 节点入栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    having_accessed[start] <span style="color:#f92672">=</span> true;  <span style="color:#75715e">// 标记为已入栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> founded <span style="color:#f92672">=</span> false;           <span style="color:#75715e">// 栈顶节点的邻居是否已被全部访问完毕
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> rt <span style="color:#f92672">=</span> q.top();           <span style="color:#75715e">// 1. 取栈顶节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        founded <span style="color:#f92672">=</span> false;            <span style="color:#75715e">// 初始假定找不到未访问的邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> nd: graph[rt]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>having_accessed[nd.v]){     <span style="color:#75715e">// 2. 找到一个未访问的节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                tranverse_seq.push_back(nd.v); <span style="color:#75715e">// 访问该节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                q.push(nd.v);                   <span style="color:#75715e">// 入栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                having_accessed[nd.v] <span style="color:#f92672">=</span> true;   <span style="color:#75715e">// 并标记
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                founded <span style="color:#f92672">=</span> true;                 <span style="color:#75715e">// 找到了未访问的邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">break</span>;      <span style="color:#75715e">// break是第一个关键点, 此时邻居节点位于栈顶, 所以应 break 并立即尝试 访问该邻居的邻居
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>founded)
+</span></span><span style="display:flex;"><span>            q.pop();    <span style="color:#75715e">// 说明 当前节点的所有邻居都访问结束, 可以弹出栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_grah</span>(){
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    graph[<span style="color:#ae81ff">0</span>].push_back(Node(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点0 出发到 节点1 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">0</span>].push_back(Node(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点0 出发到 节点4 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">1</span>].push_back(Node(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点1 出发到 节点2 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">1</span>].push_back(Node(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点1 出发到 节点4 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">2</span>].push_back(Node(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点2 出发到 节点3 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">3</span>].push_back(Node(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点3 出发到 节点4 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">1</span>].push_back(Node(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点1 出发到 节点0 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">4</span>].push_back(Node(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点4 出发到 节点0 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">2</span>].push_back(Node(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点2 出发到 节点1 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">4</span>].push_back(Node(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>));     <span style="color:#75715e">// 从 节点4 出发到 节点1 的边权重为 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">3</span>].push_back(Node(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点3 出发到 节点2 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    graph[<span style="color:#ae81ff">4</span>].push_back(Node(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>));     <span style="color:#75715e">// 从 节点4 出发到 节点3 的边权重为 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_res</span>(<span style="color:#66d9ef">int</span> start){
+</span></span><span style="display:flex;"><span>    init_grah();
+</span></span><span style="display:flex;"><span>    dfsTranverse(start);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: tranverse_seq){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// prt_res(0);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    prt_res(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">图示例(无向图):
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V0, V1, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V0, V4, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V1, V2, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V1, V4, 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V2, V3, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">(V3, V4, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h2 id="基于图的遍历的题目练习">基于图的遍历的题目练习</h2>
+<h3 id="题目1-博客的最大转发数">题目1. 博客的最大转发数</h3>
+<blockquote>
+<p>PAT A1076 Forwards on Weibo
+在微博上一个用户(root)可能拥有很多粉丝(follower), 同时也会关注许多用户. 这就构成了一个社交网络. 假设 root 发表了一条微博, 那么他的 follower 就可以看到并转发, 同时也可以继续被 follower 的粉丝继续转发.  现在给出一个社交网络, 你需要计算指定用户的微博可能的最大转发数(每个用户只转发一次), 并且限制 间接粉丝的层级至多为L</p>
+</blockquote>
+<pre tabindex="0"><code class="language-git" data-lang="git">输入格式:
+N, L    // N是用户数(&lt;=1000), L为间接粉丝最大层数(&lt;=6)
+n, f[n] // 接下来的N行, 每行第一个数表示用户粉丝数n, 后面跟着n个数表示 关注的用户id列表
+...
+...
+query_n, query_list // 最后一行是查询列表, 第一个数是要查询的用户数量, 后面跟着用户ID
+</code></pre><p>题解:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> id, layer;
+</span></span><span style="display:flex;"><span>    gnode(<span style="color:#66d9ef">int</span> id){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>id;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>layer<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    gnode(<span style="color:#66d9ef">int</span> id, <span style="color:#66d9ef">int</span> layer){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>id<span style="color:#f92672">=</span>id;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>layer<span style="color:#f92672">=</span>layer;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAX_NUM <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> user_n, mx_layers;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> usrgraph[MAX_NUM];  <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> queries;            <span style="color:#75715e">// 待查节点id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> hav_visited[MAX_NUM];      <span style="color:#75715e">// 访问标记位数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 清空标记位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">clear_access</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_graph</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> user_n <span style="color:#f92672">&gt;&gt;</span> mx_layers;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>user_n; i<span style="color:#f92672">++</span>){   <span style="color:#75715e">// id 从 1 开始
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> tmpn, bufi;
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> tmpn;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>tmpn; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            cin <span style="color:#f92672">&gt;&gt;</span> bufi;
+</span></span><span style="display:flex;"><span>            usrgraph[bufi].push_back(i);    <span style="color:#75715e">// 表示 i 是 bufi 的粉丝, 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// 注意这里直接传入了一个整数, 并未出错, 这与构造器有关, 似乎这种行为是合理的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tmpqn, bufq;
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> tmpqn;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span> tmpqn; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> bufq;
+</span></span><span style="display:flex;"><span>        queries.push_back(bufq);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 计算以root为中心半径为mx_layers的散播人数num
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">bfs_tranverse</span>(<span style="color:#66d9ef">int</span> root){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// 不包含root本身
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    queue<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> workQ;
+</span></span><span style="display:flex;"><span>    workQ.push(root);
+</span></span><span style="display:flex;"><span>    hav_visited[root] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>workQ.empty()){
+</span></span><span style="display:flex;"><span>        gnode r <span style="color:#f92672">=</span> workQ.front();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(r.layer <span style="color:#f92672">&gt;=</span> mx_layers)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        workQ.pop();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> n: usrgraph[r.id]){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>hav_visited[n.id]){
+</span></span><span style="display:flex;"><span>                workQ.push(gnode(n.id, r.layer<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>                res<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                hav_visited[n.id] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">clear_access</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>user_n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        hav_visited[i] <span style="color:#f92672">=</span> false;     <span style="color:#75715e">// 清空访问标志位
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">prt_info</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i<span style="color:#f92672">&lt;=</span>user_n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; - &#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> fs: usrgraph[i]){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> fs.id <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">&lt;&lt;</span> fs.layer <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    init_graph();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> q: queries){
+</span></span><span style="display:flex;"><span>        clear_access();
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> bfs_tranverse(q) <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输入样例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">7 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">3 2 3 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 5 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 3 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2 2 6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输出样例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h3 id="题目2-犯罪团伙头目">题目2. 犯罪团伙头目</h3>
+<blockquote>
+<p>PAT A1034 Head of Gang
+警方寻找一个犯罪团伙(gang)的头目(head)的一个方法是检查他们的通话时长。假设A和B之间有通话, 则称A和B具有联系(边), 边权被定义为双方通话总时长, gang被定义为一个相互之间具有联系的多于2人的团伙, 且该团伙的纵通话时长超过 阈值K. 同时在每一个 gang 中, 权重最大的节点即为 头目head. 现在要求找到所有的gang及其head</p>
+</blockquote>
+<pre tabindex="0"><code class="language-git" data-lang="git">输入格式
+N K // N, K &lt;= 1000, N表示通话记录数, K表示阈值
+(A, B, t)   // 一共N行, A和B表示成员名, t是两者通话时长
+// 注意成员名由三个大写的字母构成
+输出:
+m       // m为犯罪团伙数量, 以下接上m行
+A ka    // (头目名, 所在团伙成员数)
+B kb
+...
+// 输出顺序为团伙头目名的升序
+</code></pre><p>题解:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">gnode</span>{
+</span></span><span style="display:flex;"><span>    string v;   <span style="color:#75715e">// 出边终点顶点id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> w;      <span style="color:#75715e">// 出边边权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    gnode(string v, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>v <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>w <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAX_REC <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>;       <span style="color:#75715e">// 最大值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> num_records, k_threshold;   <span style="color:#75715e">// 通话记录数, 总边权阈值, 均不大于1000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>map<span style="color:#f92672">&lt;</span>string, vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;&gt;</span> graph;   <span style="color:#75715e">// 邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> nids, brids;        <span style="color:#75715e">// 所有的节点编号, 某一分量的所有节点编号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>map<span style="color:#f92672">&lt;</span>string, <span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> hav_visted;   <span style="color:#75715e">// 标记节点是否已被划分到某个团伙中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>map<span style="color:#f92672">&lt;</span>string, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> pweights; <span style="color:#75715e">// 顶点编号, 点权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>();    <span style="color:#75715e">// 测试函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 1. 输入数据, 构造邻接表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. 累计顶点权值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 3. 记录节点id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 4. 标记所有节点为未访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">input_init</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> num_records <span style="color:#f92672">&gt;&gt;</span> k_threshold;
+</span></span><span style="display:flex;"><span>    string nm1, nm2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tlen;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>num_records; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cin <span style="color:#f92672">&gt;&gt;</span> nm1 <span style="color:#f92672">&gt;&gt;</span> nm2 <span style="color:#f92672">&gt;&gt;</span> tlen;
+</span></span><span style="display:flex;"><span>        graph[nm1].push_back(gnode(nm2, tlen));
+</span></span><span style="display:flex;"><span>        pweights[nm1] <span style="color:#f92672">+=</span> tlen;  <span style="color:#75715e">// 输入时即可记录各点点权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        pweights[nm2] <span style="color:#f92672">+=</span> tlen;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 将节点 id 单独构成 vector
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> pw: pweights){
+</span></span><span style="display:flex;"><span>        nids.push_back(pw.first);
+</span></span><span style="display:flex;"><span>        hav_visted[pw.first] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 找出 nid 所在的连通分量的所有节点id(包括nid)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs_tranverse</span>(string nid){
+</span></span><span style="display:flex;"><span>    hav_visted[nid] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    brids.push_back(nid);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> ov: graph[nid]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>hav_visted[ov.v]){  <span style="color:#75715e">// 出边顶点未访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            dfs_tranverse(ov.v);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// brach包含了一个连通分量(团伙)所有的成员id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>string <span style="color:#a6e22e">getGang</span>(vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> branch){
+</span></span><span style="display:flex;"><span>    string gang <span style="color:#f92672">=</span> branch[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mxg <span style="color:#f92672">=</span> pweights[gang];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> s: branch){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(pweights[s]<span style="color:#f92672">&gt;=</span>mxg){
+</span></span><span style="display:flex;"><span>            gang <span style="color:#f92672">=</span> s;
+</span></span><span style="display:flex;"><span>            mxg <span style="color:#f92672">=</span> pweights[s];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gang;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 判断团伙总通话时长是否超过阈值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ifExcessK</span>(vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> branch){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> b: branch){
+</span></span><span style="display:flex;"><span>        k <span style="color:#f92672">+=</span> pweights[b];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>k_threshold;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    input_init();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 遍历所有节点, 找到所有团伙
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span>gnode<span style="color:#f92672">&gt;</span> branch;   <span style="color:#75715e">// 记录已确认是gang的团伙信息, 包括 头目名称v 和 团伙大小w
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> p: nids){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>hav_visted[p]){ <span style="color:#75715e">// 节点p未访问, 说明有一个新的连通分量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            brids.clear();      <span style="color:#75715e">// 先清空已有连通分量节点序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            dfs_tranverse(p);   <span style="color:#75715e">// 遍历p所在的连通分量, 并把途经节点加入到 brids
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// 判断 brids 符不符合 gang 的要求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(brids.size() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&amp;&amp;</span> ifExcessK(brids)){
+</span></span><span style="display:flex;"><span>                string g <span style="color:#f92672">=</span> getGang(brids);
+</span></span><span style="display:flex;"><span>                branch.push_back(gnode(g, brids.size()));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 打印得到团伙信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> info <span style="color:#f92672">=</span> branch.size();
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> info <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>info; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> branch[i].v <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> branch[i].w;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>( i<span style="color:#f92672">&lt;</span>info<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">info</span>(){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> i: graph){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> i.first <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-&gt; &#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> j: i.second){
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#f92672">&lt;&lt;</span>j.v <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">&lt;&lt;</span>j.w<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;) &#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> v: pweights)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> v.first <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> v.second <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">样例1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输入:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">8 59
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AAA BBB 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">BBB AAA 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AAA CCC 40
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">DDD EEE 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">EEE DDD 70
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">FFF GGG 30
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">GGG HHH 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">HHH FFF 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输出:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AAA 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">GGG 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">样例2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输入: 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">8 70
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AAA BBB 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">BBB AAA 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AAA CCC 40
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">DDD EEE 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">EEE DDD 70
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">FFF GGG 30
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">GGG HHH 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">HHH FFF 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">输出:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" data-title="图算法（一）图的存储和两种遍历方式" data-hashtags="图,DFS,BFS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" data-hashtag="图"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" data-title="图算法（一）图的存储和两种遍历方式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" data-title="图算法（一）图的存储和两种遍历方式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" data-title="图算法（一）图的存储和两种遍历方式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%9B%BE/">图</a>,&nbsp;<a href="/tags/dfs/">DFS</a>,&nbsp;<a href="/tags/bfs/">BFS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" class="prev" rel="prev" title="背包问题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>背包问题</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" class="next" rel="next" title="图算法（二）最短路径算法">图算法（二）最短路径算法<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

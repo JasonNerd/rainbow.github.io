@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第01章-二叉树(四)-二叉平衡树 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第01章-二叉树(四)-二叉平衡树" />
+<meta property="og:description" content="平衡二叉树( AVL树, 前苏联两位数学家提出 ), 也即平衡的二叉查找树。 也即左右子树的高度差不超过1。 定义【平衡因子】为左子树高度减去右子树高度，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-02T22:19:04+08:00" />
+<meta property="article:modified_time" content="2023-04-02T22:19:04+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第01章-二叉树(四)-二叉平衡树"/>
+<meta name="twitter:description" content="平衡二叉树( AVL树, 前苏联两位数学家提出 ), 也即平衡的二叉查找树。 也即左右子树的高度差不超过1。 定义【平衡因子】为左子树高度减去右子树高度，"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/05/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第01章-二叉树(四)-二叉平衡树",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/binarytree\/04\/"
+        },"genre": "posts","keywords": "算法, 二叉树","wordcount":  1976 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/binarytree\/04\/","datePublished": "2023-04-02T22:19:04+08:00","dateModified": "2023-04-02T22:19:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第01章-二叉树(四)-二叉平衡树</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-02">2023-04-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1976 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>平衡二叉树( AVL树, 前苏联两位数学家提出 ), 也即平衡的二叉查找树。
+也即左右子树的高度差不超过1。
+定义【平衡因子】为左子树高度减去右子树高度，则AVL树平衡因子绝对值不超过1</p>
+<p>基本操作是:</p>
+<ol>
+<li>生成一个新节点</li>
+<li>获取节点高度</li>
+<li>计算节点平衡因子</li>
+<li>更新根节点高度</li>
+<li>查找、插入、删除
+// 二叉树查找, 实际和二叉排序树一样, 期望复杂度O(h) = o(lg N)
+// void search(avlT root, int x);   // 鸡肋</li>
+</ol>
+<p>// 删除节点
+使用递归的方法，对于非叶节点总是寻找到前驱（后继）替换并删除. 因此主要考虑叶节点的删除，核心在于节点高度的更新</p>
+<p>另外, LL/ LR/ RL/ RR 旋转操作要熟悉</p>
+<p>实现代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 二叉树节点，包含权重和节点高度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">avlNode</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight, height;
+</span></span><span style="display:flex;"><span>    avlNode <span style="color:#f92672">*</span>lch, <span style="color:#f92672">*</span>rch;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> avlNode<span style="color:#f92672">*</span> avlT;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 生成一个新节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">newNode</span>(<span style="color:#66d9ef">int</span> w);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 获取节点高度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getHeight</span>(avlNode<span style="color:#f92672">*</span> root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 计算节点平衡因子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getBalanceFactor</span>(avlNode<span style="color:#f92672">*</span> root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 更新节点高度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateHeight</span>(avlNode<span style="color:#f92672">*</span> root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 左旋: 使左孩子成为根节点, 这同时也相当于LL调整
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 也即由于在左孩子的左子树上插入了新节点导致根节点不平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">leftRotate</span>(avlT <span style="color:#f92672">&amp;</span>root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 右旋: 使右孩子成为根节点, 这同时也相当于RR调整
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 也即由于在右孩子的右子树上插入了新节点导致根节点不平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rightRotate</span>(avlT <span style="color:#f92672">&amp;</span>root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// LR调整, 左孩子的右子树插入了新节点导致根节点不平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 做法是先对左孩子进行右旋，也即使得左孩子的右孩子成为新的左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 再对根节点进行左旋，也即使得新的左孩子成为根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// RL调整, 右孩子的左子树插入了新节点导致根节点不平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 做法是先对右孩子进行左旋，也即使得右孩子的左孩子成为新的右孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 再对根节点进行右旋，也即使得新的右孩子成为根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(avlT <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> w);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 删除节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delNode</span>(avlT <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> w);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 寻找前驱节点，注意root必有左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPrev</span>(avlT root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 寻找后继节点，注意root必有右孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPost</span>(avlT root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 调整
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">adjust</span>(avlT <span style="color:#f92672">&amp;</span>root);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 前序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">preTranverse</span>(avlT t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> t<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        preTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        preTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 中序遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">midTranverse</span>(avlT t){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(t){
+</span></span><span style="display:flex;"><span>        midTranverse(t<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> t<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        midTranverse(t<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> inputseq <span style="color:#f92672">=</span> {<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> inputseq.size();
+</span></span><span style="display:flex;"><span>    avlT t <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        insert(t, inputseq[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    delNode(t, <span style="color:#ae81ff">8</span>);
+</span></span><span style="display:flex;"><span>    preTranverse(t);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    midTranverse(t);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    delNode(t, <span style="color:#ae81ff">9</span>);
+</span></span><span style="display:flex;"><span>    preTranverse(t);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    midTranverse(t);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    delNode(t, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    preTranverse(t);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    midTranverse(t);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">newNode</span>(<span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>    avlNode<span style="color:#f92672">*</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> avlNode;
+</span></span><span style="display:flex;"><span>    n<span style="color:#f92672">-&gt;</span>height <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    n<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>    n<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> n<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getHeight</span>(avlNode<span style="color:#f92672">*</span> root){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root)<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> root<span style="color:#f92672">-&gt;</span>height;
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getBalanceFactor</span>(avlNode<span style="color:#f92672">*</span> root){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> getHeight(root<span style="color:#f92672">-&gt;</span>lch)<span style="color:#f92672">-</span>getHeight(root<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateHeight</span>(avlNode<span style="color:#f92672">*</span> root){
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>height <span style="color:#f92672">=</span> max(getHeight(root<span style="color:#f92672">-&gt;</span>lch), getHeight(root<span style="color:#f92672">-&gt;</span>rch))<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">leftRotate</span>(avlT <span style="color:#f92672">&amp;</span>root){
+</span></span><span style="display:flex;"><span>    avlNode<span style="color:#f92672">*</span> rrch <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> rrch<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>    rrch<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> root;       <span style="color:#75715e">// 更改指针指向
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    updateHeight(root);     <span style="color:#75715e">// 注意及时更新节点高度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    updateHeight(rrch);
+</span></span><span style="display:flex;"><span>    root <span style="color:#f92672">=</span> rrch;            <span style="color:#75715e">// 最后记得使rrch成为根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rightRotate</span>(avlT <span style="color:#f92672">&amp;</span>root){
+</span></span><span style="display:flex;"><span>    avlNode<span style="color:#f92672">*</span> rlch <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> rlch<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>    rlch<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> root;
+</span></span><span style="display:flex;"><span>    updateHeight(root);
+</span></span><span style="display:flex;"><span>    updateHeight(rlch);
+</span></span><span style="display:flex;"><span>    root <span style="color:#f92672">=</span> rlch;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(avlT <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>root){
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> avlNode;
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>        updateHeight(root);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(w <span style="color:#f92672">&lt;</span> root<span style="color:#f92672">-&gt;</span>weight){
+</span></span><span style="display:flex;"><span>            insert(root<span style="color:#f92672">-&gt;</span>lch, w);   <span style="color:#75715e">// 插入到左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            insert(root<span style="color:#f92672">-&gt;</span>rch, w);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        adjust(root);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delNode</span>(avlT <span style="color:#f92672">&amp;</span>root, <span style="color:#66d9ef">int</span> w){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (root){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">==</span> w){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 查找到了该节点, 查看是否有左右孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>root<span style="color:#f92672">-&gt;</span>rch){
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 执行实际删除操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                root <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>lch <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>root<span style="color:#f92672">-&gt;</span>rch){
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 只有左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                avlNode <span style="color:#f92672">*</span>prev <span style="color:#f92672">=</span> getPrev(root);
+</span></span><span style="display:flex;"><span>                root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> prev<span style="color:#f92672">-&gt;</span>weight;
+</span></span><span style="display:flex;"><span>                delNode(root<span style="color:#f92672">-&gt;</span>lch, root<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>            }<span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 有右孩子或者有两个孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                avlNode<span style="color:#f92672">*</span> post <span style="color:#f92672">=</span> getPost(root);
+</span></span><span style="display:flex;"><span>                root<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">=</span> post<span style="color:#f92672">-&gt;</span>weight;
+</span></span><span style="display:flex;"><span>                delNode(root<span style="color:#f92672">-&gt;</span>rch, root<span style="color:#f92672">-&gt;</span>weight);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (w <span style="color:#f92672">&lt;</span> root<span style="color:#f92672">-&gt;</span>weight){
+</span></span><span style="display:flex;"><span>            delNode(root<span style="color:#f92672">-&gt;</span>lch, w);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            delNode(root<span style="color:#f92672">-&gt;</span>rch, w);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 更新
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        adjust(root);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">adjust</span>(avlT <span style="color:#f92672">&amp;</span>root){
+</span></span><span style="display:flex;"><span>    updateHeight(root);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> f <span style="color:#f92672">=</span> getBalanceFactor(root);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> fl <span style="color:#f92672">=</span> getBalanceFactor(root<span style="color:#f92672">-&gt;</span>lch), fr <span style="color:#f92672">=</span> getBalanceFactor(root<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(f<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 左子树过高
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(fl<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){   <span style="color:#75715e">// LL型, 对根节点右旋
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            rightRotate(root);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> { <span style="color:#75715e">//LR型, 注意在删除节点时可能出现fl=0的情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            leftRotate(root<span style="color:#f92672">-&gt;</span>lch);
+</span></span><span style="display:flex;"><span>            rightRotate(root);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(f<span style="color:#f92672">&lt;-</span><span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 右子树过高
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span>(fr<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){   <span style="color:#75715e">// RL
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            rightRotate(root<span style="color:#f92672">-&gt;</span>rch);
+</span></span><span style="display:flex;"><span>            leftRotate(root);
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{ <span style="color:#75715e">// RR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            leftRotate(root);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPrev</span>(avlT root){
+</span></span><span style="display:flex;"><span>    avlNode <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>rch){
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>avlNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">getPost</span>(avlT root){
+</span></span><span style="display:flex;"><span>     avlNode <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>rch;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">while</span> (p<span style="color:#f92672">-&gt;</span>lch){
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>lch;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> p;     
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">AVL树的插入操作，核心是要动态的保持avl树的特性，也即平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">第一步，按照权重大小找到插入位置进行插入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">第二步，更新节点高度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">第三步，计算节点平衡因子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">第四步，若绝对值不大于1则结束，否则第五步
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">第五步，对左子树或右子树进行左旋、右旋以达到平衡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1. 左旋：使右孩子成为根节点而自己成为原右孩子的左孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al    B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    Bl Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a. 使A的右孩子指针指向Bl ===&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  A  B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al Bl Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">b. 使B的左孩子指针指向A ===&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  A     Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al Bl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2. 右旋：使左孩子成为根节点而自己成为原左孩子的右孩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  A     Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al Ar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a. 使B的左孩子指针指向Ar ==&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  A  B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al Ar Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">b. 使A的右孩子指针指向B ==&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al    B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    Ar Br
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">插入后导致根节点不平衡的4种情况
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1. RL型, 在右孩子的左子树上插入新节点导致根节点不平衡, f=-2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al     C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    D    Cr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  Dl Dr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al, Dl, Cr, Dr高均为h, H(D)=h+2, f(A)=-2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">==&gt; 对根节点右孩子左旋(成为RR型)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al     D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    Dl   C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">       Dr Cr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">==&gt; 对根节点左旋(恢复平衡)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  A      C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Al Dl  Dr Cr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">2. LR型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">       A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   B      Ar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Bl   C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   Cl Cr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">=======&gt; 左孩子右旋
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">          A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     C      Ar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  B    Cr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Bl Cl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">======&gt; 根节点左旋
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  B      A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">Bl Cl  Cr Ar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">          A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">      B      (h)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  C     (h)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> (h-1) (h-1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">那么插入节点后如何知道是哪个节点（最靠近新插入的节点）不平衡了呢
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">首先这一节点必然存在于从根节点到该节点的访问路径中，或者查找路径中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">需要我们主动找到这个（最近）不平衡的节点吗？
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">假设不考虑调整问题，那么对于权重为w的节点查找失败也就得到插入位置，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">插入后递归返回到父节点，检查平衡因子，由于递归返回的性质，它必然是
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">离
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">节点删除示意（核心在于叶节点的删除与路径节点的高度调整，平衡因子调整
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     5          h=4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  3    7        h=3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> 2 4  6 8       h=2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1        9      h=1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">del((5), 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    4&lt;5, del((3), 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        4&gt;3, del((4), 4), rch // 因右子树删除导致不平衡必为正2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            4==4,  no lch, no rch, ==&gt; leaf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            root = nullptr;     // a
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        updateHeight((3));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        f3 = getBalanceFactor((3));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        if(f3&gt;1){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            f3l = getBalanceFactor((2));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            // 判断是LL或LR再进行处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        // b
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    adjust()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">a:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     5          h=4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  3    7        h=3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> 2    6 8       h=2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1        9      h=1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">b:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     5           h=4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  2     7        h=3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> 1 3   6 8       h=2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">          9      h=1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     5          h=4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  3    7        h=3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> 2 4  6 8       h=2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1        9      h=1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">del((5), 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    2&lt;5 ==&gt; 5-&gt;lch ==&gt; del((3), 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        2&lt;3 ==&gt; 3-lch ==&gt; del((2), 2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            prev = (1), 2 &lt;- 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            del((1), 1), (1) &lt;- nullptr // c
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">删除8和9后，出现 fl=0的情况, 此时归入LL, LR均可
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">7 3 2 1 5 4 6 9 8 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1 2 3 4 5 6 7 8 9 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">          7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     3        10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  2    5    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1    4  6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  2     7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1     5   10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    4  6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  3     7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> 2 4   6 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" data-title="第01章-二叉树(四)-二叉平衡树" data-hashtags="算法,二叉树"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" data-title="第01章-二叉树(四)-二叉平衡树"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" data-title="第01章-二叉树(四)-二叉平衡树"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/04/" data-title="第01章-二叉树(四)-二叉平衡树"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/03/" class="prev" rel="prev" title="第01章-二叉树(三)-二叉查找树BST"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>第01章-二叉树(三)-二叉查找树BST</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/binarytree/05/" class="next" rel="next" title="第02章-并查集">第02章-并查集<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

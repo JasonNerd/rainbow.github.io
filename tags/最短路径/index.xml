@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>最短路径 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/</link>
+        <description>最短路径 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 11:04:03 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="self" type="application/rss+xml" /><item>
+    <title>图算法（二）最短路径算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Fri, 07 Apr 2023 11:04:03 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[最短路径是图论中一个很经典的问题:给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。对任意给出的图G(V]]></description>
+</item>
+</channel>
+</rss>

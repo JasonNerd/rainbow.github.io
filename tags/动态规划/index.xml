@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>动态规划 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+        <description>动态规划 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 03 Apr 2023 18:57:23 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="self" type="application/rss+xml" /><item>
+    <title>背包问题</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/</link>
+    <pubDate>Mon, 03 Apr 2023 18:57:23 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/</guid>
+    <description><![CDATA[背包问题是一类经典的动态规划问题，它非常灵活、变体多样，需要仔细体会。本书只介绍两类最简单的背包问题:01 背包问题和完全背包问题，而这两种背]]></description>
+</item>
+<item>
+    <title>动态规划专题-经典问题集（二）</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/03/</link>
+    <pubDate>Mon, 03 Apr 2023 11:13:25 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/03/</guid>
+    <description><![CDATA[DAG最长(短)路 且在10.7.3节中已经讨论了如何求解DAG 中的最长路，也就是所谓的“关键路径”。但是求解关键路径的做法对初学者来说确实有]]></description>
+</item>
+<item>
+    <title>动态规划专题-经典问题集（一）</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/</link>
+    <pubDate>Thu, 30 Mar 2023 11:32:13 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/02/</guid>
+    <description><![CDATA[例题1. 最大连续子序列和 给定一个数字序列A1, A2, ..., An; 求i, j(1 &lt;= i, j &lt;= n), 使得Ai+...+Aj最大, 输出这个最大和sum和i, j. 思考: 考虑问题]]></description>
+</item>
+<item>
+    <title>第11章-动态规划专题</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/</link>
+    <pubDate>Wed, 29 Mar 2023 09:28:59 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/01/</guid>
+    <description><![CDATA[动态规划的递归写法和递推写法 动态规划是一种非常精妙的算法思想，它没有固定的写法、极其灵活，常常需要具体问题具体分析。和之前介绍的大部分算法不]]></description>
+</item>
+</channel>
+</rss>

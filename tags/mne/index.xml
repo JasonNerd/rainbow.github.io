@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>MNE - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/mne/</link>
+        <description>MNE - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 25 Mar 2023 19:11:01 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/mne/" rel="self" type="application/rss+xml" /><item>
+    <title>脑电数据分析工具MNE与EEGLAB的比较分析</title>
+    <link>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/</link>
+    <pubDate>Sat, 25 Mar 2023 19:11:01 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/eeg%E8%84%91%E7%94%B5%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E8%84%91%E7%94%B5%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mne%E4%B8%8Eeeglab%E7%9A%84%E6%AF%94%E8%BE%83%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[1. 概述 MNE: 一个开源的Python程序库, 可用于对MEG、EEG、ECoG、NIRS等人类神经生理学数据(neurophysiological d]]></description>
+</item>
+</channel>
+</rss>

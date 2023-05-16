@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - </title>
+        <link>https://www.rainbow.github.io/posts/</link>
+        <description>All Posts | </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 11 Apr 2023 10:15:20 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>专题扩展(2) - 树状数组(BIT)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/</link>
+    <pubDate>Tue, 11 Apr 2023 10:15:20 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/lowbit/</guid>
+    <description><![CDATA[lowbit 运算 $lowbit(x) = x &amp; (-x)$ 整数在计算机中一般采用的是补码存储，并且把一个补码表示的整数 x变成其相反数-x的过程相当于把x的二进制的每一位都取反，然后末]]></description>
+</item>
+<item>
+    <title>专题扩展(1) - 分块思想</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/blockedalg/</link>
+    <pubDate>Mon, 10 Apr 2023 20:24:31 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/otherextensions/blockedalg/</guid>
+    <description><![CDATA[来看一个问题: 给出一个非负整数序列A[]，元素个数为N ($N&lt;=10^5, A[i]&lt;=10^5$) 在有可能随时添加或删除元素的情况下，实时查询序列元素第K大，即把序列元素从小到大排]]></description>
+</item>
+<item>
+    <title>字符串专题(2)-字符串 KMP算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/</link>
+    <pubDate>Sat, 08 Apr 2023 15:21:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/kmpalg/</guid>
+    <description><![CDATA[本节主要讨论字符串的匹配问题，也就是说，如果给出两个字符串 text和 pattern，需要判断字符串 pattern 是否是字符串 text 的子串。一般把字符串 text 为文]]></description>
+</item>
+<item>
+    <title>字符串专题(1)-字符串Hash</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/</link>
+    <pubDate>Fri, 07 Apr 2023 16:14:52 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/</guid>
+    <description><![CDATA[字符串hash 是指将一个字符串S 映射为一个整数，使得该整数可以尽可能唯一地代表字符串 S。那么在一定程度上，如果两个字符串转换成的整数相等，就]]></description>
+</item>
+<item>
+    <title>搜索专题(2)-深度优先搜索(DFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</link>
+    <pubDate>Fri, 07 Apr 2023 15:06:35 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/</guid>
+    <description><![CDATA[例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔]]></description>
+</item>
+<item>
+    <title>图算法（五）关键路径</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</link>
+    <pubDate>Fri, 07 Apr 2023 14:50:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/</guid>
+    <description><![CDATA[AOV网 和 AOE网 顶点活动(Activity On Vertex，AOV)网是指用顶点表示活动，而用边集表示活动间优先关系的有向图。例如图10-5]]></description>
+</item>
+<item>
+    <title>搜索专题(1)-广度优先搜索(BFS)</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</link>
+    <pubDate>Fri, 07 Apr 2023 14:49:02 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/bfs/</guid>
+    <description><![CDATA[搜索, 就是在一个集合中按照一定的规则遍历访问集合的每一个元素的过程. 而广度优先搜索就是每次都把距离最近的元素访问完毕才会去访问更远的元素, 类]]></description>
+</item>
+<item>
+    <title>图算法（四）拓扑排序</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</link>
+    <pubDate>Fri, 07 Apr 2023 13:53:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E5%9B%9B%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</guid>
+    <description><![CDATA[1. DAG 有向无环图 如果一个有向图的任意顶点都无法通过一些有向边回到自身，那么称这个有向图为有向无环图(DirectedAcyclic Graph，]]></description>
+</item>
+<item>
+    <title>图算法（三）最小生成树算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Fri, 07 Apr 2023 11:46:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%89%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[最小生成树有3个性质需要掌握: 最小生成树是树，因此其边数等于顶点数减1，且树内一定不会有环。 对给定的图G(V, E)，其最小生成树可以不唯一，]]></description>
+</item>
+<item>
+    <title>图算法（二）最短路径算法</title>
+    <link>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Fri, 07 Apr 2023 11:04:03 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%8C%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[最短路径是图论中一个很经典的问题:给定图 G(VE)，求一条从起点到终点的路径，使得这条路径上经过的所有边的边权之和最小。对任意给出的图G(V]]></description>
+</item>
+</channel>
+</rss>

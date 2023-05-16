@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>搜索专题(2)-深度优先搜索(DFS) - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="搜索专题(2)-深度优先搜索(DFS)" />
+<meta property="og:description" content="例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T15:06:35+08:00" />
+<meta property="article:modified_time" content="2023-04-07T15:06:35+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="搜索专题(2)-深度优先搜索(DFS)"/>
+<meta name="twitter:description" content="例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "搜索专题(2)-深度优先搜索(DFS)",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/search\/dfs\/"
+        },"genre": "posts","keywords": "搜索, DFS, 算法","wordcount":  1055 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0\/sunnywhy\/search\/dfs\/","datePublished": "2023-04-07T15:06:35+08:00","dateModified": "2023-04-07T15:06:35+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">搜索专题(2)-深度优先搜索(DFS)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>算法笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1055 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-背包问题">1. 背包问题</a></li>
+    <li><a href="#2-选数字问题">2. 选数字问题</a></li>
+    <li><a href="#枚举子序列">枚举子序列</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>例如，以走迷宫为例，我们总是选择岔道口中的一条前进，而如果遇到了新的岔道口，仍选择新岔道口中的一条岔路前进，直到走到死胡同，此时返回上一个岔道口，选择另一条岔路前进。这种策略在深度上进行，不走到死胡同就不回头，称为深度优先遍历.</p>
+<p>注意到，深度优先搜素会遍历所有的路径，并且每走到一个死胡同，就代表着一个完整路径的形成。深度优先搜索是一种枚举所有完整路径以遍历所有情况的方法使用栈或者递归可以很好的解决递归问题.</p>
+<h2 id="1-背包问题">1. 背包问题</h2>
+<pre tabindex="0"><code class="language-git" data-lang="git">// 假设有n件物品，已知价格v[i]和w[i]，选取重量不超过W的物品使价格总和最大
+</code></pre><p>题解: 对于物品i, 有选或者不选两种情况.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v<span style="color:#f92672">=</span>{<span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">22</span>};
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> w<span style="color:#f92672">=</span>{<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">5</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, mxv <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, bag<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DFS</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">int</span> cuV, <span style="color:#66d9ef">int</span> cuW){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(index <span style="color:#f92672">&gt;=</span> n){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(cuW<span style="color:#f92672">&lt;=</span>bag <span style="color:#f92672">&amp;&amp;</span> cuV <span style="color:#f92672">&gt;</span> mxv)
+</span></span><span style="display:flex;"><span>            mxv <span style="color:#f92672">=</span> cuV;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// cout &lt;&lt; &#34;index=&#34;&lt;&lt;index &lt;&lt; &#34;, current Value = &#34; &lt;&lt; cuV &lt;&lt; &#34;, current Weight = &#34; &lt;&lt; cuW &lt;&lt; endl;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    DFS(index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, cuV, cuW);
+</span></span><span style="display:flex;"><span>    DFS(index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, cuV<span style="color:#f92672">+</span>v[index], cuW<span style="color:#f92672">+</span>w[index]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    DFS(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxv <span style="color:#f92672">&lt;&lt;</span> endl; 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在上面的代码中, 每次都会进入两个分支, 从而形成了一个完全搜索二叉树, 复杂度很高, 并且每次都会走到路径的尽头, 考虑到如果当前物品的质量之和已经比背包容量大了就可以不往下继续深挖了, 这在搜索树上看起来就像是剪掉了一个枝杈:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v<span style="color:#f92672">=</span>{<span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">22</span>};
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> w<span style="color:#f92672">=</span>{<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">5</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, mxv <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, bag<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DFS</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">int</span> cw, <span style="color:#66d9ef">int</span> cv){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(index <span style="color:#f92672">&gt;=</span> n){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cw <span style="color:#f92672">&lt;=</span> bag){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(cv <span style="color:#f92672">&gt;=</span> mxv)
+</span></span><span style="display:flex;"><span>                mxv <span style="color:#f92672">=</span> cv;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    DFS(index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, cw, cv);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (cw <span style="color:#f92672">+</span> w[index] <span style="color:#f92672">&lt;=</span> bag){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cw<span style="color:#f92672">+</span>w[index] <span style="color:#f92672">&gt;</span> mxv){
+</span></span><span style="display:flex;"><span>            mxv <span style="color:#f92672">=</span> cw<span style="color:#f92672">+</span>w[index];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        DFS(index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, cw<span style="color:#f92672">+</span>w[index], cv<span style="color:#f92672">+</span>v[index]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    DFS(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> mxv <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="2-选数字问题">2. 选数字问题</h2>
+<p>从s个数中选取k个数使其和为x，若有多个答案选取平方和最大的一组</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> seq <span style="color:#f92672">=</span> {<span style="color:#ae81ff">12</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>, msq <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, k<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, n<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res, rea;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum_</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rsm <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>res.size(); j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        rsm <span style="color:#f92672">+=</span> res[j];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> rsm;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sq_sum</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sqm <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>res.size(); j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        sqm <span style="color:#f92672">+=</span> res[j]<span style="color:#f92672">*</span>res[j];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sqm;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">selectK</span>(<span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> ck){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> rsm <span style="color:#f92672">=</span> sum_(), sqm <span style="color:#f92672">=</span> sq_sum();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(ck <span style="color:#f92672">&gt;=</span> k){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(rsm <span style="color:#f92672">==</span> x <span style="color:#f92672">&amp;&amp;</span> sqm <span style="color:#f92672">&gt;=</span> msq){
+</span></span><span style="display:flex;"><span>            msq <span style="color:#f92672">=</span> sqm;
+</span></span><span style="display:flex;"><span>            rea <span style="color:#f92672">=</span> res;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">&gt;=</span>n)<span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    res.push_back(seq[i]);
+</span></span><span style="display:flex;"><span>    selectK(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, ck<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    res.pop_back();
+</span></span><span style="display:flex;"><span>    selectK(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, ck);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    selectK(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>rea.size(); i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> rea[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;max square sum = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> msq <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>修改题目条件:
+从n个数中选k个数使其和为x，每个数可重复选，可包含负数，若有多个结果，取平方和最大的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tmp, ans, seq <span style="color:#f92672">=</span> {<span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">27</span>, k <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>, mxSqsum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">selectK</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">int</span> curK, <span style="color:#66d9ef">int</span> curSum, <span style="color:#66d9ef">int</span> curSq){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (curK <span style="color:#f92672">==</span> k <span style="color:#f92672">&amp;&amp;</span> curSum<span style="color:#f92672">==</span>x){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (curSq <span style="color:#f92672">&gt;=</span> mxSqsum){
+</span></span><span style="display:flex;"><span>            ans <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>            mxSqsum <span style="color:#f92672">=</span> curSq;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(index <span style="color:#f92672">&gt;=</span> n <span style="color:#f92672">||</span> curK <span style="color:#f92672">&gt;</span> k) <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    tmp.push_back(seq[index]);
+</span></span><span style="display:flex;"><span>    selectK(index, curK<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, curSum<span style="color:#f92672">+</span>seq[index], curSq<span style="color:#f92672">+</span>seq[index]<span style="color:#f92672">*</span>seq[index]);
+</span></span><span style="display:flex;"><span>    tmp.pop_back();
+</span></span><span style="display:flex;"><span>    selectK(index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, curK<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, curSum, curSq);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    selectK(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ans.size(); i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> ans[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;max square sum = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> mxSqsum <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="枚举子序列">枚举子序列</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">// 枚举所有子序列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> seq <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>}, res;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">enumSubSeq</span>(<span style="color:#66d9ef">int</span> i){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (i<span style="color:#f92672">&gt;=</span>n){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>res.size(); j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            cout <span style="color:#f92672">&lt;&lt;</span> res[j] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    enumSubSeq(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    res.push_back(seq[i]);
+</span></span><span style="display:flex;"><span>    enumSubSeq(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    res.pop_back();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    enumSubSeq(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">enumSubSeq(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    enumSubSeq(1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        enumSubSeq(2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 5;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            ()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        (3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        enumSubSeq(2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 3;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (3, 5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 3, 5;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        ()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    (1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    enumSubSeq(1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        enumSubSeq(2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (1, 5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout  1, 5;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        (1, 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        enumSubSeq(2)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 1, 3;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (1, 3, 5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            enumSubSeq(3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                cout 1, 3, 5;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            (1, 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        (1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    ()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">return ;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" data-title="搜索专题(2)-深度优先搜索(DFS)" data-hashtags="搜索,DFS,算法"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" data-hashtag="搜索"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" data-title="搜索专题(2)-深度优先搜索(DFS)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" data-title="搜索专题(2)-深度优先搜索(DFS)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/search/dfs/" data-title="搜索专题(2)-深度优先搜索(DFS)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%90%9C%E7%B4%A2/">搜索</a>,&nbsp;<a href="/tags/dfs/">DFS</a>,&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%BA%94%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/" class="prev" rel="prev" title="图算法（五）关键路径"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>图算法（五）关键路径</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/stringop/stringhash/" class="next" rel="next" title="字符串专题(1)-字符串Hash">字符串专题(1)-字符串Hash<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
