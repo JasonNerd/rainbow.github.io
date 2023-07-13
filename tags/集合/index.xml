@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>集合 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E9%9B%86%E5%90%88/</link>
+        <description>集合 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 08 Jul 2023 13:41:09 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E9%9B%86%E5%90%88/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaCoreOne-C09Collection</title>
+    <link>https://www.rainbow.github.io/posts/javacoreone/c09collection/</link>
+    <pubDate>Sat, 08 Jul 2023 13:41:09 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javacoreone/c09collection/</guid>
+    <description><![CDATA[1. Java集合框架 Java设计者们想设计一组轻量的完善的数据结构, 它不可以有C++STL那样的复杂, 但同时具备泛型算法的优点。在Java类库]]></description>
+</item>
+</channel>
+</rss>

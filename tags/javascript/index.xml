@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>JavaScript - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/javascript/</link>
+        <description>JavaScript - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 07 Apr 2023 16:53:04 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/javascript/" rel="self" type="application/rss+xml" /><item>
+    <title>Web前端(2)-JavaScript-网页的行为与响应</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day02javascript/</link>
+    <pubDate>Fri, 07 Apr 2023 16:53:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day02javascript/</guid>
+    <description><![CDATA[JavaScript(简称:JS)是一门跨平台、面向对象的脚本语言(直接解释执行, 不需要编译)。是用来控制网页行为的，它能使网页可交互。EC]]></description>
+</item>
+</channel>
+</rss>

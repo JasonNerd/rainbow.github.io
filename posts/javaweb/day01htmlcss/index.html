@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Web前端(1)-HTML与CSS-网页的排版与样式 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Web前端(1)-HTML与CSS-网页的排版与样式" />
+<meta property="og:description" content="Web 网站工作流程 浏览器 -&gt; 前端服务器 (返回前端代码, 浏览器解释前端代码渲染出框架) 浏览器 -&gt; 请求数据 (后端服务器&ndash;Java程序) &ndash;&gt; 数据" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-06T15:26:52+08:00" />
+<meta property="article:modified_time" content="2023-04-06T15:26:52+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Web前端(1)-HTML与CSS-网页的排版与样式"/>
+<meta name="twitter:description" content="Web 网站工作流程 浏览器 -&gt; 前端服务器 (返回前端代码, 浏览器解释前端代码渲染出框架) 浏览器 -&gt; 请求数据 (后端服务器&ndash;Java程序) &ndash;&gt; 数据"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" /><link rel="prev" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Web前端(1)-HTML与CSS-网页的排版与样式",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day01htmlcss\/"
+        },"genre": "posts","keywords": "web前端, HTML, CSS","wordcount":  1449 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day01htmlcss\/","datePublished": "2023-04-06T15:26:52+08:00","dateModified": "2023-04-06T15:26:52+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Web前端(1)-HTML与CSS-网页的排版与样式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-06">2023-04-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1449 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web-网站工作流程">Web 网站工作流程</a></li>
+    <li><a href="#初识-web-前端">初识 web 前端</a></li>
+    <li><a href="#html与css入门">HTML与CSS入门</a>
+      <ul>
+        <li><a href="#示例1--焦点访谈中国底气-新思想夯实大国粮仓casesfocusinterviewhtml"><a href="./cases/FocusInterview.html">示例1&ndash;焦点访谈：中国底气 新思想夯实大国粮仓</a></a></li>
+        <li><a href="#表格表单等网页元素"><a href="">表格表单等网页元素</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="web-网站工作流程">Web 网站工作流程</h2>
+<p>浏览器 -&gt; 前端服务器 (返回前端代码, 浏览器解释前端代码渲染出框架)
+浏览器 -&gt; 请求数据 (后端服务器&ndash;Java程序) &ndash;&gt; 数据库服务器(返回对应数据)</p>
+<h2 id="初识-web-前端">初识 web 前端</h2>
+<ul>
+<li>文字 图片 音频 视频 超链接 &hellip; &hellip;</li>
+<li>本质: 前端代码</li>
+<li>由浏览器解析和渲染, 内核不同, 渲染效果不同? &ndash; 需要一个标准！</li>
+<li>标准: W3C
+<ul>
+<li>HTML: 结构-元素和内容</li>
+<li>CSS: 网页表现(页面样式)</li>
+<li>JS: 网页的行为(例如按钮)</li>
+</ul>
+</li>
+</ul>
+<h2 id="html与css入门">HTML与CSS入门</h2>
+<p>HTML: HyperText Markup Language, 超文本标记语言</p>
+<ol>
+<li>超文本: 不仅仅是文本</li>
+<li>标签: 预定义标签, 例如 <code>&lt;video&gt;</code> <code>&lt;img&gt;</code>等
+CSS(Cascading Style Sheet): 层叠样式表
+例如字体大小、颜色等等</li>
+</ol>
+<h3 id="示例1--焦点访谈中国底气-新思想夯实大国粮仓casesfocusinterviewhtml"><a href="./cases/FocusInterview.html" rel="">示例1&ndash;焦点访谈：中国底气 新思想夯实大国粮仓</a></h3>
+<h4 id="标题">标题</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">title</span>&gt;HTML 入门&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h1</span>&gt;这是一个标题&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;../image/mouth.png&#34;</span>/&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h4 id="正文排版">正文排版</h4>
+<ol>
+<li>图片<code>&lt;img&gt;</code>: src, height, weight</li>
+<li>超链接 <code>a</code></li>
+<li>标题: <code>&lt;h1&gt;</code>至<code>&lt;h6&gt;</code></li>
+<li>视频标签: <code>&lt;video&gt;</code>
+<code>src</code>: 规定视频的url
+<code>controls</code>: 显示播放控件
+<code>width</code>: 播放器的宽度
+<code>height</code>: 播放器的高度</li>
+<li>音频标签:<code>&lt;audio&gt;</code>
+<code>src</code>: 规定音频的url
+<code>controls</code>: 显示播放控件</li>
+<li>段落标签: <code>&lt;p&gt;</code></li>
+<li>文本加粗标签: <code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code></li>
+<li>CSS样式
+<code>line-height</code>: 设置行高
+<code>text-indent</code>:定义第一个行内容的缩进
+<code>text-align</code>:规定元素中的文本的水平对齐方式</li>
+<li><strong>注意</strong></li>
+</ol>
+<ul>
+<li>在HTML中无论输入多少个空格，只会显示一个。可以使用空格占位符:  </li>
+<li>HTML标签不区分大小写</li>
+<li>HTML标签属性值单双引号都可以</li>
+<li>HTML语法</li>
+</ul>
+<h4 id="整体布局">整体布局</h4>
+<h5 id="盒子模型">盒子模型</h5>
+<ul>
+<li><strong>盒子模型</strong>：页面中所有的元素(标签)，都可以看做是一个 盒子，由盒子将页面中的元素包含在一个矩形区域内，通过盒子的视角更方便的进行页面布局</li>
+<li><strong>盒子模型组成</strong>: 内容区域(<strong>content</strong>) 、内边距区域 (<strong>padding</strong>) 、边框区域 (<strong>border</strong>) 、外边距区域 (<strong>margin</strong>)</li>
+</ul>
+<h5 id="布局标签">布局标签</h5>
+<p>布局标签:实际开发网页中，会大量频繁的使用 div 和span 这两个没有语义的布局标签</p>
+<ul>
+<li>标签: <code>&lt;div&gt;</code> <code>&lt;span&gt;</code></li>
+<li>特点:
+<ul>
+<li>div标签:
+<ul>
+<li>一行只显示一个(独占一行);</li>
+<li>宽度默认是父元素的宽度，高度默认由内容撑开;</li>
+<li>可以设置宽高 (width、height);</li>
+</ul>
+</li>
+<li>span标签:
+<ul>
+<li>一行可以显示多个;</li>
+<li>宽度和高度默认由内容撑开;</li>
+<li>不可以设置宽高(width、height);</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>示例:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">div</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">box-sizing</span>: <span style="color:#66d9ef">border-box</span>;         <span style="color:#75715e">/* 指定width height为盒子的高宽 */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">aquamarine</span>;   <span style="color:#75715e">/* 背景色 */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;   <span style="color:#75715e">/* 内边距，上右下左*/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span>  <span style="color:#66d9ef">red</span>;        <span style="color:#75715e">/* 边框，宽度 线条类型 颜色*/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span>;     <span style="color:#75715e">/* 外边距，上右下左*/</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><h3 id="表格表单等网页元素"><a href="" rel="">表格表单等网页元素</a></h3>
+<h4 id="表格">表格</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标签</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">属性/备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;table&gt;</code></td>
+<td style="text-align:center">定义表格整体，可以包裹多个 <code>&lt;tr&gt;</code></td>
+<td style="text-align:center"><code>border</code>: 规定表格边框的宽度; <code>width</code>: 规定表格的宽度; <code>cellspacing</code>: 规定单元之间的空间</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;tr&gt;</code></td>
+<td style="text-align:center">表格的行，可以包裹多个 <code>&lt;td&gt;</code></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;td&gt;</code></td>
+<td style="text-align:center">表格单元格(普通)，可以包裹内容</td>
+<td style="text-align:center">如果是表头单元格，可以替换为 <code>&lt;th&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="表单form">表单<code>&lt;form&gt;</code></h4>
+<p><code>&lt;input&gt;</code>: 定义表单项，通过type属性控制输入形式
+<code>&lt;select&gt;</code>:定义下拉列表
+<code>&lt;textarea&gt;</code>;定义文本域</p>
+<ol>
+<li>form 表单属性:
+<ul>
+<li>action: 表单提交的url, 也即往何处提交数据,  如果不指定, 默认提交到当前页面</li>
+<li>method: 提交方式
+<ul>
+<li>get: 在url后面拼接表单数据, 比如: <code>?username=Tom&amp;age=12</code>, ur1长度有限制, 默认值.</li>
+<li>post: 在消息体(请求体) 中传递, 参数大小无限制.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;get&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    用户名: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    年龄: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;age&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+</span></span></code></pre></div><p>注意: 表单项必须有name属性才可以提交</p>
+<ol start="2">
+<li>表单标签-表单项</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">type取值</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">text</td>
+<td style="text-align:left">默认值，定义单行的输入字段</td>
+</tr>
+<tr>
+<td style="text-align:left">password</td>
+<td style="text-align:left">定义密码字段</td>
+</tr>
+<tr>
+<td style="text-align:left">radio</td>
+<td style="text-align:left">定义单选按钮</td>
+</tr>
+<tr>
+<td style="text-align:left">checkbox</td>
+<td style="text-align:left">定义复选框</td>
+</tr>
+<tr>
+<td style="text-align:left">file</td>
+<td style="text-align:left">定义文件上传按钮</td>
+</tr>
+<tr>
+<td style="text-align:left">date/time/datetime-local</td>
+<td style="text-align:left">定义日期/时间/日期时间</td>
+</tr>
+<tr>
+<td style="text-align:left">number</td>
+<td style="text-align:left">定义数字输入框</td>
+</tr>
+<tr>
+<td style="text-align:left">email</td>
+<td style="text-align:left">定义邮件输入框</td>
+</tr>
+<tr>
+<td style="text-align:left">hidden</td>
+<td style="text-align:left">定义隐藏域</td>
+</tr>
+<tr>
+<td style="text-align:left">submit / reset / button</td>
+<td style="text-align:left">定义提交按钮 /重置按钮 /可点击按钮</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./cases/NavigateForms.html" rel="">示例文件-NavigateForms.html</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" data-title="Web前端(1)-HTML与CSS-网页的排版与样式" data-hashtags="web前端,HTML,CSS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" data-hashtag="web前端"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" data-title="Web前端(1)-HTML与CSS-网页的排版与样式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" data-title="Web前端(1)-HTML与CSS-网页的排版与样式"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/day01htmlcss/" data-title="Web前端(1)-HTML与CSS-网页的排版与样式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/web%E5%89%8D%E7%AB%AF/">web前端</a>,&nbsp;<a href="/tags/html/">HTML</a>,&nbsp;<a href="/tags/css/">CSS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/dynamicprogramming/04/" class="prev" rel="prev" title="背包问题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>背包问题</a>
+            <a href="/posts/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/sunnywhy/graph/%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%80%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E5%92%8C%E4%B8%A4%E7%A7%8D%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F/" class="next" rel="next" title="图算法（一）图的存储和两种遍历方式">图算法（一）图的存储和两种遍历方式<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

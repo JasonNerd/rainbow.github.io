@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>JavaWeb-C02BackEnd-Day06MySQL(2) - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="JavaWeb-C02BackEnd-Day06MySQL(2)" />
+<meta property="og:description" content="1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-23T16:50:36+08:00" />
+<meta property="article:modified_time" content="2023-06-23T16:50:36+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaWeb-C02BackEnd-Day06MySQL(2)"/>
+<meta name="twitter:description" content="1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/day06mysql/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "JavaWeb-C02BackEnd-Day06MySQL(2)",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day06mysql2\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  1654 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day06mysql2\/","datePublished": "2023-06-23T16:50:36+08:00","dateModified": "2023-06-23T16:50:36+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JavaWeb-C02BackEnd-Day06MySQL(2)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-23">2023-06-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1654 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-多表设计">1. 多表设计</a>
+      <ul>
+        <li><a href="#11-一对多">1.1 一对多</a></li>
+        <li><a href="#12-多对多">1.2 多对多</a></li>
+        <li><a href="#13-设计案例">1.3 设计案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-多表查询">2. 多表查询</a>
+      <ul>
+        <li><a href="#21-连接">2.1 连接</a></li>
+        <li><a href="#22-子查询">2.2 子查询</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-附录">3. 附录</a></li>
+    <li><a href="#mysql-索引">MySQL 索引</a></li>
+    <li><a href="#数据结构--b树">数据结构&ndash;B+树</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-多表设计">1. 多表设计</h2>
+<p>一对多
+多对多</p>
+<h3 id="11-一对多">1.1 一对多</h3>
+<p>例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工需要添加所属部门(dept_id)的信息。</p>
+<p>可以分析到, <strong>一个部门</strong>下会有<strong>多个员工</strong>, 而员工只属于某一个部门(暂不考虑身兼数职的情况)。因此两表构成 <strong>一(部门表)对多(员工表)</strong> 的关系, 为了将两表关联上, <strong>需要在数据库表中多的一方，添加字段，来关联一的一方的主键</strong>。</p>
+<p>例如, 在 tb_emp 中添加字段 dept_id 表示员工的归属部门, 同时称部门表为父表而员工表为子表。</p>
+<h4 id="111-外键约束">1.1.1 外键约束</h4>
+<p>部门数据可以直接删除，然而还有部分员工归属于该部门下，此时就出现了数据的不完整、不一致问题。</p>
+<p>在数据库层面操作添加物理外键约束</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">alter</span> <span style="color:#66d9ef">table</span>  <span style="color:#960050;background-color:#1e0010">表名</span>  <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">constraint</span>  <span style="color:#960050;background-color:#1e0010">外键名称</span>  <span style="color:#66d9ef">foreign</span> <span style="color:#66d9ef">key</span> (<span style="color:#960050;background-color:#1e0010">外键字段名</span>) <span style="color:#66d9ef">references</span>  <span style="color:#960050;background-color:#1e0010">主表</span>(<span style="color:#960050;background-color:#1e0010">字段名</span>);
+</span></span></code></pre></div><p>这样在删除某一部门时, 会首先检查员工信息表, 若发现该部门下还有员工, 则这一删除操作不会执行.</p>
+<p>然而, 其缺点在于:</p>
+<ul>
+<li>影响增、删、改的效率（需要检查外键关系）。</li>
+<li>仅用于单节点数据库，不适用与分布式、集群场景。</li>
+<li>容易引发数据库的死锁问题，消耗性能。</li>
+</ul>
+<p>因此, 通常在业务层逻辑中，解决外键关联, 也即通过java代码实现.</p>
+<h3 id="12-多对多">1.2 多对多</h3>
+<p>例如选课关系, 一名学生可以选修多门课程, 一门课程也会有多名学生来听. 因此这构成多对多关系.
+此时, 为了将两表关联起来, 需要新建一个 学生选课表, 一条记录表示某一学生学习了某一门课程。</p>
+<h3 id="13-设计案例">1.3 设计案例</h3>
+<p>苍穹外卖后台管理系统
+本次只分析 分类管理(category), 菜品管理(dish), 套餐管理(setmeal) 三个表.</p>
+<ul>
+<li>category
+包括<strong>菜品分类</strong>、<strong>套餐分类</strong></li>
+<li>dish
+<strong>菜品名称</strong>, 2-20, 汉字、字母大小写、阿拉伯数字, 不可重复
+<strong>菜品分类</strong>, 必填, 下拉框
+<strong>价格</strong>, 必填, 输入框, 数字，可以有小数点后2位小数</li>
+<li>setmeal
+<strong>套餐名称</strong>, <strong>套餐分类</strong>, <strong>套餐价格</strong>, <strong>套餐菜品</strong></li>
+</ul>
+<h4 id="关系分析">关系分析</h4>
+<p>一个菜品只对应一个菜品分类, 一个菜品分类下可以有多种菜品;
+一个套餐只对应一个套餐分类, 一个套餐分类下可以有多种套餐;
+一个套餐可包含多种菜品, 一个菜品可位于多种套餐下.
+因此:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>category: dish = 1: n;
+</span></span><span style="display:flex;"><span>category: setmeal = 1: n;
+</span></span><span style="display:flex;"><span>setmeal: dish = m: n;
+</span></span><span style="display:flex;"><span>setmeal_dish: record the relation between setmeal and dish, note that copies is recorded too;
+</span></span></code></pre></div><h2 id="2-多表查询">2. 多表查询</h2>
+<p>多表查询:指从多张表中查询数据
+笛卡尔积:笛卡尔乘积是指在数学中，两个集合(A集合和B集合)的所有组合情况
+分类</p>
+<ul>
+<li>连接查询
+<ul>
+<li>内连接:相当于查询A、B交集部分数据</li>
+<li>外连接
+<ul>
+<li>左外连接:查询左表所有数据(包括两张表交集部分数据)</li>
+<li>右外连接:查询右表所有数据(包括两张表交集部分数据)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>子查询</li>
+</ul>
+<h3 id="21-连接">2.1 连接</h3>
+<ol>
+<li>查询员工的姓名及所属的部门名称(隐式内连接实现)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#960050;background-color:#1e0010">字段列表</span> <span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">表</span><span style="color:#ae81ff">1</span>,<span style="color:#960050;background-color:#1e0010">表</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">where</span> <span style="color:#960050;background-color:#1e0010">条件</span> ...;
+</span></span></code></pre></div><ol start="2">
+<li>查询员工表<strong>所有员工</strong>的姓名，和对应的部门名称 (左外连接)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#960050;background-color:#1e0010">字段列表</span> <span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">表</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">left</span> [<span style="color:#66d9ef">outer</span>] <span style="color:#66d9ef">join</span> <span style="color:#960050;background-color:#1e0010">表</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">on</span> <span style="color:#960050;background-color:#1e0010">连接条件</span> ...;
+</span></span></code></pre></div><ol start="3">
+<li>查询部门表 所有部门的名名称，和对应的员工名称 (右外连接)</li>
+</ol>
+<h3 id="22-子查询">2.2 子查询</h3>
+<ul>
+<li>
+<p>SQL语句中嵌套select语句，称为嵌套查询，又称子查询。</p>
+</li>
+<li>
+<p>形式: <code>select * from tl where column1 = ( select column1 from t2 ... );</code></p>
+</li>
+<li>
+<p>子查询外部的语句可以是insert / update / delete / select 的任何一个，最常见的是 select。</p>
+</li>
+</ul>
+<h4 id="221-分类">2.2.1 分类</h4>
+<p>标量子查询:子查询返回的结果为单个值(数字、字符串、日期等)
+列子查询:子查询返回的结果为一列
+行子查询:子查询返回的结果为一行
+表子查询:子查询返回的结果为多行多列</p>
+<h4 id="222-案例">2.2.2 案例</h4>
+<ol start="4">
+<li>
+<p>查询 教研部 的所有员工信息 (标量子查询)</p>
+</li>
+<li>
+<p>查询 教研部 和 咨询部 的所有员工信息 (列子查询)</p>
+</li>
+<li>
+<p>查询与 韦一笑 的入职日期 及 职位都相同的员工信息 (行子查询)</p>
+</li>
+<li>
+<p>查询入职日期是 2006-01-01 之后的员工信息及其部门名称 (表子查询)</p>
+</li>
+</ol>
+<h2 id="3-附录">3. 附录</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> tb emp.name,tb dept.name <span style="color:#66d9ef">from</span> th emp,tb dept <span style="color:#66d9ef">where</span> tb emp.dept id <span style="color:#f92672">=</span> th dept.id;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> e.name, d.name <span style="color:#66d9ef">from</span> tb emp e <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> th dept d <span style="color:#66d9ef">on</span> e.dept id <span style="color:#f92672">=</span> d.id;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tb_emp <span style="color:#66d9ef">where</span> dept_id <span style="color:#f92672">=</span>(<span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> tb_dept <span style="color:#66d9ef">where</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;教研部&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tb_emp <span style="color:#66d9ef">where</span> dept_id <span style="color:#66d9ef">in</span> (<span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> tb_dept <span style="color:#66d9ef">where</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;教研部&#39;</span> <span style="color:#66d9ef">or</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;咨询部&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> th_emp <span style="color:#66d9ef">where</span> (entrydate,job)<span style="color:#f92672">=</span>(<span style="color:#66d9ef">select</span> entrydate, job <span style="color:#66d9ef">from</span> tb_emp <span style="color:#66d9ef">where</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;韦一笑&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> e.<span style="color:#f92672">*</span> , d.name <span style="color:#66d9ef">from</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tb_emp <span style="color:#66d9ef">where</span> entrydate <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;2006-01-01&#39;</span>) e , tb_dept d <span style="color:#66d9ef">where</span> e.dept id <span style="color:#f92672">=</span> d.id;
+</span></span></code></pre></div><h2 id="mysql-索引">MySQL 索引</h2>
+<p>主键索引 primary key
+唯一索引 unique</p>
+<h2 id="数据结构--b树">数据结构&ndash;B+树</h2>
+<p>每一个节点，可以存储多个key (有n个key，就有n个指针)。所有的数据都存储在叶子节点，非叶子节点仅用于索引数据。叶子节点形成了一颗双向链表，便于数据的排序及区间范围查询</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" data-title="JavaWeb-C02BackEnd-Day06MySQL(2)" data-hashtags="MySQL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" data-hashtag="MySQL"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" data-title="JavaWeb-C02BackEnd-Day06MySQL(2)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" data-title="JavaWeb-C02BackEnd-Day06MySQL(2)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" data-title="JavaWeb-C02BackEnd-Day06MySQL(2)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/day06mysql/" class="prev" rel="prev" title="JavaWeb-C02BackEnd-Day06MySQL"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JavaWeb-C02BackEnd-Day06MySQL</a>
+            <a href="/posts/javaweb/day07mybatis/" class="next" rel="next" title="C02BackEnd-Day07MyBatis">C02BackEnd-Day07MyBatis<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>MyBatis - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/mybatis/</link>
+        <description>MyBatis - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/mybatis/" rel="self" type="application/rss+xml" /><item>
+    <title>C02BackEnd-Day07MyBatis</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</link>
+    <pubDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</guid>
+    <description><![CDATA[MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a]]></description>
+</item>
+</channel>
+</rss>

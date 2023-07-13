@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>C02BackEnd-Day07MyBatis - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="C02BackEnd-Day07MyBatis" />
+<meta property="og:description" content="MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-06T09:34:00+08:00" />
+<meta property="article:modified_time" content="2023-07-06T09:34:00+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C02BackEnd-Day07MyBatis"/>
+<meta name="twitter:description" content="MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/day06mysql2/" /><link rel="next" href="https://www.rainbow.github.io/posts/javacoreone/c08generic/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "C02BackEnd-Day07MyBatis",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day07mybatis\/"
+        },"genre": "posts","keywords": "MyBatis","wordcount":  6255 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day07mybatis\/","datePublished": "2023-07-06T09:34:00+08:00","dateModified": "2023-07-06T09:34:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C02BackEnd-Day07MyBatis</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-06">2023-07-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6255 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;13 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-使用mybatis">1. 使用MyBatis</a>
+      <ul>
+        <li><a href="#1-1-jdbc介绍">1-1. JDBC介绍</a></li>
+        <li><a href="#1-2-数据库连接池">1-2. 数据库连接池</a></li>
+        <li><a href="#1-3-lombook">1-3. Lombook</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-mybatis-基础">2. mybatis 基础</a>
+      <ul>
+        <li><a href="#2-2-curd操作">2-2. CURD操作</a></li>
+        <li><a href="#2-3-查询语句">2-3. 查询语句</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-动态sql">3. 动态SQL</a>
+      <ul>
+        <li><a href="#3-1-if">3-1. <code>&lt;if&gt;</code></a></li>
+        <li><a href="#3-2-">3-2. ``</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><ul>
+<li>MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发</li>
+<li>MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由apache移到了google code,并且改名为MyBatis。2013年11月迁移到Github。</li>
+<li>官网: <a href="https://mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener noreffer ">https://mybatis.org/mybatis-3/zh/index.html</a></li>
+</ul>
+<h2 id="1-使用mybatis">1. 使用MyBatis</h2>
+<p>创建 Springboot 项目
+勾选 MyBatis framework 和 Mysql connector 依赖
+准备数据库和数据库表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">user</span>(
+</span></span><span style="display:flex;"><span>    id int unsigned <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> auto_increment <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;ID&#39;</span>,
+</span></span><span style="display:flex;"><span>    name varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;姓名&#39;</span>,
+</span></span><span style="display:flex;"><span>    age tinyint unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;年龄&#39;</span>,
+</span></span><span style="display:flex;"><span>    gender tinyint unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;性别, 1:男, 2:女&#39;</span>,
+</span></span><span style="display:flex;"><span>    phone varchar(<span style="color:#ae81ff">11</span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;手机号&#39;</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;用户表&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;白眉鹰王&#39;</span>,<span style="color:#ae81ff">55</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;18800000000&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;金毛狮王&#39;</span>,<span style="color:#ae81ff">45</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;18800000001&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;青翼蝠王&#39;</span>,<span style="color:#ae81ff">38</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;18800000002&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;紫衫龙王&#39;</span>,<span style="color:#ae81ff">42</span>,<span style="color:#e6db74">&#39;2&#39;</span>,<span style="color:#e6db74">&#39;18800000003&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;光明左使&#39;</span>,<span style="color:#ae81ff">37</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;18800000004&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> <span style="color:#66d9ef">user</span>(id, name, age, gender, phone) <span style="color:#66d9ef">VALUES</span> (<span style="color:#66d9ef">null</span>,<span style="color:#e6db74">&#39;光明右使&#39;</span>,<span style="color:#ae81ff">48</span>,<span style="color:#e6db74">&#39;1&#39;</span>,<span style="color:#e6db74">&#39;18800000005&#39;</span>);
+</span></span></code></pre></div><p>书写数据接收实体</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Integer id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">short</span> age<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">short</span> gender<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String phone<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// getter setter constructor toString
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>配置连接信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># 数据库连接信息 - 四要素</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.url=jdbc:mysql://localhost:3306/db_mybatis</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.username=root</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.password=root226</span>
+</span></span></code></pre></div><p>编写 Mapper 类, 定义 Select 函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#a6e22e">@Mapper</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserMapper</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 在运行时，会自动生成资接口的实现类对象(代理对象)，并且将该对象交给TOC容器营理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Select</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from user&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>User<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">listAll</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>编写Test类, 测试 MyBatis 是否正常工作</p>
+<h3 id="1-1-jdbc介绍">1-1. JDBC介绍</h3>
+<p><strong>Java DataBase Connectivity</strong>, 是使用Java语言操作关系型数据库的一套API. 它<strong>只提供一些接口, 也即sun公司官方定义的一套操作所有关系型数据库的规范, 各个数据库厂商(例如MySQL, Oracle, SqlServer)去实现这套接口, 提供数据库驱动jar包</strong>。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
+<p>JDBC的所有操作均在Java代码中完成, 第一是注册驱动, 例如MySQL, 二是配置连接属性, 包括url/name/password等, 三是连接数据库, 四是单独配置属性和SQL语句并完成数据操作, 最后释放资源. 如图所示, 有三大缺点:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-07-08-10-20-52.png"
+        data-srcset="./image/2023-07-08-10-20-52.png, ./image/2023-07-08-10-20-52.png 1.5x, ./image/2023-07-08-10-20-52.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-07-08-10-20-52.png"
+        title="./image/2023-07-08-10-20-52.png" />
+一是数据库连接属性与数据处理相互独立, 然而它们均放在了代码中, 在数据库连接属性改变时, 还需要修改代码, 难以维护.
+二是数据处理过程过于繁琐.
+三是每次要与数据库交互都需要连接和释放, 影响性能.</p>
+<p>在 MyBatis 框架下, 有如下处理:
+一是数据库连接的四要素被放在配置文件, 是全局属性, 当数据库更换时只需要更改配置, 同时, 数据库连接(con, cursor)交由<strong>数据库连接池</strong>管理, 可重用, 效率高;
+二是定义了<strong>数据实体</strong>, 通过数据实体的各个字段接收查询返回的数据;
+三是实现了 Mapper 注解, 在<strong>Mapper接口</strong>中定义函数并与SQL操作进行绑定, 另外Mapper接口遵循<strong>依赖注入</strong>机制, 在IOC容器中会存在一个Mapper接口实现类的对象, 因此在其它地方的Java代码中定义完成后即可使用其中的函数。</p>
+<h3 id="1-2-数据库连接池">1-2. 数据库连接池</h3>
+<p>数据库连接池是个容器, 负责分配、管理数据库连接(Connection), 它允许应用程序<strong>重复使用一个现有的数据库连接，而不是再重新建立一个</strong>, 释放空闲时间超过最大空闲时间的连接(也即线程申请了数据库连接但未在使用), 来避免因为没有释放连接而引起的<strong>数据库连接遗漏</strong></p>
+<ul>
+<li>资源重用</li>
+<li>提升系统响应速度</li>
+<li>避免数据库连接遗漏</li>
+</ul>
+<p>标准接口：DataSource
+官方(sun)提供的数据库连接池接口, 第三方组织可以实现此接口以构造适合特性的数据库连接池, 常见的有C3P0, DBCP, Druid, Hikari(Springboot default). 后两个使用居多, 其中Druid连接池是阿里巴巴开源的数据库连接池项目, 功能强大, 性能优秀, 是Java语言最好的数据库连接池之一.
+更换连接池只需要更改pom.xml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>druid-spring-boot-starter<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;version&gt;</span>1.2.8<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id="1-3-lombook">1-3. Lombook</h3>
+<p>在定义数据实体时, 除了自己定义属性字段, 其他的getter, setter, constructor, toString等等都还要自己去写, 虽然可以去生成, 但这些重复性的代码显得臃肿.</p>
+<p><code>Lombok</code> 是一个实用的Java类库, 能通过<strong>注解</strong>的形式自动生成 constructor, getter/setter, equals, hashcode, toString 等方法，并可以自动化生成日志变量，简化java开发、提高效率。</p>
+<p>引入依赖:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.projectlombok<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>lombok<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">注解</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@Getter/@Setter</td>
+<td style="text-align:left">为所有的属性提供get/set方法</td>
+</tr>
+<tr>
+<td style="text-align:left">@ToString</td>
+<td style="text-align:left">会给类自动生成易阅读的 toString 方法</td>
+</tr>
+<tr>
+<td style="text-align:left">@EqualsAndHashCode</td>
+<td style="text-align:left">根据类所拥有的非静态字段自动重写 equals 方法和 hashCode 方法</td>
+</tr>
+<tr>
+<td style="text-align:left">@Data</td>
+<td style="text-align:left">提供了更综合的生成代码功能（@Getter + @Setter + @ToString + @EqualsAndHashCode）</td>
+</tr>
+<tr>
+<td style="text-align:left">@NoArgsConstructor</td>
+<td style="text-align:left">为实体类生成无参的构造器方法</td>
+</tr>
+<tr>
+<td style="text-align:left">@AllArgsConstructor</td>
+<td style="text-align:left">为实体类生成除了static修饰的字段之外带有各参数的构造器方法。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-mybatis-基础">2. mybatis 基础</h2>
+<p>准备工作:</p>
+<ol>
+<li>SQL数据</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 部门管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> dept(
+</span></span><span style="display:flex;"><span>    id int unsigned <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> auto_increment <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;主键ID&#39;</span>,
+</span></span><span style="display:flex;"><span>    name varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">unique</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门名称&#39;</span>,
+</span></span><span style="display:flex;"><span>    create_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;创建时间&#39;</span>,
+</span></span><span style="display:flex;"><span>    update_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;修改时间&#39;</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门表&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> dept (id, name, create_time, update_time) <span style="color:#66d9ef">values</span>(<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;学工部&#39;</span>,now(),now()),(<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;教研部&#39;</span>,now(),now()),(<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;咨询部&#39;</span>,now(),now()), (<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;就业部&#39;</span>,now(),now()),(<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;人事部&#39;</span>,now(),now());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 员工管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> emp (
+</span></span><span style="display:flex;"><span>  id int unsigned <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> auto_increment <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;ID&#39;</span>,
+</span></span><span style="display:flex;"><span>  username varchar(<span style="color:#ae81ff">20</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">unique</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;用户名&#39;</span>,
+</span></span><span style="display:flex;"><span>  password varchar(<span style="color:#ae81ff">32</span>) <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#39;123456&#39;</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;密码&#39;</span>,
+</span></span><span style="display:flex;"><span>  name varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;姓名&#39;</span>,
+</span></span><span style="display:flex;"><span>  gender tinyint unsigned <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;性别, 说明: 1 男, 2 女&#39;</span>,
+</span></span><span style="display:flex;"><span>  image varchar(<span style="color:#ae81ff">300</span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;图像&#39;</span>,
+</span></span><span style="display:flex;"><span>  job tinyint unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;职位, 说明: 1 班主任,2 讲师, 3 学工主管, 4 教研主管, 5 咨询师&#39;</span>,
+</span></span><span style="display:flex;"><span>  entrydate date <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;入职时间&#39;</span>,
+</span></span><span style="display:flex;"><span>  dept_id int unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门ID&#39;</span>,
+</span></span><span style="display:flex;"><span>  create_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;创建时间&#39;</span>,
+</span></span><span style="display:flex;"><span>  update_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;修改时间&#39;</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;员工表&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> emp
+</span></span><span style="display:flex;"><span>	(id, username, password, name, gender, image, job, entrydate,dept_id, create_time, update_time) <span style="color:#66d9ef">VALUES</span>
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;jinyong&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;金庸&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;1.jpg&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;2000-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;zhangwuji&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;张无忌&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2015-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;yangxiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;杨逍&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;3.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2008-05-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;weiyixiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;韦一笑&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;4.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2007-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;changyuchun&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;常遇春&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;5.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2012-12-05&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">6</span>,<span style="color:#e6db74">&#39;xiaozhao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;小昭&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;6.jpg&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;2013-09-05&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">7</span>,<span style="color:#e6db74">&#39;jixiaofu&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;纪晓芙&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;7.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2005-08-01&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">8</span>,<span style="color:#e6db74">&#39;zhouzhiruo&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;周芷若&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;8.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2014-11-09&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">9</span>,<span style="color:#e6db74">&#39;dingminjun&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;丁敏君&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;9.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2011-03-11&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;zhaomin&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;赵敏&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;10.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2013-09-05&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">11</span>,<span style="color:#e6db74">&#39;luzhangke&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;鹿杖客&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;11.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2007-02-01&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">12</span>,<span style="color:#e6db74">&#39;hebiweng&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;鹤笔翁&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;12.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2008-08-18&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">13</span>,<span style="color:#e6db74">&#39;fangdongbai&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;方东白&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;13.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2012-11-01&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">14</span>,<span style="color:#e6db74">&#39;zhangsanfeng&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;张三丰&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;14.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2002-08-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">15</span>,<span style="color:#e6db74">&#39;yulianzhou&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;俞莲舟&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;15.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2011-05-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">16</span>,<span style="color:#e6db74">&#39;songyuanqiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;宋远桥&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;16.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2010-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>	(<span style="color:#ae81ff">17</span>,<span style="color:#e6db74">&#39;chenyouliang&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;陈友谅&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;17.jpg&#39;</span>,<span style="color:#66d9ef">NULL</span>,<span style="color:#e6db74">&#39;2015-03-21&#39;</span>,<span style="color:#66d9ef">NULL</span>,now(),now());
+</span></span></code></pre></div><ol start="2">
+<li>properties配置</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># 1. 数据库四要素</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. MySQL输出日志信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 自动驼峰命名转换</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">mybatis.configuration.map-underscore-to-camel-case=true</span>
+</span></span></code></pre></div><ol start="3">
+<li>数据实体</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.rainbow.pojo<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// some import statements here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@NoArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Emp</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Integer id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String username<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String password<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Short gender<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String image<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Short job<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDate entrydate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Integer deptId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime createTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime updateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="2-2-curd操作">2-2. CURD操作</h3>
+<h4 id="2-2-1-delete-操作">2-2-1. <strong>delete 操作</strong></h4>
+<pre><code>```Java
+package com.rainbow.Mapper;
+// some import statements here
+// ...
+
+@Mapper
+public interface EmpMapper {
+    // #{id}: 预编译sql, 防止SQL注入
+    @Delete(&quot;delete from tb_emp where id=#{id}&quot;)
+    void delete(Integer id);    // 点击删除按钮时依据主键id删除一条记录
+
+    // some other database operation
+    // insert, update, select ...
+}
+```
+</code></pre>
+<h4 id="2-2-2-预编译sql">2-2-2. <strong>预编译sql</strong></h4>
+<p>上述删除语句会预编译为<code>delete from tb_emp where id=?</code>, 运行时自动填入传入参数值</p>
+<ul>
+<li>性能更高
+<ul>
+<li>执行一条包含多个步骤, 例如SQL语法解析检查, 优化SQL, 编译SQL, 执行SQL; 预编译可以完成前三个步骤并将结果缓存, 使得在执行多条语句时效率更高(例如批量的delete操作)</li>
+</ul>
+</li>
+<li>更安全(防止SQL注入)
+<ul>
+<li><strong>SQL注入</strong>是通过操作输入的数据来修改事先定义好的SQL语句</li>
+<li>例如用户登录页面, 基本逻辑是接收前台返回的account和password然后在数据库查询是否包含该记录并据此决定是否允许登入系统.其SQL语句为: <code>select count(*) from tb_user where account='user_input_acc' and password='user_input_pwd'</code>, 通过构造user_input_acc和user_input_pwd可以绕过查询使得查询永远为真:</li>
+<li>user_input_acc=xxxx</li>
+<li>user_input_pwd=&rsquo; or &lsquo;1&rsquo;=&lsquo;1</li>
+<li>则: <code>select count(*) from tb_user where account='xxxx' and password='' or '1'='1'</code>永远为真</li>
+</ul>
+</li>
+<li>预编译则不会直接进行字符串拼接, 防止了SQL注入.</li>
+</ul>
+<h4 id="2-2-3-插入语句">2-2-3. <strong>插入语句</strong></h4>
+<p>新增一个员工:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.rainbow.Mapper<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 新增一个员工
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Insert</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;insert into tb_emp(username, password, name, gender, &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;image, job, entrydate, dept_id, create_time, update_time) &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;VALUES (#{username}, #{password}, #{name}, #{gender}, #{image}, &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;#{job}, #{entrydate}, #{deptId}, #{createTime}, #{updateTime})&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>Emp emp<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>这里利用实体对象作为参数传入, 则<code>#{}</code>中的变量会与emp实体字段进行匹配, 需要把命名改为驼峰命名
+测试:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testInsert</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>    Emp emp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Emp<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;汤姆&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setGender</span><span style="color:#f92672">((</span><span style="color:#66d9ef">short</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setImage</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.jpg&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setJob</span><span style="color:#f92672">((</span><span style="color:#66d9ef">short</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setEntrydate</span><span style="color:#f92672">(</span>LocalDate<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2010</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">9</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">18</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setDeptId</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setCreateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>emp<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="2-2-4-xml-sql">2-2-4. <strong>XML-SQL</strong></h4>
+<p>当SQL语句很长很复杂时, 以这样的方式书写CURD操作看起来不舒服, 因此MyBatis使用XML语言将函数和SQL绑定:</p>
+<pre tabindex="0"><code>1. XML映射文件的名称与Mapper接口名称一致，并且将XML映射文件和Mapper接口放置在相同包下（同包同名）。
+2. XML映射文件的namespace属性为Mapper接口全限定名一致。
+3. XML映射文件中sql语句的id与Mapper 接口中的方法名一致，并保持返回类型一致。
+</code></pre><p>官方文档:
+<a href="https://mybatis.net.cn/getting-started.html" target="_blank" rel="noopener noreffer ">https://mybatis.net.cn/getting-started.html</a>
+XML头部实例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE mapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 以下映射可以自定义 --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;mapper</span> <span style="color:#a6e22e">namespace=</span><span style="color:#e6db74">&#34;org.mybatis.example.BlogMapper&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;select</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;selectBlog&#34;</span> <span style="color:#a6e22e">resultType=</span><span style="color:#e6db74">&#34;Blog&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    select * from Blog where id = #{id}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/select&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/mapper&gt;</span>
+</span></span></code></pre></div><p><strong>将2-2-2的insert语句写入XML并测试:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;mapper</span> <span style="color:#a6e22e">namespace=</span><span style="color:#e6db74">&#34;com.rainbow.mapper.EmpMapper&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;insert</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;insert&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        insert into tb_emp(username, password, name, gender, image, job, entrydate,
+</span></span><span style="display:flex;"><span>                           dept_id, create_time, update_time)
+</span></span><span style="display:flex;"><span>        VALUES (#{username}, #{password}, #{name}, #{gender}, #{image}, #{job}, #{entrydate},
+</span></span><span style="display:flex;"><span>                #{deptId}, #{createTime}, #{updateTime})
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/insert&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/mapper&gt;</span>
+</span></span></code></pre></div><p>原Java代码:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 新增一个员工
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>Emp emp<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p><strong>MyBatisX</strong>
+是一个IDEA插件, 可以为Java代码和对应的MySQL代码两个位置相互关联, 鼠标单击即可跳转, 这样定位代码十分方便。</p>
+<h4 id="2-2-5-insert主键回显">2-2-5. insert主键回显</h4>
+<p>考虑新增套餐的场景, 在插入套餐条目后, 还需要维护菜品与套餐的关系表, 因此需要在<strong>插入套餐后返回其ID</strong>;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Options</span><span style="color:#f92672">(</span>useGeneratedKeys <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> keyProperty <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">,</span> keyColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Insert</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;insert into tb_emp(username, password, name, gender, image, job, entrydate,&#34;</span><span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34; dept_id, create_time, update_time)&#34;</span><span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;VALUES (#{username}, #{password}, #{name}, #{gender}, #{image}, #{job}, #{entrydate},&#34;</span><span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;#{deptId}, #{createTime}, #{updateTime})&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>Emp emp<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>正如代码中所示, <strong>在<code>@Insert</code>注解前添加一个<code>@Options</code>注解</strong>, 指明要返回的字段, 那么该字段可以在插入数据的调用者实体的id显示, 注意Options只和Insert搭配, 如果将Insert的SQL语句转到XML中, 则Options失效, 将不能返回主键值.</p>
+<h3 id="2-3-查询语句">2-3. 查询语句</h3>
+<h2 id="3-动态sql">3. 动态SQL</h2>
+<h3 id="3-1-if">3-1. <code>&lt;if&gt;</code></h3>
+<p><strong>场景1</strong>: 在员工查询中, 我们有多个查询条件, 例如姓名、性别、入职时间, 通常会依据其中的零个、一个或者多个条件进行查询, 此时查询SQL语句就不是固定的了</p>
+<p><strong>解决方案: XML中使用<code>&lt;if&gt;</code>和<code>&lt;where&gt;</code>标签</strong></p>
+<p><strong>场景2</strong>: 更新员工信息, 仅更新其中的几个关键字, 如果是静态的, 则其他未更新的字段被设置为null值, 这里需要使用<code>if</code>和<code>set</code>标签</p>
+<ol>
+<li>原始的静态SQL语句:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;update</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;update&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    update tb_emp
+</span></span><span style="display:flex;"><span>    set username=#{username}, password=#{password}, name=#{name},
+</span></span><span style="display:flex;"><span>        gender=#{gender}, image=#{image}, job=#{job}, entrydate=#{entrydate},
+</span></span><span style="display:flex;"><span>        dept_id=#{deptId}, update_time=#{updateTime}
+</span></span><span style="display:flex;"><span>    where id=#{id}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/update&gt;</span>
+</span></span></code></pre></div><p>假如只想修改部分字段, 那么很自然的就只设置部分字段的值, 例如:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Emp emp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Emp<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setId</span><span style="color:#f92672">(</span><span style="color:#ae81ff">22</span><span style="color:#f92672">);</span>      <span style="color:#75715e">// 更新 22 号数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setUsername</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Amel0&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;阿迈尔0&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setGender</span><span style="color:#f92672">((</span><span style="color:#66d9ef">short</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>emp<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>emp<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>主要问题在于, 第一是其他字段为null值, 这将会覆盖原有值, 这些&quot;其他字段&quot;可能是具有非空约束的, 这样的插入执行将导致异常
+因此, 使用动态SQL语句如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;update</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;update&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    update tb_emp
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;set&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;username !=null&#34;</span><span style="color:#f92672">&gt;</span>username=#{username},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;name !=null&#34;</span><span style="color:#f92672">&gt;</span>name=#{name},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;gender !=null&#34;</span><span style="color:#f92672">&gt;</span>gender=#{gender},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;image !=null&#34;</span><span style="color:#f92672">&gt;</span>image=#{image},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;job !=null&#34;</span><span style="color:#f92672">&gt;</span>job=#{job},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;entrydate !=null&#34;</span><span style="color:#f92672">&gt;</span>entrydate=#{entrydate},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;deptId !=null&#34;</span><span style="color:#f92672">&gt;</span>dept_id=#{deptId},<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;updateTime !=null&#34;</span><span style="color:#f92672">&gt;</span>update_time=#{updateTime}<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/set&gt;</span>
+</span></span><span style="display:flex;"><span>    where id=#{id}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/update&gt;</span>
+</span></span></code></pre></div><p><strong>注意: 1. 不要写错字段名; 2.注意表字段和实体字段的命名对应关系; 3.不要忘了写逗号 4. 一定一定不要写错了字段名！！！</strong></p>
+<p>注意拼接时候可能出现SQL语法错误, 需要仔细检查.</p>
+<h3 id="3-2-">3-2. ``</h3>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" data-title="C02BackEnd-Day07MyBatis" data-hashtags="MyBatis"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" data-hashtag="MyBatis"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" data-title="C02BackEnd-Day07MyBatis"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" data-title="C02BackEnd-Day07MyBatis"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" data-title="C02BackEnd-Day07MyBatis"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mybatis/">MyBatis</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/day06mysql2/" class="prev" rel="prev" title="JavaWeb-C02BackEnd-Day06MySQL(2)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JavaWeb-C02BackEnd-Day06MySQL(2)</a>
+            <a href="/posts/javacoreone/c08generic/" class="next" rel="next" title="JavaCoreOne-C08Generic">JavaCoreOne-C08Generic<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

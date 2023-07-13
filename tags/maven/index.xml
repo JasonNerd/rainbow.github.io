@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Maven - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/maven/</link>
+        <description>Maven - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 17 Jun 2023 16:09:45 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/maven/" rel="self" type="application/rss+xml" /><item>
+    <title>Web后端(1)-Maven入门</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day04maven/</link>
+    <pubDate>Sat, 17 Jun 2023 16:09:45 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day04maven/</guid>
+    <description><![CDATA[Maven是什么? Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管]]></description>
+</item>
+</channel>
+</rss>

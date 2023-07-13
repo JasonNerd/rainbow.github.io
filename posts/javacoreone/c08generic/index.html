@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>JavaCoreOne-C08Generic - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="JavaCoreOne-C08Generic" />
+<meta property="og:description" content="泛型类和泛型方法具有 类型参数，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用. 例如, 在Ja" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javacoreone/c08generic/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-06T21:28:36+08:00" />
+<meta property="article:modified_time" content="2023-07-06T21:28:36+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaCoreOne-C08Generic"/>
+<meta name="twitter:description" content="泛型类和泛型方法具有 类型参数，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用. 例如, 在Ja"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javacoreone/c08generic/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" /><link rel="next" href="https://www.rainbow.github.io/posts/javacoreone/c09collection/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "JavaCoreOne-C08Generic",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javacoreone\/c08generic\/"
+        },"genre": "posts","keywords": "泛型","wordcount":  3693 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javacoreone\/c08generic\/","datePublished": "2023-07-06T21:28:36+08:00","dateModified": "2023-07-06T21:28:36+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JavaCoreOne-C08Generic</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javacoreone/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaCoreOne</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-06">2023-07-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3693 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-泛型类与泛型方法">1. 泛型类与泛型方法</a></li>
+    <li><a href="#2-类型擦除--限制与局限性">2. 类型擦除&ndash;限制与局限性</a>
+      <ul>
+        <li><a href="#21-类型擦除">2.1 类型擦除</a></li>
+        <li><a href="#22-限制与局限性">2.2 限制与局限性</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-泛型类型的继承规则">3. 泛型类型的继承规则</a></li>
+    <li><a href="#4-通配符">4. 通配符?</a>
+      <ul>
+        <li><a href="#super超类型限定">super超类型限定</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>泛型类和泛型方法具有 <strong>类型参数</strong>，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用.
+例如, 在Java引入泛型之前, ArrayList 接受 Object 参数并创建数组, 由于继承的特性, 使得一个 ArrayList 对象可以存放任意类型的对象.
+其问题在于, 一是取出元素时需要进行强制转换, 二是无法保证容器内实际的对象类型一致, 这可能导致异常.
+因此可以使用泛型指明类型参数(type parameter)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> strArr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+</span></span></code></pre></div><p>这使得代码具有更好的可读性, 且解决了上述两个问题.
+以上, 实际上你已经了解的泛型的概念和使用语法, 但若要创建自己的泛型类, 则需要更多的知识.
+本质主要讨论创建自己泛型类的方法和注意事项 &ndash; 这同时也为下一章的泛型集合做好了基础</p>
+<h2 id="1-泛型类与泛型方法">1. 泛型类与泛型方法</h2>
+<p>定义一个Pair泛型类, 他具有 first 和 second 字段, 两个字段是不同的类型 T. 有两个构造方法 无参和全参, 以及各字段的getter setter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Pair.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> code.gernic<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pair</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> T first<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> T second<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    Pair<span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        first <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        second <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    Pair<span style="color:#f92672">(</span>T first<span style="color:#f92672">,</span> T second<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> first<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> second<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> T <span style="color:#a6e22e">getFirst</span><span style="color:#f92672">(){</span><span style="color:#66d9ef">return</span> first<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> T <span style="color:#a6e22e">getSecond</span><span style="color:#f92672">(){</span><span style="color:#66d9ef">return</span> second<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setFirst</span><span style="color:#f92672">(</span>T first<span style="color:#f92672">){</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> first<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setSecond</span><span style="color:#f92672">(</span>T second<span style="color:#f92672">){</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> second<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>现在做一个使用测试, 从这一角度看, <strong>泛型类就像是普通类的工厂</strong>, 可以指定任何具体类型生成不同的 Pair&lt;&gt; 类型:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test1</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>    Pair<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> pair1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;(</span><span style="color:#e6db74">&#34;小米&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;冰箱&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>pair1<span style="color:#f92672">.</span><span style="color:#a6e22e">getFirst</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">+</span> pair1<span style="color:#f92672">.</span><span style="color:#a6e22e">getSecond</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 小米, 冰箱
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>再继续考虑泛型方法, 它在具有类似如下的定义和调用方式:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AAA</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span><span style="color:#f92672">(</span>T<span style="color:#f92672">...</span> a<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// other program
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>AAA<span style="color:#f92672">.&lt;</span>String<span style="color:#f92672">&gt;</span>f<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or we can remove the type explannation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>AAA<span style="color:#f92672">.</span><span style="color:#a6e22e">f</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>注意此处, 通常来说, 调用时其类型指定可以省略, 编译器可以从传入参数推断出具体类型, 例如 String. 然而也可能出现无法推断的情况, 例如传入的各参数类型不同, 且无法找到合理的公共父类.</p>
+<p><strong>假设你要设计一个数组算法工具类, 该类包含一个程序 minmax([]), 它接受一个T类型数组, 找出数组中的最小值first和最大值second, 封装为Pair返回.</strong>
+minmax 方法是一个泛型方法, 它的返回值和参数包含类型参数, 其次这样一种类型还必须满足一定的限制条件, 例如: 可比较性. 元素之间是有大小之分的.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArrayAlg</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Comparable<span style="color:#f92672">&gt;</span> Pair<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">minmax</span><span style="color:#f92672">(</span>T<span style="color:#f92672">[]</span> a<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">==</span><span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> a<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        T first<span style="color:#f92672">=</span>a<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>        T second<span style="color:#f92672">=</span>a<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>a<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>first<span style="color:#f92672">.</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">])&gt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> first <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>second<span style="color:#f92672">.</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">])&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> second <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;(</span>first<span style="color:#f92672">,</span> second<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>接下来进行测试</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String<span style="color:#f92672">[]</span> strings <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;Jenny&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Kitty&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Julier&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;John&#34;</span><span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>Pair<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> pair1 <span style="color:#f92672">=</span> ArrayAlg<span style="color:#f92672">.</span><span style="color:#a6e22e">minmax</span><span style="color:#f92672">(</span>strings<span style="color:#f92672">);</span>  <span style="color:#75715e">// 省略了类型指定
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>pair1<span style="color:#f92672">.</span><span style="color:#a6e22e">getFirst</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">+</span> pair1<span style="color:#f92672">.</span><span style="color:#a6e22e">getSecond</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Jenny, Mike
+</span></span></span></code></pre></div><p>正常编译运行, 不过会有标黄警告: 也即comparable是一个原生接口, 你需要为其指定类型参数, 关于这一点会在后面解释</p>
+<h2 id="2-类型擦除--限制与局限性">2. 类型擦除&ndash;限制与局限性</h2>
+<h3 id="21-类型擦除">2.1 类型擦除</h3>
+<p>类型擦除的核心在于: <strong>JVM层面并不提供泛型的支持, 也即JVM中没有泛型类型对象, 所有对象都是普通类</strong>。因此, 任何时候定义一个泛型类型时, 都会有对应的原始类型(raw type), 也即没有类型参数的类名, 例如Pair. 而<strong>参数类型会被擦除, 替换为限定类型或者Object(无限定)</strong>.例如对于 <code>Pair&lt;T&gt;</code>这一实现, 其原始类型变为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pair</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Object first<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Object second<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    Pair<span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        first <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        second <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    Pair<span style="color:#f92672">(</span>Object first<span style="color:#f92672">,</span> Object second<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> first<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> second<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">getFirst</span><span style="color:#f92672">(){</span><span style="color:#66d9ef">return</span> first<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">getSecond</span><span style="color:#f92672">(){</span><span style="color:#66d9ef">return</span> second<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setFirst</span><span style="color:#f92672">(</span>Object first<span style="color:#f92672">){</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> first<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setSecond</span><span style="color:#f92672">(</span>Object second<span style="color:#f92672">){</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">second</span> <span style="color:#f92672">=</span> second<span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>又比如另一个泛型类 <code>Interval&lt;T extends Comparable &amp; Serializable&gt;</code>. 则其原始类中的参数T就会被替换为 <code>Comparable</code></strong></p>
+<p>请考虑原始Pair类中的getFirst方法, 该方法在擦除后返回的是Object值, 因此实际执行<code>String a = strPair.getFirst()</code>语句时, 应至少包含<strong>两步</strong>:
+<strong>1. 对原始类型方法Pair.getFirst的调用</strong>
+<strong>2. 将返回值Object对象强转为String对象</strong></p>
+<p>考虑这样的情况: 类<code>Interval</code>继承了<code>Pair&lt;Integer&gt;</code>, 执行语句其含义是表示一个区间, 因此<code>second</code>要保证比<code>first</code>大.
+考虑<code>Pair&lt;Integer&gt; a = new Interval()</code>, 以<code>setSecond()</code>为例, <code>Interval</code>类对其进行了重写:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setSecond</span><span style="color:#f92672">(</span>Integer second<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>在进行类型擦除后, 从父类继承了方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Interval</span> <span style="color:#66d9ef">extends</span> Pair<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setSecond</span><span style="color:#f92672">(</span>Object second<span style="color:#f92672">){</span> <span style="color:#f92672">...</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>此时, 就有了多态的性质, 我们期望调用<code>a.setSecond()</code>方法时是子类重写后的方法, 编译器会生成一个桥方法<code>public void setSecond(Object second){ setSecond((Integer) second); }</code>以满足期望。具体过程是:
+变量a被声明为<code>Pair&lt;Integer&gt;</code>, 该类包含一个<code>setSecond(Object)</code>方法, 虚拟机在引用a的对象上调用该方法, 而该对象是<code>Interval</code>类型, 进而调用<code>Interval.setSecond(Object)</code>方法, 该方法是桥方法, 它会继续调用<code>setSecond(Integer)</code>方法。
+然而如果再考虑<code>getSecond()</code>方法呢, 它们仅仅是返回值类型不同, 实际上, 在虚拟机中, 会有参数类型和返回类型共同指定</p>
+<h4 id="小结">小结</h4>
+<ol>
+<li>JVM中没有泛型类和泛型方法，只有普通类和普通方法</li>
+<li>泛型类或者泛型方法的参数类型会被擦除，使用限定类型或者Object替代</li>
+<li>必要时通过类型强制转换保证类型一致</li>
+<li>编译器会生成桥方法以保持多态</li>
+</ol>
+<h3 id="22-限制与局限性">2.2 限制与局限性</h3>
+<ol>
+<li><strong>不能使用基本类型而是只能使用引用类型作为类型参数, 例如 <code>Pair&lt;Integer&gt;</code>是合法的而</strong>Pair&lt;int&gt;非法。</li>
+<li><strong>运行时类型查询只适用于原始类型</strong>。也即你无法去判断一个类是否为某一个泛型，例如你可以去判断一个类是否为Pair类型而无法去判断一个类型是否为Pair&lt;String&gt;或者Pair&lt;Integer&gt;.这是由于类型擦除。</li>
+<li><strong>不能在静态字段或方法中引用类型变量</strong></li>
+</ol>
+<h4 id="221-不能创建参数化类型的数组">2.2.1 不能创建参数化类型的数组</h4>
+<p>例如 <code>var table=new Pair&lt;String&gt; [10]</code> 是非法的。数组必须保证各个元素类型的一致性, 不允许插入不同类型的元素, 而泛型类型擦除后失去了类型参数, 只知道table是一个Pair数组, 由于类型参数的可变性, 这违背数组的数据类型一致性, 因此不允许这么做, 也即这从语法上就是错误的. 然而这样的声明或者创建是合乎语法的, 尽管它并不安全: <code>var table = (Pair&lt;String&gt;) new Pair&lt;?&gt; [10];</code> 声明调配类型数组, 然后进行强制转换, 但他无法保证数组元素一致性. 结论是, 可以简单地<strong>使用ArrayList等集合容器存放参数化类型对象</strong>.</p>
+<h4 id="222-不能实例化类型变量">2.2.2 不能实例化类型变量</h4>
+<p>例如在构造器中这样做是错误的:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Pair</span><span style="color:#f92672">(){</span>first<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> T<span style="color:#f92672">();</span> second<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> T<span style="color:#f92672">();}</span>
+</span></span></code></pre></div><p>这是由于T会被擦除为 Object, 一个最好的解决方法是 <strong>提供构造器表达式</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Pair<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">makePair</span><span style="color:#f92672">(</span>Supplier<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> constr<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 传入参数是一个构造器表达式, 例如 String::new
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;(</span>constr<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(),</span> constr<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>or 使用传统的方法反射 <code>Constructor.newInstance</code> 方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Pair<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">makePairReflection</span><span style="color:#f92672">(</span>Class<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> cl<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 传入参数是一个类型, 例如String.class, 通过反射机制创造该类型的对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;(</span>cl<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">().</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">(),</span> cl<span style="color:#f92672">.</span><span style="color:#a6e22e">getConstructor</span><span style="color:#f92672">().</span><span style="color:#a6e22e">newInstance</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>从另一个角度想, 对于使用了类型参数的函数, 要创建该类型的对象, 就必须先明确这个类型具体是什么类型, 而构造器表达式这一形式就十分简洁明确.</p>
+<h4 id="223-不能构造泛型数组">2.2.3 不能构造泛型数组</h4>
+<p>不同于第一小节, 第一小节是说不能创建参数化类型的数组例如<code>Pair&lt;String&gt;[10]</code>, 这里是说在泛型方法设计的过程中不能创建泛型数组, 例如<code>minmax(T[])</code>中假如不借助于Pair类存储min max, 而是使用一个数组返回, 例如<code>new T[2]; // Error</code>, 同样由于类型擦除这里非法, 可以通过传入构造器类型解决</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// minmax(IntFunction&lt;T[]&gt; constr, T... a)
+</span></span></span></code></pre></div><h4 id="224-不能抛出或者捕获泛型类的实例">2.2.4 不能抛出或者捕获泛型类的实例</h4>
+<p>既不能抛出泛型类型异常也不能捕获泛型类型异常, 泛型类型也不被允许扩展Throwable接口</p>
+<h4 id="225-可以取消检查型异常">2.2.5 可以取消检查型异常</h4>
+<p>Java异常处理机制的原则是必须为所有的检查型异常提供一个处理器</p>
+<h2 id="3-泛型类型的继承规则">3. 泛型类型的继承规则</h2>
+<p>如果<code>Manager</code>是<code>Employee</code>的子类, 那么<code>Pair&lt;Manager&gt;</code>是<code>Pair&lt;Employee&gt;</code>的子类吗？直觉上讲似乎不太是, 实际上确实后面两者并没有什么关系。
+不过另一方面, 泛型类可以扩展或实现其他的泛型类, 例如一个 <code>ArrayList&lt;Manager&gt;</code> 可以转为 <code>List&lt;Manager&gt;</code>.</p>
+<h2 id="4-通配符">4. 通配符?</h2>
+<p>例如: <strong><code>Pair&lt;? extends Employee&gt;</code>表示任何参数类型为Employee的子类型及本身构成的<code>Pair</code></strong></p>
+<p>通配符形式上有点类似于泛型编程中的类型限定, 但在前者的领域, 他是为了保证类型参数满足一定的限制条件以确保数据安全, 而在前者通配符的观念里, 它是为了解除特定类型的限制, 将可用类型拓宽.</p>
+<p>在引入通配符之前, 假设一个函数<code>printBuddies</code>接收<code>Pair&lt;Employee&gt;</code>类型, 它打印了对象的字段内容信息, 但由于<code>Pair&lt;Manager&gt;</code>与<code>Pair&lt;Employee&gt;</code>并无关系, 所以<code>printBuddies</code>并不接受<code>Pair&lt;Manager&gt;</code>参数, 然而, 在使用通配符之后, 函数<code>printBuddies(Pair&lt;? extends Employee&gt;)</code>就可以接收<code>Pair&lt;Manager&gt;</code>类型的参数了. 这听起来似乎十分完美, 且合乎情理, 然而实现时有一个细节是:
+<strong><code>? extends Employee</code>并非一个具体类型, 不可能创造后者的一个引用, 例如<code>? extends Employee emp = xxxx;</code>, 因此我们只能使用Employee这个引用, 该引用可以指向子类型及本身的对象, 形象地说, 可以用父类的指针去接收(读取)子类型的对象, 进而打印它</strong></p>
+<h3 id="super超类型限定">super超类型限定</h3>
+<p>例如: <strong><code>Pair&lt;? super Manager&gt;</code>表示任何参数类型为Manager的超类型及本身的<code>Pair</code>。</strong></p>
+<p>类比<code>extends</code>通配符, 假设一个函数接受<code>Pair&lt;? super Manager&gt; pairA</code>为参数, 那么实际上函数仅能操作 <code>Manager</code> 引用, 并且知道 <code>pairA</code> 的字段应该是 <code>Manager</code> 的父类型, 函数可以在进行一些处理后得到需求的 <code>Manager</code> 对象, 并把它设置到 <code>pairA</code> 的字段, 这同样是由于父类的指针可以去接收(读取)子类型的对象, 也即一个原是一种形状.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javacoreone/c08generic/" data-title="JavaCoreOne-C08Generic" data-hashtags="泛型"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javacoreone/c08generic/" data-hashtag="泛型"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javacoreone/c08generic/" data-title="JavaCoreOne-C08Generic"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javacoreone/c08generic/" data-title="JavaCoreOne-C08Generic"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javacoreone/c08generic/" data-title="JavaCoreOne-C08Generic"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E6%B3%9B%E5%9E%8B/">泛型</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/day07mybatis/" class="prev" rel="prev" title="C02BackEnd-Day07MyBatis"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>C02BackEnd-Day07MyBatis</a>
+            <a href="/posts/javacoreone/c09collection/" class="next" rel="next" title="JavaCoreOne-C09Collection">JavaCoreOne-C09Collection<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

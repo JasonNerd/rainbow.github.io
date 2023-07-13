@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>泛型 - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/%E6%B3%9B%E5%9E%8B/</link>
+        <description>泛型 - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 06 Jul 2023 21:28:36 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/%E6%B3%9B%E5%9E%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaCoreOne-C08Generic</title>
+    <link>https://www.rainbow.github.io/posts/javacoreone/c08generic/</link>
+    <pubDate>Thu, 06 Jul 2023 21:28:36 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javacoreone/c08generic/</guid>
+    <description><![CDATA[泛型类和泛型方法具有 类型参数，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用. 例如, 在Ja]]></description>
+</item>
+</channel>
+</rss>

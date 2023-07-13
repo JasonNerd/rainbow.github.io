@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>MySQL - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/mysql/</link>
+        <description>MySQL - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/mysql/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL(2)</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</link>
+    <pubDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</guid>
+    <description><![CDATA[1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql/</link>
+    <pubDate>Wed, 21 Jun 2023 19:30:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql/</guid>
+    <description><![CDATA[MySQL数据模型 database table record SQL 分类 简称 全称 描述 DDL Data Definition Language 数据定义语言，用来定义数据库对象(数据库，表，字段) DML Data Manipulation Language 数据操作语言，用来对数据库表中]]></description>
+</item>
+</channel>
+</rss>

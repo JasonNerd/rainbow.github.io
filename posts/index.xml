@@ -4,7 +4,63 @@
         <link>https://www.rainbow.github.io/posts/</link>
         <description>All Posts | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 14 May 2023 15:28:01 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sat, 08 Jul 2023 13:41:09 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaCoreOne-C09Collection</title>
+    <link>https://www.rainbow.github.io/posts/javacoreone/c09collection/</link>
+    <pubDate>Sat, 08 Jul 2023 13:41:09 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javacoreone/c09collection/</guid>
+    <description><![CDATA[1. Java集合框架 Java设计者们想设计一组轻量的完善的数据结构, 它不可以有C++STL那样的复杂, 但同时具备泛型算法的优点。在Java类库]]></description>
+</item>
+<item>
+    <title>JavaCoreOne-C08Generic</title>
+    <link>https://www.rainbow.github.io/posts/javacoreone/c08generic/</link>
+    <pubDate>Thu, 06 Jul 2023 21:28:36 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javacoreone/c08generic/</guid>
+    <description><![CDATA[泛型类和泛型方法具有 类型参数，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用. 例如, 在Ja]]></description>
+</item>
+<item>
+    <title>C02BackEnd-Day07MyBatis</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</link>
+    <pubDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</guid>
+    <description><![CDATA[MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL(2)</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</link>
+    <pubDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</guid>
+    <description><![CDATA[1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql/</link>
+    <pubDate>Wed, 21 Jun 2023 19:30:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql/</guid>
+    <description><![CDATA[MySQL数据模型 database table record SQL 分类 简称 全称 描述 DDL Data Definition Language 数据定义语言，用来定义数据库对象(数据库，表，字段) DML Data Manipulation Language 数据操作语言，用来对数据库表中]]></description>
+</item>
+<item>
+    <title>Web后端(1)-Maven入门</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day04maven/</link>
+    <pubDate>Sat, 17 Jun 2023 16:09:45 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day04maven/</guid>
+    <description><![CDATA[Maven是什么? Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day05Http</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day05http/</link>
+    <pubDate>Sat, 17 Jun 2023 15:23:47 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day05http/</guid>
+    <description><![CDATA[http 请求数据格式 请求行: 请求方式, 资源路径, 协议(HTTP/1.1) 请求头: 格式为(key: value)对, 例如浏览器版本, 浏览器接受的资源类]]></description>
+</item>
+<item>
     <title>第02章-连续系统的时域分析(1)-LTI连续系统的响应</title>
     <link>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC02%E7%AB%A0-%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90/</link>
     <pubDate>Sun, 14 May 2023 15:28:01 &#43;0800</pubDate>
@@ -27,62 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%AC%AC01%E7%AB%A0-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</guid>
     <description><![CDATA[A 信号的分类 A-1 确定和随机、连续和离散 1.确定信号和随机信号 确定信号：可用确定时间函数表示的信号 随机信号：信号不能用确切的函数描述，只可能知道]]></description>
-</item>
-<item>
-    <title>第16章 -- 学生成绩管理系统</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/</link>
-    <pubDate>Mon, 01 May 2023 19:24:34 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter16student/</guid>
-    <description><![CDATA[1. 系统简介 数据库表设计(MySQL) 数据库工具类设计 主业务设计 登录窗体 主窗体-年级信息 主窗体-学生信息 主窗体-学生成绩 查询]]></description>
-</item>
-<item>
-    <title>第13章 -- 多线程编程</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter13multhread/</link>
-    <pubDate>Sat, 29 Apr 2023 15:51:44 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter13multhread/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>第11章 -- 文件操作</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter11file/</link>
-    <pubDate>Sat, 29 Apr 2023 15:10:13 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter11file/</guid>
-    <description><![CDATA[file directory fd in pyqt ex]]></description>
-</item>
-<item>
-    <title>第09章 -- 布局管理</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter09layout/</link>
-    <pubDate>Sat, 29 Apr 2023 14:07:49 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter09layout/</guid>
-    <description><![CDATA[Linear Layout FormLayout 嵌套 MDIArea]]></description>
-</item>
-<item>
-    <title>第08章 -- 对话框</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter08dialog/</link>
-    <pubDate>Fri, 28 Apr 2023 10:26:57 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter08dialog/</guid>
-    <description><![CDATA[MessageBox 对话框 FileDialog 文件对话框 InputDialog 输入对话框]]></description>
-</item>
-<item>
-    <title>第07章 -- 菜单、工具栏和状态栏</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter07menu/</link>
-    <pubDate>Fri, 28 Apr 2023 09:52:43 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter07menu/</guid>
-    <description><![CDATA[(1) Menu 菜单 (1-a) add &amp; remove menus (1-b) function implementation Tool 工具栏 Status 状态栏]]></description>
-</item>
-<item>
-    <title>第06章高级控件(3) -- 分割控件</title>
-    <link>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s03splitwidget/</link>
-    <pubDate>Tue, 25 Apr 2023 11:14:10 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter06morew/c6s03splitwidget/</guid>
-    <description><![CDATA[]]></description>
 </item>
 </channel>
 </rss>

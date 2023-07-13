@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Web后端(1)-Maven入门 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Web后端(1)-Maven入门" />
+<meta property="og:description" content="Maven是什么? Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day04maven/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-17T16:09:45+08:00" />
+<meta property="article:modified_time" content="2023-06-17T16:09:45+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Web后端(1)-Maven入门"/>
+<meta name="twitter:description" content="Maven是什么? Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/day04maven/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/day05http/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/day06mysql/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Web后端(1)-Maven入门",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day04maven\/"
+        },"genre": "posts","keywords": "Web后端, Maven","wordcount":  1647 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day04maven\/","datePublished": "2023-06-17T16:09:45+08:00","dateModified": "2023-06-17T16:09:45+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Web后端(1)-Maven入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-17">2023-06-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1647 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#maven是什么">Maven是什么?</a></li>
+    <li><a href="#maven-的作用">Maven 的作用</a></li>
+    <li><a href="#maven-工作基本原理">Maven 工作基本原理</a></li>
+    <li><a href="#idea-中集成-maven">IDEA 中集成 Maven</a></li>
+    <li><a href="#常用maven命令">常用MAVEN命令</a>
+      <ul>
+        <li><a href="#maven-log-info">maven log info</a></li>
+      </ul>
+    </li>
+    <li><a href="#jar依赖">Jar依赖</a></li>
+    <li><a href="#生命周期">生命周期</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="maven是什么">Maven是什么?</h2>
+<p>Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管理项目的构建。</p>
+<h2 id="maven-的作用">Maven 的作用</h2>
+<ol>
+<li>依赖管理
+方便快捷的管理项目依赖的资源(jar包)，避免版本冲突问题</li>
+<li>统一项目结构
+提供标准、统一的项目结构</li>
+<li>项目构建
+标准跨平台 (Linux、WindowsMacos) 的自动化项目构建方式
+<a href="http://maven.apache.org/" target="_blank" rel="noopener noreffer ">http://maven.apache.org/</a></li>
+</ol>
+<h2 id="maven-工作基本原理">Maven 工作基本原理</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-05-23-11-00-35.png"
+        data-srcset="./image/2023-05-23-11-00-35.png, ./image/2023-05-23-11-00-35.png 1.5x, ./image/2023-05-23-11-00-35.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-05-23-11-00-35.png"
+        title="./image/2023-05-23-11-00-35.png" />
+仓库:用于存储资源，管理各种jar包。</p>
+<h2 id="idea-中集成-maven">IDEA 中集成 Maven</h2>
+<ol>
+<li>官网下载Maven至本地并添加环境变量</li>
+<li>配置本地仓库存放位置，添加阿里云镜像</li>
+<li>可以使用命令行创建maven项目</li>
+<li>或者使用idea创建maven项目（推荐）</li>
+<li>运行时注意将settings 中的 build-maven下的home-dir user-setting-file 以及local-Repository 配置好路径</li>
+<li>把maven 下的runner和import均设置为jdk1.8
+参考链接：https://blog.csdn.net/qq_40187702/article/details/130660992</li>
+</ol>
+<p><a href="https://blog.csdn.net/qq_42057154/article/details/106114515" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/qq_42057154/article/details/106114515</a></p>
+<h2 id="常用maven命令">常用MAVEN命令</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">maven命令</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mvn -v</td>
+<td style="text-align:left">//查看版本</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn compile</td>
+<td style="text-align:left">//编译源代码</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn test-compile</td>
+<td style="text-align:left">//编译测试代码</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn test</td>
+<td style="text-align:left">//运行应用程序中的单元测试</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn site</td>
+<td style="text-align:left">//生成项目相关信息的网站</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn package</td>
+<td style="text-align:left">//依据项目生成 jar 文件</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn install</td>
+<td style="text-align:left">//在本地 Repository 中安装 jar</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn -Dmaven.test.skip=true</td>
+<td style="text-align:left">//忽略测试文档编译</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean</td>
+<td style="text-align:left">//清除目标目录中的生成结果</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean compile</td>
+<td style="text-align:left">//将 .java类编译为.class文件</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean package</td>
+<td style="text-align:left">//进行打包</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean test</td>
+<td style="text-align:left">//执行单元测试</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean deploy</td>
+<td style="text-align:left">//部署到版本仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn clean install</td>
+<td style="text-align:left">//使其他项目使用这个jar,会安装到maven本地仓库中</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn archetype:generate</td>
+<td style="text-align:left">//创建项目</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn dependency:list</td>
+<td style="text-align:left">//查看已解析依赖</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn dependency:tree</td>
+<td style="text-align:left">//看到依赖树</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn dependency:analyze</td>
+<td style="text-align:left">//查看依赖的工具</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn help:system</td>
+<td style="text-align:left">//从中央仓库下载文件至本地仓库</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn help:active-profiles</td>
+<td style="text-align:left">//查看当前激活的profiles</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn help:all-profiles</td>
+<td style="text-align:left">//查看所有profiles</td>
+</tr>
+<tr>
+<td style="text-align:left">mvn help:effective -pom</td>
+<td style="text-align:left">//查看完整的pom信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="maven-log-info">maven log info</h3>
+<p>[INFO] &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-
+[INFO] Using following parameters for creating project from Archetype: maven-archetype-quickstart:1.4
+[INFO] &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-
+[INFO] Parameter: groupId, Value: cn.zju.bciprj
+[INFO] Parameter: artifactId, Value: hello
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: package, Value: cn.zju.bciprj
+[INFO] Parameter: packageInPathFormat, Value: cn/zju/bciprj
+[INFO] Parameter: package, Value: cn.zju.bciprj
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+[INFO] Parameter: groupId, Value: cn.zju.bciprj
+[INFO] Parameter: artifactId, Value: hello
+[INFO] Project created from Archetype in dir: D:\User\mrrai\project\JavaWeb\MavenHello\hello
+[INFO] &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+[INFO] BUILD SUCCESS
+[INFO] &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;
+[INFO] Total time:  05:14 min
+[INFO] Finished at: 2023-05-23T13:35:35+08:00
+[INFO] &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
+<p>这里，你需要输入groupid，groupid定义了项目属于哪个组，这个组往往和项目所在的组织或公司存在关联，例如：org.apache.maven.plugins。继续输入artifactId，artifactId定义了当前Maven项目在组中唯一的ID，artifactId也是项目输出的结果的基础名称，例如：如果输出为一个jar包，artifactId为myapp，则输出为myapp-1.0.jar. 这个输出项目的版本，根据需要输入，一般为1.0，可以加snapshot后缀说明项目还处于开发中，是不稳定版本，随着项目的发展，version会不断更新。定义创建项目默认的包名。输入后继续：在这里确认你输入的信息，如果没问题则直接回车，将输出一些版本信息后结束，项目创建成功，你可以打开你创建的项目，在根目录下可以看到pom.xml文件，打开可以看到创建项目是输入的信息。</p>
+<h2 id="jar依赖">Jar依赖</h2>
+<p>依赖的jar包，默认情况下，可以在任何地方使用。可以通过 <code>&lt;scope&gt;...&lt;/ scope&gt;</code> 设置其作用范围:</p>
+<ul>
+<li>主程序范围有效。(main文件夹范围内)</li>
+<li>测试程序范围有效。 (test文件夹范围内)</li>
+<li>是否参与打包运行。(package指令范围内)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">scope值</th>
+<th style="text-align:center">主程序</th>
+<th style="text-align:center">测试程序</th>
+<th style="text-align:center">打包运行</th>
+<th style="text-align:left">范例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">compile(默认)</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:left">log4j</td>
+</tr>
+<tr>
+<td style="text-align:left">test</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">junit</td>
+</tr>
+<tr>
+<td style="text-align:left">provided</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">servlet-api</td>
+</tr>
+<tr>
+<td style="text-align:left">runtime</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:left">jdbc驱动</td>
+</tr>
+</tbody>
+</table>
+<h2 id="生命周期">生命周期</h2>
+<p>Maven的生命周期就是为了对所有的maven项目构建过程进行抽象和统一</p>
+<p>Maven中有3套相互独立的生命周期:</p>
+<ul>
+<li>clean: 清理工作。</li>
+<li>default: 核心工作，如:编译、测试、打包、安装、部署等。</li>
+<li>site:生成报告、发布站点等。</li>
+</ul>
+<p>每套生命周期包含一些阶段(phase)，阶段是有顺序的，后面的阶段依赖于前面的阶段。</p>
+<ol>
+<li>clean:
+<ol>
+<li>pre-clean</li>
+<li><strong>clean</strong></li>
+<li>post-clean</li>
+</ol>
+</li>
+<li>default
+<ol>
+<li>validate</li>
+<li>initialize</li>
+<li>generate-sources</li>
+<li>process-sources</li>
+<li>generate-resources</li>
+<li>process-resources</li>
+<li><strong>compile</strong></li>
+<li>process-classes</li>
+<li>generate-test-sources</li>
+<li>process-test-sources</li>
+<li>generate-test-resources</li>
+<li>process-test-resources</li>
+<li>test-compile</li>
+<li>process-test-classes</li>
+<li><strong>test</strong></li>
+<li>prepare-package</li>
+<li><strong>package</strong></li>
+<li>verify</li>
+<li><strong>install</strong></li>
+<li>deploy</li>
+</ol>
+</li>
+<li>site
+<ol>
+<li>pre-site</li>
+<li>site</li>
+<li>post-site</li>
+<li>site-deploy</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>clean: 移除上一次构建生成的文件</li>
+<li>compile: 编译项目源代码</li>
+<li>test: 使用合适的单元测试框架运行测试(junit)</li>
+<li>package: 将编译后的文件打包，如: jar、war等</li>
+<li>install: 安装项目到本地仓库</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/day04maven/" data-title="Web后端(1)-Maven入门" data-hashtags="Web后端,Maven"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/day04maven/" data-hashtag="Web后端"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/day04maven/" data-title="Web后端(1)-Maven入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/day04maven/" data-title="Web后端(1)-Maven入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/day04maven/" data-title="Web后端(1)-Maven入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/web%E5%90%8E%E7%AB%AF/">Web后端</a>,&nbsp;<a href="/tags/maven/">Maven</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/day05http/" class="prev" rel="prev" title="JavaWeb-C02BackEnd-Day05Http"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JavaWeb-C02BackEnd-Day05Http</a>
+            <a href="/posts/javaweb/day06mysql/" class="next" rel="next" title="JavaWeb-C02BackEnd-Day06MySQL">JavaWeb-C02BackEnd-Day06MySQL<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

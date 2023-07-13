@@ -1,0 +1,72 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>JavaWeb - Category - </title>
+        <link>https://www.rainbow.github.io/categories/javaweb/</link>
+        <description>JavaWeb - Category - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/javaweb/" rel="self" type="application/rss+xml" /><item>
+    <title>C02BackEnd-Day07MyBatis</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</link>
+    <pubDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</guid>
+    <description><![CDATA[MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL(2)</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</link>
+    <pubDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</guid>
+    <description><![CDATA[1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day06MySQL</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql/</link>
+    <pubDate>Wed, 21 Jun 2023 19:30:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql/</guid>
+    <description><![CDATA[MySQL数据模型 database table record SQL 分类 简称 全称 描述 DDL Data Definition Language 数据定义语言，用来定义数据库对象(数据库，表，字段) DML Data Manipulation Language 数据操作语言，用来对数据库表中]]></description>
+</item>
+<item>
+    <title>Web后端(1)-Maven入门</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day04maven/</link>
+    <pubDate>Sat, 17 Jun 2023 16:09:45 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day04maven/</guid>
+    <description><![CDATA[Maven是什么? Maven 是 Apache部门开发的一个开源的 Java项目管理和构建工具, 它基于项目对象模型(POM)的概念, 通过一小段描述信息来管]]></description>
+</item>
+<item>
+    <title>JavaWeb-C02BackEnd-Day05Http</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day05http/</link>
+    <pubDate>Sat, 17 Jun 2023 15:23:47 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day05http/</guid>
+    <description><![CDATA[http 请求数据格式 请求行: 请求方式, 资源路径, 协议(HTTP/1.1) 请求头: 格式为(key: value)对, 例如浏览器版本, 浏览器接受的资源类]]></description>
+</item>
+<item>
+    <title>Web前端(3)-Vue-简化开发的前端框架</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day03vue/</link>
+    <pubDate>Wed, 12 Apr 2023 20:35:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day03vue/</guid>
+    <description><![CDATA[Vue 是一套前端框架，免除原生JavaScript中的DOM操作，简化书写. 基于MVVM(Model-View-ViewModel)思想，实现数]]></description>
+</item>
+<item>
+    <title>Web前端(2)-JavaScript-网页的行为与响应</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day02javascript/</link>
+    <pubDate>Fri, 07 Apr 2023 16:53:04 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day02javascript/</guid>
+    <description><![CDATA[JavaScript(简称:JS)是一门跨平台、面向对象的脚本语言(直接解释执行, 不需要编译)。是用来控制网页行为的，它能使网页可交互。EC]]></description>
+</item>
+<item>
+    <title>Web前端(1)-HTML与CSS-网页的排版与样式</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day01htmlcss/</link>
+    <pubDate>Thu, 06 Apr 2023 15:26:52 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day01htmlcss/</guid>
+    <description><![CDATA[Web 网站工作流程 浏览器 -&gt; 前端服务器 (返回前端代码, 浏览器解释前端代码渲染出框架) 浏览器 -&gt; 请求数据 (后端服务器&ndash;Java程序) &ndash;&gt; 数据]]></description>
+</item>
+</channel>
+</rss>
