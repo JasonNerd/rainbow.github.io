@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MyTlias-员工信息管理系统(一)-整体框架的搭建 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="MyTlias-员工信息管理系统(一)-整体框架的搭建" />
+<meta property="og:description" content="本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-13T10:49:43+08:00" />
+<meta property="article:modified_time" content="2023-07-13T10:49:43+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MyTlias-员工信息管理系统(一)-整体框架的搭建"/>
+<meta name="twitter:description" content="本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javacoreone/c09collection/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MyTlias-员工信息管理系统(一)-整体框架的搭建",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/1\/"
+        },"genre": "posts","keywords": "Java, JavaWeb, Tlias","wordcount":  3488 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/1\/","datePublished": "2023-07-13T10:49:43+08:00","dateModified": "2023-07-13T10:49:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MyTlias-员工信息管理系统(一)-整体框架的搭建</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-13">2023-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3488 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-工作准备">1. 工作准备</a>
+      <ul>
+        <li><a href="#11-新建项目">1.1. 新建项目</a></li>
+        <li><a href="#12-准备数据库表">1.2. 准备数据库表</a></li>
+        <li><a href="#13-准备数据实体">1.3. 准备数据实体</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-完成部门信息展示">2 完成部门信息展示</a>
+      <ul>
+        <li><a href="#21-properties">2.1 properties</a></li>
+        <li><a href="#22-dao-层">2.2 DAO 层</a></li>
+        <li><a href="#23-service-层">2.3 Service 层</a></li>
+        <li><a href="#24-controller-层">2.4 Controller 层</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现以及当初引入三层架构的缘起.</p>
+<h2 id="1-工作准备">1. 工作准备</h2>
+<h3 id="11-新建项目">1.1. 新建项目</h3>
+<p>在IDEA新建一个Springboot项目, 选择 Mybatis3 + JDK17, 勾选 lombok/Spring Web/Mybatis/MySQL Server等4个依赖.</p>
+<h3 id="12-准备数据库表">1.2. 准备数据库表</h3>
+<p>IDEA连接上MySQL Server, 新建一个 db_tlias 数据库(schema): 执行建表语句和数据插入语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 部门管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> dept(
+</span></span><span style="display:flex;"><span>    id int unsigned <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> auto_increment <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;主键ID&#39;</span>,
+</span></span><span style="display:flex;"><span>    name varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">unique</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门名称&#39;</span>,
+</span></span><span style="display:flex;"><span>    create_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;创建时间&#39;</span>,
+</span></span><span style="display:flex;"><span>    update_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;修改时间&#39;</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门表&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">insert</span> <span style="color:#66d9ef">into</span> dept (id, name, create_time, update_time) <span style="color:#66d9ef">values</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;学工部&#39;</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;教研部&#39;</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;咨询部&#39;</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;就业部&#39;</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;人事部&#39;</span>,now(),now());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 员工管理(带约束)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> emp (
+</span></span><span style="display:flex;"><span>    id int unsigned <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span> auto_increment <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;ID&#39;</span>,
+</span></span><span style="display:flex;"><span>    username varchar(<span style="color:#ae81ff">20</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">unique</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;用户名&#39;</span>,
+</span></span><span style="display:flex;"><span>    password varchar(<span style="color:#ae81ff">32</span>) <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#39;123456&#39;</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;密码&#39;</span>,
+</span></span><span style="display:flex;"><span>    name varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;姓名&#39;</span>,
+</span></span><span style="display:flex;"><span>    gender tinyint unsigned <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;性别, 说明: 1 男, 2 女&#39;</span>,
+</span></span><span style="display:flex;"><span>    image varchar(<span style="color:#ae81ff">300</span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;图像&#39;</span>,
+</span></span><span style="display:flex;"><span>    job tinyint unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;职位, 说明: 1 班主任,2 讲师, 3 学工主管, 4 教研主管, 5 咨询师&#39;</span>,
+</span></span><span style="display:flex;"><span>    entrydate date <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;入职时间&#39;</span>,
+</span></span><span style="display:flex;"><span>    dept_id int unsigned <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;部门ID&#39;</span>,
+</span></span><span style="display:flex;"><span>    create_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;创建时间&#39;</span>,
+</span></span><span style="display:flex;"><span>    update_time datetime <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span> <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;修改时间&#39;</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;员工表&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> emp
+</span></span><span style="display:flex;"><span>(id, username, password, name, gender, image, job, entrydate,dept_id, create_time, update_time) <span style="color:#66d9ef">VALUES</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;jinyong&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;金庸&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;1.jpg&#39;</span>,<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;2000-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;zhangwuji&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;张无忌&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2015-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;yangxiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;杨逍&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;3.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2008-05-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;weiyixiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;韦一笑&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;4.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2007-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;changyuchun&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;常遇春&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;5.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2012-12-05&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">6</span>,<span style="color:#e6db74">&#39;xiaozhao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;小昭&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;6.jpg&#39;</span>,<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;2013-09-05&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">7</span>,<span style="color:#e6db74">&#39;jixiaofu&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;纪晓芙&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;7.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2005-08-01&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">8</span>,<span style="color:#e6db74">&#39;zhouzhiruo&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;周芷若&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;8.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2014-11-09&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">9</span>,<span style="color:#e6db74">&#39;dingminjun&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;丁敏君&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;9.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2011-03-11&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;zhaomin&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;赵敏&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;10.jpg&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;2013-09-05&#39;</span>,<span style="color:#ae81ff">1</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">11</span>,<span style="color:#e6db74">&#39;luzhangke&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;鹿杖客&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;11.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2007-02-01&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">12</span>,<span style="color:#e6db74">&#39;hebiweng&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;鹤笔翁&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;12.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2008-08-18&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">13</span>,<span style="color:#e6db74">&#39;fangdongbai&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;方东白&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;13.jpg&#39;</span>,<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;2012-11-01&#39;</span>,<span style="color:#ae81ff">3</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">14</span>,<span style="color:#e6db74">&#39;zhangsanfeng&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;张三丰&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;14.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2002-08-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">15</span>,<span style="color:#e6db74">&#39;yulianzhou&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;俞莲舟&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;15.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2011-05-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">16</span>,<span style="color:#e6db74">&#39;songyuanqiao&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;宋远桥&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;16.jpg&#39;</span>,<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;2007-01-01&#39;</span>,<span style="color:#ae81ff">2</span>,now(),now()),
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">17</span>,<span style="color:#e6db74">&#39;chenyouliang&#39;</span>,<span style="color:#e6db74">&#39;123456&#39;</span>,<span style="color:#e6db74">&#39;陈友谅&#39;</span>,<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;17.jpg&#39;</span>,<span style="color:#66d9ef">NULL</span>,<span style="color:#e6db74">&#39;2015-03-21&#39;</span>,<span style="color:#66d9ef">NULL</span>,now(),now());
+</span></span></code></pre></div><h3 id="13-准备数据实体">1.3. 准备数据实体</h3>
+<p>员工实体: Employee
+部门实体: Department
+响应数据: Result
+它们均位于<code>package com.example.mytlias.pojo</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Employee.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@NoArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Integer id<span style="color:#f92672">;</span>         <span style="color:#75715e">// id, 主键, 非空, 自增长
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String username<span style="color:#f92672">;</span>    <span style="color:#75715e">// 用户名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String password<span style="color:#f92672">;</span>    <span style="color:#75715e">// 密码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String name<span style="color:#f92672">;</span>        <span style="color:#75715e">// 姓名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Short gender<span style="color:#f92672">;</span>       <span style="color:#75715e">// 性别, 1: 男, 2: 女
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String image<span style="color:#f92672">;</span>       <span style="color:#75715e">// 照片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Short job<span style="color:#f92672">;</span>          <span style="color:#75715e">// 职位, 1 班主任,2 讲师, 3 学工主管, 4 教研主管, 5 咨询师
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LocalDate entrydate<span style="color:#f92672">;</span>    <span style="color:#75715e">// 入职日期
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Integer deptId<span style="color:#f92672">;</span>         <span style="color:#75715e">// 部门id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LocalDateTime createTime<span style="color:#f92672">;</span>   <span style="color:#75715e">// 条目创建时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LocalDateTime updateTime<span style="color:#f92672">;</span>   <span style="color:#75715e">// 最后更新时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Department.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@NoArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Department</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Integer id<span style="color:#f92672">;</span>     <span style="color:#75715e">// 部门 id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String name<span style="color:#f92672">;</span>    <span style="color:#75715e">// 部门名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LocalDateTime createTime<span style="color:#f92672">;</span>   <span style="color:#75715e">// 创建时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LocalDateTime updateTime<span style="color:#f92672">;</span>   <span style="color:#75715e">// 更新时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Result.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@NoArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Result</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Integer code<span style="color:#f92672">;</span>   <span style="color:#75715e">// 0: failure, 1: success
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String msg<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Object data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// factory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Result <span style="color:#a6e22e">success</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Result<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;success&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Result <span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>Object data<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Result<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;success&#34;</span><span style="color:#f92672">,</span> data<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Result <span style="color:#a6e22e">error</span><span style="color:#f92672">(</span>Object data<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Result<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;error&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="2-完成部门信息展示">2 完成部门信息展示</h2>
+<p>在部门信息展示页面中只需要查询得到所有部门的信息即可, 不需要分页, 也么有查询条件</p>
+<h3 id="21-properties">2.1 properties</h3>
+<p>配置数据库连接信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.url=jdbc:mysql://localhost:3306/db_tlias</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.username=root</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.datasource.password=root226</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">mybatis.configuration.map-underscore-to-camel-case=true</span>
+</span></span></code></pre></div><h3 id="22-dao-层">2.2 DAO 层</h3>
+<p>也即数据访问层, 该层需要定义数据访问的接口和方法, 新建 mapper 包以存放数据访问代码(这里是通过MyBatis框架访问MySQL数据库的数据表得到的)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Mapper</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">DeptMapper</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Select</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select id, name, create_time, update_time from dept&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Department<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>如上所示, 仅包含一个方法, 也即列出所有的 Department 信息, SQL 语句被写在注解里</p>
+<h3 id="23-service-层">2.3 Service 层</h3>
+<p>Service 层调用 DAO 层以获取数据, 在这一层次, 原始数据已经得到了, 它不需要关心数据是具体如何获取, 只关心应该做怎样的处理以使得数据适合 Controller 层的需要:
+<code>package com.example.mytlias.service</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">DeptService</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Department<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><code>package com.example.mytlias.service.impl</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeptServiceImpl</span> <span style="color:#66d9ef">implements</span> DeptService <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> DeptMapper deptMapper<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Department<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> deptMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>如上所示, 首先定义了 Service 接口, 这个接口用于与Controller的通信, 其次新建了 impl 子包, 它存放该接口的实现.</p>
+<h3 id="24-controller-层">2.4 Controller 层</h3>
+<p>这一层负责与 web 相关的内容, 它接收web请求, 返回响应数据.</p>
+<p><code>com.example.mytlias.controller</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeptController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> DeptService deptService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/depts&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>deptService<span style="color:#f92672">.</span><span style="color:#a6e22e">listDepartment</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>利用 ApiFox 测试结果
+访问 <code>localhost:8080/depts</code>, 使用 <code>GET</code> 方式, 获得数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;msg&#34;</span>: <span style="color:#e6db74">&#34;success&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;data&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;学工部&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;教研部&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;咨询部&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;就业部&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;人事部&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2023-07-13T15:10:25&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>至此, 一个简单的初步的 SpringBoot 项目就弄好了, 以下为项目结构:
+根目录: <code>src/main/java/</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">com.example.mytlias</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">controller</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">DeptController.java</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">EmpController.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">mapper</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">EmpMapper.java</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">DeptMapper.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">pojo</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">Employee.java</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">Department.java</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">Result.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">service</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">impl</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">DeptServiceImpl.java</span>
+</span></span><span style="display:flex;"><span>---- ---- <span style="color:#ae81ff">EmpServiceImpl.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">DeptService.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">EmpService.java</span>
+</span></span><span style="display:flex;"><span>---- <span style="color:#ae81ff">MyTliasApplication.java</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" data-title="MyTlias-员工信息管理系统(一)-整体框架的搭建" data-hashtags="Java,JavaWeb,Tlias"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" data-title="MyTlias-员工信息管理系统(一)-整体框架的搭建"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" data-title="MyTlias-员工信息管理系统(一)-整体框架的搭建"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/" data-title="MyTlias-员工信息管理系统(一)-整体框架的搭建"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a>,&nbsp;<a href="/tags/tlias/">Tlias</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javacoreone/c09collection/" class="prev" rel="prev" title="JavaCoreOne-C09Collection"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JavaCoreOne-C09Collection</a>
+            <a href="/posts/javaweb/webprojects/mytlias/2/" class="next" rel="next" title="MyTlias-员工信息管理系统(二)-前后端联调">MyTlias-员工信息管理系统(二)-前后端联调<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>第03节-前端工程化 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="第03节-前端工程化" />
+<meta property="og:description" content="1. Ajax / Axios Ajax 基本语法 Ajax: Asynchronous JavaScript And XML，异步的JavaScript和XML。 主要功能: 数据交换: 通过Ajax可以给服务器发送请求，并获取服务器响应" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day03vue2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-16T19:26:07+08:00" />
+<meta property="article:modified_time" content="2023-04-16T19:26:07+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="第03节-前端工程化"/>
+<meta name="twitter:description" content="1. Ajax / Axios Ajax 基本语法 Ajax: Asynchronous JavaScript And XML，异步的JavaScript和XML。 主要功能: 数据交换: 通过Ajax可以给服务器发送请求，并获取服务器响应"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/day03vue2/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/day03vue/" /><link rel="next" href="https://www.rainbow.github.io/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter04/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "第03节-前端工程化",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day03vue2\/"
+        },"genre": "posts","keywords": "Ajax","wordcount":  2458 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day03vue2\/","datePublished": "2023-04-16T19:26:07+08:00","dateModified": "2023-04-16T19:26:07+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">第03节-前端工程化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-16">2023-04-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2458 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-ajax--axios">1. Ajax / Axios</a>
+      <ul>
+        <li><a href="#ajax-基本语法">Ajax 基本语法</a></li>
+        <li><a href="#axios-入门">Axios 入门</a></li>
+        <li><a href="#案例-动态获取数据并展示表格">案例: 动态获取数据并展示表格</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-前端工程化前后端分离开发">2. 前端工程化(前后端分离开发)</a>
+      <ul>
+        <li><a href="#通过-yapi-模拟数据服务器">通过 yapi 模拟数据服务器</a></li>
+        <li><a href="#vue脚手架">vue脚手架</a></li>
+        <li><a href="#创建-vue-项目">创建 vue 项目</a></li>
+      </ul>
+    </li>
+    <li><a href="#element">Element</a>
+      <ul>
+        <li><a href="#container-布局容器httpselementelemecn"><a href="https://element.eleme.cn/">Container 布局容器</a></a></li>
+        <li><a href="#暂存">暂存</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-ajax--axios">1. Ajax / Axios</h2>
+<h3 id="ajax-基本语法">Ajax 基本语法</h3>
+<p>Ajax: Asynchronous JavaScript And XML，异步的JavaScript和XML。</p>
+<ul>
+<li>
+<p>主要功能:</p>
+<ol>
+<li>数据交换: 通过Ajax可以给服务器发送请求，并获取服务器响应的数据</li>
+<li>异步交互: 可以<strong>在不重新加载整个页面的情况下，与服务器交换数据并更新部分网页的技术</strong>，如: <strong>搜索联想、用户名是否可用的校验</strong>等等。</li>
+</ol>
+</li>
+<li>
+<p>原生Ajax使用基本步骤:</p>
+<ol>
+<li>准备数据地址: <a href="http://yapi.smart-xwork.cn/mock/169327/emp/list" target="_blank" rel="noopener noreffer ">http://yapi.smart-xwork.cn/mock/169327/emp/list</a></li>
+<li>创建XMLHttpRequest对象:用于和服务器交换数据</li>
+<li>向服务器发送请求</li>
+<li>获取服务器响应数据
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-04-17-14-30-55.png"
+        data-srcset="./image/2023-04-17-14-30-55.png, ./image/2023-04-17-14-30-55.png 1.5x, ./image/2023-04-17-14-30-55.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-04-17-14-30-55.png"
+        title="./image/2023-04-17-14-30-55.png" /></li>
+</ol>
+</li>
+</ul>
+<p>比较繁琐, Axios 对原生的Ajax进行了封装，简化书写，快速开发。
+官网: <a href="https://www.axios-http.cn/" target="_blank" rel="noopener noreffer ">https://www.axios-http.cn/</a></p>
+<h3 id="axios-入门">Axios 入门</h3>
+<ol>
+<li>引入Axios的js文件:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;js/axios-0.18.0.js&#34;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span></code></pre></div><ol start="2">
+<li>使用Axios发送请求，并获取响应结果</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 1. 使用 get 方法获取 url 数据, 传回的数据为 result. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">axios</span>({
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;get&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;http://yapi.smart-xwork.cn/mock/169327/emp/list&#34;</span>
+</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 2. 使用 post 方法获取 url 数据, 传回的数据为 result. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">axios</span>({
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;post&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;http://yapi.smart-xwork.cn/mock/169327/emp/deleteByld&#34;</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;id=1&#34;</span>
+</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>) =&gt; {
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>继续简化: 使用别名</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">url</span> [, <span style="color:#a6e22e">config</span>])
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">axios</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">url</span> [, <span style="color:#a6e22e">config</span>])
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">url</span> [, <span style="color:#a6e22e">datal</span>, <span style="color:#a6e22e">config</span>]])
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">url</span> [, <span style="color:#a6e22e">data</span>[, <span style="color:#a6e22e">config</span>]])
+</span></span></code></pre></div><ul>
+<li>GET请求</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>  <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;http://yapi.smart-xwork.cn/mock/169327/emp/list&#34;</span>).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>)=&gt;{
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>  });
+</span></span></code></pre></div><ul>
+<li>发送POST请求</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#34;http://vapi.smart-xwork.cn/mock/169327/emp/deleteByld&#34;</span>, <span style="color:#e6db74">&#34;id=1&#34;</span>).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">result</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">consle</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h3 id="案例-动态获取数据并展示表格">案例: 动态获取数据并展示表格</h3>
+<p>基于Vue及Axios完成数据的动态加载展示</p>
+<ol>
+<li>数据准备的url: <a href="http://yapi.smart-xwork.cn/mock/169327/emp/list" target="_blank" rel="noopener noreffer ">http://yapi.smart-xwork.cn/mock/169327/emp/list</a></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;data&#34;</span>:[{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;Tom&#34;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">20</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;score&#34;</span>: <span style="color:#ae81ff">78</span>
+</span></span><span style="display:flex;"><span>    },{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;Rose&#34;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">18</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#ae81ff">2</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;score&#34;</span>: <span style="color:#ae81ff">86</span>
+</span></span><span style="display:flex;"><span>    },{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jerry&#34;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">26</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;score&#34;</span>: <span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span>    },{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Tony&#34;</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">30</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#ae81ff">1</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;score&#34;</span>: <span style="color:#ae81ff">52</span>
+</span></span><span style="display:flex;"><span>    }]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="2">
+<li>在页面加载完成后，自动发送异步请求，加载数据，渲染展示页面(性别:1代表男，2 代表女)。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;code&#34;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#f92672">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;success&#34;</span>,<span style="color:#f92672">&#34;data&#34;</span>:[{<span style="color:#f92672">&#34;id&#34;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;谢逊&#34;</span>,<span style="color:#f92672">&#34;image&#34;</span>:<span style="color:#e6db74">&#34;https://web-framework.oss-cn-hangzhou.aliyuncs.com/web/1.jpg&#34;</span>,<span style="color:#f92672">&#34;gender&#34;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#f92672">&#34;job&#34;</span>:<span style="color:#e6db74">&#34;班主任&#34;</span>,<span style="color:#f92672">&#34;entrydate&#34;</span>:<span style="color:#e6db74">&#34;2008-05-09&#34;</span>,<span style="color:#f92672">&#34;updatetime&#34;</span>:<span style="color:#e6db74">&#34;2022-10-01 12:00:00&#34;</span>},{<span style="color:#f92672">&#34;id&#34;</span>:<span style="color:#ae81ff">2</span>,<span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;殷天正&#34;</span>,<span style="color:#f92672">&#34;image&#34;</span>:<span style="color:#e6db74">&#34;https://web-framework.oss-cn-hangzhou.aliyuncs.com/web/2.jpg&#34;</span>,<span style="color:#f92672">&#34;gender&#34;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#f92672">&#34;job&#34;</span>:<span style="color:#e6db74">&#34;讲师&#34;</span>,<span style="color:#f92672">&#34;entrydate&#34;</span>:<span style="color:#e6db74">&#34;2012-05-09&#34;</span>,<span style="color:#f92672">&#34;updatetime&#34;</span>:<span style="color:#e6db74">&#34;2022-10-01 12:00:00&#34;</span>},{<span style="color:#f92672">&#34;id&#34;</span>:<span style="color:#ae81ff">3</span>,<span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;韦一笑&#34;</span>,<span style="color:#f92672">&#34;image&#34;</span>:<span style="color:#e6db74">&#34;https://web-framework.oss-cn-hangzhou.aliyuncs.com/web/3.jpg&#34;</span>,<span style="color:#f92672">&#34;gender&#34;</span>:<span style="color:#ae81ff">1</span>,<span style="color:#f92672">&#34;job&#34;</span>:<span style="color:#e6db74">&#34;讲师&#34;</span>,<span style="color:#f92672">&#34;entrydate&#34;</span>:<span style="color:#e6db74">&#34;2020-05-09&#34;</span>,<span style="color:#f92672">&#34;updatetime&#34;</span>:<span style="color:#e6db74">&#34;2022-10-01 12:00:00&#34;</span>},{<span style="color:#f92672">&#34;id&#34;</span>:<span style="color:#ae81ff">4</span>,<span style="color:#f92672">&#34;name&#34;</span>:<span style="color:#e6db74">&#34;黛绮丝&#34;</span>,<span style="color:#f92672">&#34;image&#34;</span>:<span style="color:#e6db74">&#34;https://web-framework.oss-cn-hangzhou.aliyuncs.com/web/4.jpg&#34;</span>,<span style="color:#f92672">&#34;gender&#34;</span>:<span style="color:#ae81ff">2</span>,<span style="color:#f92672">&#34;job&#34;</span>:<span style="color:#e6db74">&#34;讲师&#34;</span>,<span style="color:#f92672">&#34;entrydate&#34;</span>:<span style="color:#e6db74">&#34;2018-05-09&#34;</span>,<span style="color:#f92672">&#34;updatetime&#34;</span>:<span style="color:#e6db74">&#34;2022-10-01 12:00:00&#34;</span>}]}
+</span></span></code></pre></div><h2 id="2-前端工程化前后端分离开发">2. 前端工程化(前后端分离开发)</h2>
+<h3 id="通过-yapi-模拟数据服务器">通过 yapi 模拟数据服务器</h3>
+<p>YApi 是高效、易用、功能强大的 api 管理平台，旨在为开发、产品、测试人员提供更优雅的接口管理服务
+<a href="http://yapi.smart-xwork.cn/" target="_blank" rel="noopener noreffer ">http://yapi.smart-xwork.cn/</a></p>
+<h3 id="vue脚手架">vue脚手架</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-04-17-19-35-54.png"
+        data-srcset="./image/2023-04-17-19-35-54.png, ./image/2023-04-17-19-35-54.png 1.5x, ./image/2023-04-17-19-35-54.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-04-17-19-35-54.png"
+        title="./image/2023-04-17-19-35-54.png" />
+介绍: Vue-cli 是Vue官方提供的一个脚手架，用于快速生成一个 Vue 的项目模板</p>
+<p>Vue-cli提供了如下功能:</p>
+<ul>
+<li>统一的目录结构</li>
+<li>本地调试</li>
+<li>热部署</li>
+<li>单元测试</li>
+<li>集成打包上线</li>
+<li>依赖环境: Node.JS</li>
+</ul>
+<p>安装 nodeJS 后,
+管理员命令行运行:</p>
+<pre tabindex="0"><code>npm config set prefix &#34;[安装路径]&#34;
+// 安装路径 替换为自己的安装目录
+npm install -g @vue/cli
+npm set registry https://registry.npm.taobao.org
+vue -V
+</code></pre><p>这样就安装好了 vue-cli 工具</p>
+<h3 id="创建-vue-项目">创建 vue 项目</h3>
+<p>在工程文件夹下管理员命令行运行
+<code>vue create vue-hello</code>
+<code>cd vue-hello</code>
+<code>npm run serve</code>
+或者通过图形化界面
+<code>vue ui</code></p>
+<h4 id="目录结构">目录结构</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-04-17-19-51-13.png"
+        data-srcset="./image/2023-04-17-19-51-13.png, ./image/2023-04-17-19-51-13.png 1.5x, ./image/2023-04-17-19-51-13.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-04-17-19-51-13.png"
+        title="./image/2023-04-17-19-51-13.png" /></p>
+<p>Vue 的 组文件以 .vue 结尾, 每个组件由三个部分组成:
+template, script, style</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;{{ <span style="color:#a6e22e">message</span> }}&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Hello Vue!&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">methods</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">style</span>&gt;
+</span></span></code></pre></div><h2 id="element">Element</h2>
+<p>Element:是饿了么团队研发的，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库</p>
+<p>组件: 组成网页的部件，例如 超链接、按钮、图片、表格、表单、分页条等等。</p>
+<p>官网: <a href="https://element.eleme.cn/#/zh-CNListener" target="_blank" rel="noopener noreffer ">https://element.eleme.cn/#/zh-CNListener</a></p>
+<p>使用:</p>
+<ul>
+<li>安装ElementUI组件库(在当前工程的目录下)，在命令行执行指令
+<code>npm i element-ui -S</code></li>
+<li>引入ElementUI组件库
+<code>import ElementUI from 'element-ui'</code>;
+<code>import 'element-ui/lib/theme-chalk/index.css'</code>;
+<code>Vue.use(ElementuI);</code> &lt;&ndash; main.js</li>
+<li>访问官网，复制组件代码，调整</li>
+</ul>
+<h3 id="container-布局容器httpselementelemecn"><a href="https://element.eleme.cn/" target="_blank" rel="noopener noreffer ">Container 布局容器</a></h3>
+<p>用于布局的容器组件，方便快速搭建页面的基本结构：</p>
+<p><code>&lt;el-container&gt;</code>：外层容器。当子元素中包含 <code>&lt;el-header&gt;</code> 或 <code>&lt;el-footer&gt;</code> 时，全部子元素会垂直上下排列，否则会水平左右排列。
+<code>&lt;el-header&gt;</code>：顶栏容器。
+<code>&lt;el-aside&gt;</code>：侧边栏容器。
+<code>&lt;el-main&gt;</code>：主要区域容器。
+<code>&lt;el-footer&gt;</code>：底栏容器。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-04-17-21-01-25.png"
+        data-srcset="./image/2023-04-17-21-01-25.png, ./image/2023-04-17-21-01-25.png 1.5x, ./image/2023-04-17-21-01-25.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-04-17-21-01-25.png"
+        title="./image/2023-04-17-21-01-25.png" /></p>
+<ol>
+<li>布局容器</li>
+<li>元素构成
+<ol>
+<li>侧边下拉菜单</li>
+<li>头部导航栏</li>
+<li>主要区域容器
+<ol>
+<li>顶部搜索栏表单</li>
+<li>表格</li>
+<li>翻页</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="暂存">暂存</h3>
+<p>Day2-chapter01-Vue快速入门
+file:///D:/User/mrrai/project/JavaLearning/HeiMa/WebbingTechniques/S01FrontEnd/Day02Vue/html/D201Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html</p>
+<p>vue-hello
+http://localhost:8080/</p>
+<p>基本用例 | Axios 中文文档 | Axios 中文网
+<a href="https://www.axios-http.cn/docs/example" target="_blank" rel="noopener noreffer ">https://www.axios-http.cn/docs/example</a></p>
+<p>emplist-YApi-高效、易用、功能强大的可视化接口管理平台
+<a href="http://yapi.smart-xwork.cn/project/227281/interface/api/3186516" target="_blank" rel="noopener noreffer ">http://yapi.smart-xwork.cn/project/227281/interface/api/3186516</a></p>
+<p>API — Vue.js
+<a href="https://v2.cn.vuejs.org/v2/api/#v-for" target="_blank" rel="noopener noreffer ">https://v2.cn.vuejs.org/v2/api/#v-for</a></p>
+<p>组件 | Element
+<a href="https://element.eleme.cn/#/zh-CN/component/table" target="_blank" rel="noopener noreffer ">https://element.eleme.cn/#/zh-CN/component/table</a></p>
+<p>note
+file:///C:/Users/mrrai/AppData/Local/Temp/mume2023317-12808-1et52ft.wglek.html</p>
+<p>Day04-01. maven-课程介绍_哔哩哔哩_bilibili
+<a href="https://www.bilibili.com/video/BV1m84y1w7Tb?p=50" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/video/BV1m84y1w7Tb?p=50</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/day03vue2/" data-title="第03节-前端工程化" data-hashtags="Ajax"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/day03vue2/" data-hashtag="Ajax"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/day03vue2/" data-title="第03节-前端工程化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/day03vue2/" data-title="第03节-前端工程化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/day03vue2/" data-title="第03节-前端工程化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ajax/">Ajax</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/day03vue/" class="prev" rel="prev" title="Web前端(3)-Vue-简化开发的前端框架"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Web前端(3)-Vue-简化开发的前端框架</a>
+            <a href="/posts/%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/pyqt%E7%95%8C%E9%9D%A2%E5%BC%80%E5%8F%91/chapter04/" class="next" rel="next" title="Chapter04 PyQT窗口设计基础">Chapter04 PyQT窗口设计基础<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Ajax - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/ajax/</link>
+        <description>Ajax - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 16 Apr 2023 19:26:07 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/ajax/" rel="self" type="application/rss+xml" /><item>
+    <title>第03节-前端工程化</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/day03vue2/</link>
+    <pubDate>Sun, 16 Apr 2023 19:26:07 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/day03vue2/</guid>
+    <description><![CDATA[1. Ajax / Axios Ajax 基本语法 Ajax: Asynchronous JavaScript And XML，异步的JavaScript和XML。 主要功能: 数据交换: 通过Ajax可以给服务器发送请求，并获取服务器响应]]></description>
+</item>
+</channel>
+</rss>

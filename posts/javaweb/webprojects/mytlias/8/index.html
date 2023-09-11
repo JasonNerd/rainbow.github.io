@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="MyTlias-员工信息管理系统(八)-异常、事务与AOP" />
+<meta property="og:description" content="在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-06T14:31:15+08:00" />
+<meta property="article:modified_time" content="2023-08-06T14:31:15+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MyTlias-员工信息管理系统(八)-异常、事务与AOP"/>
+<meta name="twitter:description" content="在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MyTlias-员工信息管理系统(八)-异常、事务与AOP",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/8\/"
+        },"genre": "posts","keywords": "Java, JavaWeb, Tlias","wordcount":  1378 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/8\/","datePublished": "2023-08-06T14:31:15+08:00","dateModified": "2023-08-06T14:31:15+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MyTlias-员工信息管理系统(八)-异常、事务与AOP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-06">2023-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1378 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#异常处理">异常处理</a></li>
+    <li><a href="#异常处理-1">异常处理</a>
+      <ul>
+        <li><a href="#事务的传播">事务的传播</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解析等等地方都可能发生异常. 另一个可以想到的是, 未处理的异常最终都会被抛出到 controller 控制层, 可以仅在控制层进行异常处理. 然而, 一种更好的处理方法是将异常统一进行处理, 这被称为全局异常处理器, 它将作用于每一个可能抛出异常的方法, 这样的不修改原方法而是设置一个对这些具有相似行为的方法群做出对这一行为产生响应的处理类(方法)的思想被称为面向切面编程(<strong><code>aspect oreiented programming</code></strong>).</p>
+<p>另外, 异常可能导致数据的不一致性, 例如在需要连续完成的动作间产生了异常, 除了需要进行异常处理并产生错误报告外, 还需要事务特性的支持, 它需要维护代码块执行的原子性.</p>
+<h2 id="异常处理">异常处理</h2>
+<p>使用全局的异常处理器.
+主要是两个注解
+在类上标注 <code>@RestControllerAdvice</code>
+在类中的方法上标注 <code>@ExceptionHandler</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestControllerAdvice</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GlobalExceptionHandler</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ExceptionHandler</span><span style="color:#f92672">(</span>Exception<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">hd</span><span style="color:#f92672">(</span>Exception e<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Operation failed&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="异常处理-1">异常处理</h2>
+<p>先看一个案例, <code>解散部门：删除部门，同时删除该部门下的员工</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-08-06-16-04-14.png"
+        data-srcset="./image/2023-08-06-16-04-14.png, ./image/2023-08-06-16-04-14.png 1.5x, ./image/2023-08-06-16-04-14.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-08-06-16-04-14.png"
+        title="./image/2023-08-06-16-04-14.png" />
+即使程序运行抛出了异常，部门依然删除了，但是部门下的员工却没有删除，造成了数据的不一致。</p>
+<p>可以使用 Spring 的事务回滚机制
+注解：<code>@Transactional</code>
+位置：业务（service）层的方法上、类上、接口上
+作用：将当前方法交给spring进行事务管理，方法执行前，开启事务；成功执行完毕，提交事务；出现异常，回滚事务</p>
+<p>为了更好的查看事务处理的过程, 可以开启 <strong>事务管理日志</strong>
+在 yaml 配置文件中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">logging</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">level</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">org.springframework.jdbc.support.JdbcTransactionManager</span>: <span style="color:#ae81ff">debug</span>
+</span></span></code></pre></div><p>完善 <code>deleteDeptByID</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// dept service interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteDeptByID</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dept service implementation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteDeptByID</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 还需要依据部门id删除部门员工
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    deptMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteDeptByID</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">;</span>  <span style="color:#75715e">// a runtime exception occurred
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    deptMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteEmpByDept</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dept mapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Delete</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;delete from emp where dept_id=#{id}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteEmpByDept</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>我们发现事务的确进行了回滚, 删除不成功, 没有出现人员保留但部门已删除的情况.
+但如果是这样?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteDeptByID</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 还需要依据部门id删除部门员工
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    deptMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteDeptByID</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> Exception<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;程序异常&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    deptMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteEmpByDept</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>由于 Spring 默认运行时异常才会回滚, 因此此时会出现数据不一致的情况. 这里可以指定需要回滚时的异常类型:
+<strong><code>rollbackFor</code></strong>
+例如:
+<code>@Transactional(rollbackFor = Exception.class)</code>
+就表示在指定的事务代码块中, 抛出了任何异常, 事务均会回滚.</p>
+<h3 id="事务的传播">事务的传播</h3>
+<p><strong><code>propagation</code></strong>, 事务传播行为：指的就是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行事务控制。</p>
+<p>考虑这样的一个场景: 函数a调用了另一个函数b, a和b都具备事务特性(表现为都有 <code>@Transactional</code> 注解), 那么很自然的想到, a 和 b 是共用一个事务呢 还是说 b 需要新开一个事务? 它们的区别是, 在共用事务的情景下, a 中代码若抛出了异常, b中的所有操作也会一起撤销, 同理, b中代码出现异常也可能影响a的执行.
+而在后一种情景, 两个事务独立进行, a 中的异常不会影响 b 的进行(只要事务b开启了)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性值</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">REQUIRED</td>
+<td style="text-align:left">【默认值】需要事务，有则加入，无则创建新事务</td>
+</tr>
+<tr>
+<td style="text-align:left">REQUIRES_NEW</td>
+<td style="text-align:left">需要新事务，无论有无，总是创建新事务</td>
+</tr>
+<tr>
+<td style="text-align:left">SUPPORTS</td>
+<td style="text-align:left">支持事务，有则加入，无则在无事务状态中运行</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT_SUPPORTED</td>
+<td style="text-align:left">不支持事务，在无事务状态下运行,如果当前存在已有事务,则挂起当前事务</td>
+</tr>
+<tr>
+<td style="text-align:left">MANDATORY</td>
+<td style="text-align:left">必须有事务，否则抛异常</td>
+</tr>
+<tr>
+<td style="text-align:left">NEVER</td>
+<td style="text-align:left">必须没事务，否则抛异常</td>
+</tr>
+</tbody>
+</table>
+<p>解散部门时，记录操作日志
+需求：解散部门时，无论是成功还是失败，都要记录操作日志。
+步骤：
+①. 解散部门：删除部门、删除部门下的员工
+②. 记录日志到数据库表中</p>
+<p>一般的,
+<code>REQUIRED</code> ：大部分情况下都是用该传播行为即可。
+<code>REQUIRES_NEW</code> ：当我们不希望事务之间相互影响时，可以使用该传播行为。比如：下订单前需要记录日志，不论订单保存成功与否，都需要保证日志记录能够记录成功。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-08-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" data-title="MyTlias-员工信息管理系统(八)-异常、事务与AOP" data-hashtags="Java,JavaWeb,Tlias"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" data-title="MyTlias-员工信息管理系统(八)-异常、事务与AOP"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" data-title="MyTlias-员工信息管理系统(八)-异常、事务与AOP"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/" data-title="MyTlias-员工信息管理系统(八)-异常、事务与AOP"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a>,&nbsp;<a href="/tags/tlias/">Tlias</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/mytlias/7/" class="prev" rel="prev" title="MyTlias-员工信息管理系统(七)-登录认证2"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>MyTlias-员工信息管理系统(七)-登录认证2</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

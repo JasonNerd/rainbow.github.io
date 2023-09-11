@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MyTlias-员工信息管理系统(四)-新增员工与OSS服务 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="MyTlias-员工信息管理系统(四)-新增员工与OSS服务" />
+<meta property="og:description" content="上一小节我们实现了 Tlias 员工的分页条件查询, 其中使用到了 PageHelper, 同时新建了一个 QueryArg 实体用于接收查询参数例如 Page, PageSize 以及其他条件, 我们使用 Page 和 pageSize 初始化 PageHelper 对象," />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-22T13:55:00+08:00" />
+<meta property="article:modified_time" content="2023-07-22T13:55:00+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MyTlias-员工信息管理系统(四)-新增员工与OSS服务"/>
+<meta name="twitter:description" content="上一小节我们实现了 Tlias 员工的分页条件查询, 其中使用到了 PageHelper, 同时新建了一个 QueryArg 实体用于接收查询参数例如 Page, PageSize 以及其他条件, 我们使用 Page 和 pageSize 初始化 PageHelper 对象,"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/3/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MyTlias-员工信息管理系统(四)-新增员工与OSS服务",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/4\/"
+        },"genre": "posts","keywords": "Java, JavaWeb, Tlias","wordcount":  2713 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/mytlias\/4\/","datePublished": "2023-07-22T13:55:00+08:00","dateModified": "2023-07-22T13:55:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MyTlias-员工信息管理系统(四)-新增员工与OSS服务</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-22">2023-07-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2713 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#删除员工可批量">删除员工(可批量)</a></li>
+    <li><a href="#新增员工">新增员工</a></li>
+    <li><a href="#文件上传">文件上传</a>
+      <ul>
+        <li><a href="#将文件存入本地缓存">将文件存入本地缓存</a></li>
+        <li><a href="#使用阿里云oss服务">使用阿里云OSS服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#附录">附录</a>
+      <ul>
+        <li><a href="#更新员工信息">更新员工信息</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>上一小节我们实现了 Tlias 员工的分页条件查询, 其中使用到了 PageHelper, 同时新建了一个 QueryArg 实体用于接收查询参数例如 Page, PageSize 以及其他条件, 我们使用 Page 和 pageSize 初始化 PageHelper 对象, 随后依据姓名性别入职日期等查询条件在xml编写动态SQL 查询满足条件的数据, 但只有在 PageHelper.getResult() 和 PageHelper.getTotal() 函数时才会实际拼接SQL 并执行, 可以从命令行的log信息印证这一点, 这两个函数返回的结果在 Service 层被封装为 PageBean 实体, 随后在 EmpController 中封装为 Result 作为响应结果返回.</p>
+<p>这一小节主要完成员工的新增与删除操作, 在新增员工时, 本小节还介绍了依托于阿里云OSS等云服务的文件上传服务.</p>
+<h2 id="删除员工可批量">删除员工(可批量)</h2>
+<p>需要添加的 java 代码, 注释注明了要在哪个类中添加</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// EmpController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@DeleteMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;emps/{ids}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ids<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    empService<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span>ids<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpService
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ids<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpServiceImpl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ids<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span>ids<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpMapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteByIds</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ids<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>添加 for-each sql 语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;delete</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;deleteByIds&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    delete from emp where id in
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;ids&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;id&#34;</span> <span style="color:#a6e22e">open=</span><span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">separator=</span><span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#a6e22e">close=</span><span style="color:#e6db74">&#34;)&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        #{id}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/foreach&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/delete&gt;</span>
+</span></span></code></pre></div><h2 id="新增员工">新增员工</h2>
+<p>新增员工的一个比较麻烦的点在于员工头像, 他是一个图片而非文本, 然而, 一个合适的解决方法是存储图片的url, 同时为了图片url可访问, 需要借助于云服务, 例如阿里云OSS. 当然可以存储在本地磁盘, 为了区分各个图片命名, 可以使用一个叫 UUID 的模块, 它生成了随机的无重复的命名. 另外传入图片也是一个上传文件的操作.</p>
+<p>首先不考虑图片存储, 先假定它就是一个字符串, 则:
+需要添加的 java 代码, 注释注明了要在哪个类中添加</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// EmpController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/emps&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> Employee employee<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    empService<span style="color:#f92672">.</span><span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpService
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span>Employee employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpServiceImpl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span>Employee employee<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setCreateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setCreateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpMapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertEmp</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> ids<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>添加 insert sql 语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;insert</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;insertEmp&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    insert into emp(username, name, gender, image, job, entrydate,
+</span></span><span style="display:flex;"><span>                    dept_id, create_time, update_time)
+</span></span><span style="display:flex;"><span>    VALUES (#{username}, #{name}, #{gender}, #{image}, #{job}, #{entrydate},
+</span></span><span style="display:flex;"><span>            #{deptId}, #{createTime}, #{updateTime})
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/insert&gt;</span>
+</span></span></code></pre></div><p>使用 Apifox 测试:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;image&#34;</span>: <span style="color:#e6db74">&#34;https://web-framework.oss-cn-hangzhou.aliyuncs.com/2022-09-03-07-37-38222.jpg&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;linpingzhi&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;林平之&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;job&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;entrydate&#34;</span>: <span style="color:#e6db74">&#34;2022-09-18&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;deptId&#34;</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="文件上传">文件上传</h2>
+<p>接下来将目光转移到 Test 模块, 这里我们测试文件上传的功能.</p>
+<p>文件上传，是指将本地图片、视频、音频等文件上传到服务器，供其他用户浏览或下载的过程。文件上传在项目中应用非常广泛，我们经常发微博、发微信朋友圈都用到了文件上传功能。</p>
+<p>一是前端需要有一个表单提交, 该表单包含文件上传的选项:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;上传文件&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/upload&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        姓名: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>        年龄: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;age&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>        头像: &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span>&gt;&lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;提交&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>需要特别注意的是 enctype 必须是 form-data, 点击打开html文件, 填写表单并点击提交, 弹出 404 页面, 因为还没有写后台程序. 接着打开开发者工具, 点击网络请求, 查看 upload 请求:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./image/2023-07-22-16-24-38.png"
+        data-srcset="./image/2023-07-22-16-24-38.png, ./image/2023-07-22-16-24-38.png 1.5x, ./image/2023-07-22-16-24-38.png 2x"
+        data-sizes="auto"
+        alt="./image/2023-07-22-16-24-38.png"
+        title="./image/2023-07-22-16-24-38.png" /></p>
+<p>接下来可以构建后台程序了, 将该html文件放入 resources 下的 static 目录. 在 contoller 包下新建一个 UploadController, 表单中指明了请求路径和请求方式, 而图中指明了请求的参数, 在后台可以这样接收它:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UploadController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/upload&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">uploadFile</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">,</span> Integer age<span style="color:#f92672">,</span> MultipartFile image<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;username={}, age={}, image={}&#34;</span><span style="color:#f92672">,</span> username<span style="color:#f92672">,</span> age<span style="color:#f92672">,</span> image<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>访问 http://127.0.0.1:8080/upload.html</p>
+<p>填写表单提交, 发现返回了 <code>Result.success()</code> 定义的json数据, 查看日志, 三个参数均接收正常.</p>
+<h3 id="将文件存入本地缓存">将文件存入本地缓存</h3>
+<p>需要考虑的是, 获取文件名, 文件扩展格式, 以及使用 UUID 来使文件名唯一</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">uploadFile</span><span style="color:#f92672">(</span>String username<span style="color:#f92672">,</span> Integer age<span style="color:#f92672">,</span> MultipartFile image<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;username={}, age={}, image={}&#34;</span><span style="color:#f92672">,</span> username<span style="color:#f92672">,</span> age<span style="color:#f92672">,</span> image<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    String originalFilename <span style="color:#f92672">=</span> image<span style="color:#f92672">.</span><span style="color:#a6e22e">getOriginalFilename</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> originalFilename <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    String fileName <span style="color:#f92672">=</span> UUID<span style="color:#f92672">.</span><span style="color:#a6e22e">randomUUID</span><span style="color:#f92672">()+</span>originalFilename<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>originalFilename<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    image<span style="color:#f92672">.</span><span style="color:#a6e22e">transferTo</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;D:/cache/&#34;</span><span style="color:#f92672">+</span>fileName<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>然而, 针对一些比较大的文件, 程序运行异常, 这是由于默认上传文件大小不超过 1MB , 可以修改配置, 例如 10MB, 在 properties 文件中添加:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">spring.servlet.multipart.max-file-size=10MB</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">spring.servlet.multipart.max-request-size=100MB</span>
+</span></span></code></pre></div><p>分别规定单个文件限制和总上传限制</p>
+<p>一些常用的 api:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String <span style="color:#a6e22e">getOriginalFilename</span><span style="color:#f92672">();</span>   <span style="color:#75715e">//获取原始文件名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">transferTo</span><span style="color:#f92672">(</span>File dest<span style="color:#f92672">);</span>     <span style="color:#75715e">//将接收的文件转存到磁盘文件中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getSize</span><span style="color:#f92672">();</span>                 <span style="color:#75715e">//获取文件的大小，单位：字节
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>              <span style="color:#75715e">//获取文件内容的字节数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>InputStream <span style="color:#a6e22e">getInputStream</span><span style="color:#f92672">();</span>   <span style="color:#75715e">//获取接收到的文件内容的输入流
+</span></span></span></code></pre></div><h3 id="使用阿里云oss服务">使用阿里云OSS服务</h3>
+<p>阿里云对象存储OSS（Object Storage Service），是一款海量、安全、低成本、高可靠的云存储服务。使用OSS，您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种文件。</p>
+<p>注册阿里云账号, 创建 accessKey, 创建 OSS 项目, 新建bucket. 找到快速入门示例, 查看关于上传文件的代码:
+首先需要引入依赖</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.aliyun.oss<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>aliyun-sdk-oss<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;version&gt;</span>3.10.2<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>接着是示例代码:
+<a href="https://help.aliyun.com/document_detail/32011.html" target="_blank" rel="noopener noreffer ">快速使用OSS Java SDK完成常见操作，例如创建存储空间（Bucket）、上传文件（Object）、下载文件等</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> com.aliyun.oss.ClientException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.aliyun.oss.OSS<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.aliyun.oss.OSSClientBuilder<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.aliyun.oss.OSSException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.ByteArrayInputStream<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Demo</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String endpoint <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://oss-cn-hangzhou.aliyuncs.com&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 强烈建议不要把访问凭证保存到工程代码里，否则可能导致访问凭证泄露，威胁您账号下所有资源的安全。本代码示例以从环境变量中获取访问凭证为例。运行本代码示例之前，请先配置环境变量。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        EnvironmentVariableCredentialsProvider credentialsProvider <span style="color:#f92672">=</span> CredentialsProviderFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">newEnvironmentVariableCredentialsProvider</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 填写Bucket名称，例如examplebucket。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String bucketName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;examplebucket&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 填写Object完整路径，例如exampledir/exampleobject.txt。Object完整路径中不能包含Bucket名称。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String objectName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;exampledir/exampleobject.txt&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 创建OSSClient实例。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        OSS ossClient <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> OSSClientBuilder<span style="color:#f92672">().</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span>endpoint<span style="color:#f92672">,</span> credentialsProvider<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            String content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello OSS&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            ossClient<span style="color:#f92672">.</span><span style="color:#a6e22e">putObject</span><span style="color:#f92672">(</span>bucketName<span style="color:#f92672">,</span> objectName<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> ByteArrayInputStream<span style="color:#f92672">(</span>content<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>OSSException oe<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Caught an OSSException, which means your request made it to OSS, &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;but was rejected with an error response for some reason.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Message:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getErrorMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Code:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getErrorCode</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Request ID:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getRequestId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Host ID:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getHostId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>ClientException ce<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Caught an ClientException, which means the client encountered &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;a serious internal problem while trying to communicate with OSS, &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;such as not being able to access the network.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Message:&#34;</span> <span style="color:#f92672">+</span> ce<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ossClient <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                ossClient<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdown</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>然而, 尝试了许久环境变量相关操作无法正常获取 ACCESS KEY. 因此最终还是把访问密钥放在了代码中(这样看起来似乎十分不合规范), 在 api 接口中, 上传图片的请求方式为 post, 参数即为上传的图片, 可使用 MultipartFile 接收. 创建一个 contoller 处理该请求, 它接收上传过来的 file stream, 上传到 oss, 接着返回访问路径. 前台收到响应后就知道了 url, 随后在点击确定新建时该url就被封装到请求参数实体的url中, 因此, 你惊讶的发现, <strong>似乎之前的代码根本不需要作改动</strong></p>
+<p>你只需添加单独处理文件上传并返回包含url响应数据的类即可！</p>
+<p>具体的, 除了添加 oss 相关依赖, 还需要添加一个 Contoller:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UploadController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> OssUploader ossUploader<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/upload&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">uploadFile</span><span style="color:#f92672">(</span>MultipartFile image<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String url <span style="color:#f92672">=</span> ossUploader<span style="color:#f92672">.</span><span style="color:#a6e22e">uploadToAliOSS</span><span style="color:#f92672">(</span>image<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;文件上传完成,文件访问的url: {}&#34;</span><span style="color:#f92672">,</span> url<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>url<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>以及一个 <code>OssUploader</code> 工具类, 它简单改造了官方示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OssUploader</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">uploadToAliOSS</span><span style="color:#f92672">(</span>MultipartFile file<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 1. 配置上传的路径信息和认证信息, 创建上传代理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        OSS ossClient <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> OSSClientBuilder<span style="color:#f92672">().</span><span style="color:#a6e22e">build</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;https://oss-cn-beijing.aliyuncs.com&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">new</span> DefaultCredentialProvider<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;your access key&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;your key secret&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        String bucketName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rainbow-tlias&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String originalFilename <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getOriginalFilename</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> originalFilename <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String fileName <span style="color:#f92672">=</span> UUID<span style="color:#f92672">.</span><span style="color:#a6e22e">randomUUID</span><span style="color:#f92672">()+</span>originalFilename<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>originalFilename<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        String storePath <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;image/&#34;</span><span style="color:#f92672">+</span>fileName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2. 实际完成上传的工作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            ossClient<span style="color:#f92672">.</span><span style="color:#a6e22e">putObject</span><span style="color:#f92672">(</span>bucketName<span style="color:#f92672">,</span> storePath<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> ByteArrayInputStream<span style="color:#f92672">(</span>file<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">()));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>OSSException oe<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Caught an OSSException, which means your request made it to OSS, &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;but was rejected with an error response for some reason.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Message:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getErrorMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Code:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getErrorCode</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Request ID:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getRequestId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Host ID:&#34;</span> <span style="color:#f92672">+</span> oe<span style="color:#f92672">.</span><span style="color:#a6e22e">getHostId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>ClientException ce<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Caught an ClientException, which means the client encountered &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;a serious internal problem while trying to communicate with OSS, &#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;such as not being able to access the network.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error Message:&#34;</span> <span style="color:#f92672">+</span> ce<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>ossClient <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                ossClient<span style="color:#f92672">.</span><span style="color:#a6e22e">shutdown</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 3. 返回上传后的文件资源路径, 该资源全局可见
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String bucketUrl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://rainbow-tlias.oss-cn-beijing.aliyuncs.com/&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> bucketUrl <span style="color:#f92672">+</span> storePath<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>那么, 在添加上述文件后, 在新增员工时, 图片就可以正常显示了.</p>
+<h2 id="附录">附录</h2>
+<h3 id="更新员工信息">更新员工信息</h3>
+<p>先写依据员工id返回员工信息的接口:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// EmpController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@getEmpById</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;emps/{ids}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Integer id<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    Employee employee <span style="color:#f92672">=</span> empService<span style="color:#f92672">.</span><span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpService
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Employee <span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpServiceImpl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Employee <span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpMapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Employee <span style="color:#a6e22e">getEmpById</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>添加 select* sql 语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;select</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;getEmpById&#34;</span> <span style="color:#a6e22e">resultType=</span><span style="color:#e6db74">&#34;com.example.mytlias.pojo.Employee&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    select * from emp where id=#{id}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/select&gt;</span>
+</span></span></code></pre></div><p>该接口用于新增员工页面员工信息的回显</p>
+<p>接下来就是更新员工信息:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// EmpController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@PutMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/emps&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> Employee employee<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;更新 {} 的员工信息&#34;</span><span style="color:#f92672">,</span> employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    empService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpService
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span>Employee employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpServiceImpl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span>Employee employee<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// EmpMapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateEmp</span><span style="color:#f92672">(</span>Employee employee<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>如下为sql:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;update</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;updateEmp&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    update emp set username=#{username}, name=#{name}, gender=#{gender},
+</span></span><span style="display:flex;"><span>                    image=#{image}, job=#{job}, entrydate=#{entrydate},
+</span></span><span style="display:flex;"><span>                    dept_id=#{deptId}, update_time=#{updateTime}
+</span></span><span style="display:flex;"><span>    where id = #{id}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/update&gt;</span>
+</span></span></code></pre></div><p>那么到此为止, tlias 员工信息管理系统的基本功能就完全实现了.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" data-title="MyTlias-员工信息管理系统(四)-新增员工与OSS服务" data-hashtags="Java,JavaWeb,Tlias"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" data-title="MyTlias-员工信息管理系统(四)-新增员工与OSS服务"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" data-title="MyTlias-员工信息管理系统(四)-新增员工与OSS服务"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/" data-title="MyTlias-员工信息管理系统(四)-新增员工与OSS服务"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a>,&nbsp;<a href="/tags/tlias/">Tlias</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/mytlias/3/" class="prev" rel="prev" title="MyTlias-员工信息管理系统(三)-条件分页查询"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>MyTlias-员工信息管理系统(三)-条件分页查询</a>
+            <a href="/posts/javaweb/webprojects/mytlias/5/" class="next" rel="next" title="MyTlias-员工信息管理系统(五)-yml配置">MyTlias-员工信息管理系统(五)-yml配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

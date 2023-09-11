@@ -1,0 +1,72 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tlias - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/tlias/</link>
+        <description>Tlias - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/tlias/" rel="self" type="application/rss+xml" /><item>
+    <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</link>
+    <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</guid>
+    <description><![CDATA[在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(七)-登录认证2</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</link>
+    <pubDate>Mon, 31 Jul 2023 10:19:42 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</guid>
+    <description><![CDATA[接下来就是有关请求拦截和放行相关的内容了, 在上一小节, 我们为登录请求添加了用户验证功能, 随后讨论了三种常见的会话跟踪技术, 它们都试图记住用户]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(六)-登录认证</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</link>
+    <pubDate>Tue, 25 Jul 2023 10:24:00 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</guid>
+    <description><![CDATA[在未登录情况下，我们也可以直接访问部门管理、员工管理等功能。因此需要登录认证功能。 一是登录功能, 也就是在登录界面输入账号密码，经过数据库校验]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(五)-yml配置</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</link>
+    <pubDate>Sun, 23 Jul 2023 15:03:25 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</guid>
+    <description><![CDATA[OSS的参数直接放在代码中, 这不符合开发思想, 一个合理的方法是使用 yml 配置, 将配置文件改为 application.yml. 其好处是以数据为中心, 简洁且层次清晰. properties 文件层次不]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(四)-新增员工与OSS服务</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/</link>
+    <pubDate>Sat, 22 Jul 2023 13:55:00 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/</guid>
+    <description><![CDATA[上一小节我们实现了 Tlias 员工的分页条件查询, 其中使用到了 PageHelper, 同时新建了一个 QueryArg 实体用于接收查询参数例如 Page, PageSize 以及其他条件, 我们使用 Page 和 pageSize 初始化 PageHelper 对象,]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(三)-条件分页查询</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/3/</link>
+    <pubDate>Wed, 19 Jul 2023 22:01:06 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/3/</guid>
+    <description><![CDATA[前两节分别完成了搭建系统整体框架和完善部门管理功能的工作, 这一节则完整的实现员工管理中条件分页查询的功能. 同样的, 需要依据 api 接口文档进行开发]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(二)-前后端联调</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/</link>
+    <pubDate>Mon, 17 Jul 2023 14:54:22 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/</guid>
+    <description><![CDATA[本小节主要讨论部门管理的其他需求的实现, 在引入 nginxTlias 前端工程后, 双击 ngix, 前端项目部署完成, 访问 http://127.0.0.1:90/ 就可以看到页面. 此时假定 MyTlias 后端已经启动, 可以发现 部]]></description>
+</item>
+<item>
+    <title>MyTlias-员工信息管理系统(一)-整体框架的搭建</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/</link>
+    <pubDate>Thu, 13 Jul 2023 10:49:43 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/</guid>
+    <description><![CDATA[本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现]]></description>
+</item>
+</channel>
+</rss>

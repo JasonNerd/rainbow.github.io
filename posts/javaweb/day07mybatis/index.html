@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/day07mybatis/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-07-06T09:34:00+08:00" />
-<meta property="article:modified_time" content="2023-07-06T09:34:00+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta property="article:modified_time" content="2023-07-13T10:25:00+08:00" /><meta property="og:site_name" content="My cool site" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C02BackEnd-Day07MyBatis"/>
 <meta name="twitter:description" content="MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a"/>
@@ -27,8 +27,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day07mybatis\/"
-        },"genre": "posts","keywords": "MyBatis","wordcount":  6255 ,
-        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day07mybatis\/","datePublished": "2023-07-06T09:34:00+08:00","dateModified": "2023-07-06T09:34:00+08:00","publisher": {
+        },"genre": "posts","keywords": "MyBatis","wordcount":  6630 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/day07mybatis\/","datePublished": "2023-07-06T09:34:00+08:00","dateModified": "2023-07-13T10:25:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -69,8 +69,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C02BackEnd-Day07MyBatis</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-06">2023-07-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6255 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;13 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-06">2023-07-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6630 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;14 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -94,7 +94,6 @@
     <li><a href="#3-动态sql">3. 动态SQL</a>
       <ul>
         <li><a href="#3-1-if">3-1. <code>&lt;if&gt;</code></a></li>
-        <li><a href="#3-2-">3-2. ``</a></li>
       </ul>
     </li>
   </ul>
@@ -407,6 +406,31 @@ XML头部实例:</p>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>Emp emp<span style="color:#f92672">);</span>
 </span></span></code></pre></div><p>正如代码中所示, <strong>在<code>@Insert</code>注解前添加一个<code>@Options</code>注解</strong>, 指明要返回的字段, 那么该字段可以在插入数据的调用者实体的id显示, 注意Options只和Insert搭配, 如果将Insert的SQL语句转到XML中, 则Options失效, 将不能返回主键值.</p>
 <h3 id="2-3-查询语句">2-3. 查询语句</h3>
+<p><strong>通过 id 查找</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// EmpMapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Select</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select id, username, password, name, gender, image, job, &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;entrydate, dept_id, create_time, update_time &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;from tb_emp where id=#{id}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Emp <span style="color:#a6e22e">getByID</span><span style="color:#f92672">(</span>Integer id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Test
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testSelect</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>empMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">getByID</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>可以看到, 结果查询到了, 并且 deptId, createTime 等字段也不为空, 这就说明 properties 文件的驼峰开启有效(仅在Select注解里).</p>
+<p><strong>条件查询</strong>, 姓名模糊查询/性别/入职时间, 这三个条件都是可选的, 因此使用动态SQL</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;select</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;select&#34;</span> <span style="color:#a6e22e">resultType=</span><span style="color:#e6db74">&#34;com.rainbow.pojo.Emp&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    select id, username, password, name, gender, image, job, entrydate,
+</span></span><span style="display:flex;"><span>            dept_id, create_time, update_time from tb_emp
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;where&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;name != null&#34;</span><span style="color:#f92672">&gt;</span>name like concat(&#39;%&#39;, #{name}, &#39;%&#39;) and <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;gender != null&#34;</span><span style="color:#f92672">&gt;</span>gender = #{gender} and <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;entrydate != null&#34;</span><span style="color:#f92672">&gt;</span>entrydate between #{begin} and #{end}<span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>        order by update_time desc
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/where&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/select&gt;</span>
+</span></span></code></pre></div><p>有两个需要特别注意的点, 一是<code>concat('%', #{name}, '%')</code>, 利用了concat函数将字符串拼接起来, 但同时保留了预编译的特性, 其次注意between和and关键字的使用, 不要使用&lt;&gt;等符号(在xml中算特殊字符), 有一个解决方法是:
+使用<code>&lt;![CDATA[]]&gt;</code>，因为CDATA 部分中的所有内容都会被解析器忽略，所以建议使用<code>&lt;![CDATA[]]&gt;</code>, 例如:
+<code>&lt;![CDATA[ and create_time &lt;= #{createTime} ]]&gt;</code></p>
 <h2 id="3-动态sql">3. 动态SQL</h2>
 <h3 id="3-1-if">3-1. <code>&lt;if&gt;</code></h3>
 <p><strong>场景1</strong>: 在员工查询中, 我们有多个查询条件, 例如姓名、性别、入职时间, 通常会依据其中的零个、一个或者多个条件进行查询, 此时查询SQL语句就不是固定的了</p>
@@ -448,12 +472,11 @@ XML头部实例:</p>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/update&gt;</span>
 </span></span></code></pre></div><p><strong>注意: 1. 不要写错字段名; 2.注意表字段和实体字段的命名对应关系; 3.不要忘了写逗号 4. 一定一定不要写错了字段名！！！</strong></p>
 <p>注意拼接时候可能出现SQL语法错误, 需要仔细检查.</p>
-<h3 id="3-2-">3-2. ``</h3>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2023-07-06</span>
+                <span>Updated on 2023-07-13</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
