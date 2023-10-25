@@ -4,7 +4,15 @@
         <link>https://www.rainbow.github.io/categories/javaweb/</link>
         <description>JavaWeb - Category - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/javaweb/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/javaweb/" rel="self" type="application/rss+xml" /><item>
+    <title>面向切面编程--AOP概述</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/c03/</link>
+    <pubDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/c03/</guid>
+    <description><![CDATA[AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 1. 场景示例 案例部分功能运行较慢，定位执]]></description>
+</item>
+<item>
     <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</link>
     <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</guid>
     <description><![CDATA[MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a]]></description>
-</item>
-<item>
-    <title>JavaWeb-C02BackEnd-Day06MySQL(2)</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</link>
-    <pubDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/day06mysql2/</guid>
-    <description><![CDATA[1. 多表设计 一对多 多对多 1.1 一对多 例如 部门信息表(tb_dept) 和 员工信息表(tb_emp), 部门信息表存放着部门名称(name)和id, 员工]]></description>
 </item>
 </channel>
 </rss>

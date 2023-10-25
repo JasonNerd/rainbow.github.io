@@ -4,7 +4,15 @@
         <link>https://www.rainbow.github.io/posts/</link>
         <description>All Posts | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>面向切面编程--AOP概述</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/c03/</link>
+    <pubDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/c03/</guid>
+    <description><![CDATA[AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 1. 场景示例 案例部分功能运行较慢，定位执]]></description>
+</item>
+<item>
     <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</link>
     <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javacoreone/c09collection/</guid>
     <description><![CDATA[1. Java集合框架 Java设计者们想设计一组轻量的完善的数据结构, 它不可以有C++STL那样的复杂, 但同时具备泛型算法的优点。在Java类库]]></description>
-</item>
-<item>
-    <title>JavaCoreOne-C08Generic</title>
-    <link>https://www.rainbow.github.io/posts/javacoreone/c08generic/</link>
-    <pubDate>Thu, 06 Jul 2023 21:28:36 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javacoreone/c08generic/</guid>
-    <description><![CDATA[泛型类和泛型方法具有 类型参数，泛型程序设计(generic programming)意味着编写的代码可以对多种不同类型的对象重用. 例如, 在Ja]]></description>
 </item>
 </channel>
 </rss>
