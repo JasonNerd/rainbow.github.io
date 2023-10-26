@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SpringBoot 基本原理--依赖传递与自动配置 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="SpringBoot 基本原理--依赖传递与自动配置" />
+<meta property="og:description" content="1.SpringBoot 配置优先级 1.1 文件配置 SpringBoot 中支持三种格式的配置文件: // 1. application.properties 文件 server.port=8081 // 2. application.yml 文件 server: port: 8082 // 3. application.yaml 文件 server: port: 8083 虽然springboot支持多种格式配置文件(" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/c04/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-17T15:30:10+08:00" />
+<meta property="article:modified_time" content="2023-10-17T15:30:10+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SpringBoot 基本原理--依赖传递与自动配置"/>
+<meta name="twitter:description" content="1.SpringBoot 配置优先级 1.1 文件配置 SpringBoot 中支持三种格式的配置文件: // 1. application.properties 文件 server.port=8081 // 2. application.yml 文件 server: port: 8082 // 3. application.yaml 文件 server: port: 8083 虽然springboot支持多种格式配置文件("/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/c04/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/c03/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SpringBoot 基本原理--依赖传递与自动配置",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/c04\/"
+        },"genre": "posts","keywords": "SpringBoot","wordcount":  4363 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/c04\/","datePublished": "2023-10-17T15:30:10+08:00","dateModified": "2023-10-17T15:30:10+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SpringBoot 基本原理--依赖传递与自动配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-17">2023-10-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4363 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1springboot-配置优先级">1.SpringBoot 配置优先级</a>
+      <ul>
+        <li><a href="#11-文件配置">1.1 文件配置</a></li>
+        <li><a href="#12-系统属性和命令行参数">1.2 系统属性和命令行参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-bean-管理">2. bean 管理</a>
+      <ul>
+        <li><a href="#21-获取-bean">2.1 获取 bean</a></li>
+        <li><a href="#22-作用域">2.2 作用域</a></li>
+        <li><a href="#23-管理第三方-bean">2.3 管理第三方 Bean</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-springboot-起步依赖自动配置">3. SpringBoot: 起步依赖+自动配置</a>
+      <ul>
+        <li><a href="#31-自动配置">3.1 自动配置</a></li>
+        <li><a href="#32-条件注册">3.2 条件注册</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-案例-自定义-starter">4. 案例: 自定义 starter</a>
+      <ul>
+        <li><a href="#41-原始-aliyunossutils-的用法过程">4.1 原始 AliyunOSSUtils 的用法过程</a></li>
+        <li><a href="#42-starter-配置">4.2 starter 配置.</a></li>
+        <li><a href="#44-编写自动配置文件">4.4 编写自动配置文件</a></li>
+        <li><a href="#45-测试">4.5 测试</a></li>
+        <li><a href="#46-工程重组">4.6 工程重组</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1springboot-配置优先级">1.SpringBoot 配置优先级</h2>
+<h3 id="11-文件配置">1.1 文件配置</h3>
+<p>SpringBoot 中支持三种格式的配置文件:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// 1. application.properties 文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>server.port<span style="color:#f92672">=</span><span style="color:#ae81ff">8081</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. application.yml 文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>server:
+</span></span><span style="display:flex;"><span>   port: <span style="color:#ae81ff">8082</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 3. application.yaml 文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>server:
+</span></span><span style="display:flex;"><span>   port: <span style="color:#ae81ff">8083</span>
+</span></span></code></pre></div><p>虽然springboot支持多种格式配置文件(也即三个文件同时存在), 但是在项目开发时, 推荐统一使用一种格式的配置(<strong>yml是主流</strong>). 同时, 他们的生效优先级是: <code>properties &gt; yml &gt; yaml</code></p>
+<h3 id="12-系统属性和命令行参数">1.2 系统属性和命令行参数</h3>
+<p>SpringBoot 除了支持配置文件属性配置，还支持Java系统属性和命令行参数的方式进行属性配置。</p>
+<ul>
+<li>
+<p>Java系统属性
+Java系统属性是Java虚拟机提供的配置信息, 可以通过<code>System.getProperty()</code>方法获取。
+<code>-Dserver.port=9000</code></p>
+</li>
+<li>
+<p>命令行参数
+<code>--server.port=10010</code></p>
+</li>
+</ul>
+<p>例如, 执行
+<code>java -Dserver.port=9000 -jar tlias-web-management-0.0.1-SNAPSHOT.jar --server.port=10010</code></p>
+<p>注意, 此处的jar包就是利用maven工具进行打包的mytlias项目: 它是一个独立的安装了java即可运行的 jar 包(Springboot项目进行打包时，需要引入插件 spring-boot-maven-plugin (基于官网骨架创建项目，会自动添加该插件))</p>
+<p>优先级(低→高)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">application.yaml（忽略）</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">application.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">application.properties</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">java系统属性（-Dxxx=xxx）</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">命令行参数（--xxx=xxx）</span>
+</span></span></code></pre></div><h2 id="2-bean-管理">2. bean 管理</h2>
+<h3 id="21-获取-bean">2.1 获取 bean</h3>
+<p>默认情况下, Spring项目启动时, 会把bean都创建好放在IOC容器中, 如果想要主动获取这些bean, 可以通过如下方式:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方式</th>
+<th style="text-align:left">函数原型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">根据name获取bean</td>
+<td style="text-align:left"><code>Object getBean(String name)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">根据类型获取bean</td>
+<td style="text-align:left"><code>&lt;T&gt; T getBean(Class&lt;T&gt; requiredType)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">根据name获取bean（带类型转换）</td>
+<td style="text-align:left"><code>&lt;T&gt; T getBean(String name, Class&lt;T&gt; requiredType)</code></td>
+</tr>
+</tbody>
+</table>
+<p>上述所说的 【Spring项目启动时, 会把其中的bean都创建好】还会受到作用域及延迟初始化影响, 这里主要针对于默认的<strong>单例非延迟加载的bean</strong>而言。</p>
+<h3 id="22-作用域">2.2 作用域</h3>
+<p>Spring支持五种作用域，后三种在web环境才生效：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">作用域</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>singleton</code></td>
+<td style="text-align:left">容器内同名称的 bean 只有一个实例（单例）（默认）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>prototype</code></td>
+<td style="text-align:left">每次使用该 bean 时会创建新的实例（非单例）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>request</code></td>
+<td style="text-align:left">每个请求范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>session</code></td>
+<td style="text-align:left">每个会话范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>application</code></td>
+<td style="text-align:left">每个应用范围内会创建新的实例（web环境中，了解）</td>
+</tr>
+</tbody>
+</table>
+<p>可以通过 <code>@Scope</code> 注解来进行配置作用域:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Scope</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;prototype&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/depts&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeptController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// some code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>默认singleton的bean, 在容器启动时被创建，可以使用<code>@Lazy</code>注解来延迟初始化（延迟到第一次使用时）。
+prototype的bean, 每一次使用该bean的时候都会创建一个新的实例。
+实际开发当中, 绝大部分的Bean是单例的, 也就是说绝大部分Bean不需要配置scope属性。</p>
+<h3 id="23-管理第三方-bean">2.3 管理第三方 Bean</h3>
+<p>无法给第三方类添加注解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Controller</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Repository</span>
+</span></span></code></pre></div><p>如果要管理的bean对象来自于第三方（不是自定义的），是无法用 <code>@Component</code> 及衍生注解声明bean的, 就需要用到 <code>@Bean</code> 注解。</p>
+<p>若要管理的第三方bean对象, 建议<strong>对这些bean进行集中分类配置</strong>, 可以通过 <code>@Configuration</code> 注解声明一个配置类。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 连包带类创建 config.CommonConfig
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CommonConfig</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> SAXReader <span style="color:#a6e22e">saxReader</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> SAXReader<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>通过<code>@Bean</code>注解的<code>name</code>或<code>value</code>属性可以声明<code>bean</code>的名称, 如果不指定, <strong>默认bean的名称就是方法名</strong>. 如果第三方bean<strong>需要依赖其它bean对象</strong>, 直接在<code>bean</code>定义方法中设置形参即可, 容器会<strong>根据类型自动装配</strong>。</p>
+<h2 id="3-springboot-起步依赖自动配置">3. SpringBoot: 起步依赖+自动配置</h2>
+<p>SpringBoot 方便好用易上手的基本原因就是它实现了优雅的自动依赖引入与自动配置.</p>
+<p><strong>起步依赖</strong>: 例如 web, 它将基本的 web 开发依赖都自动引入进来, 原理是 maven 的<strong>依赖传递</strong>, 例如包A依赖包B, 包B依赖包C, 则会将 A B C 都引入进来.</p>
+<p><strong>自动配置</strong>: SpringBoot的自动配置就是当spring容器启动后, 一些配置类、bean对象就自动存入到了IOC容器中, 不需要我们手动去声明, 从而简化了开发, 省去了繁琐的配置操作.</p>
+<h3 id="31-自动配置">3.1 自动配置</h3>
+<p>通过 <code>案例1. 引入自定义依赖</code> 来一步步的说明 SpringBoot web 项目的 bean 自动配置的过程.</p>
+<h4 id="311-自定义的演示工具类">3.1.1 自定义的演示工具类</h4>
+<p>创建一个包, 里面包含一些自定义工具类, 他们将交由<code>bean</code>容器管理, 在启动时自动创建其中的对象, 在需要使用时只需<code>@Autowired</code>自动注入即可.
+创建模块<code>mytlias-utils</code>, 包结构及代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// src/main/java/com.example/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// TokenParser.java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.exmaple<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.stereotype.Component<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TokenParser</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">parse</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;TokenParser ... parse ...&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// HeaderConfig
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.exmaple<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.context.annotation.Bean<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.context.annotation.Configuration<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeaderConfig</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> HeaderGenerator <span style="color:#a6e22e">headerGenerator</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> HeaderGenerator<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> HeaderParser <span style="color:#a6e22e">headerParser</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> HeaderParser<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// HeaderGenerator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.exmaple<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeaderGenerator</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">generate</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;HeaderGenerator ... generate ...&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// HeaderParser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.exmaple<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HeaderParser</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">parse</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;HeaderParser ... parse ...&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>如上所示一共4个类, 其中 <code>TokenParser</code> 使用 <code>@Component</code> 注解注明为 bean, <code>HeaderGenerator</code> 和 <code>HeaderParser</code> 为两个普通工具类, 但使用 <code>@Bean</code> 的方式在 <code>HeaderConfig</code> 的配置类中配置为了 bean.</p>
+<h4 id="312-引入-mytlias-utils-模块">3.1.2 引入 <code>mytlias-utils</code> 模块</h4>
+<p>复制一份可运行的 <code>mytlias</code> 工程, 在其中导入<code>mytlias-utils</code> 模块, 方式是在 pom.xml 中引入依赖:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;groupId&gt;</span>com.example<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;artifactId&gt;</span>mytlias-utils<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;version&gt;</span>1.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>maven 刷新后, 创建 Test 测试这些 bean 是否存在于 IOC 容器中.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootTest</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AutoConfigTest</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ApplicationContext applicationContext<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Gson gson<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testGson</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>gson<span style="color:#f92672">.</span><span style="color:#a6e22e">toJson</span><span style="color:#f92672">(</span>Result<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">()));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testTokenParser</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>applicationContext<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>TokenParser<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testHeaderGenerator</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>applicationContext<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>HeaderGenerator<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testHeaderParser</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>applicationContext<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>HeaderParser<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>注意 Gson 和 ApplicationContext 的 bean 是 spring 项目自带的, 另一方面 HeaderConfig 本身作为配置类实质也是交由 IOC 容器管理.</p>
+<p>运行 testTokenParser 等测试:</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">
+org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type &#39;com.exmaple.TokenParser&#39; available
+</code></pre><p>发现运行报错, 引入了依赖, 但并没有查找到 Bean.
+原因: 在启动类中, 注解 <code>@SpringBootApplication</code> 具有包扫描的作用, 同时, 它的扫描范围又仅限于当前包及其子包, 因此, 对于引入的 <code>mytlias-utils</code> 库, 其中的类(bean) 并未扫描到.</p>
+<h4 id="313-springboot-包扫描机制">3.1.3 SpringBoot 包扫描机制</h4>
+<p>以上, 为了使得 <code>mytlias-utils</code> 能被扫描到, 可以进行一些必要的工作:</p>
+<ul>
+<li>方案一: <code>@ComponentScan</code> 组件扫描:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@ComponentScan</span><span style="color:#f92672">({</span><span style="color:#e6db74">&#34;com.example&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;com.itheima&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;com.alibaba&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">...})</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpringbootWebConfig2Application</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// some code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>对于所有的外部依赖, 需要写入所有的可能用到的包 &hellip; &hellip; 代码会十分臃肿.</p>
+<blockquote>
+<p><!-- raw HTML omitted -->实际测试时, 会发现找不到 <code>com.example</code> 包, 此时测试仍然失败.<!-- raw HTML omitted -->
+问题解决了, 原因不是pom依赖问题, 只是由于包名拼写错误</p>
+</blockquote>
+<ul>
+<li>方案二: <code>@Import</code> 导入. 使用<code>@Import</code>导入的类会被Spring加载到IOC容器中，导入形式主要有以下几种:</li>
+</ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">导入 普通类
+导入 配置类
+导入 ImportSelector 接口实现类
+</code></pre><p>演示:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// SpringbootAutoconfigApplication 头部添加注解
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Import</span><span style="color:#f92672">(</span>TokenParser<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>     <span style="color:#75715e">// 导入普通类并交给ioc管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// com.exmaple.TokenParser@63d3c9dc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Import</span><span style="color:#f92672">(</span>HeaderConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>   <span style="color:#75715e">// 导入配置类并交给ioc管理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// com.exmaple.HeaderGenerator@1a4cbcc6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// com.exmaple.HeaderParser@3d4818e8
+</span></span></span></code></pre></div><p>对于 <code>ImportSelector</code>, 它的作用是将要导入的类放到一起:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UtilsImportSelector</span> <span style="color:#66d9ef">implements</span> ImportSelector <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String<span style="color:#f92672">[]</span> <span style="color:#a6e22e">selectImports</span><span style="color:#f92672">(</span>AnnotationMetadata importingClassMetadata<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]{</span><span style="color:#e6db74">&#34;com.example.HeaderConfig&#34;</span><span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>注意检查包名是否有拼写错误</strong></p>
+<ul>
+<li>方案三: 使用 <code>@EnableXxxx</code> 注解对<code>@Import</code>注解进行封装
+实际上, 对于任何第三方的类, 只有第三方类本身才知道自己的包下有哪些类是需要交给 IOC容器 进行管理的, <strong>因此需要一个自动配置的方式</strong>, 第三方库必须指明哪些类需要成为bean, 指明的方式是<code>@EnableXxxx</code>, 这一注解由第三方库创建.</li>
+</ul>
+<p>创建 <code>EnableHeaderConfig</code> 注解类.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.example<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.context.annotation.Import<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.lang.annotation.ElementType<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.lang.annotation.Retention<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.lang.annotation.RetentionPolicy<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.lang.annotation.Target<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">RUNTIME</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Target</span><span style="color:#f92672">(</span>ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Import</span><span style="color:#f92672">(</span>UtilsImportSelector<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">@interface</span> EnableHeaderConfig <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>此时通过一个注解即可完成 bean 导入.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@EnableHeaderConfig</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpringbootAutoconfigApplication</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        SpringApplication<span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>SpringbootAutoconfigApplication<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>测试通过.</p>
+<h4 id="314-springbootconfiguration">3.1.4 <code>@SpringBootConfiguration</code></h4>
+<p>该注解标识在SpringBoot工程引导类上, 是SpringBoot中最最最重要的注解. 查看注解的源代码, 一步步理解项目启动时 bean 的加载过程.</p>
+<h5 id="a-public-interface-springbootapplication">a. <code>public @interface SpringBootApplication</code></h5>
+<p>部分代码:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Target</span><span style="color:#f92672">({</span>ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">RUNTIME</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Documented</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Inherited</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootConfiguration</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@EnableAutoConfiguration</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ComponentScan</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    excludeFilters <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#a6e22e">@Filter</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    type <span style="color:#f92672">=</span> FilterType<span style="color:#f92672">.</span><span style="color:#a6e22e">CUSTOM</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p><strong><code>@SpringBootConfiguration</code></strong> 注解类主要由三个部分组成：
+<code>@SpringBootConfiguration</code>: 该注解与 <code>@Configuration</code> 注解作用相同, 用来声明当前也是一个配置类.
+<code>@ComponentScan</code>: 组件扫描, 默认扫描当前引导类所在包及其子包.
+<code>@EnableAutoConfiguration</code>: SpringBoot实现自动化配置的核心注解 (类比<code>@EnableHeaderConfig</code>).</p>
+<h5 id="b-public-interface-enableautoconfiguration">b. <code>public @interface EnableAutoConfiguration</code></h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Target</span><span style="color:#f92672">({</span>ElementType<span style="color:#f92672">.</span><span style="color:#a6e22e">TYPE</span><span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">RUNTIME</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Documented</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Inherited</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AutoConfigurationPackage</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Import</span><span style="color:#f92672">({</span>AutoConfigurationImportSelector<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">@interface</span> EnableAutoConfiguration <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">...</span>
+</span></span></code></pre></div><p>可以看到有一句 <code>@Import({AutoConfigurationImportSelector.class})</code>, 这就类比 <code>@EnableHeaderConfig</code> 类中的 <code>@Import(UtilsImportSelector.class)</code>.</p>
+<h5 id="c-autoconfigurationimportselectorclass">c. <code>AutoConfigurationImportSelector.class</code></h5>
+<p>找到 <code>selectImports</code> 方法, 并进行查看:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> String<span style="color:#f92672">[]</span> <span style="color:#a6e22e">selectImports</span><span style="color:#f92672">(</span>AnnotationMetadata annotationMetadata<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isEnabled</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> NO_IMPORTS<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      AutoConfigurationEntry autoConfigurationEntry <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getAutoConfigurationEntry</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">toStringArray</span><span style="color:#f92672">(</span>autoConfigurationEntry<span style="color:#f92672">.</span><span style="color:#a6e22e">getConfigurations</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>继续找到 <code>getAutoConfigurationEntry()</code> 方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> AutoConfigurationEntry <span style="color:#a6e22e">getAutoConfigurationEntry</span><span style="color:#f92672">(</span>AnnotationMetadata annotationMetadata<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isEnabled</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> EMPTY_ENTRY<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      AnnotationAttributes attributes <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getAttributes</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> configurations <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getCandidateConfigurations</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">,</span> attributes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      configurations <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">removeDuplicates</span><span style="color:#f92672">(</span>configurations<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> exclusions <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getExclusions</span><span style="color:#f92672">(</span>annotationMetadata<span style="color:#f92672">,</span> attributes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">checkExcludedClasses</span><span style="color:#f92672">(</span>configurations<span style="color:#f92672">,</span> exclusions<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      configurations<span style="color:#f92672">.</span><span style="color:#a6e22e">removeAll</span><span style="color:#f92672">(</span>exclusions<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      configurations <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getConfigurationClassFilter</span><span style="color:#f92672">().</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>configurations<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fireAutoConfigurationImportEvents</span><span style="color:#f92672">(</span>configurations<span style="color:#f92672">,</span> exclusions<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> AutoConfigurationEntry<span style="color:#f92672">(</span>configurations<span style="color:#f92672">,</span> exclusions<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>代码的大致逻辑是, 先获取所有的配置项<code>List&lt;String&gt; configurations = this.getCandidateConfigurations(annotationMetadata, attributes);</code>, 接着排除掉一些后再把筛选后的 configurations 返回.</p>
+<p>继续找到 <code>getCandidateConfigurations</code> 方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getCandidateConfigurations</span><span style="color:#f92672">(</span>AnnotationMetadata metadata<span style="color:#f92672">,</span> AnnotationAttributes attributes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> configurations <span style="color:#f92672">=</span> ImportCandidates<span style="color:#f92672">.</span><span style="color:#a6e22e">load</span><span style="color:#f92672">(</span>AutoConfiguration<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getBeanClassLoader</span><span style="color:#f92672">()).</span><span style="color:#a6e22e">getCandidates</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>   Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">notEmpty</span><span style="color:#f92672">(</span>configurations<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;No auto configuration classes found in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. &#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;If you are using a custom packaging, make sure that file is correct.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> configurations<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>可以看出, configurations 是从 config文件 <code>META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports.</code> 中读取出来的.</p>
+<p>那么我们是否能够找到并查看这个文件呢? 是可以的.</p>
+<p>先找到 <code>external libraries</code>, 接着找到一个叫 <code>org.springframework.boot:spring-boot-autoconfigure:3.x.x</code> 的文件夹. 可以看到里面确实包含了这样一个文件. 其中的内容都是一些配置类的全名:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">admin</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SpringApplicationAdminJmxAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">aop</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AopAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">amqp</span><span style="color:#f92672">.</span><span style="color:#a6e22e">RabbitAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">batch</span><span style="color:#f92672">.</span><span style="color:#a6e22e">BatchAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">CacheAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cassandra</span><span style="color:#f92672">.</span><span style="color:#a6e22e">CassandraAutoConfiguration</span>
+</span></span><span style="display:flex;"><span>org<span style="color:#f92672">.</span><span style="color:#a6e22e">springframework</span><span style="color:#f92672">.</span><span style="color:#a6e22e">boot</span><span style="color:#f92672">.</span><span style="color:#a6e22e">autoconfigure</span><span style="color:#f92672">.</span><span style="color:#a6e22e">context</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ConfigurationPropertiesAutoConfiguration</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span></code></pre></div><h3 id="32-条件注册">3.2 条件注册</h3>
+<p>可以按照一定的条件决定是否注册为IOC容器的bean
+作用：按照一定的条件进行判断，在满足给定条件后才会注册对应的bean对象到Spring IOC容器中。
+位置：方法、类
+举例如下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>@Conditional</code></td>
+<td style="text-align:left">本身是一个父注解，派生出大量的子注解：</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@ConditionalOnClass</code></td>
+<td style="text-align:left">判断环境中是否有对应字节码文件，才注册bean到IOC容器。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@ConditionalOnMissingBean</code></td>
+<td style="text-align:left">判断环境中没有对应的bean（类型 或 名称） ，才注册bean到IOC容器。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@ConditionalOnProperty</code></td>
+<td style="text-align:left">判断配置文件中有对应属性和值，才注册bean到IOC容器。</td>
+</tr>
+</tbody>
+</table>
+<p>其他的 Conditional 注解示例:
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/c04/image/2023-10-17-16-28-32.png"
+        data-srcset="/posts/javaweb/c04/image/2023-10-17-16-28-32.png, /posts/javaweb/c04/image/2023-10-17-16-28-32.png 1.5x, /posts/javaweb/c04/image/2023-10-17-16-28-32.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/c04/image/2023-10-17-16-28-32.png"
+        title="/posts/javaweb/c04/image/2023-10-17-16-28-32.png" width="360" height="401" /></p>
+<h2 id="4-案例-自定义-starter">4. 案例: 自定义 starter</h2>
+<p>在实际开发中，经常会定义一些公共组件，提供给各个项目团队使用。而在SpringBoot的项目中，一般会将这些公共组件封装为SpringBoot 的 starter。</p>
+<p>先看通常的 starter 定义, 例如 <code>org.mybatis.spring.boot: mybatis-spring-boot-starter</code>, 主要的是有一个文件 pom.xml, 它定义了需要的依赖, 另外与之配对的就是自动配置类: <code>org.mybatis.spring.boot: mybatis-spring-boot-autoconfigure</code>, 它里面存放着 <code>.import</code> 文件.</p>
+<p>一般而言, <code>spring-boot-starter</code> 在前面的是官方, 在后面的第三方.</p>
+<p>需求: 自定义 <code>aliyun-oss-spring-boot-starter</code>, 完成阿里云OSS操作工具类 <code>AliyunOSSUtils</code> 的自动配置.
+目标: 引入起步依赖引入之后, 要想使用阿里云OSS, 注入 <code>AliyunOSSUtils</code> 直接使用即可.</p>
+<ul>
+<li>创建 <code>aliyun-oss-spring-boot-starter</code> 模块</li>
+<li>创建 <code>aliyun-oss-spring-boot-autoconfigure</code> 模块，在starter中引入该模块</li>
+<li>在 <code>aliyun-oss-spring-boot-autoconfigure</code> 模块中的定义自动配置功能，并定义自动配置文件 <code>META-INF/spring/xxxx.imports</code></li>
+</ul>
+<h3 id="41-原始-aliyunossutils-的用法过程">4.1 原始 AliyunOSSUtils 的用法过程</h3>
+<ol start="0">
+<li>引入依赖:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;groupId&gt;</span>com.aliyun.oss<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;artifactId&gt;</span>aliyun-sdk-oss<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;version&gt;</span>3.15.1<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol>
+<li>在配置文件配置连接四要素, 包括认证ID&amp;Key和访问地址&amp;文件夹.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">aliyun</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">oss</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">https://oss-cn-beijing.aliyuncs.com/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">accessKeyId</span>: <span style="color:#ae81ff">xxx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">accessKeySecret</span>: <span style="color:#ae81ff">xxx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">bucketName</span>: <span style="color:#ae81ff">rainbow-tlias</span>
+</span></span></code></pre></div><ol start="2">
+<li>通过 <code>@Value(${property-name})</code> 将值注入到本地变量</li>
+<li>编写文件上传逻辑.</li>
+<li>加入 <code>@Component</code> 注解交由 bean 管理.</li>
+<li>在使用时进入注入.</li>
+</ol>
+<h3 id="42-starter-配置">4.2 starter 配置.</h3>
+<p>分别创建 <code>aliyun-oss-spring-boot-starter</code> 模块 和 <code>aliyun-oss-spring-boot-autoconfigure</code> 模块, 在 starter 中引入 autoconfigure 依赖, starter 只保留 pom 文件, autoconfigure 中保留源代码文件夹以及pom文件.</p>
+<p><code>pom.xml(starter)</code> 参考</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;project</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;modelVersion&gt;</span>4.0.0<span style="color:#f92672">&lt;/modelVersion&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;parent&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;version&gt;</span>3.1.5<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;relativePath/&gt;</span> <span style="color:#75715e">&lt;!-- lookup parent from repository --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/parent&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.aliyun.oss<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>aliyun-oss-starter<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;version&gt;</span>0.0.1-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;java.version&gt;</span>17<span style="color:#f92672">&lt;/java.version&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/properties&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;groupId&gt;</span>com.aliyun.oss<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;artifactId&gt;</span>aliyun-oss-spring-boot-autoconfigure<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;version&gt;</span>0.0.1-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/project&gt;</span>
+</span></span></code></pre></div><p>autoconfigure 模块需要实现 AliyunOSSUtils 的功能, 也即上传文件并返回文件的公开资源路径(url). 同时还需要配置自动封装bean的文件. 更确切的说, starter 进行了依赖管理, autoconfigure 则实现了自动配置.</p>
+<h4 id="43-autoconfigure-配置">4.3 autoconfigure 配置</h4>
+<p>先把 <code>AliOSSUtils.java</code> 和 <code>AliOSSProperties.java</code> 复制到源代码目录下, 将四要素配置到 <code>application..yml</code> 中, 接着由于需要自动注入, 则将这两个类的 @Component 注解均删去.</p>
+<p>对于 AliOSSProperties, 也把 lombok 删除并实现 getter 和 setter.</p>
+<p>随后实现配置类 <code>AliOSSConfiguration.java</code>, 首先需要一个 <code>@Configuration</code> 说明它是配置类, 接着实现一个 <code>@Bean</code> 方法, 它返回一个 <code>AliOSSUtils</code> 对象, 该对象将交给 SpringBoot IOC容器 管理.</p>
+<p>然而, 一个问题在于, AliOSSProperties 不是 bean, 因而 AliOSSUtils 也不可以 Autowired. 这里就要使用另一个注解 <code>@EnableConfigurationProperties(AliOSSProperties.class)</code>, 它能够使 configuration-properties 类成为 bean.同时为 AliOSSUtils 的 properties 参数设置 getter setter. 为 properties 赋值.</p>
+<p><strong><code>AliOSSConfiguration</code></strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.aliyun.oss<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@EnableConfigurationProperties</span><span style="color:#f92672">(</span>AliOSSProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AliOSSConfiguration</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> AliOSSUtils <span style="color:#a6e22e">aliOSSUtils</span><span style="color:#f92672">(</span>AliOSSProperties properties<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        AliOSSUtils aliOSSUtils <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AliOSSUtils<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        aliOSSUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">setProperties</span><span style="color:#f92672">(</span>properties<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> aliOSSUtils<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong><code>AliOSSProperties</code></strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.aliyun.oss<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ConfigurationProperties</span><span style="color:#f92672">(</span>prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aliyun.oss&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AliOSSProperties</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String endpoint<span style="color:#f92672">;</span>        <span style="color:#75715e">// 服务器域名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String accessKeyId<span style="color:#f92672">;</span>     <span style="color:#75715e">// 访问ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String accessKeySecret<span style="color:#f92672">;</span> <span style="color:#75715e">// 访问密钥
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String bucketName<span style="color:#f92672">;</span>      <span style="color:#75715e">// 数据桶名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">...</span>  <span style="color:#75715e">// getter setter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong><code>AliOSSUtils</code></strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.aliyun.oss<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AliOSSUtils</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> AliOSSProperties properties<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>  <span style="color:#75715e">// getter setter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">upload</span><span style="color:#f92672">(</span>MultipartFile file<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// some code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>比较绕, 但总体来说, 通过 <code>EnableConfigurationProperties</code> 使得 AliOSSProperties 生效, 成为一个 bean. 随后在 <code>AliOSSConfiguration</code> 中又通过 <code>Bean</code> 方法, 将 AliOSSUtils 注册成为一个 bean. 注意注册的过程中使用到了 AliOSSProperties 对象.</p>
+<h3 id="44-编写自动配置文件">4.4 编写自动配置文件</h3>
+<p>在 resource 文件夹下, 新建 <code>META-INF/spring/</code> 文件夹, 接着新建 <code>org.springframework.boot.autoconfigure.AutoConfiguration.imports.</code> 文件. 在里面写入要自动创建的 bean: <code>com.aliyun.oss.AliOSSConfiguration</code>. (依据AliOSSConfiguration, 紧接着 AliOSSUtils AliOSSProperties 也成为 bean)</p>
+<h3 id="45-测试">4.5 测试</h3>
+<p>创建一个测试工程, 引入 <code>aliyun-oss-spring-boot-starter</code>, 在测试类中测试 AliOSSConfiguration 等的可用性.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootTest</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AliyunOssTestApplicationTests</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    AliOSSProperties p<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> ApplicationContext context<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testAliConfig</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>context<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>AliOSSConfiguration<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testAliUtil</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>context<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>AliOSSUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testAliProp</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>context<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>AliOSSProperties<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">getEndpoint</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>全部测试成功!</p>
+<h3 id="46-工程重组">4.6 工程重组</h3>
+<p>使用重建好的 starter 工程, 将原有的删除(包括两个java文件, yml的配置, pom中的依赖). 随后引入 starter 依赖, maven 刷新, 惊讶的发现其他的代码无需变动.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-10-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/c04/" data-title="SpringBoot 基本原理--依赖传递与自动配置" data-hashtags="SpringBoot"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/c04/" data-hashtag="SpringBoot"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/c04/" data-title="SpringBoot 基本原理--依赖传递与自动配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/c04/" data-title="SpringBoot 基本原理--依赖传递与自动配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/c04/" data-title="SpringBoot 基本原理--依赖传递与自动配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/springboot/">SpringBoot</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/c03/" class="prev" rel="prev" title="面向切面编程--AOP概述"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>面向切面编程--AOP概述</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

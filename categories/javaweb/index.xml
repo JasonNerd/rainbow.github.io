@@ -4,7 +4,15 @@
         <link>https://www.rainbow.github.io/categories/javaweb/</link>
         <description>JavaWeb - Category - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/javaweb/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 17 Oct 2023 15:30:10 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/javaweb/" rel="self" type="application/rss+xml" /><item>
+    <title>SpringBoot 基本原理--依赖传递与自动配置</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/c04/</link>
+    <pubDate>Tue, 17 Oct 2023 15:30:10 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/c04/</guid>
+    <description><![CDATA[1.SpringBoot 配置优先级 1.1 文件配置 SpringBoot 中支持三种格式的配置文件: // 1. application.properties 文件 server.port=8081 // 2. application.yml 文件 server: port: 8082 // 3. application.yaml 文件 server: port: 8083 虽然springboot支持多种格式配置文件(]]></description>
+</item>
+<item>
     <title>面向切面编程--AOP概述</title>
     <link>https://www.rainbow.github.io/posts/javaweb/c03/</link>
     <pubDate>Fri, 13 Oct 2023 10:49:43 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/</guid>
     <description><![CDATA[本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现]]></description>
-</item>
-<item>
-    <title>C02BackEnd-Day07MyBatis</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</link>
-    <pubDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/day07mybatis/</guid>
-    <description><![CDATA[MyBatis是一款优秀的 持久层 框架，用于简化JDBC的开发 MyBatis本是 Apache的一个开源项目iBatis,2010年这个项目由a]]></description>
 </item>
 </channel>
 </rss>
