@@ -4,10 +4,10 @@
         <link>https://www.rainbow.github.io/tags/springboot/</link>
         <description>SpringBoot - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 17 Oct 2023 15:30:10 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/springboot/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/springboot/" rel="self" type="application/rss+xml" /><item>
     <title>SpringBoot 基本原理--依赖传递与自动配置</title>
     <link>https://www.rainbow.github.io/posts/javaweb/c04/</link>
-    <pubDate>Tue, 17 Oct 2023 15:30:10 &#43;0800</pubDate>
+    <pubDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</pubDate>
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/c04/</guid>
     <description><![CDATA[1.SpringBoot 配置优先级 1.1 文件配置 SpringBoot 中支持三种格式的配置文件: // 1. application.properties 文件 server.port=8081 // 2. application.yml 文件 server: port: 8082 // 3. application.yaml 文件 server: port: 8083 虽然springboot支持多种格式配置文件(]]></description>
