@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Maven高级管理 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Maven高级管理" />
+<meta property="og:description" content="本讲将讲解关于 maven 工具更多的实用功能, 观察现有的 mytlias 系统(mytlias-aop), 它已经包含了众多的特性, 比较臃肿, 是否需要独立出一些模块? maven" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/c05/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-18T14:17:51+08:00" />
+<meta property="article:modified_time" content="2023-10-18T14:17:51+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maven高级管理"/>
+<meta name="twitter:description" content="本讲将讲解关于 maven 工具更多的实用功能, 观察现有的 mytlias 系统(mytlias-aop), 它已经包含了众多的特性, 比较臃肿, 是否需要独立出一些模块? maven"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/c05/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/c04/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Maven高级管理",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/c05\/"
+        },"genre": "posts","keywords": "Maven","wordcount":  2569 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/c05\/","datePublished": "2023-10-18T14:17:51+08:00","dateModified": "2023-10-18T14:17:51+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Maven高级管理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/javaweb/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>JavaWeb</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-18">2023-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2569 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-原mytlias结构">1. 原MyTlias结构</a></li>
+    <li><a href="#2-分模块设计">2. 分模块设计</a></li>
+    <li><a href="#3-maven-管理">3. maven 管理</a>
+      <ul>
+        <li><a href="#31-maven-项目继承">3.1 maven 项目继承</a></li>
+        <li><a href="#32-版本锁定">3.2 版本锁定</a></li>
+        <li><a href="#33-聚合">3.3 聚合</a></li>
+        <li><a href="#35-私服">3.5 私服</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-mytlias-重构">4. MyTlias 重构</a>
+      <ul>
+        <li><a href="#41-分模块设计">4.1 分模块设计</a></li>
+        <li><a href="#42-继承关系">4.2 继承关系</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-结语">5. 结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本讲将讲解关于 maven 工具更多的实用功能, 观察现有的 mytlias 系统(mytlias-aop), 它已经包含了众多的特性, 比较臃肿, 是否需要独立出一些模块? maven 可以在各个流程上(编译、运行、发布、安装)对各个模块提供继承、聚合等的管理.</p>
+<h2 id="1-原mytlias结构">1. 原MyTlias结构</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/c05/image/2023-10-26-15-29-53.png"
+        data-srcset="/posts/javaweb/c05/image/2023-10-26-15-29-53.png, /posts/javaweb/c05/image/2023-10-26-15-29-53.png 1.5x, /posts/javaweb/c05/image/2023-10-26-15-29-53.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/c05/image/2023-10-26-15-29-53.png"
+        title="/posts/javaweb/c05/image/2023-10-26-15-29-53.png" width="494" height="564" />
+逐个包地进行简要回顾:</p>
+<blockquote>
+<ol>
+<li><strong>使用 aop 技术实现操作日志的登记</strong>
+anno 中包含一个自定义的注解 Anno, 仅用于标记哪些方法需要被代理, 具体的, 这些方法是增删改相关的操作
+aop 切面类, 实现了一个切面类, 它被用作代理, 记录了增删改方法的操作信息, 例如操作时间、操作人、接收参数和返回结果等, 并记录到操作日志表中</li>
+<li><strong>登录校验(一): 拦截器</strong>
+config 包含一个 LoginCheckConfig 类, 它注册需求的拦截器并配置拦截路径, 使需求的拦截器生效
+filter/interceptor 分别是过滤器/拦截器, 它们都有拦截请求的效果. 这里我们使用 interceptor &ndash; 拦截器, 它先把位于拦截路径的请求拦截下来, 检查是否包含jwt令牌以及令牌的合法. 只有合法的才会放行, 否则将跳转回登陆界面.
+utils 包含关于 JWT 生成和校验的工具类</li>
+<li><strong>controller: 请求处理层</strong>
+它接收请求并调用service层返回处理结果. 例如 LoginController, 它接收登录请求, 校验登录账户的合法性, 对于合法的登录请求, 他还需要借助 JWT工具类 生成一个 jwt-token 并将它封装到响应结果中.</li>
+<li><strong>service: 服务层</strong>
+它实现了服务接口, 一般是依据业务表来设计多个接口, 并设计实现类</li>
+<li><strong>dao: 数据访问层</strong>
+与数据库交互, 完成实际的数据访问操作.</li>
+<li><strong>pojo: 实体类层</strong>
+存放多种实体类.</li>
+<li><strong>exception: 异常处理层</strong>
+集中处理抛出的异常.</li>
+</ol>
+</blockquote>
+<h2 id="2-分模块设计">2. 分模块设计</h2>
+<p>将项目按照功能拆分成若干个子模块，方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享。</p>
+<ul>
+<li>什么是分模块设计?
+将项目按照功能拆分成若干个子模块</li>
+<li>为什么要分模块设计?
+方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享</li>
+<li>注意事项
+<strong>分模块设计需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分</strong></li>
+</ul>
+<h2 id="3-maven-管理">3. maven 管理</h2>
+<ul>
+<li>继承与聚合</li>
+<li>继承</li>
+<li>继承关系</li>
+<li>版本锁定</li>
+<li>聚合</li>
+</ul>
+<h3 id="31-maven-项目继承">3.1 maven 项目继承</h3>
+<p>概念：<strong>继承</strong>描述的是两个工程间的关系，与java中的继承相似，子工程可以继承父工程中的配置信息，常见于依赖关系的继承。
+作用：<strong>简化依赖配置、统一管理依赖</strong>
+实现：<code>&lt;parent&gt; … &lt;/parent&gt;</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/c05/image/2023-10-18-14-35-28.png"
+        data-srcset="/posts/javaweb/c05/image/2023-10-18-14-35-28.png, /posts/javaweb/c05/image/2023-10-18-14-35-28.png 1.5x, /posts/javaweb/c05/image/2023-10-18-14-35-28.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/c05/image/2023-10-18-14-35-28.png"
+        title="/posts/javaweb/c05/image/2023-10-18-14-35-28.png" width="969" height="305" /></p>
+<p><em><strong><code>jar</code></strong></em>: 普通模块打包，springboot项目基本都是jar包（内嵌tomcat运行）
+<code>war</code>: 普通web程序打包，需要部署在外部的tomcat服务器中运行
+<em><strong><code>pom</code></strong></em>: 父工程或聚合工程，该模块不写代码，仅进行依赖管理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;parent&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;version&gt;</span>2.7.5<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;relativePath/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/parent&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;parent&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;groupId&gt;</span>com.itheima<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;artifactId&gt;</span>tlias-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;version&gt;</span>1.0-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;relativePath&gt;</span>../ tlias-parent/pom.xml<span style="color:#f92672">&lt;/relativePath&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/parent&gt;</span>
+</span></span></code></pre></div><p>在子工程中，配置了继承关系之后，坐标中的groupId是可以省略的，因为会自动继承父工程的 。
+relativePath指定父工程的pom文件的相对位置（如果不指定，将从本地仓库/远程仓库查找该工程）。
+若父子工程都配置了同一个依赖的不同版本，以子工程的为准</p>
+<h3 id="32-版本锁定">3.2 版本锁定</h3>
+<p>在maven中，可以在父工程的pom文件中通过 <code>&lt;dependencyManagement&gt;</code> 来统一管理依赖版本。子工程引入依赖时，无需指定 <code>&lt;version&gt;</code> 版本号，父工程统一管理。变更依赖版本，只需在父工程中统一变更。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!--JWT令牌--&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;groupId&gt;</span>io.jsonwebtoken<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;artifactId&gt;</span>jjwt<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;version&gt;</span>0.9.1<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>io.jsonwebtoken<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>jjwt<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><p>使用 properties 再集中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;lombok.version&gt;</span>1.18.24<span style="color:#f92672">&lt;/lombok.version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;jjwt.version&gt;</span>0.9.0<span style="color:#f92672">&lt;/jjwt.version&gt;&lt;/properties&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencyManagement&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">&lt;!--JWT令牌--&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;groupId&gt;</span>io.jsonwebtoken<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;artifactId&gt;</span>jjwt<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;version&gt;</span>${jjwt.version}<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencyManagement&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;groupId&gt;</span>org.projectlombok<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;artifactId&gt;</span>lombok<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;version&gt;</span>${lombok.version}<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><ul>
+<li>小结:
+<code>&lt;dependencyManagement&gt;</code> 与 <code>&lt;dependencies&gt;</code>的区别是什么?
+<code>&lt;dependencies&gt;</code> 是直接依赖, 在父工程配置了依赖, 子工程会直接继承下来.
+<code>&lt;dependencyManagement&gt;</code> 是统一管理依赖版本, 不会直接引入依赖, 还需要在子工程中引入所需依赖(无需指定版本)</li>
+</ul>
+<p>tlias-parent (父工程)(聚合工程)</p>
+<h3 id="33-聚合">3.3 聚合</h3>
+<p>将多个模块组织成一个整体，同时进行项目的构建。
+<strong>聚合工程</strong>: 一个不具有业务功能的空工程（有且仅有一个pom文件）
+作用: 快速构建项目（无需根据依赖关系手动构建，直接在聚合工程上构建即可）</p>
+<p>maven中可以通过 <code>&lt;modules&gt;</code> 设置当前聚合工程所包含的子模块名称</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--聚合--&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;modules&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;module&gt;</span>../tlias-pojo<span style="color:#f92672">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;module&gt;</span>../tlias-utils<span style="color:#f92672">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;module&gt;</span>../tlias-web-management<span style="color:#f92672">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/modules&gt;</span>
+</span></span></code></pre></div><ul>
+<li>注意事项
+聚合工程中所包含的模块，在构建时，会自动根据模块间的依赖关系设置构建顺序，与聚合工程中模块的配置书写位置无关。</li>
+</ul>
+<h4 id="继承与聚合">继承与聚合</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方面</th>
+<th style="text-align:left">聚合</th>
+<th style="text-align:left">继承</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">作用</td>
+<td style="text-align:left">用于快速构建项目</td>
+<td style="text-align:left">用于简化依赖配置、统一管理依赖</td>
+</tr>
+<tr>
+<td style="text-align:left">相同点</td>
+<td style="text-align:left">pom.xml文件打包方式均为pom，可以将两种关系制作到同一个pom文件中</td>
+<td style="text-align:left">均属于设计型模块，并无实际的模块内容</td>
+</tr>
+<tr>
+<td style="text-align:left">不同点</td>
+<td style="text-align:left">聚合是在聚合工程中配置关系，聚合可以感知到参与聚合的模块有哪些</td>
+<td style="text-align:left">继承是在子模块中配置关系，父模块无法感知哪些子模块继承了自己</td>
+</tr>
+</tbody>
+</table>
+<h3 id="35-私服">3.5 私服</h3>
+<p>私服是一种特殊的远程仓库，它是架设在局域网内的仓库服务，用来代理位于外部的中央仓库，用于解决团队内部的资源共享与资源同步问题。私服在企业项目开发中，一个项目/公司，只需要一台即可（无需我们自己搭建，会使用即可）。
+依赖查找顺序:</p>
+<pre tabindex="0"><code>本地仓库
+私服
+中央仓库 
+</code></pre><h2 id="4-mytlias-重构">4. MyTlias 重构</h2>
+<p>创建新文件夹 <code>MyTliasCompleteVersion</code> 作为主文件夹.</p>
+<h3 id="41-分模块设计">4.1 分模块设计</h3>
+<p>对于 <code>mytlias-vrd</code> 工程, 把他分成三个部分:</p>
+<ol>
+<li>主文件夹下创建 maven 模块 <code>tlias-pojo</code>, 存放实体类, 它直接 copy <code>mytlias-vrd</code> 中的 <code>entity</code> 包.</li>
+<li>主文件夹下创建 maven模块 <code>tlias-utils</code>, 存放相关工具类, 它直接 copy <code>mytlias-vrd</code> 中的 <code>utils</code> 包.</li>
+<li>主文件夹下创建 spring-boot模块 <code>tlias-web</code>, web 请求响应等剩下的功能(已把 entity utils 删去).</li>
+<li>在 web 模块引入 pojo 和 utils, 注意更改 import 的包名路径等等, 这一步可能较为耗时.</li>
+<li>对于 pojo, 他需要引入 lombok 依赖.</li>
+<li>对于 utlis, 它包含一个 OSS 上传服务, 需要 oss 相关依赖和 web 相关依赖, 以及 lombok 依赖, 另一方面, 对于 jwt 生成和解析服务, 他需要 jjwt 等依赖.</li>
+<li>注意删除 <code>tlias-web</code> 中不必要的依赖. 同时, 该项目需要 utils 中的bean, 因此需要按照上一节的自动配置方法, 配置 import 文件.</li>
+</ol>
+<p>运行 web 的 application, 看是否可以成功</p>
+<h3 id="42-继承关系">4.2 继承关系</h3>
+<ol>
+<li>主文件夹下创建 pom.xml(此时是空的), 随后将固定的头部和结构复制进来(例如web的pom参考)</li>
+<li>指明 artifactId 和 groupId 等, 随后在 maven 管理器中将该 pom 文件加入:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;groupId&gt;</span>com.rainbow<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;artifactId&gt;</span>mytlias-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;version&gt;</span>0.0.1-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;name&gt;</span>mytlias-parent<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;description&gt;</span>mytlias-parent<span style="color:#f92672">&lt;/description&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;packaging&gt;</span>pom<span style="color:#f92672">&lt;/packaging&gt;</span> <span style="color:#75715e">&lt;!-- 打包方式为pom, 意为父工程只进行依赖管理而无代码实现 --&gt;</span>
+</span></span></code></pre></div><ol start="3">
+<li>此时主文件夹<code>MyTliasCompleteVersion</code> 就成为了父模块<code>tlias-parent</code>.</li>
+<li>在子工程的pom.xml文件中，配置继承关系.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;parent&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;groupId&gt;</span>com.rainbow<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;version&gt;</span>0.0.1-SNAPSHOT<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;artifactId&gt;</span>mytlias-parent<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!-- &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt; 默认就是上一级文件夹--&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/parent&gt;</span>
+</span></span></code></pre></div><ol start="5">
+<li>在父工程中配置各个工程共有的依赖(例如 lombok), 子工程会自动继承父工程的依赖.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/c05/image/2023-10-18-14-37-17.png"
+        data-srcset="/posts/javaweb/c05/image/2023-10-18-14-37-17.png, /posts/javaweb/c05/image/2023-10-18-14-37-17.png 1.5x, /posts/javaweb/c05/image/2023-10-18-14-37-17.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/c05/image/2023-10-18-14-37-17.png"
+        title="/posts/javaweb/c05/image/2023-10-18-14-37-17.png" width="800" height="333" /></li>
+</ol>
+<p>注意 web 的父工程本身是 <code>spring-boot-starter-web</code>, 因此父工程的 pom 中需要配置 parent 为 <code>spring-boot-starter-web</code>, 此时 <code>utils</code>/<code>pojo</code>/<code>web</code> 的父工程均为 <code>parent</code></p>
+<p>再次运行工程, 查看是否正常运行</p>
+<p>还可以继续配置版本的统一管理, 这里不再继续演示, 最重要的一步就是在项目初期, 做好需求分析和模块设计, 管理好各模块的功能职责, 使其易于扩展且稳定</p>
+<h2 id="5-结语">5. 结语</h2>
+<p>MyTlias 各版本的代码+笔记
+<a href="https://github.com/JasonNerd/MyTlias" target="_blank" rel="noopener noreffer ">https://github.com/JasonNerd/MyTlias</a></p>
+<p>MyTlias 重构版
+<a href="https://github.com/JasonNerd/MyTliasCompleteVersion" target="_blank" rel="noopener noreffer ">https://github.com/JasonNerd/MyTliasCompleteVersion</a></p>
+<p>欢迎学习和交流, 以及mark</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-10-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/c05/" data-title="Maven高级管理" data-hashtags="Maven"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/c05/" data-hashtag="Maven"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/c05/" data-title="Maven高级管理"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/c05/" data-title="Maven高级管理"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/c05/" data-title="Maven高级管理"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/maven/">Maven</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/c04/" class="prev" rel="prev" title="SpringBoot 基本原理--依赖传递与自动配置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SpringBoot 基本原理--依赖传递与自动配置</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

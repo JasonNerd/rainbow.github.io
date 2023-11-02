@@ -4,7 +4,15 @@
         <link>https://www.rainbow.github.io/posts/</link>
         <description>All Posts | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Maven高级管理</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/c05/</link>
+    <pubDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/c05/</guid>
+    <description><![CDATA[本讲将讲解关于 maven 工具更多的实用功能, 观察现有的 mytlias 系统(mytlias-aop), 它已经包含了众多的特性, 比较臃肿, 是否需要独立出一些模块? maven]]></description>
+</item>
+<item>
     <title>SpringBoot 基本原理--依赖传递与自动配置</title>
     <link>https://www.rainbow.github.io/posts/javaweb/c04/</link>
     <pubDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/</guid>
     <description><![CDATA[本小节主要讨论部门管理的其他需求的实现, 在引入 nginxTlias 前端工程后, 双击 ngix, 前端项目部署完成, 访问 http://127.0.0.1:90/ 就可以看到页面. 此时假定 MyTlias 后端已经启动, 可以发现 部]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(一)-整体框架的搭建</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/</link>
-    <pubDate>Thu, 13 Jul 2023 10:49:43 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/1/</guid>
-    <description><![CDATA[本小节主要完成项目文件准备, 以及第一个功能实现: 部门信息展示. 并使用PostMan/Apifox测试接口数据是否正常返回, 复习三层架构的实现]]></description>
 </item>
 </channel>
 </rss>
