@@ -4,20 +4,36 @@
         <link>https://www.rainbow.github.io/tags/</link>
         <description>Tags - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Maven</title>
-    <link>https://www.rainbow.github.io/tags/maven/</link>
-    <pubDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</pubDate>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>JavaWeb</title>
+    <link>https://www.rainbow.github.io/tags/javaweb/</link>
+    <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/maven/</guid>
+    <guid>https://www.rainbow.github.io/tags/javaweb/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Reggie</title>
+    <link>https://www.rainbow.github.io/tags/reggie/</link>
+    <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/tags/reggie/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>SpringBoot</title>
     <link>https://www.rainbow.github.io/tags/springboot/</link>
-    <pubDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</pubDate>
+    <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/tags/springboot/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Maven</title>
+    <link>https://www.rainbow.github.io/tags/maven/</link>
+    <pubDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/tags/maven/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -34,14 +50,6 @@
     <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/tags/java/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>JavaWeb</title>
-    <link>https://www.rainbow.github.io/tags/javaweb/</link>
-    <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/javaweb/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -74,14 +82,6 @@
     <pubDate>Thu, 06 Jul 2023 09:34:00 &#43;0800</pubDate>
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/tags/mybatis/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>MySQL</title>
-    <link>https://www.rainbow.github.io/tags/mysql/</link>
-    <pubDate>Fri, 23 Jun 2023 16:50:36 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/mysql/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

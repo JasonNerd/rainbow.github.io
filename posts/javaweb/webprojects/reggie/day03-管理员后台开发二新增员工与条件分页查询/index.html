@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询" />
+<meta property="og:description" content="新增员工, 全局异常处理器, 条件分页查询 1. 新增员工 @PostMapping(&#34;&#34;) public R&lt;String&gt; insert(HttpServletRequest request, @RequestBody Employee employee){ log.info(&#34;新增员工信息: {}&#34;, employee.toString()); Long user_id = (Long) request.getSession().getAttribute(&#34;employee&#34;); employee.setUpdateUser(user_id); employee.setCreateTime(LocalDateTime.now()); employee.setCreateUser(user_id); employee.setUpdateTime(LocalDateTime.now()); String pwd = DigestUtils.md5DigestAsHex(&#34;123456&#34;.getBytes()); employee.setPassword(pwd); employeeService.save(employee);" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-02T20:18:45+08:00" />
+<meta property="article:modified_time" content="2024-01-02T20:18:45+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询"/>
+<meta name="twitter:description" content="新增员工, 全局异常处理器, 条件分页查询 1. 新增员工 @PostMapping(&#34;&#34;) public R&lt;String&gt; insert(HttpServletRequest request, @RequestBody Employee employee){ log.info(&#34;新增员工信息: {}&#34;, employee.toString()); Long user_id = (Long) request.getSession().getAttribute(&#34;employee&#34;); employee.setUpdateUser(user_id); employee.setCreateTime(LocalDateTime.now()); employee.setCreateUser(user_id); employee.setUpdateTime(LocalDateTime.now()); String pwd = DigestUtils.md5DigestAsHex(&#34;123456&#34;.getBytes()); employee.setPassword(pwd); employeeService.save(employee);"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2\/"
+        },"genre": "posts","keywords": "Reggie, SpringBoot, JavaWeb","wordcount":  1518 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2\/","datePublished": "2024-01-02T20:18:45+08:00","dateModified": "2024-01-02T20:18:45+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/reggie/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Reggie</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-02">2024-01-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1518 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-新增员工">1. 新增员工</a></li>
+        <li><a href="#2-全局异常处理器">2. 全局异常处理器</a></li>
+        <li><a href="#3-条件分页查询">3. 条件分页查询</a></li>
+        <li><a href="#4-更新员工">4. 更新员工</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>新增员工, 全局异常处理器, 条件分页查询</p>
+<h3 id="1-新增员工">1. 新增员工</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span>HttpServletRequest request<span style="color:#f92672">,</span> <span style="color:#a6e22e">@RequestBody</span> Employee employee<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;新增员工信息: {}&#34;</span><span style="color:#f92672">,</span> employee<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    Long user_id <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Long<span style="color:#f92672">)</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">getSession</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAttribute</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;employee&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateUser</span><span style="color:#f92672">(</span>user_id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setCreateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setCreateUser</span><span style="color:#f92672">(</span>user_id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    String pwd <span style="color:#f92672">=</span> DigestUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">md5DigestAsHex</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;123456&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span>pwd<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employeeService<span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;添加新员工成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>测试数据, 其中第四位重复添加(也即账户名一样)</p>
+<pre tabindex="0"><code class="language-git" data-lang="git">weqfaker
+赖思伟
+13131421434
+481930010138120344
+
+qwoenf
+奥韦若飞
+13139481434
+481930010138120344
+
+waieb
+沃尔夫
+13131418023
+481930010138120344
+
+weqfaker
+赖思伟
+13131421434
+481930010138120344
+</code></pre><p>添加第四位时出现异常, 因此需要添加全局异常处理器</p>
+<h3 id="2-全局异常处理器">2. 全局异常处理器</h3>
+<p>添加全局异常处理器:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.rain.reggie.common<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ControllerAdvice</span><span style="color:#f92672">(</span>annotations <span style="color:#f92672">=</span> RestController<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ResponseBody</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RegExceptionHandler</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ExceptionHandler</span><span style="color:#f92672">(</span>SQLIntegrityConstraintViolationException<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">exceptionHandler</span><span style="color:#f92672">(</span>SQLIntegrityConstraintViolationException e<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        String message <span style="color:#f92672">=</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;异常: {}&#34;</span><span style="color:#f92672">,</span> message<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>message<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Duplicate entry&#34;</span><span style="color:#f92672">)){</span>
+</span></span><span style="display:flex;"><span>            String acc <span style="color:#f92672">=</span> message<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)[</span><span style="color:#ae81ff">2</span><span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;用户已存在&#34;</span><span style="color:#f92672">+</span>acc<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;操作失败&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>需要注意的是:</p>
+<ol>
+<li><code>@ControllerAdvice</code> 注解用于指明该异常处理类接管的方法范围, 例如使用了 <code>RestController</code> 注解的类.</li>
+<li><code>@ResponseBody</code> 表明该类的方法会有返回值(响应).</li>
+<li>异常处理方法需要 <code>@ExceptionHandler</code> 修饰, 其中指明需要处理的具体异常类型.</li>
+</ol>
+<h3 id="3-条件分页查询">3. 条件分页查询</h3>
+<p>在 MybalisPlus 的帮助下, 他变得十分简洁, 先查看前端请求:
+http://localhost:8080/employee/page?page=1&amp;pageSize=10&amp;name=%E5%BC%A0</p>
+<p>请求路径:
+&ldquo;/page&rdquo;</p>
+<p>请求参数:
+<code>int page, int pageSize, String name</code></p>
+<p>代码如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/page&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 非rest风格
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>Page<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">query</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> page<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> pageSize<span style="color:#f92672">,</span> String name<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> queryWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    queryWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">like</span><span style="color:#f92672">(!</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">(</span>name<span style="color:#f92672">),</span> Employee<span style="color:#f92672">::</span>getName<span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    queryWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">orderByDesc</span><span style="color:#f92672">(</span>Employee<span style="color:#f92672">::</span>getUpdateTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Page<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> pageInfo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;(</span>page<span style="color:#f92672">,</span> pageSize<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employeeService<span style="color:#f92672">.</span><span style="color:#a6e22e">page</span><span style="color:#f92672">(</span>pageInfo<span style="color:#f92672">,</span> queryWrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Page: {}&#34;</span><span style="color:#f92672">,</span> pageInfo<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>pageInfo<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>先创建 LambdaQueryWrapper, 指定查询函数及其参数, 注意添加非空条件.
+接着可以添加一个排序操作 orderByDesc
+创建分页参数实体 pageInfo, 调用 service 层执行查询, 信息将保存在 pageInfo.
+返回响应.</p>
+<h3 id="4-更新员工">4. 更新员工</h3>
+<p>这包括更新员工信息, 更新员工状态.</p>
+<h4 id="依据-id-查询员工信息进行回显">依据 id 查询员工信息进行回显</h4>
+<p>请求路径示例如下:
+http://localhost:8080/employee/1742161636414681000
+方式为 GET.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/{empId}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Long empId<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Employee<span style="color:#f92672">&gt;</span> queryWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    queryWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>Employee<span style="color:#f92672">::</span>getId<span style="color:#f92672">,</span> empId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Employee emp <span style="color:#f92672">=</span> employeeService<span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>empId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>emp<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>重启应用, 点击编辑按钮跳转到编辑页面, 可以看到此时请求已发送且响应200 ok.
+但此时页面上并未显示出员工信息.
+查看控制台日志:</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">拦截到请求/employee/1742161636414681000
+...
+...
+==&gt; Parameters: 1742161636414681000(Long)
+&lt;==      Total: 0
+</code></pre><p>仔细观察, 发现查询参数 id 不正确, 这是由于数据类型为整数, 前端存储时导致精度丢失(尾部的000).
+因此可以考虑传给前端保存时把 id 转为字符串, 而在传给后端时再转为整型
+为了达到这个目的, 我们需要 <strong>扩展底层默认的对象转换器</strong>, 使得数据在存储时转为字符串防止精度丢失
+同时取出时又自动转为整数, 这样的配置从 service/controller 层来看是透明的: 也即代码无需变动.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.rain.reggie.common<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JacksonObjectMapper</span> <span style="color:#66d9ef">extends</span> ObjectMapper <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DEFAULT_DATE_FORMAT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yyyy-MM-dd&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DEFAULT_DATE_TIME_FORMAT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String DEFAULT_TIME_FORMAT <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HH:mm:ss&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">JacksonObjectMapper</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//收到未知属性时不报异常
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">configure</span><span style="color:#f92672">(</span>FAIL_ON_UNKNOWN_PROPERTIES<span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//反序列化时，属性不存在的兼容处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getDeserializationConfig</span><span style="color:#f92672">().</span><span style="color:#a6e22e">withoutFeatures</span><span style="color:#f92672">(</span>DeserializationFeature<span style="color:#f92672">.</span><span style="color:#a6e22e">FAIL_ON_UNKNOWN_PROPERTIES</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        SimpleModule simpleModule <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleModule<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addDeserializer</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalDateTimeDeserializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_DATE_TIME_FORMAT<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addDeserializer</span><span style="color:#f92672">(</span>LocalDate<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalDateDeserializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_DATE_FORMAT<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addDeserializer</span><span style="color:#f92672">(</span>LocalTime<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalTimeDeserializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_TIME_FORMAT<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> ToStringSerializer<span style="color:#f92672">.</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>Long<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> ToStringSerializer<span style="color:#f92672">.</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalDateTimeSerializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_DATE_TIME_FORMAT<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>LocalDate<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalDateSerializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_DATE_FORMAT<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>LocalTime<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> LocalTimeSerializer<span style="color:#f92672">(</span>DateTimeFormatter<span style="color:#f92672">.</span><span style="color:#a6e22e">ofPattern</span><span style="color:#f92672">(</span>DEFAULT_TIME_FORMAT<span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//注册功能模块 例如，可以添加自定义序列化器和反序列化器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">registerModule</span><span style="color:#f92672">(</span>simpleModule<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>如上, 主要针对几种常见的数据类型进行了重写, 整数类型则转为字符串类型.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>BigInteger<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> ToStringSerializer<span style="color:#f92672">.</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span><span style="color:#a6e22e">addSerializer</span><span style="color:#f92672">(</span>Long<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> ToStringSerializer<span style="color:#f92672">.</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>另外, 需要在配置类中重写 <code>extendMessageConverters</code> 方法, 添加自定义的对象转换器, 使其生效:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WebMvcConfig</span> <span style="color:#66d9ef">extends</span> WebMvcConfigurationSupport <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">extendMessageConverters</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>HttpMessageConverter<span style="color:#f92672">&lt;?&gt;&gt;</span> converters<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;开始消息转换 ... ...&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        MappingJackson2HttpMessageConverter converter <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MappingJackson2HttpMessageConverter<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        converter<span style="color:#f92672">.</span><span style="color:#a6e22e">setObjectMapper</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> JacksonObjectMapper<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        converters<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> converter<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>重启应用, 刷新页面. 发现报错 404 NOT FOUND.
+静态页面资源忽然就访问不到了, 还记得第一小节的提醒吗, 前端资源页面必须放在 static 目录下.
+否则访问不到, 需要手动映射. 因此解决方法是添加资源映射函数:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WebMvcConfig</span> <span style="color:#66d9ef">extends</span> WebMvcConfigurationSupport <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addResourceHandlers</span><span style="color:#f92672">(</span>ResourceHandlerRegistry registry<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        registry<span style="color:#f92672">.</span><span style="color:#a6e22e">addResourceHandler</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/**&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">addResourceLocations</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;classpath:/static/&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">extendMessageConverters</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>HttpMessageConverter<span style="color:#f92672">&lt;?&gt;&gt;</span> converters<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;开始消息转换 ... ...&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        MappingJackson2HttpMessageConverter converter <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MappingJackson2HttpMessageConverter<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        converter<span style="color:#f92672">.</span><span style="color:#a6e22e">setObjectMapper</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> JacksonObjectMapper<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        converters<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> converter<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>配置好后重新进行编辑操作, 发现页面数据可以回显了.</p>
+<h4 id="依据-id-执行实际更新操作">依据 id 执行实际更新操作</h4>
+<p>点击编辑页面的保存按钮, 在浏览器开发者页面可以看到:
+请求路径:
+http://localhost:8080/employee
+请求方式:
+PUT
+请求参数:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1742161636414681089&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;waieb&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;沃尔夫&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;e10adc3949ba59abbe56e057f20f883e&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;13131418023&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;sex&#34;</span>: <span style="color:#e6db74">&#34;0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;idNumber&#34;</span>: <span style="color:#e6db74">&#34;481930010138120344&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createTime&#34;</span>: <span style="color:#e6db74">&#34;2024-01-02 20:31:17&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updateTime&#34;</span>: <span style="color:#e6db74">&#34;2024-01-02 20:31:17&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createUser&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updateUser&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>据此就可以编写后台 controller 方法了</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>HttpServletRequest request<span style="color:#f92672">,</span> <span style="color:#a6e22e">@RequestBody</span> Employee employee<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;更新员工信息: {}&#34;</span><span style="color:#f92672">,</span> employee<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    Long currentUser <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Long<span style="color:#f92672">)</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">getSession</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAttribute</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;employee&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateUser</span><span style="color:#f92672">(</span>currentUser<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    employee<span style="color:#f92672">.</span><span style="color:#a6e22e">setUpdateTime</span><span style="color:#f92672">(</span>LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    employeeService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateById</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;更新成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>重启应用, 此时更新操作顺利执行!
+不难发现, 目前似乎很多业务逻辑的操作也都放在的 controller 层, 后续还需要进一步调整.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-title="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询" data-hashtags="Reggie,SpringBoot,JavaWeb"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-hashtag="Reggie"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-title="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-title="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-title="瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/reggie/">Reggie</a>,&nbsp;<a href="/tags/springboot/">SpringBoot</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/" class="prev" rel="prev" title="瑞吉外卖 - Day02-管理员后台开发（一）-登录"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>瑞吉外卖 - Day02-管理员后台开发（一）-登录</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

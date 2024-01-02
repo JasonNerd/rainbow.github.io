@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Reggie - Category - </title>
+        <link>https://www.rainbow.github.io/categories/reggie/</link>
+        <description>Reggie - Category - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/categories/reggie/" rel="self" type="application/rss+xml" /><item>
+    <title>瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
+    <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</guid>
+    <description><![CDATA[新增员工, 全局异常处理器, 条件分页查询 1. 新增员工 @PostMapping(&#34;&#34;) public R&lt;String&gt; insert(HttpServletRequest request, @RequestBody Employee employee){ log.info(&#34;新增员工信息: {}&#34;, employee.toString()); Long user_id = (Long) request.getSession().getAttribute(&#34;employee&#34;); employee.setUpdateUser(user_id); employee.setCreateTime(LocalDateTime.now()); employee.setCreateUser(user_id); employee.setUpdateTime(LocalDateTime.now()); String pwd = DigestUtils.md5DigestAsHex(&#34;123456&#34;.getBytes()); employee.setPassword(pwd); employeeService.save(employee);]]></description>
+</item>
+<item>
+    <title>瑞吉外卖 - Day02-管理员后台开发（一）-登录</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/</link>
+    <pubDate>Tue, 02 Jan 2024 16:23:24 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/</guid>
+    <description><![CDATA[登录功能开发, 主要是要校验登录账号及密码的准确性, 注意密码使用 base64 加密. 另外一个最重要的是要记住当前用户的id以记住登录状态, 并使用拦截器, 对]]></description>
+</item>
+<item>
+    <title>瑞吉外卖 - Day01-环境搭建</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</link>
+    <pubDate>Tue, 02 Jan 2024 15:39:33 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</guid>
+    <description><![CDATA[瑞吉外卖项目: 一个基于 SpringBoot, MybalisPlus, Redis 的 Java Web 后端开发项目, 它包含管理员网页端和小程序用户端。 对于管理端，业务需求包括员工管理，这包含员工登录与访问权限]]></description>
+</item>
+</channel>
+</rss>

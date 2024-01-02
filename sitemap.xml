@@ -2,19 +2,24 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://www.rainbow.github.io/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
-            <loc>https://www.rainbow.github.io/categories/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/categories/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/tags/javaweb/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/posts/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/tags/reggie/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/categories/reggie/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/tags/springboot/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/tags/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</loc><lastmod>2024-01-02T20:18:45&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/</loc><lastmod>2024-01-02T16:23:24&#43;08:00</lastmod></url><url>
+            <loc>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</loc><lastmod>2024-01-02T15:39:33&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/categories/javaweb/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/tags/maven/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/posts/javaweb/c05/</loc><lastmod>2023-10-18T14:17:51&#43;08:00</lastmod></url><url>
-            <loc>https://www.rainbow.github.io/posts/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
-            <loc>https://www.rainbow.github.io/tags/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
-            <loc>https://www.rainbow.github.io/tags/springboot/</loc><lastmod>2023-10-17T15:09:53&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/posts/javaweb/c04/</loc><lastmod>2023-10-17T15:09:53&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/tags/aop/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/posts/javaweb/c03/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/tags/java/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
-            <loc>https://www.rainbow.github.io/tags/javaweb/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/tags/tlias/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
             <loc>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</loc><lastmod>2023-10-25T11:06:15&#43;08:00</lastmod></url><url>
