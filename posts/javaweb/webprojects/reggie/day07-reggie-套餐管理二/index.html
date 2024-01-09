@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Day07-Reggie-套餐管理（二） - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Day07-Reggie-套餐管理（二）" />
+<meta property="og:description" content="这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写. 1. 套餐的分页查询 请求路径与请求参数(示例): http://localhost:8080/setmeal/page?page=1&amp;pageSize=10 同样为" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-09T16:51:29+08:00" />
+<meta property="article:modified_time" content="2024-01-09T16:51:29+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day07-Reggie-套餐管理（二）"/>
+<meta name="twitter:description" content="这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写. 1. 套餐的分页查询 请求路径与请求参数(示例): http://localhost:8080/setmeal/page?page=1&amp;pageSize=10 同样为"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Day07-Reggie-套餐管理（二）",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C\/"
+        },"genre": "posts","keywords": "Reggie, SpringBoot, JavaWeb","wordcount":  988 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C\/","datePublished": "2024-01-09T16:51:29+08:00","dateModified": "2024-01-09T16:51:29+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Day07-Reggie-套餐管理（二）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/reggie/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Reggie</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-09">2024-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;988 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-套餐的分页查询">1. 套餐的分页查询</a></li>
+        <li><a href="#2-更新套餐">2. 更新套餐</a></li>
+        <li><a href="#3-批量的停售启售">3. 批量的停售启售</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写.</p>
+<h3 id="1-套餐的分页查询">1. 套餐的分页查询</h3>
+<p>请求路径与请求参数(示例):
+http://localhost:8080/setmeal/page?page=1&amp;pageSize=10
+同样为了得到 分类名称, 这里需要查询多个表(一般每个表都会建立对应的 mapper 和 service):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;page&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>Page<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">page</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> page<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> pageSize<span style="color:#f92672">,</span> String name<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;page={}, pageSize={}, name={}&#34;</span><span style="color:#f92672">,</span> page<span style="color:#f92672">,</span> pageSize<span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Page<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> setmealPage <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;(</span>page<span style="color:#f92672">,</span> pageSize<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> setmealWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    setmealWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">like</span><span style="color:#f92672">(</span>name<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> Setmeal<span style="color:#f92672">::</span>getName<span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    setmealWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">orderByDesc</span><span style="color:#f92672">(</span>Setmeal<span style="color:#f92672">::</span>getUpdateTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    mealService<span style="color:#f92672">.</span><span style="color:#a6e22e">page</span><span style="color:#f92672">(</span>setmealPage<span style="color:#f92672">,</span> setmealWrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Page<span style="color:#f92672">&lt;</span>SetmealDto<span style="color:#f92672">&gt;</span> dtoPage <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>setmealPage<span style="color:#f92672">,</span> dtoPage<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;records&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> setmealList <span style="color:#f92672">=</span> setmealPage<span style="color:#f92672">.</span><span style="color:#a6e22e">getRecords</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    dtoPage<span style="color:#f92672">.</span><span style="color:#a6e22e">setRecords</span><span style="color:#f92672">(</span>setmealList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">((</span>item<span style="color:#f92672">)-&gt;{</span>
+</span></span><span style="display:flex;"><span>        SetmealDto setmealDto <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SetmealDto<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>item<span style="color:#f92672">,</span> setmealDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        Category category <span style="color:#f92672">=</span> categoryService<span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>setmealDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getCategoryId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        setmealDto<span style="color:#f92672">.</span><span style="color:#a6e22e">setCategoryName</span><span style="color:#f92672">(</span>category<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> setmealDto<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">()));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dtoPage<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="2-更新套餐">2. 更新套餐</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/image.png"
+        data-srcset="/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/image.png, /posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/image.png 1.5x, /posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/image.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/image.png"
+        title="Alt text" width="914" height="641" />
+如上图所示为更新的页面(完成后)</p>
+<h4 id="第一步-依据套餐id查询到套餐的基本信息以及关联菜品信息">第一步, 依据套餐id查询到套餐的基本信息以及关联菜品信息.</h4>
+<p>请求路径(示例):
+http://localhost:8080/setmeal/1744602992542199810
+请求方式:
+GET
+这里依旧需要查询两个表:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// SetmealController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/{setMealId}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>SetmealDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Long setMealId<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;依据套餐ID查询基本信息以及套餐包含的菜品: {}&#34;</span><span style="color:#f92672">,</span> setMealId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    SetmealDto dto <span style="color:#f92672">=</span> mealService<span style="color:#f92672">.</span><span style="color:#a6e22e">getSetmealWithDish</span><span style="color:#f92672">(</span>setMealId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// SetmealServiceImpl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> SetmealDto <span style="color:#a6e22e">getSetmealWithDish</span><span style="color:#f92672">(</span>Long setMealId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Setmeal meal <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>setMealId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    SetmealDto dto <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SetmealDto<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>meal<span style="color:#f92672">,</span> dto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> dishWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    dishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>SetmealDish<span style="color:#f92672">::</span>getSetmealId<span style="color:#f92672">,</span> setMealId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    dishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">orderByAsc</span><span style="color:#f92672">(</span>SetmealDish<span style="color:#f92672">::</span>getSort<span style="color:#f92672">).</span><span style="color:#a6e22e">orderByDesc</span><span style="color:#f92672">(</span>SetmealDish<span style="color:#f92672">::</span>getUpdateTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> setmealDishList <span style="color:#f92672">=</span> setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>dishWrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    dto<span style="color:#f92672">.</span><span style="color:#a6e22e">setSetmealDishes</span><span style="color:#f92672">(</span>setmealDishList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dto<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="第一步-将请求数据进行保存更新">第一步, 将请求数据进行保存(更新).</h4>
+<p>同样更新操作存在于两个表, 所以需要事务特性
+请求路径:
+http://localhost:8080/setmeal
+请求方式:
+PUT</p>
+<p>SetmealController</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> SetmealDto dto<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;修改套餐信息: {}&#34;</span><span style="color:#f92672">,</span> dto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    mealService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateWithMealDishes</span><span style="color:#f92672">(</span>dto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;修改成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>SetmealDishServicelmpl</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateWithMealDishes</span><span style="color:#f92672">(</span>SetmealDto dto<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">updateById</span><span style="color:#f92672">(</span>dto<span style="color:#f92672">);</span>   <span style="color:#75715e">// 修改基本信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 修改套餐-菜品关联信息: 先删再加
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> dishList <span style="color:#f92672">=</span> dto<span style="color:#f92672">.</span><span style="color:#a6e22e">getSetmealDishes</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> wrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>SetmealDish<span style="color:#f92672">::</span>getSetmealId<span style="color:#f92672">,</span> dto<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>wrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    dishList <span style="color:#f92672">=</span> dishList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">((</span>item<span style="color:#f92672">)-&gt;{</span>
+</span></span><span style="display:flex;"><span>        item<span style="color:#f92672">.</span><span style="color:#a6e22e">setSetmealId</span><span style="color:#f92672">(</span>dto<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> item<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">saveBatch</span><span style="color:#f92672">(</span>dishList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="3-批量的停售启售">3. 批量的停售启售</h3>
+<p>请求路径及参数示例如下:
+停售
+http://localhost:8080/dish/status/0?ids=1397851668262465537
+启售
+http://localhost:8080/setmeal/status/1?ids=1744602992542199810</p>
+<p>于是, 无论是对批量的或者单个的套餐进行启售或者停售操作, 它们都可以集中到一个请求处理方法中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/status/{st}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">updateStatusBatch</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Integer st<span style="color:#f92672">,</span> String ids<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> setmealIdList <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">(</span>ids<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;,&#34;</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Long<span style="color:#f92672">::</span>parseLong<span style="color:#f92672">).</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    mealService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateStatusBatch</span><span style="color:#f92672">(</span>st<span style="color:#f92672">,</span> setmealIdList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;状态修改成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>其中一个比较复杂的情况是这里有一个路径参数 st = 0/1 以及套餐的 id 列表, 接收时一是使用 String 类型接收, 二是名字不要弄错, 要和请求参数名一致: ids. 这里先把字符串分割成列表再转为 Long 的整数类型.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateStatusBatch</span><span style="color:#f92672">(</span>Integer st<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> setmealIdList<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 批量停售/启售套餐
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> setmealDishWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 注意启售套餐时, 套餐内不可有停售的菜品
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> setmealList <span style="color:#f92672">=</span> setmealIdList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">((</span>item<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Setmeal setmeal <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        setmeal<span style="color:#f92672">.</span><span style="color:#a6e22e">setStatus</span><span style="color:#f92672">(</span>st<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>st <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            setmealDishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>SetmealDish<span style="color:#f92672">::</span>getSetmealId<span style="color:#f92672">,</span> setmeal<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> dishList <span style="color:#f92672">=</span> setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>setmealDishWrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>SetmealDish setmealDish <span style="color:#f92672">:</span> dishList<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                Dish dish <span style="color:#f92672">=</span> dishService<span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>setmealDish<span style="color:#f92672">.</span><span style="color:#a6e22e">getDishId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dish<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> BusinessException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;套餐内&#34;</span> <span style="color:#f92672">+</span> dish<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;处于停售状态, 套餐无法启售&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> setmeal<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}).</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">updateBatchById</span><span style="color:#f92672">(</span>setmealList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>如若不考虑 <strong>启售套餐时, 套餐内不可有停售的菜品</strong> 的条件, 则实际上只需要更改 setmeal 表即可. 然而, 在考虑该条件后, 涉及到更多的表, 过程是先依据 setmeal 的 id 查询 setmeal_dish 表得到 SetmealDish 的列表, 遍历该列表, 依据其中的 dishId 查询 dish 表, 得到 Dish 对象, 查看该对象的 status 是否为 0 (停售), 若为0, 则抛出业务异常, 信息中提示菜品名称.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" data-title="Day07-Reggie-套餐管理（二）" data-hashtags="Reggie,SpringBoot,JavaWeb"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" data-hashtag="Reggie"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" data-title="Day07-Reggie-套餐管理（二）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" data-title="Day07-Reggie-套餐管理（二）"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" data-title="Day07-Reggie-套餐管理（二）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/reggie/">Reggie</a>,&nbsp;<a href="/tags/springboot/">SpringBoot</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" class="prev" rel="prev" title="Day06-Reggie-套餐管理（一）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day06-Reggie-套餐管理（一）</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -4,7 +4,39 @@
         <link>https://www.rainbow.github.io/tags/javaweb/</link>
         <description>JavaWeb - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/javaweb/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/javaweb/" rel="self" type="application/rss+xml" /><item>
+    <title>Day07-Reggie-套餐管理（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
+    <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</guid>
+    <description><![CDATA[这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写. 1. 套餐的分页查询 请求路径与请求参数(示例): http://localhost:8080/setmeal/page?page=1&amp;pageSize=10 同样为]]></description>
+</item>
+<item>
+    <title>Day06-Reggie-套餐管理（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</link>
+    <pubDate>Tue, 09 Jan 2024 10:56:46 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</guid>
+    <description><![CDATA[1. 需求分析与实体类准备 如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个查询所有套餐分]]></description>
+</item>
+<item>
+    <title>Day05-Reggie-菜品管理</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</link>
+    <pubDate>Thu, 04 Jan 2024 22:21:22 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</guid>
+    <description><![CDATA[开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务. 另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等.]]></description>
+</item>
+<item>
+    <title>Day04-Reggie-公共字段填充与菜品分类管理</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</link>
+    <pubDate>Thu, 04 Jan 2024 14:34:57 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</guid>
+    <description><![CDATA[1. 公共字段填充 前面我们已经完成了后台系统的员工管理功能开发，在新增员工时需要设置创建时间、创建人、修改时间、修改人等字段，在编辑员工时需要设]]></description>
+</item>
+<item>
     <title>瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
     <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
@@ -51,38 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</guid>
     <description><![CDATA[在未登录情况下，我们也可以直接访问部门管理、员工管理等功能。因此需要登录认证功能。 一是登录功能, 也就是在登录界面输入账号密码，经过数据库校验]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(五)-yml配置</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</link>
-    <pubDate>Sun, 23 Jul 2023 15:03:25 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</guid>
-    <description><![CDATA[OSS的参数直接放在代码中, 这不符合开发思想, 一个合理的方法是使用 yml 配置, 将配置文件改为 application.yml. 其好处是以数据为中心, 简洁且层次清晰. properties 文件层次不]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(四)-新增员工与OSS服务</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/</link>
-    <pubDate>Sat, 22 Jul 2023 13:55:00 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/4/</guid>
-    <description><![CDATA[上一小节我们实现了 Tlias 员工的分页条件查询, 其中使用到了 PageHelper, 同时新建了一个 QueryArg 实体用于接收查询参数例如 Page, PageSize 以及其他条件, 我们使用 Page 和 pageSize 初始化 PageHelper 对象,]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(三)-条件分页查询</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/3/</link>
-    <pubDate>Wed, 19 Jul 2023 22:01:06 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/3/</guid>
-    <description><![CDATA[前两节分别完成了搭建系统整体框架和完善部门管理功能的工作, 这一节则完整的实现员工管理中条件分页查询的功能. 同样的, 需要依据 api 接口文档进行开发]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(二)-前后端联调</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/</link>
-    <pubDate>Mon, 17 Jul 2023 14:54:22 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/2/</guid>
-    <description><![CDATA[本小节主要讨论部门管理的其他需求的实现, 在引入 nginxTlias 前端工程后, 双击 ngix, 前端项目部署完成, 访问 http://127.0.0.1:90/ 就可以看到页面. 此时假定 MyTlias 后端已经启动, 可以发现 部]]></description>
 </item>
 </channel>
 </rss>

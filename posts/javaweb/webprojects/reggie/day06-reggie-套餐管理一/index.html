@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Day06-Reggie-套餐管理（一） - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Day06-Reggie-套餐管理（一）" />
+<meta property="og:description" content="1. 需求分析与实体类准备 如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个查询所有套餐分" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-09T10:56:46+08:00" />
+<meta property="article:modified_time" content="2024-01-09T10:56:46+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day06-Reggie-套餐管理（一）"/>
+<meta name="twitter:description" content="1. 需求分析与实体类准备 如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个查询所有套餐分"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Day06-Reggie-套餐管理（一）",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80\/"
+        },"genre": "posts","keywords": "Reggie, SpringBoot, JavaWeb","wordcount":  1205 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80\/","datePublished": "2024-01-09T10:56:46+08:00","dateModified": "2024-01-09T10:56:46+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Day06-Reggie-套餐管理（一）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/reggie/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Reggie</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-09">2024-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1205 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-需求分析与实体类准备">1. 需求分析与实体类准备</a></li>
+        <li><a href="#2-依据菜品分类或者名字进行查询的请求需求b">2. 依据菜品分类或者名字进行查询的请求(需求B)</a></li>
+        <li><a href="#3-新增套餐">3. 新增套餐</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="1-需求分析与实体类准备">1. 需求分析与实体类准备</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/image.png"
+        data-srcset="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/image.png, /posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/image.png 1.5x, /posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/image.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/image.png"
+        title="Alt text" width="1109" height="602" />
+如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个<strong>查询所有套餐分类的请求处理方法, 需求A</strong>). 以及弹出页面用于选择菜品, 包括<strong>依据菜品分类或者名字进行查询的请求(需求B)</strong>, 其他的还包括<strong>图片的上传与展示(C)等等</strong>, 这一新增操作涉及到两个表: setmeal 和 setmeal_dish 两个表, setmeal 表包含套餐的基本信息以及id, 而 setmeal_dish 则是一张关联表, 每一条记录包含某一套餐下的一类菜品, 实体类如下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Setmeal</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> <span style="color:#ae81ff">1L</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long categoryId<span style="color:#f92672">;</span>        <span style="color:#75715e">//分类id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>            <span style="color:#75715e">//套餐名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> BigDecimal price<span style="color:#f92672">;</span>       <span style="color:#75715e">//套餐价格
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Integer status<span style="color:#f92672">;</span>         <span style="color:#75715e">//状态 0:停用 1:启用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String code<span style="color:#f92672">;</span>            <span style="color:#75715e">//编码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String description<span style="color:#f92672">;</span>     <span style="color:#75715e">//描述信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String image<span style="color:#f92672">;</span>           <span style="color:#75715e">//图片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime createTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime updateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long createUser<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long updateUser<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//是否删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Integer isDeleted<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SetmealDish</span> <span style="color:#66d9ef">implements</span> Serializable <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> <span style="color:#ae81ff">1L</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long setmealId<span style="color:#f92672">;</span>     <span style="color:#75715e">//套餐id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Long dishId<span style="color:#f92672">;</span>        <span style="color:#75715e">//菜品id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>        <span style="color:#75715e">//菜品名称(冗余字段)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> BigDecimal price<span style="color:#f92672">;</span>   <span style="color:#75715e">//菜品原价(冗余字段)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Integer copies<span style="color:#f92672">;</span>     <span style="color:#75715e">//份数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Integer sort<span style="color:#f92672">;</span>       <span style="color:#75715e">//排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime createTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime updateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long createUser<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long updateUser<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//是否删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Integer isDeleted<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>同时为他们搭建 Mapper接口 和 Service层, 并建立 SetmealController:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// mapper
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.rain.reggie.mapper<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Mapper</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">SetmealMapper</span> <span style="color:#66d9ef">extends</span> BaseMapper<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Mapper</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">SetMealDishMapper</span> <span style="color:#66d9ef">extends</span> BaseMapper<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// service
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.rain.reggie.service<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">SetmealDishService</span> <span style="color:#66d9ef">extends</span> IService<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">SetmealService</span> <span style="color:#66d9ef">extends</span> IService<span style="color:#f92672">&lt;</span>Setmeal<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// service impl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.rain.reggie.service.impl<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SetmealDishServiceImpl</span> <span style="color:#66d9ef">extends</span> ServiceImpl<span style="color:#f92672">&lt;</span>SetMealDishMapper<span style="color:#f92672">,</span> SetmealDish<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">implements</span> SetmealDishService <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// controller
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> com.rain.reggie.controller<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;setmeal&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SetmealController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> SetmealService mealService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>显然由于传入的json数据并非以上任何一个实体类, 因而需要创建 DTO 类:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SetmealDto</span> <span style="color:#66d9ef">extends</span> Setmeal <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> setmealDishes<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String categoryName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="2-依据菜品分类或者名字进行查询的请求需求b">2. 依据菜品分类或者名字进行查询的请求(需求B)</h3>
+<p>请求路径(示例):
+http://localhost:8080/dish/list?categoryId=123
+http://localhost:8080/dish/list?name=123
+请求方式:
+GET</p>
+<p>为了兼容这两种查询方式, 使用 Dish 实体类接收, 使用时判断 categoryId 字段是否为空再进行查询:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>Dish dish<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;查询信息: {}&#34;</span><span style="color:#f92672">,</span> dish<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Long categoryId <span style="color:#f92672">=</span> dish<span style="color:#f92672">.</span><span style="color:#a6e22e">getCategoryId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;</span> dishWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>categoryId <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        String queryName <span style="color:#f92672">=</span> dish<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;使用名称 {} 进行查询 ...&#34;</span><span style="color:#f92672">,</span> queryName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        dishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">like</span><span style="color:#f92672">(</span>queryName<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> Dish<span style="color:#f92672">::</span>getName<span style="color:#f92672">,</span> queryName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;使用分类 {} 进行查询 ...&#34;</span><span style="color:#f92672">,</span> categoryId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        dishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>Dish<span style="color:#f92672">::</span>getCategoryId<span style="color:#f92672">,</span> categoryId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    dishWrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">orderByAsc</span><span style="color:#f92672">(</span>Dish<span style="color:#f92672">::</span>getSort<span style="color:#f92672">).</span><span style="color:#a6e22e">orderByDesc</span><span style="color:#f92672">(</span>Dish<span style="color:#f92672">::</span>getUpdateTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;</span> dishes <span style="color:#f92672">=</span> service<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>dishWrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dishes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="3-新增套餐">3. 新增套餐</h3>
+<p>请求路径:
+http://localhost:8080/setmeal
+请求方式:
+POST
+如下为从浏览器 copy 的请求数据示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;儿童套餐经典版&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;categoryId&#34;</span>: <span style="color:#e6db74">&#34;1413386191767674881&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">18000</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;image&#34;</span>: <span style="color:#e6db74">&#34;D:/cache/reggie/dfb496e6-d4a8-4c45-bf79-a02e7ca08ffa.jpg&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;我连一亿都不敢想，她直接600亿[泪][泪][泪]​&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dishList&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;idType&#34;</span>: <span style="color:#e6db74">&#34;1413386191767674881&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;setmealDishes&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;copies&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;dishId&#34;</span>: <span style="color:#e6db74">&#34;1397851668262465537&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;口味蛇&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">16800</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;copies&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;dishId&#34;</span>: <span style="color:#e6db74">&#34;1397854865672679425&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;鱼香炒鸡蛋&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">2000</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;copies&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;dishId&#34;</span>: <span style="color:#e6db74">&#34;1413384757047271425&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;王老吉&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;copies&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;dishId&#34;</span>: <span style="color:#e6db74">&#34;1413385247889891330&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;米饭&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意, 不要更改 Setmeal 实体类的名称以及其中字段的名称, 因为这是要与 mysql 中表以及表中字段一一对应的.
+例如 Setmeal 实体对应 setmeal 表. 而如果这样写: SetMeal, 那么它对应 set_meal 表(实际上数据库只有 setmeal 表, 因此万不可错写)
+SetmealController 中新增方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> SetmealDto setMealDto<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;待添加的套餐: {}&#34;</span><span style="color:#f92672">,</span> setMealDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    mealService<span style="color:#f92672">.</span><span style="color:#a6e22e">addWithDish</span><span style="color:#f92672">(</span>setMealDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;套餐添加成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>SetmealServiceImpl 中重写方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addWithDish</span><span style="color:#f92672">(</span>SetmealDto setMealDto<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. 将数据插入到 set meal 表, 注意 code 字段未填充
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>setMealDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. 将 set meal Dishes 数据依次插入到 SetMealDish 表, 注意字段填充
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>SetmealDish<span style="color:#f92672">&gt;</span> setmealDishes <span style="color:#f92672">=</span> setMealDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getSetmealDishes</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    setmealDishes <span style="color:#f92672">=</span> setmealDishes<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">((</span>item<span style="color:#f92672">)-&gt;{</span>
+</span></span><span style="display:flex;"><span>        item<span style="color:#f92672">.</span><span style="color:#a6e22e">setSetmealId</span><span style="color:#f92672">(</span>setMealDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> item<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">saveBatch</span><span style="color:#f92672">(</span>setmealDishes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" data-title="Day06-Reggie-套餐管理（一）" data-hashtags="Reggie,SpringBoot,JavaWeb"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" data-hashtag="Reggie"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" data-title="Day06-Reggie-套餐管理（一）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" data-title="Day06-Reggie-套餐管理（一）"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" data-title="Day06-Reggie-套餐管理（一）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/reggie/">Reggie</a>,&nbsp;<a href="/tags/springboot/">SpringBoot</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" class="prev" rel="prev" title="Day05-Reggie-菜品管理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day05-Reggie-菜品管理</a>
+            <a href="/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" class="next" rel="next" title="Day07-Reggie-套餐管理（二）">Day07-Reggie-套餐管理（二）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

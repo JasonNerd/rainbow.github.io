@@ -4,9 +4,41 @@
         <link>https://www.rainbow.github.io/</link>
         <description>This is my cool site</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</lastBuildDate>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</lastBuildDate>
             <atom:link href="https://www.rainbow.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Day07-Reggie-套餐管理（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
+    <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</guid>
+    <description><![CDATA[这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写. 1. 套餐的分页查询 请求路径与请求参数(示例): http://localhost:8080/setmeal/page?page=1&amp;pageSize=10 同样为]]></description>
+</item>
+<item>
+    <title>Day06-Reggie-套餐管理（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</link>
+    <pubDate>Tue, 09 Jan 2024 10:56:46 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</guid>
+    <description><![CDATA[1. 需求分析与实体类准备 如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个查询所有套餐分]]></description>
+</item>
+<item>
+    <title>Day05-Reggie-菜品管理</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</link>
+    <pubDate>Thu, 04 Jan 2024 22:21:22 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</guid>
+    <description><![CDATA[开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务. 另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等.]]></description>
+</item>
+<item>
+    <title>Day04-Reggie-公共字段填充与菜品分类管理</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</link>
+    <pubDate>Thu, 04 Jan 2024 14:34:57 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</guid>
+    <description><![CDATA[1. 公共字段填充 前面我们已经完成了后台系统的员工管理功能开发，在新增员工时需要设置创建时间、创建人、修改时间、修改人等字段，在编辑员工时需要设]]></description>
+</item>
+<item>
     <title>瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
     <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
@@ -53,38 +85,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/c03/</guid>
     <description><![CDATA[AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 1. 场景示例 案例部分功能运行较慢，定位执]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</link>
-    <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</guid>
-    <description><![CDATA[在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(七)-登录认证2</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</link>
-    <pubDate>Mon, 31 Jul 2023 10:19:42 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</guid>
-    <description><![CDATA[接下来就是有关请求拦截和放行相关的内容了, 在上一小节, 我们为登录请求添加了用户验证功能, 随后讨论了三种常见的会话跟踪技术, 它们都试图记住用户]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(六)-登录认证</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</link>
-    <pubDate>Tue, 25 Jul 2023 10:24:00 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</guid>
-    <description><![CDATA[在未登录情况下，我们也可以直接访问部门管理、员工管理等功能。因此需要登录认证功能。 一是登录功能, 也就是在登录界面输入账号密码，经过数据库校验]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(五)-yml配置</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</link>
-    <pubDate>Sun, 23 Jul 2023 15:03:25 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/5/</guid>
-    <description><![CDATA[OSS的参数直接放在代码中, 这不符合开发思想, 一个合理的方法是使用 yml 配置, 将配置文件改为 application.yml. 其好处是以数据为中心, 简洁且层次清晰. properties 文件层次不]]></description>
 </item>
 </channel>
 </rss>

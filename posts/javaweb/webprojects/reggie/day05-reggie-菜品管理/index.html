@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Day05-Reggie-菜品管理 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Day05-Reggie-菜品管理" />
+<meta property="og:description" content="开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务. 另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-04T22:21:22+08:00" />
+<meta property="article:modified_time" content="2024-01-04T22:21:22+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day05-Reggie-菜品管理"/>
+<meta name="twitter:description" content="开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务. 另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Day05-Reggie-菜品管理",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86\/"
+        },"genre": "posts","keywords": "Reggie, SpringBoot, JavaWeb","wordcount":  1742 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86\/","datePublished": "2024-01-04T22:21:22+08:00","dateModified": "2024-01-04T22:21:22+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Day05-Reggie-菜品管理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/reggie/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Reggie</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-04">2024-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1742 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-表结构与菜品展示页面">1. 表结构与菜品展示页面</a></li>
+        <li><a href="#2-菜品的分类选择">2. 菜品的分类选择</a></li>
+        <li><a href="#3-图片的上传与下载">3. 图片的上传与下载</a></li>
+        <li><a href="#4-新增菜品">4. 新增菜品</a></li>
+        <li><a href="#5-分页展示菜品">5. 分页展示菜品</a></li>
+        <li><a href="#6-修改菜品">6. 修改菜品</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务.
+另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等. 因此需要单独一张表格存储: dish_flavor
+表格的一行保存: dish_id, 对应的口味(其中一种)名称, 对应的口味(其中一种)可选列表 等等.</p>
+<h3 id="1-表结构与菜品展示页面">1. 表结构与菜品展示页面</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>name
+</span></span><span style="display:flex;"><span>category_id
+</span></span><span style="display:flex;"><span>price
+</span></span><span style="display:flex;"><span>code
+</span></span><span style="display:flex;"><span>image
+</span></span><span style="display:flex;"><span>description
+</span></span><span style="display:flex;"><span>status
+</span></span><span style="display:flex;"><span>sort
+</span></span><span style="display:flex;"><span>create_time
+</span></span><span style="display:flex;"><span>update_time
+</span></span><span style="display:flex;"><span>create_user
+</span></span><span style="display:flex;"><span>update_user
+</span></span><span style="display:flex;"><span>is_deleted
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image.png"
+        data-srcset="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image.png, /posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image.png 1.5x, /posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image.png"
+        title="Alt text" width="1315" height="486" /></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>id
+</span></span><span style="display:flex;"><span>dish_id
+</span></span><span style="display:flex;"><span>name
+</span></span><span style="display:flex;"><span>value
+</span></span><span style="display:flex;"><span>create_time
+</span></span><span style="display:flex;"><span>update_time
+</span></span><span style="display:flex;"><span>create_user
+</span></span><span style="display:flex;"><span>update_user
+</span></span><span style="display:flex;"><span>is_deleted
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image-1.png"
+        data-srcset="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image-1.png, /posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image-1.png 1.5x, /posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image-1.png 2x"
+        data-sizes="auto"
+        alt="/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/image-1.png"
+        title="Alt text" width="1031" height="814" /></p>
+<h3 id="2-菜品的分类选择">2. 菜品的分类选择</h3>
+<p>在界面上, 需要展示菜品分类的下拉列表, 因此需要一个依据分类类型查询所有分类的业务函数, 它位于<code>CategoryController</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Category<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">getAllCat</span><span style="color:#f92672">(</span>Integer type<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;查询键值: {}&#34;</span><span style="color:#f92672">,</span> type<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Category<span style="color:#f92672">&gt;</span> wrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>Category<span style="color:#f92672">::</span>getType<span style="color:#f92672">,</span> type<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Category<span style="color:#f92672">&gt;</span> res <span style="color:#f92672">=</span> service<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>wrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>res<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="3-图片的上传与下载">3. 图片的上传与下载</h3>
+<p>采用的是用户上传, 服务器下载保存的形式
+上传图片, POST请求: <code>/common/upload/</code>, 使用 <code>MultipartFile</code> 类接收, 随后就是将文件流转存.
+注意首先要生成一个新的文件名, 其次规定图片的临时存储地址, 随后进行转存:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">my-config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">basic-cache-dir</span>: <span style="color:#ae81ff">D:/cache/reggie/</span>
+</span></span></code></pre></div><p>通过 value 注解进行注入:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;common&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpDownLoadController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${my-config.basic-cache-dir}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String cacheRoot<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;upload&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">upload</span><span style="color:#f92672">(</span>MultipartFile file<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;接收到文件 {}, 大小 {}&#34;</span><span style="color:#f92672">,</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getSize</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        File rootDir <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>cacheRoot<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>rootDir<span style="color:#f92672">.</span><span style="color:#a6e22e">exists</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            rootDir<span style="color:#f92672">.</span><span style="color:#a6e22e">mkdirs</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        String orgName <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getOriginalFilename</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        String suffix <span style="color:#f92672">=</span> orgName<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>orgName<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;.&#39;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        String newFileName <span style="color:#f92672">=</span> UUID<span style="color:#f92672">.</span><span style="color:#a6e22e">randomUUID</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> suffix<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            file<span style="color:#f92672">.</span><span style="color:#a6e22e">transferTo</span><span style="color:#f92672">(</span>Paths<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>cacheRoot <span style="color:#f92672">+</span> newFileName<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> BusinessException<span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>cacheRoot <span style="color:#f92672">+</span> newFileName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>下载, 是指浏览器发送请求后服务器需要将指定的文件资源写入到响应中的过程.
+注意这是一个 Get 请求, 同时这里采用每写入1024字节就刷新一次的方式而不是一次性写入, 注意传输完毕后关闭流:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;download&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">download</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> HttpServletResponse response<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;发送文件(用于客户端浏览器下载或展示): {}&#34;</span><span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FileInputStream inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        ServletOutputStream outputStream <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getOutputStream</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> len<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>            len <span style="color:#f92672">=</span> inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span>buffer<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>len <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>buffer<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">flush</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        outputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;下载成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> BusinessException<span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>此时, 在新增菜品的页面就可以正常上传和展示图片了.</p>
+<h3 id="4-新增菜品">4. 新增菜品</h3>
+<p>新增菜品的页面要素基本齐全, 接下来就是接收传入参数, 并把数据插入到对应表格.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">insert</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> DishDto dishDto<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;接收到菜品信息: {}&#34;</span><span style="color:#f92672">,</span> dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    service<span style="color:#f92672">.</span><span style="color:#a6e22e">addWithFlavor</span><span style="color:#f92672">(</span>dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;添加成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>注意此时前端传入的数据并非恰好对应某一个实体类, 例如:</p>
+<ol>
+<li>菜品的口味, 这些数据要存到 dish_flavor 表</li>
+<li>菜品的分类, 传入的是分类名称, 但 Dish 实体类存储的是分类的 id.
+为了接收这些数据, 需要创建一个 DTO 类(Data Transfer Object), 即 <code>DishDto</code>:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> com.rain.reggie.dto<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DishDto</span> <span style="color:#66d9ef">extends</span> Dish<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> flavors<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String categoryName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Integer copies<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>需要在 service 层编写 addWithFlavor 方法, 显然, 应当先执行插入操作保存 Dish 信息. 此时, 该条记录(Dish)在插入后会自动获得一个 id(a), 取出 flavors 字段, 遍历该列表, 设置其中的 dish_id 为a.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addWithFlavor</span><span style="color:#f92672">(</span>DishDto dishDto<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Long dishId <span style="color:#f92672">=</span> dishDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> flavors <span style="color:#f92672">=</span> dishDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getFlavors</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    flavors <span style="color:#f92672">=</span> flavors<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">(</span>item<span style="color:#f92672">)-&gt;{</span>
+</span></span><span style="display:flex;"><span>                item<span style="color:#f92672">.</span><span style="color:#a6e22e">setDishId</span><span style="color:#f92672">(</span>dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> item<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    flavorService<span style="color:#f92672">.</span><span style="color:#a6e22e">saveBatch</span><span style="color:#f92672">(</span>flavors<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="5-分页展示菜品">5. 分页展示菜品</h3>
+<p>同样需要处理多表格查询的问题, 前端发来请求:
+http://localhost:8080/dish/page?page=1&amp;pageSize=10&amp;name=aaa
+这里是指, 假如仅仅是查询 Dish 表格, 得到的信息无法为前端页面提供足够的信息, 例如菜品的分类名称, 这需要查询分类表.
+同时需要借助于 DishDto 类, 尽管此时已经不需要口味相关的信息.</p>
+<p>基本步骤是:</p>
+<ol>
+<li>新建 Dish 的 Page 和 Wrapper, 调用 dishService 查询得到 dishPage.</li>
+<li>新建 DishDto 的 Page 对象 info, 将 dishPage 的属性值复制到 info 中, 忽略 records 的值.</li>
+<li>初始化一个空的 DishDto 列表 dl, 遍历 dishPage 的 records, 对于每一个 r:
+<ol>
+<li>取得 category_id, 调用 categoryService 获取到对应 Category 对象, 取得 categoryName.</li>
+<li>新建 DishDto 对象 d, 将 r 的属性值复制给 d, 将 d 的 categoryName 字段设置为刚才查询到的值.</li>
+<li>将 d 加入到 dl.</li>
+</ol>
+</li>
+<li>将 info 的 records 属性设置为 dl.</li>
+<li>将 info 包装到 R 返回.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;page&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>Page<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">page</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> page<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> pageSize<span style="color:#f92672">,</span> String name<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;</span> wrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    Page<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;</span> info <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;(</span>page<span style="color:#f92672">,</span> pageSize<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">like</span><span style="color:#f92672">(</span>name<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">,</span> Dish<span style="color:#f92672">::</span>getName<span style="color:#f92672">,</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">orderByDesc</span><span style="color:#f92672">(</span>Dish<span style="color:#f92672">::</span>getUpdateTime<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    service<span style="color:#f92672">.</span><span style="color:#a6e22e">page</span><span style="color:#f92672">(</span>info<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Page<span style="color:#f92672">&lt;</span>DishDto<span style="color:#f92672">&gt;</span> dtoPage <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>info<span style="color:#f92672">,</span> dtoPage<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;records&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Dish<span style="color:#f92672">&gt;</span> dishes <span style="color:#f92672">=</span> info<span style="color:#f92672">.</span><span style="color:#a6e22e">getRecords</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>DishDto<span style="color:#f92672">&gt;</span> records <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Dish d<span style="color:#f92672">:</span> dishes<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        Long cat_id <span style="color:#f92672">=</span> d<span style="color:#f92672">.</span><span style="color:#a6e22e">getCategoryId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        Category category <span style="color:#f92672">=</span> categoryService<span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>cat_id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        DishDto rec <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DishDto<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>d<span style="color:#f92672">,</span> rec<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        rec<span style="color:#f92672">.</span><span style="color:#a6e22e">setCategoryName</span><span style="color:#f92672">(</span>category<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        records<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>rec<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    dtoPage<span style="color:#f92672">.</span><span style="color:#a6e22e">setRecords</span><span style="color:#f92672">(</span>records<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dtoPage<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="6-修改菜品">6. 修改菜品</h3>
+<p>在于两个点, 一是菜品信息回显, 需要一个依据菜品id查询到菜品基本信息以及菜品口味的信息.</p>
+<p>二是具体修改, 需要修改菜品的基本信息以及口味信息, 由于菜品口味信息可删除或者可添加, 尽管也是修改了数据表, 但实际上并非针对某一条或者某一批数据条目中某些字段的修改, 可以认为是由删除操作和插入操作结合而来.</p>
+<h4 id="6-1-菜品信息回显">6-1. 菜品信息回显</h4>
+<p>请求参数 dish_id 位于请求路径中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// DishController
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{dishId}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>DishDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getDishById</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Long dishId<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;获取菜品信息(包括口味){}&#34;</span><span style="color:#f92672">,</span> dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    DishDto dishDto <span style="color:#f92672">=</span> service<span style="color:#f92672">.</span><span style="color:#a6e22e">getDishWithFlavor</span><span style="color:#f92672">(</span>dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>在 <code>DishService</code> 中编写 <code>getDishWithFlavor</code> 方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> DishDto <span style="color:#a6e22e">getDishWithFlavor</span><span style="color:#f92672">(</span>Long dishId<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    Dish dish <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    DishDto dishDto <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DishDto<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    BeanUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">copyProperties</span><span style="color:#f92672">(</span>dish<span style="color:#f92672">,</span> dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> wrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>DishFlavor<span style="color:#f92672">::</span>getDishId<span style="color:#f92672">,</span> dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> flavors <span style="color:#f92672">=</span> flavorService<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span>wrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    dishDto<span style="color:#f92672">.</span><span style="color:#a6e22e">setFlavors</span><span style="color:#f92672">(</span>flavors<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dishDto<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="6-1-菜品信息更新">6-1. 菜品信息更新</h4>
+<p>此时请求为 PUT 请求, 参数包装在 json 数据中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> R<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> DishDto dishDto<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;更新菜品: {}&#34;</span><span style="color:#f92672">,</span> dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    service<span style="color:#f92672">.</span><span style="color:#a6e22e">updateWithFlavor</span><span style="color:#f92672">(</span>dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;更新成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>在 <code>DishService</code> 中编写 <code>updateWithFlavor</code> 方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateWithFlavor</span><span style="color:#f92672">(</span>DishDto dishDto<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">updateById</span><span style="color:#f92672">(</span>dishDto<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    LambdaQueryWrapper<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> wrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LambdaQueryWrapper<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    wrapper<span style="color:#f92672">.</span><span style="color:#a6e22e">eq</span><span style="color:#f92672">(</span>DishFlavor<span style="color:#f92672">::</span>getDishId<span style="color:#f92672">,</span> dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    flavorService<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>wrapper<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    Long dishId <span style="color:#f92672">=</span> dishDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>DishFlavor<span style="color:#f92672">&gt;</span> flavors <span style="color:#f92672">=</span> dishDto<span style="color:#f92672">.</span><span style="color:#a6e22e">getFlavors</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    flavors <span style="color:#f92672">=</span> flavors<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">(</span>item<span style="color:#f92672">)-&gt;{</span>
+</span></span><span style="display:flex;"><span>            item<span style="color:#f92672">.</span><span style="color:#a6e22e">setDishId</span><span style="color:#f92672">(</span>dishId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> item<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    flavorService<span style="color:#f92672">.</span><span style="color:#a6e22e">saveBatch</span><span style="color:#f92672">(</span>flavors<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>这里仍需对 flavors 的 dishId 进行设置, 这是由于部分口味可能是删除了的</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" data-title="Day05-Reggie-菜品管理" data-hashtags="Reggie,SpringBoot,JavaWeb"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" data-hashtag="Reggie"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" data-title="Day05-Reggie-菜品管理"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" data-title="Day05-Reggie-菜品管理"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/" data-title="Day05-Reggie-菜品管理"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/reggie/">Reggie</a>,&nbsp;<a href="/tags/springboot/">SpringBoot</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/" class="prev" rel="prev" title="Day04-Reggie-公共字段填充与菜品分类管理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day04-Reggie-公共字段填充与菜品分类管理</a>
+            <a href="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" class="next" rel="next" title="Day06-Reggie-套餐管理（一）">Day06-Reggie-套餐管理（一）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
