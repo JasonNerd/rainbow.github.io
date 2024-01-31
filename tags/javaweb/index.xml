@@ -4,7 +4,31 @@
         <link>https://www.rainbow.github.io/tags/javaweb/</link>
         <description>JavaWeb - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/javaweb/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/javaweb/" rel="self" type="application/rss+xml" /><item>
+    <title>Day13-Reggie-版本管理与缓存优化</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具]]></description>
+</item>
+<item>
+    <title>Day09-Reggie-用户端开发（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</link>
+    <pubDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</guid>
+    <description><![CDATA[本章节主要完成地址簿的管理以及订单管理, 同时完善系统的部分细节, Reggie TakeAway 系统篇章基础篇告一段落. 1. 地址簿管理 地址簿记录了每个用户的地址信息, 每个]]></description>
+</item>
+<item>
+    <title>Day08-Reggie-用户端开发（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</link>
+    <pubDate>Wed, 10 Jan 2024 11:12:27 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</guid>
+    <description><![CDATA[1. 基本需求分析 用户登录, 此处未实现发送短信的接口, 如有实际需求, 可以使用阿里云服务(需申请和备案): 用户登录成功后跳转到系统首页，在首页需要]]></description>
+</item>
+<item>
     <title>Day07-Reggie-套餐管理（二）</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
     <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>
@@ -59,30 +83,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</guid>
     <description><![CDATA[瑞吉外卖项目: 一个基于 SpringBoot, MybalisPlus, Redis 的 Java Web 后端开发项目, 它包含管理员网页端和小程序用户端。 对于管理端，业务需求包括员工管理，这包含员工登录与访问权限]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(八)-异常、事务与AOP</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</link>
-    <pubDate>Sun, 06 Aug 2023 14:31:15 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/8/</guid>
-    <description><![CDATA[在程序开发运行的过程中随时随处都可能发生异常, 例如进行数据库操作时, 删除不存在的数据, 或者插入了重复数据, 以及例如文件读写、网络访问、令牌解]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(七)-登录认证2</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</link>
-    <pubDate>Mon, 31 Jul 2023 10:19:42 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/7/</guid>
-    <description><![CDATA[接下来就是有关请求拦截和放行相关的内容了, 在上一小节, 我们为登录请求添加了用户验证功能, 随后讨论了三种常见的会话跟踪技术, 它们都试图记住用户]]></description>
-</item>
-<item>
-    <title>MyTlias-员工信息管理系统(六)-登录认证</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</link>
-    <pubDate>Tue, 25 Jul 2023 10:24:00 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/mytlias/6/</guid>
-    <description><![CDATA[在未登录情况下，我们也可以直接访问部门管理、员工管理等功能。因此需要登录认证功能。 一是登录功能, 也就是在登录界面输入账号密码，经过数据库校验]]></description>
 </item>
 </channel>
 </rss>

@@ -4,7 +4,23 @@
         <link>https://www.rainbow.github.io/tags/reggie/</link>
         <description>Reggie - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/reggie/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/reggie/" rel="self" type="application/rss+xml" /><item>
+    <title>Day09-Reggie-用户端开发（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</link>
+    <pubDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</guid>
+    <description><![CDATA[本章节主要完成地址簿的管理以及订单管理, 同时完善系统的部分细节, Reggie TakeAway 系统篇章基础篇告一段落. 1. 地址簿管理 地址簿记录了每个用户的地址信息, 每个]]></description>
+</item>
+<item>
+    <title>Day08-Reggie-用户端开发（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</link>
+    <pubDate>Wed, 10 Jan 2024 11:12:27 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</guid>
+    <description><![CDATA[1. 基本需求分析 用户登录, 此处未实现发送短信的接口, 如有实际需求, 可以使用阿里云服务(需申请和备案): 用户登录成功后跳转到系统首页，在首页需要]]></description>
+</item>
+<item>
     <title>Day07-Reggie-套餐管理（二）</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
     <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>

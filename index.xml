@@ -4,9 +4,57 @@
         <link>https://www.rainbow.github.io/</link>
         <description>This is my cool site</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</lastBuildDate>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</lastBuildDate>
             <atom:link href="https://www.rainbow.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Day13-Reggie-版本管理与缓存优化</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具]]></description>
+</item>
+<item>
+    <title>Day12-Redis基础</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</link>
+    <pubDate>Thu, 25 Jan 2024 16:33:10 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</guid>
+    <description><![CDATA[Redis可以用作数据库、缓存、流媒体引擎、消息代理等。它是一种键值类型的数据库, 可用于快速数据存储与检索, 属于NoSQL. 本节学习如何在远]]></description>
+</item>
+<item>
+    <title>Day11-Linux-基本知识点（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/</link>
+    <pubDate>Tue, 16 Jan 2024 17:06:09 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/</guid>
+    <description><![CDATA[1. 打包压缩命令 打包压缩命令 tar 作用:对文件进行打包、解包、压缩、解压 语法: tar[-zcxvf] fileName [files] 包文件后缀为.tar 表示只是完成了打包，并没有压缩 包文件后缀为]]></description>
+</item>
+<item>
+    <title>Day10-Linux-基本知识点（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/</link>
+    <pubDate>Sat, 13 Jan 2024 16:15:28 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/</guid>
+    <description><![CDATA[不同应用领域的主流操作系统, 例如: 桌面操作系统, 服务器操作系统, 移动设备操作系统, 嵌入式操作系统 桌面操作系统例如: Windows(用户数量最]]></description>
+</item>
+<item>
+    <title>Day09-Reggie-用户端开发（二）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</link>
+    <pubDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</guid>
+    <description><![CDATA[本章节主要完成地址簿的管理以及订单管理, 同时完善系统的部分细节, Reggie TakeAway 系统篇章基础篇告一段落. 1. 地址簿管理 地址簿记录了每个用户的地址信息, 每个]]></description>
+</item>
+<item>
+    <title>Day08-Reggie-用户端开发（一）</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</link>
+    <pubDate>Wed, 10 Jan 2024 11:12:27 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</guid>
+    <description><![CDATA[1. 基本需求分析 用户登录, 此处未实现发送短信的接口, 如有实际需求, 可以使用阿里云服务(需申请和备案): 用户登录成功后跳转到系统首页，在首页需要]]></description>
+</item>
+<item>
     <title>Day07-Reggie-套餐管理（二）</title>
     <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
     <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>
@@ -37,54 +85,6 @@
     <author>七彩的河</author>
     <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</guid>
     <description><![CDATA[1. 公共字段填充 前面我们已经完成了后台系统的员工管理功能开发，在新增员工时需要设置创建时间、创建人、修改时间、修改人等字段，在编辑员工时需要设]]></description>
-</item>
-<item>
-    <title>瑞吉外卖 - Day03-管理员后台开发（二）新增员工与条件分页查询</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
-    <pubDate>Tue, 02 Jan 2024 20:18:45 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day03-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E6%96%B0%E5%A2%9E%E5%91%98%E5%B7%A5%E4%B8%8E%E6%9D%A1%E4%BB%B6%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</guid>
-    <description><![CDATA[新增员工, 全局异常处理器, 条件分页查询 1. 新增员工 @PostMapping(&#34;&#34;) public R&lt;String&gt; insert(HttpServletRequest request, @RequestBody Employee employee){ log.info(&#34;新增员工信息: {}&#34;, employee.toString()); Long user_id = (Long) request.getSession().getAttribute(&#34;employee&#34;); employee.setUpdateUser(user_id); employee.setCreateTime(LocalDateTime.now()); employee.setCreateUser(user_id); employee.setUpdateTime(LocalDateTime.now()); String pwd = DigestUtils.md5DigestAsHex(&#34;123456&#34;.getBytes()); employee.setPassword(pwd); employeeService.save(employee);]]></description>
-</item>
-<item>
-    <title>瑞吉外卖 - Day02-管理员后台开发（一）-登录</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/</link>
-    <pubDate>Tue, 02 Jan 2024 16:23:24 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day02-%E7%AE%A1%E7%90%86%E5%91%98%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B8%80-%E7%99%BB%E5%BD%95/</guid>
-    <description><![CDATA[登录功能开发, 主要是要校验登录账号及密码的准确性, 注意密码使用 base64 加密. 另外一个最重要的是要记住当前用户的id以记住登录状态, 并使用拦截器, 对]]></description>
-</item>
-<item>
-    <title>瑞吉外卖 - Day01-环境搭建</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</link>
-    <pubDate>Tue, 02 Jan 2024 15:39:33 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day01-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/</guid>
-    <description><![CDATA[瑞吉外卖项目: 一个基于 SpringBoot, MybalisPlus, Redis 的 Java Web 后端开发项目, 它包含管理员网页端和小程序用户端。 对于管理端，业务需求包括员工管理，这包含员工登录与访问权限]]></description>
-</item>
-<item>
-    <title>Maven高级管理</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/c05/</link>
-    <pubDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/c05/</guid>
-    <description><![CDATA[本讲将讲解关于 maven 工具更多的实用功能, 观察现有的 mytlias 系统(mytlias-aop), 它已经包含了众多的特性, 比较臃肿, 是否需要独立出一些模块? maven]]></description>
-</item>
-<item>
-    <title>SpringBoot 基本原理--依赖传递与自动配置</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/c04/</link>
-    <pubDate>Tue, 17 Oct 2023 15:09:53 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/c04/</guid>
-    <description><![CDATA[1.SpringBoot 配置优先级 1.1 文件配置 SpringBoot 中支持三种格式的配置文件: // 1. application.properties 文件 server.port=8081 // 2. application.yml 文件 server: port: 8082 // 3. application.yaml 文件 server: port: 8083 虽然springboot支持多种格式配置文件(]]></description>
-</item>
-<item>
-    <title>面向切面编程--AOP概述</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/c03/</link>
-    <pubDate>Fri, 13 Oct 2023 15:30:10 &#43;0800</pubDate>
-    <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/c03/</guid>
-    <description><![CDATA[AOP：Aspect Oriented Programming（面向切面编程、面向方面编程），其实就是面向特定方法编程。 1. 场景示例 案例部分功能运行较慢，定位执]]></description>
 </item>
 </channel>
 </rss>

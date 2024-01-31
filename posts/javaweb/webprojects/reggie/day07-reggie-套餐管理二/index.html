@@ -16,7 +16,7 @@
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -153,7 +153,7 @@ GET
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dto<span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><h4 id="第一步-将请求数据进行保存更新">第一步, 将请求数据进行保存(更新).</h4>
+</span></span></code></pre></div><h4 id="第2步-将请求数据进行保存更新">第2步, 将请求数据进行保存(更新).</h4>
 <p>同样更新操作存在于两个表, 所以需要事务特性
 请求路径:
 http://localhost:8080/setmeal
@@ -183,10 +183,10 @@ PUT</p>
 </span></span><span style="display:flex;"><span>    setMealDishService<span style="color:#f92672">.</span><span style="color:#a6e22e">saveBatch</span><span style="color:#f92672">(</span>dishList<span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><h3 id="3-批量的停售启售">3. 批量的停售启售</h3>
-<p>请求路径及参数示例如下:
-停售
-http://localhost:8080/dish/status/0?ids=1397851668262465537
-启售
+<p>请求路径及参数示例如下:</p>
+<p>停售
+http://localhost:8080/dish/status/0?ids=1397851668262465537</p>
+<p>启售
 http://localhost:8080/setmeal/status/1?ids=1744602992542199810</p>
 <p>于是, 无论是对批量的或者单个的套餐进行启售或者停售操作, 它们都可以集中到一个请求处理方法中:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/status/{st}&#34;</span><span style="color:#f92672">)</span>
@@ -240,7 +240,8 @@ http://localhost:8080/setmeal/status/1?ids=1744602992542199810</p>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" class="prev" rel="prev" title="Day06-Reggie-套餐管理（一）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day06-Reggie-套餐管理（一）</a></div>
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/" class="prev" rel="prev" title="Day06-Reggie-套餐管理（一）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day06-Reggie-套餐管理（一）</a>
+            <a href="/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/" class="next" rel="next" title="Day08-Reggie-用户端开发（一）">Day08-Reggie-用户端开发（一）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="commento" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.

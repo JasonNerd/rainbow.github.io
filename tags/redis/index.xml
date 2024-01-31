@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Redis - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/redis/</link>
+        <description>Redis - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>Day13-Reggie-版本管理与缓存优化</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具]]></description>
+</item>
+<item>
+    <title>Day12-Redis基础</title>
+    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</link>
+    <pubDate>Thu, 25 Jan 2024 16:33:10 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</guid>
+    <description><![CDATA[Redis可以用作数据库、缓存、流媒体引擎、消息代理等。它是一种键值类型的数据库, 可用于快速数据存储与检索, 属于NoSQL. 本节学习如何在远]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Day10-Linux-基本知识点（一） - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Day10-Linux-基本知识点（一）" />
+<meta property="og:description" content="不同应用领域的主流操作系统, 例如: 桌面操作系统, 服务器操作系统, 移动设备操作系统, 嵌入式操作系统 桌面操作系统例如: Windows(用户数量最" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-13T16:15:28+08:00" />
+<meta property="article:modified_time" content="2024-01-13T16:15:28+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day10-Linux-基本知识点（一）"/>
+<meta name="twitter:description" content="不同应用领域的主流操作系统, 例如: 桌面操作系统, 服务器操作系统, 移动设备操作系统, 嵌入式操作系统 桌面操作系统例如: Windows(用户数量最"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/" /><link rel="next" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Day10-Linux-基本知识点（一）",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80\/"
+        },"genre": "posts","keywords": "Linux, Command","wordcount":  2798 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80\/","datePublished": "2024-01-13T16:15:28+08:00","dateModified": "2024-01-13T16:15:28+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Day10-Linux-基本知识点（一）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-13">2024-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2798 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-linux简介">1. Linux简介</a></li>
+        <li><a href="#2-linux-安装">2. Linux 安装</a></li>
+        <li><a href="#3-linux-目录介绍">3. Linux 目录介绍</a></li>
+        <li><a href="#4-linux-常用命令">4. Linux 常用命令</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>不同应用领域的主流操作系统, 例如: 桌面操作系统, 服务器操作系统, 移动设备操作系统, 嵌入式操作系统
+桌面操作系统例如: Windows(用户数量最多), Mac os(操作体验好，办公人士首选), Linux (用户数量少)
+服务器操作系统例如: UNIX (安全、稳定、付费), Linux(安全、稳定、免费、占有率高), windows Server (付费、占有率低)
+移动设备操作系统例如: Android (基于 Linux、开源，主要用于智能手机、平板电脑和智能电视), ios( 苹果公司开发、不开源，用于苹果公司的产品，例如: iphone、 iPad)
+嵌入式操作系统: Linux (机顶盒、路由器、交换机)</p>
+<h3 id="1-linux简介">1. Linux简介</h3>
+<p>Linux系统历史
+时间:1991年
+地点:芬兰赫尔辛基大学
+人物: Linus Torvalds (21岁)
+语言: C语言、汇编语言
+logo:企鹅
+特点:免费、开源、多用户、多任务</p>
+<p>Linux系统分为内核版和发行版
+内核版
+由Linus Torvalds及其团队开发、维护
+免费、开源
+负责控制硬件
+发行版
+基于Linux内核版进行扩展由各个Linux厂商开发、维护有收费版本和免费版本</p>
+<h3 id="2-linux-安装">2. Linux 安装</h3>
+<h4 id="安装方式">安装方式</h4>
+<p>物理机安装: 直接将操作系统安装到服务器硬件上
+虚拟机安装: 通过虚拟机软件安装
+虚拟机 (Virtual Machine) 指通过软件模拟的具有完整硬件系统功能、运行在完全隔离环境中的完整计算机系统
+例如: VMWare, VirtualBox, VMLite WorkStation, Qemu, HopeddotVoS</p>
+<h4 id="虚拟机安装">虚拟机安装</h4>
+<p>可以自行安装 VMWare17, 同时安装 Centos 操作系统, 注意:
+如若在安装 VMWare 时出现如下警告, 应退出安装</p>
+<pre tabindex="0"><code class="language-log" data-lang="log">安装程序检测到主机启用了Hyper-V 或 Device/Credential Guard。
+要在启用了Hyper-V 或 Device/Credential Guard的主机上运行VMware Workstation xxPlayer，
+请在主机上通过“打开或关闭Windows功能”安装Windows hypervisor platform（WHP），
+或者从系统中移除Hyper-V角色。
+</code></pre><p>一个可行的办法是使用
+<a href="https://www.microsoft.com/en-us/download/details.aspx?id=53337" target="_blank" rel="noopener noreffer ">https://www.microsoft.com/en-us/download/details.aspx?id=53337</a></p>
+<p>如果路径失效了，可以自己百度，下载下来的东西叫 dgreadiness_v3.6.zip
+这个时候，使用管理员打开PowerShell,切换到上面的解压目录，然后执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>.\DG_Readiness_Tool_v3.6.ps1 -Disable -AutoReboot
+</span></span></code></pre></div><p>使用如下命令:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>win+r msinfo32
+</span></span></code></pre></div><p>查看 基于虚拟化的安全性, 若为未启用则表明成功, 随后可再次执行 VMWare17 安装程序.
+<a href="https://blog.csdn.net/weixin_44537885/article/details/130985414" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/weixin_44537885/article/details/130985414</a></p>
+<p>开启虚拟机后, 可使用 finalshell 连接主机(相当于连接到远程服务器)</p>
+<h3 id="3-linux-目录介绍">3. Linux 目录介绍</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">目录</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bin</td>
+<td style="text-align:left">存放二进制可执行文件</td>
+</tr>
+<tr>
+<td style="text-align:left">boot</td>
+<td style="text-align:left">存放系统引导时使用的各种文件</td>
+</tr>
+<tr>
+<td style="text-align:left">dev</td>
+<td style="text-align:left">存放设备文件</td>
+</tr>
+<tr>
+<td style="text-align:left">etc</td>
+<td style="text-align:left">存放系统配置文件</td>
+</tr>
+<tr>
+<td style="text-align:left">home</td>
+<td style="text-align:left">存放系统用户的文件</td>
+</tr>
+<tr>
+<td style="text-align:left">lib</td>
+<td style="text-align:left">存放程序运行所需的共享库和内核模块</td>
+</tr>
+<tr>
+<td style="text-align:left">opt</td>
+<td style="text-align:left">额外安装的可选应用程序包所放置的位置</td>
+</tr>
+<tr>
+<td style="text-align:left">root</td>
+<td style="text-align:left">超级用户目录</td>
+</tr>
+<tr>
+<td style="text-align:left">sbin</td>
+<td style="text-align:left">存放二进制可执行文件，只有root用户才能访问</td>
+</tr>
+<tr>
+<td style="text-align:left">tmp</td>
+<td style="text-align:left">存放临时文件</td>
+</tr>
+<tr>
+<td style="text-align:left">usr</td>
+<td style="text-align:left">存放系统应用程序</td>
+</tr>
+<tr>
+<td style="text-align:left">var</td>
+<td style="text-align:left">存放运行时需要改变数据的文件，例如日志文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-linux-常用命令">4. Linux 常用命令</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">对应英文</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ls</td>
+<td style="text-align:left">list</td>
+<td style="text-align:left">列举目录项</td>
+</tr>
+<tr>
+<td style="text-align:left">pwd</td>
+<td style="text-align:left">print work directory</td>
+<td style="text-align:left">打印工作目录</td>
+</tr>
+<tr>
+<td style="text-align:left">cd [目录名]</td>
+<td style="text-align:left">change directory</td>
+<td style="text-align:left">切换目录</td>
+</tr>
+<tr>
+<td style="text-align:left">touch [文件名]</td>
+<td style="text-align:left">touch</td>
+<td style="text-align:left">如果指定的文件不存在则新建文件</td>
+</tr>
+<tr>
+<td style="text-align:left">mkdir [目录名]</td>
+<td style="text-align:left">make directory</td>
+<td style="text-align:left">创建目录</td>
+</tr>
+<tr>
+<td style="text-align:left">rm [文件名]</td>
+<td style="text-align:left">remove</td>
+<td style="text-align:left">删除指定文件</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost ~<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost ~<span style="color:#f92672">]</span>$ pwd
+</span></span><span style="display:flex;"><span>/home/root226
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost ~<span style="color:#f92672">]</span>$ cd Desktop/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost Desktop<span style="color:#f92672">]</span>$ mkdir test116
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost Desktop<span style="color:#f92672">]</span>$ cd test116/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ touch abc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>abc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ rm abc 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ cd ..
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost Desktop<span style="color:#f92672">]</span>$ ls
+</span></span><span style="display:flex;"><span>test116
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost Desktop<span style="color:#f92672">]</span>$ 
+</span></span></code></pre></div><p>Linux命令使用技巧</p>
+<ul>
+<li>Tab键自动补全</li>
+<li>连续两次Tab键，给出操作提示</li>
+<li>使用上下箭头快速调出曾经使用过的命令</li>
+<li>使用clear命令或者Ctrl+l快捷键实现清屏
+在执行Linux命令时，提示信息如果显示为乱码，需要修改Linux的编码:</li>
+</ul>
+<pre tabindex="0"><code>echo &#39;LANG=&#34;en US.UTF-8&#34;&#39; &gt;&gt; /etc/profile source /etc/profile
+</code></pre><p>Linux命令格式</p>
+<p>command <a href="%e4%bc%a0%e7%bb%99%e5%91%bd%e4%bb%a4%e7%9a%84%e5%8f%82%e6%95%b0%ef%bc%8c%e5%8f%af%e4%bb%a5%e6%98%af%e9%9b%b6%e4%b8%aa%e3%80%81%e4%b8%80%e4%b8%aa%e6%88%96%e8%80%85%e5%a4%9a%e4%b8%aa" rel="">-options</a>
+说明:</p>
+<ul>
+<li>command: 命令名</li>
+<li></li>
+<li>注意:
+[]代表可选
+命令名、选项、参数之间有空格进行分隔</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ touch 12.txt 23.txt 45.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ ls -l
+</span></span><span style="display:flex;"><span>总用量 <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>-rw-rw-r--. <span style="color:#ae81ff">1</span> root226 root226 <span style="color:#ae81ff">0</span> 1月  <span style="color:#ae81ff">15</span> 18:55 12.txt
+</span></span><span style="display:flex;"><span>-rw-rw-r--. <span style="color:#ae81ff">1</span> root226 root226 <span style="color:#ae81ff">0</span> 1月  <span style="color:#ae81ff">15</span> 18:55 23.txt
+</span></span><span style="display:flex;"><span>-rw-rw-r--. <span style="color:#ae81ff">1</span> root226 root226 <span style="color:#ae81ff">0</span> 1月  <span style="color:#ae81ff">15</span> 18:55 45.txt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root226@localhost test116<span style="color:#f92672">]</span>$ ls -a
+</span></span><span style="display:flex;"><span>.  ..  12.txt  23.txt  45.txt
+</span></span></code></pre></div><h4 id="4-1-文件目录操作命令">4-1. 文件目录操作命令</h4>
+<h5 id="ls">ls</h5>
+<p>文件目录操作命令 ls
+作用: 显示指定目录下的内容
+语法: ls [-al] [dir]
+说明:
+-a 显示所有文件及目录(开头的隐藏文件也会列出)[除文件名称外，同时将文件型态(<strong>d表示目录，-表示文件</strong>)、权限、拥有者、文件大小等信息详细列出
+注意:
+由于我们使用ls命令时经常需要加入-l选项，所以Linux为<code>lS -l</code>命令提供了一种简写方式，即<code>ll</code></p>
+<h5 id="cd">cd</h5>
+<p>文件目录操作命令 cd
+作用:用于切换当前工作目录，即进入指定目录语法: cd [dirName]
+特殊说明:
+<strong><code>~</code>表示用户的home目录</strong>
+<strong><code>.</code>表示目前所在的目录</strong>
+<strong><code>..</code>表示目前目录位置的上级目录</strong>
+举例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>cd ~
+</span></span><span style="display:flex;"><span>cd /usr/local
+</span></span></code></pre></div><h5 id="cat">cat</h5>
+<p>文件目录操作命令 cat
+作用:用于显示文件内容
+语法: cat[-n] fileName
+说明:
+由1开始对所有输出的行数编号-n:
+举例:
+cat /etc/profile
+查看/etc目录下的profile文件内容</p>
+<h5 id="more">more</h5>
+<p>文件目录操作命令 more
+作用:以分页的形式显示文件内容
+语法: more fileName
+操作说明:
+回车键
+空格键
+向下滚动一行
+向下滚动一屏
+返回上一屏
+g或者Ctrl+C退出more
+举例:
+more /etc/profile
+以分页方式显示/etc目录下的profile文件内容</p>
+<h5 id="tail">tail</h5>
+<p>文件目录操作命令 tail
+作用:查看文件末尾的内容
+语法: tail[-f] fileName
+说明:
+<strong>-f: 动态读取文件末尾内容并显示，通常用于日志文件的内容输出</strong>
+举例:
+<code>tail /etc/profile</code>: 显示/etc目录下的profile文件末尾10行的内容
+<code>tail -20 /etc/profile</code>: 显示/etc目录下的profile文件末尾20行的内容
+<code>tail -f /itcast/my.log</code>: 动态读取/itcast目录下的my.log文件未尾内容并显示</p>
+<h5 id="mkdir">mkdir</h5>
+<p>文件目录操作命令 mkdir
+作用:创建目录
+语法: <code>mkdir [-p] dirName</code>
+说明:
+<strong>-p: 确保目录名称存在，不存在的就创建一个。通过此选项，可以实现多层目录同时创建</strong>
+举例:
+mkdir itcast 在当前目录下，建立一个名为itcast的子目录</p>
+<p>mkdir-p itcast/test 在工作目录下的itcast目录中建立一个名为test的子目录，若itcast目录不存在，则建立一个</p>
+<h5 id="rmdir">rmdir</h5>
+<p>文件目录操作命令 rmdir
+作用:删除空目录
+语法: <code>rmdir [-p] dirName</code>
+说明:
+-p:当子目录被删除后使父目录为空目录的话，则一并删除
+举例:
+<code>rmdir itcast</code> 删除名为itcast的空目录</p>
+<p><code>rmdir -p itcast/test</code> 删除itcast目录中名为test的子目录，若test目录删除后itcast目录变为空目录，则也被删除</p>
+<p><code>rmdir itcast*</code> 删除名称以itcast开始的空目录</p>
+<h5 id="rm">rm</h5>
+<p>文件目录操作命令 rm
+作用:删除文件或者目录
+语法: <code>rm[-rf] name</code>
+说明:
+-r: 将目录及目录中所有文件 (目录)逐一删除，即递归删除
+-f: 无需确认，直接删除</p>
+<p>举例:
+rm -r itcast/ 删除名为itcast的目录和目录中所有文件，删除前需确认
+rm -rf itcast/ 无需确认，直接删除名为itcast的目录和目录中所有文件
+rm -f hello.txt 无需确认，直接删除hello.txt文件</p>
+<h4 id="4-2-拷贝移动命令">4-2. 拷贝移动命令</h4>
+<h5 id="cp">cp</h5>
+<p>拷贝移动命令 cp
+作用:用于复制文件或目录
+语法: <code>cp[-r] source dest</code>
+说明:
+-r: 如果复制的是目录需要使用此选项，此时将复制该目录下所有的子目录和文件
+举例:
+<code>cp hello.txt itcast/</code> 将hello.txt复制到itcast目录中
+<code>cp hello.txt ./hi.txt</code> 将hello.txt复制到当前目录，并改名为hi.txt
+<code>cp -r itcast/ ./itheima/</code> 将itcast目录和目录下所有文件复制到itheima目录下
+<code>cp -ritcast/*./itheima/</code> 将itcast目录下所有文件复制到itheima目录下</p>
+<h5 id="mv">mv</h5>
+<p>拷贝移动命令 mv
+作用:为文件或目录改名、或将文件或目录移动到其它位置
+语法: <code>mv source dest</code>
+举例:
+<code>mv hello.txt hi.txt</code>: 将hello.txt改名为hi.txt</p>
+<p><code>mv hi.txt itheima/</code>: 将文件hi.txt移动到itheima目录中</p>
+<p><code>mv hi.txt itheima/hello.txt</code>: 将hi.txt移动到itheima目录中，并改名为hello.txt</p>
+<p><code>mv itcast/ itheima/</code>: 如果itheima目录不存在，将itcast目录改名为itheima
+cd ..
+<code>mv itcast/ itheima/</code>: 如果itheima目录存在，将itcast目录移动到itheima目录中</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" data-title="Day10-Linux-基本知识点（一）" data-hashtags="Linux,Command"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" data-title="Day10-Linux-基本知识点（一）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" data-title="Day10-Linux-基本知识点（一）"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/" data-title="Day10-Linux-基本知识点（一）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/command/">Command</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/" class="prev" rel="prev" title="Day09-Reggie-用户端开发（二）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day09-Reggie-用户端开发（二）</a>
+            <a href="/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/" class="next" rel="next" title="Day11-Linux-基本知识点（二）">Day11-Linux-基本知识点（二）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Day13-Reggie-版本管理与缓存优化 - </title><meta name="Description" content="This is my cool site"><meta property="og:title" content="Day13-Reggie-版本管理与缓存优化" />
+<meta property="og:description" content="使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-29T11:15:29+08:00" />
+<meta property="article:modified_time" content="2024-01-29T11:15:29+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day13-Reggie-版本管理与缓存优化"/>
+<meta name="twitter:description" content="使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" /><link rel="prev" href="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Day13-Reggie-版本管理与缓存优化",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96\/"
+        },"genre": "posts","keywords": "git, redis, SpringBoot, JavaWeb","wordcount":  2321 ,
+        "url": "https:\/\/www.rainbow.github.io\/posts\/javaweb\/webprojects\/reggie\/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96\/","datePublished": "2024-01-29T11:15:29+08:00","dateModified": "2024-01-29T11:15:29+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "七彩的河"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="">Mr RainbowRiverの博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章列表 </a><a class="menu-item" href="/tags/"> 标签分类 </a><a class="menu-item" href="/categories/"> 章节目录 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="">Mr RainbowRiverの博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章列表</a><a class="menu-item" href="/tags/" title="">标签分类</a><a class="menu-item" href="/categories/" title="">章节目录</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Day13-Reggie-版本管理与缓存优化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="http://rainbowriver.pages.zjusct.io/studybci2023" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>七彩的河</a></span>&nbsp;<span class="post-category">included in <a href="/categories/reggie/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Reggie</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-29">2024-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2321 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-git-版本控制">1. git 版本控制</a></li>
+        <li><a href="#2-前端菜品展示的缓存">2. 前端菜品展示的缓存</a></li>
+        <li><a href="#3-springcache">3. SpringCache</a></li>
+        <li><a href="#4-套餐缓存">4. 套餐缓存</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化.</p>
+<h3 id="1-git-版本控制">1. git 版本控制</h3>
+<p>使用 IDEA 界面进行控制, 具体的, 先清理代码, 将第一版(该版本完成了后台管理的大部分功能)作为main分支, commit and push 到远程. 本地新开 version1.0 分支并 push 到远程, 将第一版代码删去, 使用第二版进行覆盖, 该版本完善了前台的大部分功能, 随后 commit and push. 紧接着新开分支 version1.1, push 到远程, 该版本将更新关于项目优化的代码内容.</p>
+<h3 id="2-前端菜品展示的缓存">2. 前端菜品展示的缓存</h3>
+<p>引入 redis 依赖, 配置 redis 服务的 ip port 等:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">redis</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">host</span>: <span style="color:#ae81ff">172.17.2.94</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">password</span>: <span style="color:#ae81ff">root@123456</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">database</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">jedis</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">pool</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-active</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-wait</span>: <span style="color:#ae81ff">1ms</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-idle</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">min-idle</span>: <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h4 id="2-1-代码思路及实现">2-1. 代码思路及实现</h4>
+<p>前面我们已经实现了移动端菜品查看功能，对应的服务端方法为 DishControler 的 list 方法，此方法会根据前端提交的查询条件进行数据库查询操作。在高并发的情况下，频繁查询数据库会导致系统性能下降，服务端响应时间增长。现在需要对此方法进行缓存优化，提高系统的性能。具体的实现思路如下:
+1、改造 DishController 的 list 方法，先从 Redis 中获取菜品数据，如果有则直接返回，无需查询数据库; 如果没有则查询数据库，并将查询到的菜品数据放入 Redis 。
+2、改造 DishController 的 save 和 update 方法，加入清理缓存的逻辑</p>
+<p>注意事项
+在使用缓存过程中，要注意保证数据库中的数据和缓存中的数据一致，如果数据库中的数据发生变化，需要及时清理缓存数据。</p>
+<p>对于 DishControler 的 list 方法, 加入代码(注意 dishDtoList 声明提前):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 使用 redis 缓存, 先查看该分类的信息是否已被查询
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;尝试从 redis 读取缓存&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>String dishKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dish_&#34;</span><span style="color:#f92672">+</span>categoryId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>dishDtoList <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>DishDto<span style="color:#f92672">&gt;)</span> redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">opsForValue</span><span style="color:#f92672">().</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>dishKey<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dishDtoList <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;从 redis 读取缓存成功&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">success</span><span style="color:#f92672">(</span>dishDtoList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;缓存不命中, 从数据库查询&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">opsForValue</span><span style="color:#f92672">().</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>dishKey<span style="color:#f92672">,</span> dishDtoList<span style="color:#f92672">,</span> <span style="color:#ae81ff">60</span><span style="color:#f92672">,</span> TimeUnit<span style="color:#f92672">.</span><span style="color:#a6e22e">MINUTES</span><span style="color:#f92672">);</span>    <span style="color:#75715e">// 设置缓存
+</span></span></span></code></pre></div><p>对于 DishControler 的 insert 方法 和 delete 方法, 加入代码(注意 dishDtoList 声明提前):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Set keys <span style="color:#f92672">=</span> redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">keys</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Dish*&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span>keys<span style="color:#f92672">);</span>
+</span></span></code></pre></div><h3 id="3-springcache">3. SpringCache</h3>
+<p>Spring Cache是一个框架，实现了基于注解的缓存功能，只需要简单地加一个注解，就能实现缓存功能</p>
+<p>Spring Cache提供了一层抽象，底层可以切换不同的cache实现。具体就是通过CacheManager接口来统一不同的缓存技术。</p>
+<p>CacheManaqer是Spring提供的各种缓存技术抽象接口，针对不同的缓存技术需要实现不同的CacheManager:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CacheManager</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">EhCachecacheManager</td>
+<td style="text-align:left">使用 EhCache 作为缓存技术</td>
+</tr>
+<tr>
+<td style="text-align:left">GuavaCacheManage</td>
+<td style="text-align:left">使用 Google 的 Guavacache 作为缓存技术</td>
+</tr>
+<tr>
+<td style="text-align:left">RediscacheManager</td>
+<td style="text-align:left">使用Redis作为缓存技术</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-1-spring-cache-常用注解">3-1. Spring Cache 常用注解</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">注解</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@Enablecaching</td>
+<td style="text-align:left">开启缓存注解功能</td>
+</tr>
+<tr>
+<td style="text-align:left">@Cacheable</td>
+<td style="text-align:left">在方法执行前spring先查看缓存中是否有数据，如果有数据，则直接返回缓存数据，若没有数据，调用方法并将方法返回值放到缓存中</td>
+</tr>
+<tr>
+<td style="text-align:left">@CachePut</td>
+<td style="text-align:left">将方法的返回值放到缓存中</td>
+</tr>
+<tr>
+<td style="text-align:left">@CacheEvict</td>
+<td style="text-align:left">将一条或多条数据从缓存中删除</td>
+</tr>
+</tbody>
+</table>
+<p>在spring boot项目中，使用缓存技术只需在项目中导入相关缓存技术的依赖包，并在启动类上使用<code>@Enablecaching</code>开启缓存支持即可
+例如，使用Redis作为缓存技术，只需要导入Spring data Redis的maven坐标即可.</p>
+<h4 id="3-2-cacheput">3-2. @CachePut</h4>
+<p><code>@CachePut(value =&quot;value&quot;,key =&quot;key&quot;)</code>
+CachePut: 将方法返回值放入缓存
+value: 缓存的名称，每个缓存名称下面可以有多个key
+key: 缓存的key</p>
+<p>通常, 可以在插入类的方法中加上该注解, 例如:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@CachePut</span><span style="color:#f92672">(</span>value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userCache&#34;</span><span style="color:#f92672">,</span> key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#user.id&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    userService<span style="color:#f92672">.</span><span style="color:#a6e22e">save</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>注意 key 的写法, <code>#</code> 符号可以使得字符串可以代表某一变量, 例如此处得到了插入数据的id(返回结果前)
+另外一点是, User 类还必须实现 Serializable 接口, 使得函数返回值 user 可以被序列化和反序列化.
+key 还有一种写法, 例如: <code>#result.id</code>, 此处 result 统一表示返回值.</p>
+<h4 id="3-3-cacheevict">3-3. @CacheEvict</h4>
+<p><code>@CacheEvict(value =&quot;userCache&quot;, key = &quot;#id&quot;)</code>
+CacheEvict: 删除 userCache 下键值为 id 的缓存条目
+通常注解在更新或删除请求处理函数上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// @CacheEvict(value =userCache&#34;,key =&#34;#root.args[0]&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// @CacheEvict(value =userCache&#34;,key =&#34;#p0&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@CacheEvict</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userCache&#34;</span> <span style="color:#f92672">,</span>key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#id&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@DeleteMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/{id}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delete</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> Longs id<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    userService<span style="color:#f92672">.</span><span style="color:#a6e22e">removeById</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@CacheEvict</span><span style="color:#f92672">(</span>value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userCache&#34;</span><span style="color:#f92672">,</span> key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#result.id&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    userService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateById</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>注意 key 的写法, 注释中的两种写法都表示参数列表中的第一个参数值.
+该注解支持条件执行:</p>
+<h4 id="3-4-cacheable">3-4. @Cacheable</h4>
+<p>在方法执行前spring先查看缓存中是否有数据，如果有数据，则直接返回缓存数据，若没有数据，调用方法并将方法返回值放到缓存中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Cacheable</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;userCache&#34;</span><span style="color:#f92672">,</span> key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#id&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/{id}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span> id<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>    Long User user <span style="color:#f92672">=</span> userService<span style="color:#f92672">.</span><span style="color:#a6e22e">getById</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>该注解通常用于查询类的方法</p>
+<p>Cacheable 支持条件缓存, 关键字包含 condition 和 unless
+<code>@Cacheable(value=&quot;userCache&quot;, key =&quot;#id&quot;, unless=&quot;#result == null&quot;)</code>
+condition: 满足条件时才缓存数
+unless: 满足条件则不缓存
+这里含义是若 userCache 缓存中包含键值为 #id(动态值) 数据条目, 就返回缓存数据. 否则进行缓存, 除非查询结果为空</p>
+<h3 id="4-套餐缓存">4. 套餐缓存</h3>
+<p>使用基于 redis 的 SpringCache 技术来做关于套餐数据的缓存.
+需要的依赖是:
+<code>spring-boot-starter-data-redis</code>
+<code>spring-boot-starter-cache</code>
+基本步骤如下:</p>
+<ol>
+<li>导入Spring cache和Redis相关maven坐标</li>
+<li>在application.yml中配置缓存数据的过期时间</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">redis</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">host</span>: <span style="color:#ae81ff">192.168.30.226</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">database</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">password</span>: <span style="color:#ae81ff">123456</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">jedis</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">pool</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-active</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-wait</span>: <span style="color:#ae81ff">1ms</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-idle</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">min-idle</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cache</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">redis</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">time-to-live</span>: <span style="color:#ae81ff">1800000</span>
+</span></span></code></pre></div><ol start="3">
+<li>在启动类上加入@Enablecaching注解，开启缓存注解功能</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ServletComponentScan</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@EnableCaching</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReggieApplication</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ol start="3">
+<li>注意到前端的关于套餐的查询方法位于: <code>SetmealController.list()</code>, 为它加上 <code>@Cacheable</code> 注解:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Cacheable</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;setmeal&#34;</span><span style="color:#f92672">,</span> key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#setmeal.categoryId&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>注意到函数返回类型为 R, 为此需要使 R 类实现 Serializable接口.
+4. 为 SetmealController 的关于套餐修改添加等的请求处理方法添加 <code>@CacheEvict</code> 注解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@CacheEvict</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;setmeal&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="使用-aliyun服务器和-navicat163">使用 Aliyun服务器和 Navicat16.3</h4>
+<p>前者可以用于托管服务, 不再使用虚拟机自导自演, 新人有一个年度优惠(一年的期限, 到期了之后可以尝试海外的更便宜的服务器). 后者用于连接、访问、可视化各种数据库, 16.3专业版可以仅使用一个软件来访问多种数据库服务, 例如 redis/mysql/mongodb 等等(该软件付费, 具体下载安装可以参考网络教程).
+与此前相同, 需要为远程服务器安装 java/tomcat/redis/mysql, 可以参考此前的教程, 也可以参考网络教程.
+另外, 为了使服务器的 mysql 服务可在远程访问, 还需要一些步骤:</p>
+<ol>
+<li>命令行登录mysql: <code>mysql -uroot -p</code></li>
+<li>查看当前表中的数据库: <code>show databases;</code></li>
+<li>进入到mysql数据库: <code>use mysql;</code></li>
+<li>查看当前数据库下，用户表的数据(主机,用户,密码): <code>select Host, User from user;</code></li>
+<li>修改user表主机, 修改host值（以通配符%的内容增加主机/IP地址）<code>update user set host = '%' where user ='root';</code></li>
+<li>刷新MySQL的系统权限相关表 <code>flush privileges;</code></li>
+</ol>
+<h4 id="代码提交与推送">代码提交与推送</h4>
+<p>查看当前分支, 应为 v1.2版本, 提交和推送当前变动代码, 主要是 redis 和 SpringCache 的引入. 下一版本将引入 mysql 主从库读写分离以及Nginx等.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" data-title="Day13-Reggie-版本管理与缓存优化" data-hashtags="git,redis,SpringBoot,JavaWeb"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" data-hashtag="git"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" data-title="Day13-Reggie-版本管理与缓存优化"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" data-title="Day13-Reggie-版本管理与缓存优化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/" data-title="Day13-Reggie-版本管理与缓存优化"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">git</a>,&nbsp;<a href="/tags/redis/">Redis</a>,&nbsp;<a href="/tags/springboot/">SpringBoot</a>,&nbsp;<a href="/tags/javaweb/">JavaWeb</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/" class="prev" rel="prev" title="Day12-Redis基础"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Day12-Redis基础</a></div>
+</div>
+<div id="comments"><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.111.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="http://rainbowriver.pages.zjusct.io/studybci2023" target="_blank">七彩的河</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
