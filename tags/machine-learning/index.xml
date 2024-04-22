@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Machine Learning - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/machine-learning/</link>
+        <description>Machine Learning - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:04:53 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/machine-learning/" rel="self" type="application/rss+xml" /><item>
+    <title>ch02 机器学习基础</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch02_%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
+    <pubDate>Sun, 21 Apr 2024 19:04:53 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch02_%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</guid>
+    <description><![CDATA[[TOC] 第二章 机器学习基础 ​ 机器学习起源于上世纪50年代，1959年在IBM工作的Arthur Samuel设计了一个下棋程序，这个程序具有学习的能]]></description>
+</item>
+</channel>
+</rss>

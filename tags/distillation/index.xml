@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>distillation - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/distillation/</link>
+        <description>distillation - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:26:48 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/distillation/" rel="self" type="application/rss+xml" /><item>
+    <title>ch17 模型压缩、加速及移动端部署</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch17_%E6%A8%A1%E5%9E%8B%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E5%8F%8A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Sun, 21 Apr 2024 19:26:48 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch17_%E6%A8%A1%E5%9E%8B%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E5%8F%8A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[[TOC] 第十七章 模型压缩及移动端部署 ​ 深度神经网络在人工智能的应用中，包括语音识别、计算机视觉、自然语言处理等各方面，在取得巨大成功的同时，这些深]]></description>
+</item>
+</channel>
+</rss>

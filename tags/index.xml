@@ -4,84 +4,84 @@
         <link>https://www.rainbow.github.io/tags/</link>
         <description>Tags - Tag - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>git</title>
-    <link>https://www.rainbow.github.io/tags/git/</link>
-    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:39:17 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>专利保护</title>
+    <link>https://www.rainbow.github.io/tags/%E4%B8%93%E5%88%A9%E4%BF%9D%E6%8A%A4/</link>
+    <pubDate>Sun, 21 Apr 2024 19:39:17 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/git/</guid>
+    <guid>https://www.rainbow.github.io/tags/%E4%B8%93%E5%88%A9%E4%BF%9D%E6%8A%A4/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>JavaWeb</title>
-    <link>https://www.rainbow.github.io/tags/javaweb/</link>
-    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <title>Distributed Compute</title>
+    <link>https://www.rainbow.github.io/tags/distributed-compute/</link>
+    <pubDate>Sun, 21 Apr 2024 19:31:05 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/javaweb/</guid>
+    <guid>https://www.rainbow.github.io/tags/distributed-compute/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Redis</title>
-    <link>https://www.rainbow.github.io/tags/redis/</link>
-    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <title>Deep Compression</title>
+    <link>https://www.rainbow.github.io/tags/deep-compression/</link>
+    <pubDate>Sun, 21 Apr 2024 19:26:48 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/redis/</guid>
+    <guid>https://www.rainbow.github.io/tags/deep-compression/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>SpringBoot</title>
-    <link>https://www.rainbow.github.io/tags/springboot/</link>
-    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+    <title>distillation</title>
+    <link>https://www.rainbow.github.io/tags/distillation/</link>
+    <pubDate>Sun, 21 Apr 2024 19:26:48 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/springboot/</guid>
+    <guid>https://www.rainbow.github.io/tags/distillation/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Cache</title>
-    <link>https://www.rainbow.github.io/tags/cache/</link>
-    <pubDate>Thu, 25 Jan 2024 16:33:10 &#43;0800</pubDate>
+    <title>NLP</title>
+    <link>https://www.rainbow.github.io/tags/nlp/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:58 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/cache/</guid>
+    <guid>https://www.rainbow.github.io/tags/nlp/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Command</title>
-    <link>https://www.rainbow.github.io/tags/command/</link>
-    <pubDate>Tue, 16 Jan 2024 17:06:09 &#43;0800</pubDate>
+    <title>GPU</title>
+    <link>https://www.rainbow.github.io/tags/gpu/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:13 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/command/</guid>
+    <guid>https://www.rainbow.github.io/tags/gpu/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Linux</title>
-    <link>https://www.rainbow.github.io/tags/linux/</link>
-    <pubDate>Tue, 16 Jan 2024 17:06:09 &#43;0800</pubDate>
+    <title>fine tuning</title>
+    <link>https://www.rainbow.github.io/tags/fine-tuning/</link>
+    <pubDate>Sun, 21 Apr 2024 19:23:24 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/linux/</guid>
+    <guid>https://www.rainbow.github.io/tags/fine-tuning/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Reggie</title>
-    <link>https://www.rainbow.github.io/tags/reggie/</link>
-    <pubDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</pubDate>
+    <title>optimization</title>
+    <link>https://www.rainbow.github.io/tags/optimization/</link>
+    <pubDate>Sun, 21 Apr 2024 19:21:51 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/reggie/</guid>
+    <guid>https://www.rainbow.github.io/tags/optimization/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Maven</title>
-    <link>https://www.rainbow.github.io/tags/maven/</link>
-    <pubDate>Wed, 18 Oct 2023 14:17:51 &#43;0800</pubDate>
+    <title>Pytorch</title>
+    <link>https://www.rainbow.github.io/tags/pytorch/</link>
+    <pubDate>Sun, 21 Apr 2024 19:21:21 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/maven/</guid>
+    <guid>https://www.rainbow.github.io/tags/pytorch/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>AOP</title>
-    <link>https://www.rainbow.github.io/tags/aop/</link>
-    <pubDate>Fri, 13 Oct 2023 15:30:10 &#43;0800</pubDate>
+    <title>TensorFlow</title>
+    <link>https://www.rainbow.github.io/tags/tensorflow/</link>
+    <pubDate>Sun, 21 Apr 2024 19:21:21 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/tags/aop/</guid>
+    <guid>https://www.rainbow.github.io/tags/tensorflow/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

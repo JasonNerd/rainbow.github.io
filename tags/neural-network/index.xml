@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Neural Network - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/neural-network/</link>
+        <description>Neural Network - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:06:46 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/neural-network/" rel="self" type="application/rss+xml" /><item>
+    <title>ch04 经典网络</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch04_%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Sun, 21 Apr 2024 19:06:46 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch04_%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[[TOC] 第四章 经典网络解读 4.1 LeNet-5 4.1.1 模型介绍 ​ LeNet-5是由$LeCun$ 提出的一种用于识别手写数字和机器印刷字符的卷积神经网络（Convolut]]></description>
+</item>
+</channel>
+</rss>

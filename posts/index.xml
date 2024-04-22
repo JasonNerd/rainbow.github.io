@@ -4,85 +4,85 @@
         <link>https://www.rainbow.github.io/posts/</link>
         <description>All Posts | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
-            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Day13-Reggie-版本管理与缓存优化</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</link>
-    <pubDate>Mon, 29 Jan 2024 11:15:29 &#43;0800</pubDate>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:39:17 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>ch19 软件专利申请及权利保护</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch19_%E8%BD%AF%E4%BB%B6%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%8F%8A%E6%9D%83%E5%88%A9%E4%BF%9D%E6%8A%A4/</link>
+    <pubDate>Sun, 21 Apr 2024 19:39:17 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day13-reggie-%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96/</guid>
-    <description><![CDATA[使用 git 来进行版本管理, 不同版本的代码放在不同的分支. 同时, 本次还将使用 redis, SpringCache 等技术, 使用缓存对项目进行优化. 1. git 版本控制 使用 IDEA 界面进行控制, 具]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch19_%E8%BD%AF%E4%BB%B6%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7%E5%8F%8A%E6%9D%83%E5%88%A9%E4%BF%9D%E6%8A%A4/</guid>
+    <description><![CDATA[[TOC] 第十九章 软件（算法）专利申请及权利保护 Markdown Revision 1; Date: 2019/07/16 Editor: 何建宏 Contact: bonopengate@gmail.com 19.1 为什么需要对软件（算法）进行保护？ 对软件/系统/算法进行保护可以有效地保护在]]></description>
 </item>
 <item>
-    <title>Day12-Redis基础</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</link>
-    <pubDate>Thu, 25 Jan 2024 16:33:10 &#43;0800</pubDate>
+    <title>ch18 后端架构选型及应用场景</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+    <pubDate>Sun, 21 Apr 2024 19:31:05 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day12-redis%E5%9F%BA%E7%A1%80/</guid>
-    <description><![CDATA[Redis可以用作数据库、缓存、流媒体引擎、消息代理等。它是一种键值类型的数据库, 可用于快速数据存储与检索, 属于NoSQL. 本节学习如何在远]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+    <description><![CDATA[[TOC] 第十八章 后端架构选型及应用场景 Markdown Revision 1; Date: 2018/11/11 Editor: 梁志成 Contact: superzhicheng@foxmail.com 18.1 为什么需要分布式计算？ 在这个数据爆炸的时代，产生的数据量不断地在攀升，从GB,TB,]]></description>
 </item>
 <item>
-    <title>Day11-Linux-基本知识点（二）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/</link>
-    <pubDate>Tue, 16 Jan 2024 17:06:09 &#43;0800</pubDate>
+    <title>ch18 后端架构选型、离线及实时计算</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E7%A6%BB%E7%BA%BF%E5%8F%8A%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/</link>
+    <pubDate>Sun, 21 Apr 2024 19:28:33 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day11-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BA%8C/</guid>
-    <description><![CDATA[1. 打包压缩命令 打包压缩命令 tar 作用:对文件进行打包、解包、压缩、解压 语法: tar[-zcxvf] fileName [files] 包文件后缀为.tar 表示只是完成了打包，并没有压缩 包文件后缀为]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E7%A6%BB%E7%BA%BF%E5%8F%8A%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/</guid>
+    <description><![CDATA[[TOC] 第十八章_后端架构选型、离线及实时计算 Markdown Revision 1; Date: 2018/11/11 Editor: 梁志成 Contact: superzhicheng@foxmail.com 18.1 为什么需要分布式计算？ 在这个数据爆炸的时代，产生的数据量不断地在攀升，从GB]]></description>
 </item>
 <item>
-    <title>Day10-Linux-基本知识点（一）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/</link>
-    <pubDate>Sat, 13 Jan 2024 16:15:28 &#43;0800</pubDate>
+    <title>ch17 模型压缩、加速及移动端部署</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch17_%E6%A8%A1%E5%9E%8B%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E5%8F%8A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Sun, 21 Apr 2024 19:26:48 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day10-linux-%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80/</guid>
-    <description><![CDATA[不同应用领域的主流操作系统, 例如: 桌面操作系统, 服务器操作系统, 移动设备操作系统, 嵌入式操作系统 桌面操作系统例如: Windows(用户数量最]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch17_%E6%A8%A1%E5%9E%8B%E5%8E%8B%E7%BC%A9%E5%8A%A0%E9%80%9F%E5%8F%8A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[[TOC] 第十七章 模型压缩及移动端部署 ​ 深度神经网络在人工智能的应用中，包括语音识别、计算机视觉、自然语言处理等各方面，在取得巨大成功的同时，这些深]]></description>
 </item>
 <item>
-    <title>Day09-Reggie-用户端开发（二）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</link>
-    <pubDate>Thu, 11 Jan 2024 14:28:40 &#43;0800</pubDate>
+    <title>ch16 自然语言处理(NLP)</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch16_%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86nlp/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:58 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day09-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%BA%8C/</guid>
-    <description><![CDATA[本章节主要完成地址簿的管理以及订单管理, 同时完善系统的部分细节, Reggie TakeAway 系统篇章基础篇告一段落. 1. 地址簿管理 地址簿记录了每个用户的地址信息, 每个]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch16_%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86nlp/</guid>
+    <description><![CDATA[[TOC] 第十六章 NLP Markdown Revision 1; Date: 2018/11/14 Editor: 盛泳潘-电子科技大学;何建宏-学生 Contact: shengyp2011@163.com;Bonopengate@gmail.com 16.0 NLP 发展史简述 50多年来 NLP 的历史发展可以分为三个浪潮，前两波以理性主义和经验主]]></description>
 </item>
 <item>
-    <title>Day08-Reggie-用户端开发（一）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</link>
-    <pubDate>Wed, 10 Jan 2024 11:12:27 &#43;0800</pubDate>
+    <title>ch15 GPU和框架选型</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch15_gpu%E5%92%8C%E6%A1%86%E6%9E%B6%E9%80%89%E5%9E%8B/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:13 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day08-reggie-%E7%94%A8%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%E4%B8%80/</guid>
-    <description><![CDATA[1. 基本需求分析 用户登录, 此处未实现发送短信的接口, 如有实际需求, 可以使用阿里云服务(需申请和备案): 用户登录成功后跳转到系统首页，在首页需要]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch15_gpu%E5%92%8C%E6%A1%86%E6%9E%B6%E9%80%89%E5%9E%8B/</guid>
+    <description><![CDATA[[TOC] 第十五章 异构计算， GPU和框架选型指南 深度学习训练和推理的过程中，会涉及到大量的向量(vector)，矩阵(matrix)和张量(tens]]></description>
 </item>
 <item>
-    <title>Day07-Reggie-套餐管理（二）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</link>
-    <pubDate>Tue, 09 Jan 2024 16:51:29 &#43;0800</pubDate>
+    <title>ch14 超参数调整</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch14_%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%B4/</link>
+    <pubDate>Sun, 21 Apr 2024 19:23:24 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day07-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%BA%8C/</guid>
-    <description><![CDATA[这部分开发剩下的部分功能, 包括分页查询、更新套餐、批量停售/启售, 继续熟悉业务代码编写. 1. 套餐的分页查询 请求路径与请求参数(示例): http://localhost:8080/setmeal/page?page=1&amp;pageSize=10 同样为]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch14_%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%B4/</guid>
+    <description><![CDATA[[TOC] 第十四章 超参数调整 Markdown Revision 1; Date: 2018/10/25 Editor: 乔成磊-同济大学，王超锋 Contact: qchl0318@163.com，syusuke0516@163.com Updater: sjsd]]></description>
 </item>
 <item>
-    <title>Day06-Reggie-套餐管理（一）</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</link>
-    <pubDate>Tue, 09 Jan 2024 10:56:46 &#43;0800</pubDate>
+    <title>ch13 优化算法</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch13_%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Sun, 21 Apr 2024 19:21:51 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day06-reggie-%E5%A5%97%E9%A4%90%E7%AE%A1%E7%90%86%E4%B8%80/</guid>
-    <description><![CDATA[1. 需求分析与实体类准备 如上图为新增套餐的界面, 它包含了套餐的一些基本信息, 例如名称、价格等, 同时还有套餐分类(因此这里需要一个查询所有套餐分]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch13_%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[[TOC] 第一十三章 优化算法 13.1 如何解决训练样本少的问题 目前大部分的深度学习模型仍然需要海量的数据支持。例如 ImageNet 数据就拥有1400多万的图片。而现实生产]]></description>
 </item>
 <item>
-    <title>Day05-Reggie-菜品管理</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</link>
-    <pubDate>Thu, 04 Jan 2024 22:21:22 &#43;0800</pubDate>
+    <title>ch12 网络搭建及训练</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch12_%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA%E5%8F%8A%E8%AE%AD%E7%BB%83/</link>
+    <pubDate>Sun, 21 Apr 2024 19:21:21 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day05-reggie-%E8%8F%9C%E5%93%81%E7%AE%A1%E7%90%86/</guid>
-    <description><![CDATA[开始进行 Dish 菜品管理相关的开发. 该表包含一个图片字段, 需要上传图片以及图片回显的业务. 另外, 每个菜品可能包含多个口味选择, 例如 甜度, 辣度 等等.]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch12_%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA%E5%8F%8A%E8%AE%AD%E7%BB%83/</guid>
+    <description><![CDATA[[TOC] 第十二章 网络搭建及训练 12.1 TensorFlow 12.1.1 TensorFlow是什么？ TensorFlow支持各种异构平台，支持多CPU/GPU、服务器、移动设备，具有]]></description>
 </item>
 <item>
-    <title>Day04-Reggie-公共字段填充与菜品分类管理</title>
-    <link>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</link>
-    <pubDate>Thu, 04 Jan 2024 14:34:57 &#43;0800</pubDate>
+    <title>ch11 迁移学习</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch11_%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Sun, 21 Apr 2024 19:20:31 &#43;0800</pubDate>
     <author>七彩的河</author>
-    <guid>https://www.rainbow.github.io/posts/javaweb/webprojects/reggie/day04-reggie-%E5%85%AC%E5%85%B1%E5%AD%97%E6%AE%B5%E5%A1%AB%E5%85%85%E4%B8%8E%E8%8F%9C%E5%93%81%E5%88%86%E7%B1%BB%E7%AE%A1%E7%90%86/</guid>
-    <description><![CDATA[1. 公共字段填充 前面我们已经完成了后台系统的员工管理功能开发，在新增员工时需要设置创建时间、创建人、修改时间、修改人等字段，在编辑员工时需要设]]></description>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch11_%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[[TOC] 第十一章 迁移学习 ​ 本章主要简明地介绍了迁移学习的基本概念、迁移学习的必要性、研究领域和基本方法。重点介绍了几大类常用的迁移学习方法：数据分]]></description>
 </item>
 </channel>
 </rss>

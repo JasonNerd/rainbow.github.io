@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GPU - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/gpu/</link>
+        <description>GPU - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:25:13 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/gpu/" rel="self" type="application/rss+xml" /><item>
+    <title>ch15 GPU和框架选型</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch15_gpu%E5%92%8C%E6%A1%86%E6%9E%B6%E9%80%89%E5%9E%8B/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:13 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch15_gpu%E5%92%8C%E6%A1%86%E6%9E%B6%E9%80%89%E5%9E%8B/</guid>
+    <description><![CDATA[[TOC] 第十五章 异构计算， GPU和框架选型指南 深度学习训练和推理的过程中，会涉及到大量的向量(vector)，矩阵(matrix)和张量(tens]]></description>
+</item>
+</channel>
+</rss>

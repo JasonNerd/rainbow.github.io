@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>reinforcement learning - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/reinforcement-learning/</link>
+        <description>reinforcement learning - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:19:58 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/reinforcement-learning/" rel="self" type="application/rss+xml" /><item>
+    <title>ch10 强化学习</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch10_%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Sun, 21 Apr 2024 19:19:58 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch10_%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[[TOC] https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/ 第十章 强化学习 10.1 强化学习的主要特点？ 其他许多机器学习算法中学习器都是学得怎样做，而RL是在尝试的过程中学习到在特定的情境下选择哪种行动可]]></description>
+</item>
+</channel>
+</rss>

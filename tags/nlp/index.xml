@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>NLP - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/nlp/</link>
+        <description>NLP - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:25:58 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/nlp/" rel="self" type="application/rss+xml" /><item>
+    <title>ch16 自然语言处理(NLP)</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch16_%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86nlp/</link>
+    <pubDate>Sun, 21 Apr 2024 19:25:58 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch16_%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86nlp/</guid>
+    <description><![CDATA[[TOC] 第十六章 NLP Markdown Revision 1; Date: 2018/11/14 Editor: 盛泳潘-电子科技大学;何建宏-学生 Contact: shengyp2011@163.com;Bonopengate@gmail.com 16.0 NLP 发展史简述 50多年来 NLP 的历史发展可以分为三个浪潮，前两波以理性主义和经验主]]></description>
+</item>
+</channel>
+</rss>

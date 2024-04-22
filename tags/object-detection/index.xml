@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Object Detection - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/object-detection/</link>
+        <description>Object Detection - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:10:49 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/object-detection/" rel="self" type="application/rss+xml" /><item>
+    <title>ch08 目标检测</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch08_%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</link>
+    <pubDate>Sun, 21 Apr 2024 19:10:49 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch08_%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</guid>
+    <description><![CDATA[[TOC] 第八章 目标检测 8.1 基本概念 8.1.1 什么是目标检测？ ​ 目标检测（Object Detection）的任务是找出图像中所有感兴趣的目标（物体），确定它们]]></description>
+</item>
+</channel>
+</rss>

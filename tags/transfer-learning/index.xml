@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>transfer learning - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/transfer-learning/</link>
+        <description>transfer learning - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:20:31 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/transfer-learning/" rel="self" type="application/rss+xml" /><item>
+    <title>ch11 迁移学习</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch11_%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Sun, 21 Apr 2024 19:20:31 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch11_%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[[TOC] 第十一章 迁移学习 ​ 本章主要简明地介绍了迁移学习的基本概念、迁移学习的必要性、研究领域和基本方法。重点介绍了几大类常用的迁移学习方法：数据分]]></description>
+</item>
+</channel>
+</rss>

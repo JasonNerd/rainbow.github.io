@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>math - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/math/</link>
+        <description>math - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:04:16 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/math/" rel="self" type="application/rss+xml" /><item>
+    <title>ch01 数学基础</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch01_%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/</link>
+    <pubDate>Sun, 21 Apr 2024 19:04:16 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch01_%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/</guid>
+    <description><![CDATA[[TOC] 第一章 数学基础 深度学习通常又需要哪些数学基础？深度学习里的数学到底难在哪里？通常初学者都会有这些问题，在网络推荐及书本推荐里，经常看到会列]]></description>
+</item>
+</channel>
+</rss>

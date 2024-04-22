@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GAN - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/gan/</link>
+        <description>GAN - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:10:02 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/gan/" rel="self" type="application/rss+xml" /><item>
+    <title>ch07 生成对抗网络(GAN)</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch07_%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9Cgan/</link>
+    <pubDate>Sun, 21 Apr 2024 19:10:02 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch07_%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9Cgan/</guid>
+    <description><![CDATA[[TOC] 第七章 生成对抗网络 7.1 GAN基本概念 7.1.1 如何通俗理解GAN？ ​ 生成对抗网络(GAN, Generative adversarial network)自从2014年被Ian Goodfell]]></description>
+</item>
+</channel>
+</rss>

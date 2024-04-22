@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>fine tuning - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/fine-tuning/</link>
+        <description>fine tuning - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:23:24 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/fine-tuning/" rel="self" type="application/rss+xml" /><item>
+    <title>ch14 超参数调整</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch14_%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%B4/</link>
+    <pubDate>Sun, 21 Apr 2024 19:23:24 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch14_%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%B4/</guid>
+    <description><![CDATA[[TOC] 第十四章 超参数调整 Markdown Revision 1; Date: 2018/10/25 Editor: 乔成磊-同济大学，王超锋 Contact: qchl0318@163.com，syusuke0516@163.com Updater: sjsd]]></description>
+</item>
+</channel>
+</rss>

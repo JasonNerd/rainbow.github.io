@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Distributed Compute - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/distributed-compute/</link>
+        <description>Distributed Compute - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:31:05 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/distributed-compute/" rel="self" type="application/rss+xml" /><item>
+    <title>ch18 后端架构选型及应用场景</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+    <pubDate>Sun, 21 Apr 2024 19:31:05 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+    <description><![CDATA[[TOC] 第十八章 后端架构选型及应用场景 Markdown Revision 1; Date: 2018/11/11 Editor: 梁志成 Contact: superzhicheng@foxmail.com 18.1 为什么需要分布式计算？ 在这个数据爆炸的时代，产生的数据量不断地在攀升，从GB,TB,]]></description>
+</item>
+<item>
+    <title>ch18 后端架构选型、离线及实时计算</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E7%A6%BB%E7%BA%BF%E5%8F%8A%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/</link>
+    <pubDate>Sun, 21 Apr 2024 19:28:33 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch18_%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%80%89%E5%9E%8B%E7%A6%BB%E7%BA%BF%E5%8F%8A%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/</guid>
+    <description><![CDATA[[TOC] 第十八章_后端架构选型、离线及实时计算 Markdown Revision 1; Date: 2018/11/11 Editor: 梁志成 Contact: superzhicheng@foxmail.com 18.1 为什么需要分布式计算？ 在这个数据爆炸的时代，产生的数据量不断地在攀升，从GB]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GRU - Tag - </title>
+        <link>https://www.rainbow.github.io/tags/gru/</link>
+        <description>GRU - Tag - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>mrrainbowriver@mail.163.com (七彩的河)</managingEditor>
+            <webMaster>mrrainbowriver@mail.163.com (七彩的河)</webMaster><lastBuildDate>Sun, 21 Apr 2024 19:08:27 &#43;0800</lastBuildDate><atom:link href="https://www.rainbow.github.io/tags/gru/" rel="self" type="application/rss+xml" /><item>
+    <title>ch06 循环神经网络(RNN)</title>
+    <link>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch06_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Crnn/</link>
+    <pubDate>Sun, 21 Apr 2024 19:08:27 &#43;0800</pubDate>
+    <author>七彩的河</author>
+    <guid>https://www.rainbow.github.io/posts/deeplearning-500-questions/ch06_%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9Crnn/</guid>
+    <description><![CDATA[[TOC] 第六章 循环神经网络(RNN) 6.1 为什么需要RNN？ ​ 时间序列数据是指在不同时间点上收集到的数据，这类数据反映了某一事物、现象等随时间的变化状]]></description>
+</item>
+</channel>
+</rss>
